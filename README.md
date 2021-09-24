@@ -1,11 +1,11 @@
 # Utilities
 This repository is for utilities and scripts that help when working with the Layer 7 API Gateway. 
 
-## Here is a list of available integration examples
+## Here is a list of available utilities
 
-|Name|Brief Description|
-|-----|-----------------|
-
+Name | Brief Description
+----- | -----------------
+**GMU Bundle Analyzer** | *A script to analyze a single file bundle produced using the migrateOut command of the Gateway Migration Utility (GMU)*
 
 ## Using the Utilities
 
