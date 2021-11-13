@@ -4,7 +4,18 @@ A suite of encapsulated assertions useful for calling RestMan directly from poli
 ## Installation
 Deploy using the GMU (assumes connection details are in &lt;gateway&gt;.properties):
 
-`./GatewayMigrationUtility.sh migrateIn -z <gateway>.properties -b Gateway-Management-Utilities.xml -r results.xml`
+    # ./GatewayMigrationUtility.sh migrateIn -z <gateway>.properties -b Gateway-Management-Utilities.bundle -r Gateway-Management-Utilities.result
+
+You can also deploy directly to restman using curl:
+
+    # curl -k -X PUT -d @Gateway-Management-Utilities.bundle -H "Content-Type: application/xml" -u admin:<password> -o Gateway-Management-Utilities-Deploy.result 'https://<gateway>:8443/restman/1.0/bundle?test=false&activate=true'
+
+Finally, you can deploy the bundle using the bootstrap bundle provisioning feature:
+
+    # mkdir -p /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle
+    copy the bundle file to /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle
+    # chmod -R 775 /opt/SecureSpan/Gateway/node/default/etc/bootstrap
+    # systemctl restart ssg
 
 ## Accessing the Utility Assertions Tester service
 Point your browser to https://&lt;gateway&gt;:8443/apigw/utilityTester and provide Policy Manager admin credentials. 
