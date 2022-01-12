@@ -1,0 +1,33 @@
+createPet:
+  policy: "common/entities/createPet"
+  arguments:
+  - name: "age"
+    type: "string"
+    requireExplicit: true
+  - name: "name"
+    type: "string"
+    requireExplicit: true
+  - name: "type"
+    type: "string"
+    requireExplicit: true
+  results:
+  - name: "pet-json"
+    type: "string"
+  properties:
+    paletteFolder: "internalAssertions"
+encass-policy:
+  policy: "common/encass-policy"
+  arguments:
+  - name: "hello"
+    type: "string"
+    requireExplicit: true
+  - name: "hello-again"
+    type: "message"
+    requireExplicit: false
+  results:
+  - name: "goodbye"
+    type: "string"
+  - name: "goodbye-again"
+    type: "message"
+  properties:
+    paletteFolder: "internalAssertions"

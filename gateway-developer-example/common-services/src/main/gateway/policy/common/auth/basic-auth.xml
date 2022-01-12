@@ -1,0 +1,9 @@
+<wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy" xmlns:L7p="http://www.layer7tech.com/ws/policy">
+    <wsp:All wsp:Usage="Required">
+        <L7p:SslAssertion/>
+        <L7p:HttpBasic/>
+        <L7p:Authentication>
+            <L7p:IdentityProviderName stringValue="Internal Identity Provider"/>
+        </L7p:Authentication>
+    </wsp:All>
+</wsp:Policy>
