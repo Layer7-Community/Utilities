@@ -1,0 +1,23 @@
+GatewayExportConfig {
+    folderPath = "/common"
+}
+
+
+/*
+
+//profile 'test'
+project.ext.set ("testEnvironmentInfo",
+                                ["PROPERTY.gateway.message":  "test hello"]
+                )
+
+// profile 'prod'
+
+project.ext.set ("prodEnvironmentInfo", ["PROPERTY.gateway.message":  file("./src/main/gateway/config/global-env.properties")])
+GatewaySourceConfig {
+    // pick the chosen environment type, or if null use test by default
+    def environmentType = project.parent.properties['environmentType'] ?: 'test'
+    // select the environment config for the specified environment
+    EnvironmentConfig{
+        map = project.ext."${environmentType}EnvironmentInfo"
+    }
+}*/

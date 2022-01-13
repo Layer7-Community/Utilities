@@ -1,0 +1,33 @@
+services/Add Pet:
+  type:
+  tag:
+  subtag:
+  hasRouting: true
+  usedEntities:
+  - type: "ENCAPSULATED_ASSERTION"
+    name: "BasicAuth"
+  - type: "SSG_KEY_ENTRY"
+    name: "SSL"
+  annotations:
+services/Place Order:
+  type:
+  tag:
+  subtag:
+  hasRouting: true
+  usedEntities:
+  - type: "ENCAPSULATED_ASSERTION"
+    name: "BasicAuth"
+  - type: "SSG_KEY_ENTRY"
+    name: "SSL"
+  annotations:
+services/List Pets:
+  type:
+  tag:
+  subtag:
+  hasRouting: true
+  usedEntities:
+  - type: "ENCAPSULATED_ASSERTION"
+    name: "BasicAuth"
+  - type: "SSG_KEY_ENTRY"
+    name: "SSL"
+  annotations:

@@ -1,0 +1,11 @@
+Simple Ldap:
+  type: "BIND_ONLY_LDAP"
+  annotations:
+  - type: "@bundle-hints"
+    id: "650a44894bb5d14a6cfd2b061e223379"
+  identityProviderDetail:
+    serverUrls:
+    - "ldap://localhost:3456"
+    useSslClientAuthentication: true
+    bindPatternPrefix: ""
+    bindPatternSuffix: ""

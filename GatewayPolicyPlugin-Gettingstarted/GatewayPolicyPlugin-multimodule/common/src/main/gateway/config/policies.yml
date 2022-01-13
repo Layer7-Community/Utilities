@@ -1,0 +1,11 @@
+common/basic-auth:
+  type: "Include"
+  tag:
+  subtag:
+  hasRouting: false
+  usedEntities:
+  - type: "ID_PROVIDER_CONFIG"
+    name: "Simple Ldap"
+  - type: "SSG_KEY_ENTRY"
+    name: "SSL"
+  annotations:

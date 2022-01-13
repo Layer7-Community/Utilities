@@ -1,0 +1,4 @@
+rootProject.name = 'policyplugin-multimodule'
+include 'common'
+include 'services'
+
