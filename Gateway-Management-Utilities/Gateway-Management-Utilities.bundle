@@ -5,7 +5,7 @@
             <l7:Name>Gateway Management Utilities</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf13f52e</l7:Id>
             <l7:Type>FOLDER</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:07.979-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.304-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Folder folderId="0000000000000000ffffffffffffec76" id="7215d076e3f7201974e2be3edf13f52e" version="0">
                     <l7:Name>Gateway Management Utilities</l7:Name>
@@ -16,7 +16,7 @@
             <l7:Name>fragments</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e62ecb</l7:Id>
             <l7:Type>FOLDER</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:07.979-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.304-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Folder folderId="7215d076e3f7201974e2be3edf13f52e" id="c4706d99077459bed7ca5ef6c9e62ecb" version="0">
                     <l7:Name>fragments</l7:Name>
@@ -27,7 +27,7 @@
             <l7:Name>Utility: Call Restman</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e4326b</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:07.986-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.315-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="fc38ba53-a1d8-4bb6-be56-819606f9d330" id="c4706d99077459bed7ca5ef6c9e4326b" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="fc38ba53-a1d8-4bb6-be56-819606f9d330" id="c4706d99077459bed7ca5ef6c9e4326b" version="0">
@@ -272,7 +272,7 @@
             <l7:Name>Utility: Call Restman</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e43323</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:07.986-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.328-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e43323" version="0">
                     <l7:Name>Utility: Call Restman</l7:Name>
@@ -341,7 +341,7 @@
             <l7:Name>Utility: List Generic Entities</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e9774ecf3</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.352-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="635c9c5a-6aa0-4b8f-b74f-b2dbb3de6a05" id="3c21f93d84b26244a446414e9774ecf3" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="635c9c5a-6aa0-4b8f-b74f-b2dbb3de6a05" id="3c21f93d84b26244a446414e9774ecf3" version="0">
@@ -960,7 +960,7 @@
             <l7:Name>Utility: List Policy Backed Services</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e97757263</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.023-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.373-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="1beb446f-b5b0-41f5-89d1-79e8fe122577" id="3c21f93d84b26244a446414e97757263" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="1beb446f-b5b0-41f5-89d1-79e8fe122577" id="3c21f93d84b26244a446414e97757263" version="0">
@@ -1540,7 +1540,7 @@
             <l7:Name>Utility: List Scheduled Tasks</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e97757a31</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.031-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.400-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="3b9346d2-cc38-41ef-aac3-965942d95749" id="3c21f93d84b26244a446414e97757a31" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="3b9346d2-cc38-41ef-aac3-965942d95749" id="3c21f93d84b26244a446414e97757a31" version="0">
@@ -2095,7 +2095,7 @@
             <l7:Name>Utility: List Listen Ports</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e9775919d</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.036-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.414-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="d076c049-b5b3-4990-aad3-d9c35c3e17ef" id="3c21f93d84b26244a446414e9775919d" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="d076c049-b5b3-4990-aad3-d9c35c3e17ef" id="3c21f93d84b26244a446414e9775919d" version="0">
@@ -2700,7 +2700,7 @@
             <l7:Name>Utility: List Folders</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf13f575</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.062-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.438-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="219cafb1-ca3d-40e9-8270-f7d95673c74b" id="7215d076e3f7201974e2be3edf13f575" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="219cafb1-ca3d-40e9-8270-f7d95673c74b" id="7215d076e3f7201974e2be3edf13f575" version="0">
@@ -3712,7 +3712,7 @@
             <l7:Name>Utility: List Folders</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf147215</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.062-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.439-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="7215d076e3f7201974e2be3edf147215" version="0">
                     <l7:Name>Utility: List Folders</l7:Name>
@@ -3771,7 +3771,7 @@
             <l7:Name>Utility: List Policies</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf155afc</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.089-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.465-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="13743744-1348-481a-9c6b-f8ed3f6a89b6" id="7215d076e3f7201974e2be3edf155afc" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="13743744-1348-481a-9c6b-f8ed3f6a89b6" id="7215d076e3f7201974e2be3edf155afc" version="0">
@@ -4532,7 +4532,7 @@
             <l7:Name>Utility: List Services</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf2288aa</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.098-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.480-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="485cd1ad-9ef9-4705-9424-d463f2bb39d4" id="7215d076e3f7201974e2be3edf2288aa" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="485cd1ad-9ef9-4705-9424-d463f2bb39d4" id="7215d076e3f7201974e2be3edf2288aa" version="0">
@@ -5379,7 +5379,7 @@
             <l7:Name>Utility: Get Policy</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf231684</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.103-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.493-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="15f82eda-b44f-4688-b34f-180aaa5d2d26" id="7215d076e3f7201974e2be3edf231684" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="15f82eda-b44f-4688-b34f-180aaa5d2d26" id="7215d076e3f7201974e2be3edf231684" version="0">
@@ -5783,7 +5783,7 @@
             <l7:Name>Utility: Get Service</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf232fde</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.107-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.502-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="59074fe9-1cee-442d-bea4-79d9e3da5381" id="7215d076e3f7201974e2be3edf232fde" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="59074fe9-1cee-442d-bea4-79d9e3da5381" id="7215d076e3f7201974e2be3edf232fde" version="0">
@@ -6184,7 +6184,7 @@
             <l7:Name>Utility: List Encapsulated Assertions</l7:Name>
             <l7:Id>bc46b1606b0639d4d49278d55a44cd84</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.113-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.520-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="63027bfb-ecd6-4219-944a-eb6661e11ebe" id="bc46b1606b0639d4d49278d55a44cd84" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="63027bfb-ecd6-4219-944a-eb6661e11ebe" id="bc46b1606b0639d4d49278d55a44cd84" version="0">
@@ -6779,7 +6779,7 @@
             <l7:Name>Utility: List Cluster Properties</l7:Name>
             <l7:Id>bc46b1606b0639d4d49278d55a4909b9</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.134-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.544-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="5d651487-691b-4060-8de1-b91c798cdd58" id="bc46b1606b0639d4d49278d55a4909b9" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="5d651487-691b-4060-8de1-b91c798cdd58" id="bc46b1606b0639d4d49278d55a4909b9" version="0">
@@ -7346,7 +7346,7 @@
             <l7:Name>Internal Identity Provider</l7:Name>
             <l7:Id>0000000000000000fffffffffffffffe</l7:Id>
             <l7:Type>ID_PROVIDER_CONFIG</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.134-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.545-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:IdentityProvider id="0000000000000000fffffffffffffffe" version="0">
                     <l7:Name>Internal Identity Provider</l7:Name>
@@ -7358,7 +7358,7 @@
             <l7:Name>Utility: Form and Session Authentication</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e4e922</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.168-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.574-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="fefc1213-858e-4be0-82cd-67e980463597" id="c4706d99077459bed7ca5ef6c9e4e922" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="fefc1213-858e-4be0-82cd-67e980463597" id="c4706d99077459bed7ca5ef6c9e4e922" version="0">
@@ -8416,7 +8416,7 @@
             <l7:Name>Utility: List Private Keys</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e52876</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.208-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.598-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="1f2ab8ee-cf83-49df-b17e-5f78c6a2cf2d" id="c4706d99077459bed7ca5ef6c9e52876" version="10">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="1f2ab8ee-cf83-49df-b17e-5f78c6a2cf2d" id="c4706d99077459bed7ca5ef6c9e52876" version="10">
@@ -9059,7 +9059,7 @@
             <l7:Name>Utility: Get All Policy XML</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e532e8</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.215-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.611-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="9deeaade-8769-4ff0-a112-6e1494d0f65d" id="c4706d99077459bed7ca5ef6c9e532e8" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="9deeaade-8769-4ff0-a112-6e1494d0f65d" id="c4706d99077459bed7ca5ef6c9e532e8" version="0">
@@ -9704,7 +9704,7 @@
             <l7:Name>Utility: Get PolicyObject Info</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e5488e</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.216-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.614-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="8f33b165-bc16-4959-a524-aba67aff3cdf" id="c4706d99077459bed7ca5ef6c9e5488e" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="8f33b165-bc16-4959-a524-aba67aff3cdf" id="c4706d99077459bed7ca5ef6c9e5488e" version="0">
@@ -9941,7 +9941,7 @@
             <l7:Name>Utility: HTML Escape String</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e59800</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.217-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.615-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="58c91da2-50ba-48ff-800c-1c96ad9659c0" id="c4706d99077459bed7ca5ef6c9e59800" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="58c91da2-50ba-48ff-800c-1c96ad9659c0" id="c4706d99077459bed7ca5ef6c9e59800" version="0">
@@ -10033,7 +10033,7 @@
             <l7:Name>Utility: List Identity Providers</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e624a3</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.223-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.621-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="7618087f-f586-421d-aeb4-68541e0ebf3a" id="c4706d99077459bed7ca5ef6c9e624a3" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="7618087f-f586-421d-aeb4-68541e0ebf3a" id="c4706d99077459bed7ca5ef6c9e624a3" version="0">
@@ -10600,7 +10600,7 @@
             <l7:Name>Utility: List JMS Destinations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e64a12</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.229-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.642-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="ce8a2a1e-7f41-470c-aa4a-0203afefb27c" id="c4706d99077459bed7ca5ef6c9e64a12" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="ce8a2a1e-7f41-470c-aa4a-0203afefb27c" id="c4706d99077459bed7ca5ef6c9e64a12" version="0">
@@ -11295,7 +11295,7 @@
             <l7:Name>Utility: List Secure Passwords</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e65c43</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.236-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.650-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="18f3eb02-e82b-42a4-843a-276dfb2b0bfe" id="c4706d99077459bed7ca5ef6c9e65c43" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="18f3eb02-e82b-42a4-843a-276dfb2b0bfe" id="c4706d99077459bed7ca5ef6c9e65c43" version="0">
@@ -11918,7 +11918,7 @@
             <l7:Name>Utility: List SiteMinder Configurations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e688cb</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.242-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.664-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="4551eaad-90f5-467f-ba1d-c134ab0d3096" id="c4706d99077459bed7ca5ef6c9e688cb" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="4551eaad-90f5-467f-ba1d-c134ab0d3096" id="c4706d99077459bed7ca5ef6c9e688cb" version="0">
@@ -12523,7 +12523,7 @@
             <l7:Name>Utility: List Identity Providers</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e62585</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.242-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.664-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e62585" version="0">
                     <l7:Name>Utility: List Identity Providers</l7:Name>
@@ -12582,7 +12582,7 @@
             <l7:Name>Utility: List Users</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e6e077</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.249-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.677-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="57909023-fab7-453a-80dd-1c3354e7f942" id="c4706d99077459bed7ca5ef6c9e6e077" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="57909023-fab7-453a-80dd-1c3354e7f942" id="c4706d99077459bed7ca5ef6c9e6e077" version="0">
@@ -13484,7 +13484,7 @@
             <l7:Name>Utility: List Groups</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e6eb45</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.256-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.686-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="7cbd12a3-9650-4652-be81-8d14a80d5ef3" id="c4706d99077459bed7ca5ef6c9e6eb45" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="7cbd12a3-9650-4652-be81-8d14a80d5ef3" id="c4706d99077459bed7ca5ef6c9e6eb45" version="0">
@@ -14229,7 +14229,7 @@
             <l7:Name>Utility: List Email Listeners</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e8029f</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.262-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.740-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="29e9d372-9141-4543-b5ac-873454847d38" id="c4706d99077459bed7ca5ef6c9e8029f" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="29e9d372-9141-4543-b5ac-873454847d38" id="c4706d99077459bed7ca5ef6c9e8029f" version="0">
@@ -14843,7 +14843,7 @@
             <l7:Name>Utility: List HTTP Configurations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e80d57</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.266-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.746-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="fbf889bf-cb0b-4067-ac18-4b0ff6d5e6c1" id="c4706d99077459bed7ca5ef6c9e80d57" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="fbf889bf-cb0b-4067-ac18-4b0ff6d5e6c1" id="c4706d99077459bed7ca5ef6c9e80d57" version="0">
@@ -15382,7 +15382,7 @@
             <l7:Name>Utility: List Active Connectors</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e8150b</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.272-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.765-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="5e77b1ed-3cd9-4c5a-b038-601cca3fbc27" id="c4706d99077459bed7ca5ef6c9e8150b" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="5e77b1ed-3cd9-4c5a-b038-601cca3fbc27" id="c4706d99077459bed7ca5ef6c9e8150b" version="0">
@@ -15962,7 +15962,7 @@
             <l7:Name>Utility: List JDBC Connections</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf651f4</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.277-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.777-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="98bdf50c-2273-441a-8d94-d91f0a1bc268" id="d12aa7875d7217ab6c41e7d7acf651f4" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="98bdf50c-2273-441a-8d94-d91f0a1bc268" id="d12aa7875d7217ab6c41e7d7acf651f4" version="0">
@@ -16641,7 +16641,7 @@
             <l7:Name>Utility: List Cassandra Connections</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf66dff</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.284-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.784-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="a84290a6-ecec-41ed-96ea-6e9e68e2ff40" id="d12aa7875d7217ab6c41e7d7acf66dff" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="a84290a6-ecec-41ed-96ea-6e9e68e2ff40" id="d12aa7875d7217ab6c41e7d7acf66dff" version="0">
@@ -17292,7 +17292,7 @@
             <l7:Name>Utility: List Trusted Certificates</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf6992e</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="339953eb-58b5-451e-a733-c4e01ed39dee" id="d12aa7875d7217ab6c41e7d7acf6992e" version="2">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="339953eb-58b5-451e-a733-c4e01ed39dee" id="d12aa7875d7217ab6c41e7d7acf6992e" version="2">
@@ -17893,7 +17893,7 @@
             <l7:Name>Utility: Form and Session Authentication</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e4e966</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e4e966" version="0">
                     <l7:Name>Utility: Form and Session Authentication</l7:Name>
@@ -17960,7 +17960,7 @@
             <l7:Name>Utility: Get All Policy XML</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e53443</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e53443" version="0">
                     <l7:Name>Utility: Get All Policy XML</l7:Name>
@@ -18019,7 +18019,7 @@
             <l7:Name>Utility: List Policies</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf155c14</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="7215d076e3f7201974e2be3edf155c14" version="0">
                     <l7:Name>Utility: List Policies</l7:Name>
@@ -18085,7 +18085,7 @@
             <l7:Name>Utility: List Services</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf22c2f5</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="7215d076e3f7201974e2be3edf22c2f5" version="0">
                     <l7:Name>Utility: List Services</l7:Name>
@@ -18151,7 +18151,7 @@
             <l7:Name>Utility: List Cassandra Connections</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf6720b</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="d12aa7875d7217ab6c41e7d7acf6720b" version="0">
                     <l7:Name>Utility: List Cassandra Connections</l7:Name>
@@ -18210,7 +18210,7 @@
             <l7:Name>Utility: Escape HTML String</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e59840</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e59840" version="0">
                     <l7:Name>Utility: Escape HTML String</l7:Name>
@@ -18258,7 +18258,7 @@
             <l7:Name>Utility: List Cluster Properties</l7:Name>
             <l7:Id>bc46b1606b0639d4d49278d55a490dce</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="bc46b1606b0639d4d49278d55a490dce" version="0">
                     <l7:Name>Utility: List Cluster Properties</l7:Name>
@@ -18317,7 +18317,7 @@
             <l7:Name>Utility: List Encapsulated Assertions</l7:Name>
             <l7:Id>bc46b1606b0639d4d49278d55a47e748</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="bc46b1606b0639d4d49278d55a47e748" version="0">
                     <l7:Name>Utility: List Encapsulated Assertions</l7:Name>
@@ -18376,7 +18376,7 @@
             <l7:Name>Utility: List Groups</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e6ebe7</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e6ebe7" version="0">
                     <l7:Name>Utility: List Groups</l7:Name>
@@ -18442,7 +18442,7 @@
             <l7:Name>Utility: List JDBC Connections</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf65398</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="d12aa7875d7217ab6c41e7d7acf65398" version="0">
                     <l7:Name>Utility: List JDBC Connections</l7:Name>
@@ -18502,7 +18502,7 @@
             <l7:Name>Utility: List JMS Destinations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e64f9f</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.290-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e64f9f" version="0">
                     <l7:Name>Utility: List JMS Destinations</l7:Name>
@@ -18561,7 +18561,7 @@
             <l7:Name>Utility: List Policy Backed Services</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e97757399</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.291-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="3c21f93d84b26244a446414e97757399" version="0">
                     <l7:Name>Utility: List Policy Backed Services</l7:Name>
@@ -18620,7 +18620,7 @@
             <l7:Name>Utility: List Scheduled Tasks</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e97757ceb</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="3c21f93d84b26244a446414e97757ceb" version="0">
                     <l7:Name>Utility: List Scheduled Tasks</l7:Name>
@@ -18679,7 +18679,7 @@
             <l7:Name>Utility: List Private Keys</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e5c6b8</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e5c6b8" version="0">
                     <l7:Name>Utility: List Private Keys</l7:Name>
@@ -18738,7 +18738,7 @@
             <l7:Name>Utility: List Generic Entities</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e9774ede0</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="3c21f93d84b26244a446414e9774ede0" version="0">
                     <l7:Name>Utility: List Generic Entities</l7:Name>
@@ -18797,7 +18797,7 @@
             <l7:Name>Utility: List Active Connectors</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e81607</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e81607" version="0">
                     <l7:Name>Utility: List Active Connectors</l7:Name>
@@ -18856,7 +18856,7 @@
             <l7:Name>Utility: List Secure Passwords</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e65da4</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e65da4" version="0">
                     <l7:Name>Utility: List Secure Passwords</l7:Name>
@@ -18915,7 +18915,7 @@
             <l7:Name>Utility: List Email Listeners</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e80382</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e80382" version="0">
                     <l7:Name>Utility: List Email Listeners</l7:Name>
@@ -18974,7 +18974,7 @@
             <l7:Name>Utility: List HTTP Configurations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e80e7c</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e80e7c" version="0">
                     <l7:Name>Utility: List HTTP Configurations</l7:Name>
@@ -19033,7 +19033,7 @@
             <l7:Name>Utility: List Listen Ports</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e97759281</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="3c21f93d84b26244a446414e97759281" version="0">
                     <l7:Name>Utility: List Listen Ports</l7:Name>
@@ -19092,7 +19092,7 @@
             <l7:Name>Utility: List SiteMinder Configurations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e6d213</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e6d213" version="0">
                     <l7:Name>Utility: List SiteMinder Configurations</l7:Name>
@@ -19151,7 +19151,7 @@
             <l7:Name>Utility: List Trusted Certificates</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf69a23</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="d12aa7875d7217ab6c41e7d7acf69a23" version="0">
                     <l7:Name>Utility: List Trusted Certificates</l7:Name>
@@ -19210,7 +19210,7 @@
             <l7:Name>Utility: List Users</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e6e8a7</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.292-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:53.804-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e6e8a7" version="0">
                     <l7:Name>Utility: List Users</l7:Name>
@@ -19276,7 +19276,7 @@
             <l7:Name>API Gateway Dependency Analyzer</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf13ee8c</l7:Id>
             <l7:Type>SERVICE</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.459-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:54.449-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Service id="7215d076e3f7201974e2be3edf13ee8c" version="2">
                     <l7:ServiceDetail folderId="7215d076e3f7201974e2be3edf13f52e" id="7215d076e3f7201974e2be3edf13ee8c" version="2">
@@ -19298,7 +19298,7 @@
                                 <l7:BooleanValue>false</l7:BooleanValue>
                             </l7:Property>
                             <l7:Property key="policyRevision">
-                                <l7:LongValue>17</l7:LongValue>
+                                <l7:LongValue>26</l7:LongValue>
                             </l7:Property>
                             <l7:Property key="soap">
                                 <l7:BooleanValue>false</l7:BooleanValue>
@@ -19313,7 +19313,7 @@
                     </l7:ServiceDetail>
                     <l7:Resources>
                         <l7:ResourceSet tag="policy">
-                            <l7:Resource type="policy" version="16">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                            <l7:Resource type="policy" version="25">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"&gt;
     &lt;wsp:All wsp:Usage="Required"&gt;
         &lt;L7p:CommentAssertion&gt;
@@ -19348,6 +19348,9 @@
         &lt;/L7p:CommentAssertion&gt;
         &lt;L7p:CommentAssertion&gt;
             &lt;L7p:Comment stringValue="**                                                     List Private Keys encas"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** v1.0.2 - Jay MacDonald - 20220214 - Fixed Trusted Certs in policy issue and added TlsTrustedCertGoids to the dependency search in policies"/&gt;
         &lt;/L7p:CommentAssertion&gt;
         &lt;L7p:CommentAssertion&gt;
             &lt;L7p:Comment stringValue="**************************************************************************************************************"/&gt;
@@ -19614,10 +19617,34 @@
                         &lt;/L7p:Properties&gt;
                     &lt;/L7p:assertionComment&gt;
                 &lt;/wsp:All&gt;
+                &lt;L7p:AuditDetailAssertion&gt;
+                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// INFO"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:AssertionComment&gt;
+                    &lt;L7p:Detail stringValue="==&gt; Object type = ${objectType}"/&gt;
+                    &lt;L7p:Level stringValue="FINE"/&gt;
+                &lt;/L7p:AuditDetailAssertion&gt;
                 &lt;L7p:SetVariable&gt;
                     &lt;L7p:Base64Expression stringValue="JHtyZXF1ZXN0Lmh0dHAucGFyYW1ldGVyLmlkfQ=="/&gt;
                     &lt;L7p:VariableToSet stringValue="id"/&gt;
                 &lt;/L7p:SetVariable&gt;
+                &lt;L7p:AuditDetailAssertion&gt;
+                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// INFO"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:AssertionComment&gt;
+                    &lt;L7p:Detail stringValue="==&gt; Id = ${id}"/&gt;
+                    &lt;L7p:Level stringValue="FINE"/&gt;
+                &lt;/L7p:AuditDetailAssertion&gt;
                 &lt;L7p:SetVariable&gt;
                     &lt;L7p:Base64Expression stringValue=""/&gt;
                     &lt;L7p:VariableToSet stringValue="htmlContent"/&gt;
@@ -19626,6 +19653,18 @@
                     &lt;L7p:Base64Expression stringValue=""/&gt;
                     &lt;L7p:VariableToSet stringValue="dependers.html"/&gt;
                 &lt;/L7p:SetVariable&gt;
+                &lt;L7p:AuditDetailAssertion&gt;
+                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// FINE"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:AssertionComment&gt;
+                    &lt;L7p:Detail stringValue="=================== Get Policy XML, list of policies and list of services ======"/&gt;
+                    &lt;L7p:Level stringValue="FINE"/&gt;
+                &lt;/L7p:AuditDetailAssertion&gt;
                 &lt;L7p:Encapsulated&gt;
                     &lt;L7p:AssertionComment assertionComment="included"&gt;
                         &lt;L7p:Properties mapValue="included"&gt;
@@ -19704,6 +19743,18 @@
                         &lt;/L7p:entry&gt;
                     &lt;/L7p:Parameters&gt;
                 &lt;/L7p:Encapsulated&gt;
+                &lt;L7p:AuditDetailAssertion&gt;
+                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// FINE"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:AssertionComment&gt;
+                    &lt;L7p:Detail stringValue="=================== Do stuff now! =============================================="/&gt;
+                    &lt;L7p:Level stringValue="FINE"/&gt;
+                &lt;/L7p:AuditDetailAssertion&gt;
                 &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
                     &lt;wsp:All wsp:Usage="Required"&gt;
                         &lt;L7p:ComparisonAssertion&gt;
@@ -19857,7 +19908,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:SetVariable&gt;
@@ -20336,7 +20387,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:SetVariable&gt;
@@ -21033,7 +21084,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:ResponseXpathAssertion&gt;
@@ -21437,7 +21488,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:ResponseXpathAssertion&gt;
@@ -21960,7 +22011,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:SetVariable&gt;
@@ -22390,7 +22441,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:SetVariable&gt;
@@ -22883,7 +22934,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:SetVariable&gt;
@@ -23375,7 +23426,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:ResponseXpathAssertion&gt;
@@ -24251,7 +24302,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:ResponseXpathAssertion&gt;
@@ -25372,7 +25423,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:SetVariable&gt;
@@ -27975,7 +28026,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:SetVariable&gt;
@@ -29713,7 +29764,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:SetVariable&gt;
@@ -30184,7 +30235,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:ResponseXpathAssertion&gt;
@@ -30251,17 +30302,14 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="==&gt; Searching policy XML"/&gt;
+                                    &lt;L7p:Detail stringValue="==&gt; Searching for &amp;lt;L7p:LookupTrustedCertificate&gt; in policy XML"/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
-                                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
                                     &lt;L7p:ResponseXpathAssertion&gt;
-
                                     &lt;L7p:AssertionComment assertionComment="included"&gt;
                                     &lt;L7p:Properties mapValue="included"&gt;
                                     &lt;L7p:entry&gt;
                                     &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
-
                                     &lt;L7p:value stringValue="// Extract all policy objects that contain the LookupTrustedCertificate element"/&gt;
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
@@ -30273,49 +30321,24 @@
                                     &lt;L7p:Namespaces mapValue="included"&gt;
                                     &lt;L7p:entry&gt;
                                     &lt;L7p:key stringValue="l7"/&gt;
-
                                     &lt;L7p:value stringValue="http://ns.l7tech.com/2010/04/gateway-management"/&gt;
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Namespaces&gt;
-
                                     &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
                                     &lt;/L7p:XpathExpression&gt;
                                     &lt;/L7p:ResponseXpathAssertion&gt;
-                                    &lt;L7p:ResponseXpathAssertion&gt;
-
+                                    &lt;L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:AssertionComment assertionComment="included"&gt;
                                     &lt;L7p:Properties mapValue="included"&gt;
                                     &lt;L7p:entry&gt;
                                     &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
-
-                                    &lt;L7p:value stringValue="// Extract all policy objects that contain the NonSoapVerifyElement element"/&gt;
+                                    &lt;L7p:value stringValue="// FINE"/&gt;
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:VariablePrefix stringValue="policies"/&gt;
-                                    &lt;L7p:XmlMsgSrc stringValue="allPolicyXML"/&gt;
-                                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
-                                    &lt;L7p:Expression stringValue="/AllPolicyXML/PolicyXML[contains(.,'&amp;lt;L7p:NonSoapVerifyElement&gt;')]"/&gt;
-                                    &lt;L7p:Namespaces mapValue="included"&gt;
-                                    &lt;L7p:entry&gt;
-                                    &lt;L7p:key stringValue="l7"/&gt;
-
-                                    &lt;L7p:value stringValue="http://ns.l7tech.com/2010/04/gateway-management"/&gt;
-                                    &lt;/L7p:entry&gt;
-                                    &lt;/L7p:Namespaces&gt;
-
-                                    &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
-                                    &lt;/L7p:XpathExpression&gt;
-                                    &lt;/L7p:ResponseXpathAssertion&gt;
-                                    &lt;L7p:assertionComment&gt;
-                                    &lt;L7p:Properties mapValue="included"&gt;
-                                    &lt;L7p:entry&gt;
-                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
-                                    &lt;L7p:value stringValue="// Find policy objects that contain &amp;lt;L7p:LookupTrustedCertificate&gt; or &amp;lt;L7p:NonSoapVerifyElement&gt;"/&gt;
-                                    &lt;/L7p:entry&gt;
-                                    &lt;/L7p:Properties&gt;
-                                    &lt;/L7p:assertionComment&gt;
-                                    &lt;/wsp:OneOrMore&gt;
+                                    &lt;L7p:Detail stringValue="===&gt; Found some policy to analyse further"/&gt;
+                                    &lt;L7p:Level stringValue="FINE"/&gt;
+                                    &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:ForEachLoop
                                     L7p:Usage="Required"
                                     loopVariable="policies.elements" variablePrefix="policy"&gt;
@@ -30387,136 +30410,6 @@
                                     &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
                                     &lt;wsp:All wsp:Usage="Required"&gt;
                                     &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
-                                    &lt;wsp:All wsp:Usage="Required"&gt;
-                                    &lt;L7p:ResponseXpathAssertion&gt;
-
-                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
-
-                                    &lt;L7p:Properties mapValue="included"&gt;
-                                    &lt;L7p:entry&gt;
-
-                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
-
-                                    &lt;L7p:value stringValue="// Check if the policy XML has a reference to this trusted certificate by name"/&gt;
-                                    &lt;/L7p:entry&gt;
-                                    &lt;/L7p:Properties&gt;
-                                    &lt;/L7p:AssertionComment&gt;
-
-                                    &lt;L7p:VariablePrefix stringValue=""/&gt;
-
-                                    &lt;L7p:XmlMsgSrc stringValue="policy.xml"/&gt;
-
-                                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
-
-                                    &lt;L7p:Expression stringValue="//L7p:NonSoapVerifyElement/L7p:VerifyCertificateName[@stringValue=$trustedCertificate.name]"/&gt;
-
-                                    &lt;L7p:Namespaces mapValue="included"&gt;
-                                    &lt;L7p:entry&gt;
-
-                                    &lt;L7p:key stringValue="L7p"/&gt;
-
-                                    &lt;L7p:value stringValue="http://www.layer7tech.com/ws/policy"/&gt;
-                                    &lt;/L7p:entry&gt;
-                                    &lt;/L7p:Namespaces&gt;
-
-                                    &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
-                                    &lt;/L7p:XpathExpression&gt;
-                                    &lt;/L7p:ResponseXpathAssertion&gt;
-                                    &lt;L7p:AuditDetailAssertion&gt;
-
-                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
-
-                                    &lt;L7p:Properties mapValue="included"&gt;
-                                    &lt;L7p:entry&gt;
-
-                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
-
-                                    &lt;L7p:value stringValue="// FINE"/&gt;
-                                    &lt;/L7p:entry&gt;
-                                    &lt;/L7p:Properties&gt;
-                                    &lt;/L7p:AssertionComment&gt;
-
-                                    &lt;L7p:Detail stringValue="==&gt; Matched NonSoapVerifyElement for certificate name"/&gt;
-
-                                    &lt;L7p:Level stringValue="FINE"/&gt;
-                                    &lt;/L7p:AuditDetailAssertion&gt;
-                                    &lt;L7p:assertionComment&gt;
-
-                                    &lt;L7p:Properties mapValue="included"&gt;
-                                    &lt;L7p:entry&gt;
-
-                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
-
-                                    &lt;L7p:value stringValue="// Check VerifyCertificateName for match in name"/&gt;
-                                    &lt;/L7p:entry&gt;
-                                    &lt;/L7p:Properties&gt;
-                                    &lt;/L7p:assertionComment&gt;
-                                    &lt;/wsp:All&gt;
-                                    &lt;wsp:All wsp:Usage="Required"&gt;
-                                    &lt;L7p:ResponseXpathAssertion&gt;
-
-                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
-
-                                    &lt;L7p:Properties mapValue="included"&gt;
-                                    &lt;L7p:entry&gt;
-
-                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
-
-                                    &lt;L7p:value stringValue="// Check if the policy XML has a reference to this trusted certificate by name"/&gt;
-                                    &lt;/L7p:entry&gt;
-                                    &lt;/L7p:Properties&gt;
-                                    &lt;/L7p:AssertionComment&gt;
-
-                                    &lt;L7p:VariablePrefix stringValue=""/&gt;
-
-                                    &lt;L7p:XmlMsgSrc stringValue="policy.xml"/&gt;
-
-                                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
-
-                                    &lt;L7p:Expression stringValue="//L7p:NonSoapVerifyElement/L7p:VerifyCertificateGoid[@goidValue=$id.current]"/&gt;
-
-                                    &lt;L7p:Namespaces mapValue="included"&gt;
-                                    &lt;L7p:entry&gt;
-
-                                    &lt;L7p:key stringValue="L7p"/&gt;
-
-                                    &lt;L7p:value stringValue="http://www.layer7tech.com/ws/policy"/&gt;
-                                    &lt;/L7p:entry&gt;
-                                    &lt;/L7p:Namespaces&gt;
-
-                                    &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
-                                    &lt;/L7p:XpathExpression&gt;
-                                    &lt;/L7p:ResponseXpathAssertion&gt;
-                                    &lt;L7p:AuditDetailAssertion&gt;
-
-                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
-
-                                    &lt;L7p:Properties mapValue="included"&gt;
-                                    &lt;L7p:entry&gt;
-
-                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
-
-                                    &lt;L7p:value stringValue="// FINE"/&gt;
-                                    &lt;/L7p:entry&gt;
-                                    &lt;/L7p:Properties&gt;
-                                    &lt;/L7p:AssertionComment&gt;
-
-                                    &lt;L7p:Detail stringValue="==&gt; Matched NonSoapVerifyElement for ID"/&gt;
-
-                                    &lt;L7p:Level stringValue="FINE"/&gt;
-                                    &lt;/L7p:AuditDetailAssertion&gt;
-                                    &lt;L7p:assertionComment&gt;
-
-                                    &lt;L7p:Properties mapValue="included"&gt;
-                                    &lt;L7p:entry&gt;
-
-                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
-
-                                    &lt;L7p:value stringValue="// Check VerifyCertificateName for match in id"/&gt;
-                                    &lt;/L7p:entry&gt;
-                                    &lt;/L7p:Properties&gt;
-                                    &lt;/L7p:assertionComment&gt;
-                                    &lt;/wsp:All&gt;
                                     &lt;wsp:All wsp:Usage="Required"&gt;
                                     &lt;L7p:ResponseXpathAssertion&gt;
 
@@ -31018,7 +30911,7 @@
                                     &lt;/L7p:Include&gt;
                                     &lt;L7p:SetVariable&gt;
 
-                                    &lt;L7p:Base64Expression stringValue="JHtzb3VyY2VUeXBlLnJlc3VsdH06ICR7Zm9sZGVyUGF0aC5yZXN1bHR9JHtuYW1lLnJlc3VsdH0="/&gt;
+                                    &lt;L7p:Base64Expression stringValue="JHtzb3VyY2VUeXBlLnJlc3VsdH06ICR7Zm9sZGVyUGF0aC5yZXN1bHR9JHtuYW1lLnJlc3VsdH0gW2luICJMb29rIFVwIENlcnRpZmljYXRlIiBhc3NlcnRpb25d"/&gt;
 
                                     &lt;L7p:VariableToSet stringValue="depender"/&gt;
                                     &lt;/L7p:SetVariable&gt;
@@ -31035,7 +30928,7 @@
 
                                     &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
 
-                                    &lt;L7p:value stringValue="// Search policy XML for TrustedCertificateName element matching ${name.result}"/&gt;
+                                    &lt;L7p:value stringValue="// Search policy XML for each policy matching our reference"/&gt;
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:assertionComment&gt;
@@ -31066,7 +30959,554 @@
                                     &lt;L7p:Properties mapValue="included"&gt;
                                     &lt;L7p:entry&gt;
                                     &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
-                                    &lt;L7p:value stringValue="// Search for references in policy XML, never fail"/&gt;
+                                    &lt;L7p:value stringValue="// Search for references to LookupTrustedCertificate in policy XML, never fail"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:OneOrMore&gt;
+                                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                    &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// FINE"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:Detail stringValue="==&gt; Searching for &amp;lt;L7p:NonSoapVerifyElement&gt; policy XML"/&gt;
+                                    &lt;L7p:Level stringValue="FINE"/&gt;
+                                    &lt;/L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:ResponseXpathAssertion&gt;
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Extract all policy objects that contain the NonSoapVerifyElement element"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:VariablePrefix stringValue="policies"/&gt;
+                                    &lt;L7p:XmlMsgSrc stringValue="allPolicyXML"/&gt;
+                                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                    &lt;L7p:Expression stringValue="/AllPolicyXML/PolicyXML[contains(.,'&amp;lt;L7p:NonSoapVerifyElement&gt;')]"/&gt;
+                                    &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="l7"/&gt;
+                                    &lt;L7p:value stringValue="http://ns.l7tech.com/2010/04/gateway-management"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Namespaces&gt;
+                                    &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                                    &lt;/L7p:XpathExpression&gt;
+                                    &lt;/L7p:ResponseXpathAssertion&gt;
+                                    &lt;L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// FINE"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:Detail stringValue="===&gt; Found some policy to analyse further"/&gt;
+                                    &lt;L7p:Level stringValue="FINE"/&gt;
+                                    &lt;/L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:ForEachLoop
+                                    L7p:Usage="Required"
+                                    loopVariable="policies.elements" variablePrefix="policy"&gt;
+                                    &lt;L7p:SetVariable&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Cast to message type for XPath"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+
+                                    &lt;L7p:Base64Expression stringValue="JHtwb2xpY3kuY3VycmVudH0="/&gt;
+                                    &lt;L7p:ContentType stringValue="text/xml; charset=utf-8"/&gt;
+                                    &lt;L7p:DataType variableDataType="message"/&gt;
+                                    &lt;L7p:VariableToSet stringValue="policyObject.xml"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:ResponseXpathAssertion&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Extract the policy XML from the policy object"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:VariablePrefix stringValue="policy.xml"/&gt;
+                                    &lt;L7p:XmlMsgSrc stringValue="policyObject.xml"/&gt;
+                                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                    &lt;L7p:Expression stringValue="/PolicyXML/text()"/&gt;
+                                    &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="s"/&gt;
+
+                                    &lt;L7p:value stringValue="http://schemas.xmlsoap.org/soap/envelope/"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="l7"/&gt;
+
+                                    &lt;L7p:value stringValue="http://ns.l7tech.com/2010/04/gateway-management"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Namespaces&gt;
+
+                                    &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                                    &lt;/L7p:XpathExpression&gt;
+                                    &lt;/L7p:ResponseXpathAssertion&gt;
+                                    &lt;L7p:SetVariable&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Cast to message type for XPath"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+
+                                    &lt;L7p:Base64Expression stringValue="JHtwb2xpY3kueG1sLnJlc3VsdH0="/&gt;
+                                    &lt;L7p:ContentType stringValue="text/xml; charset=utf-8"/&gt;
+                                    &lt;L7p:DataType variableDataType="message"/&gt;
+                                    &lt;L7p:VariableToSet stringValue="policy.xml"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                    &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                    &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:ResponseXpathAssertion&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Check if the policy XML has a reference to this trusted certificate by name"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+
+                                    &lt;L7p:VariablePrefix stringValue=""/&gt;
+
+                                    &lt;L7p:XmlMsgSrc stringValue="policy.xml"/&gt;
+
+                                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+
+                                    &lt;L7p:Expression stringValue="//L7p:NonSoapVerifyElement/L7p:VerifyCertificateName[@stringValue=$trustedCertificate.name]"/&gt;
+
+                                    &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="L7p"/&gt;
+
+                                    &lt;L7p:value stringValue="http://www.layer7tech.com/ws/policy"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Namespaces&gt;
+
+                                    &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                                    &lt;/L7p:XpathExpression&gt;
+                                    &lt;/L7p:ResponseXpathAssertion&gt;
+                                    &lt;L7p:AuditDetailAssertion&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// FINE"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+
+                                    &lt;L7p:Detail stringValue="==&gt; Matched NonSoapVerifyElement for certificate name"/&gt;
+
+                                    &lt;L7p:Level stringValue="FINE"/&gt;
+                                    &lt;/L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:assertionComment&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Check VerifyCertificateName for match in name"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:All&gt;
+                                    &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:ResponseXpathAssertion&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Check if the policy XML has a reference to this trusted certificate by ID"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+
+                                    &lt;L7p:VariablePrefix stringValue=""/&gt;
+
+                                    &lt;L7p:XmlMsgSrc stringValue="policy.xml"/&gt;
+
+                                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+
+                                    &lt;L7p:Expression stringValue="//L7p:NonSoapVerifyElement/L7p:VerifyCertificateGoid[@goidValue=$id.current]"/&gt;
+
+                                    &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="L7p"/&gt;
+
+                                    &lt;L7p:value stringValue="http://www.layer7tech.com/ws/policy"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Namespaces&gt;
+
+                                    &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                                    &lt;/L7p:XpathExpression&gt;
+                                    &lt;/L7p:ResponseXpathAssertion&gt;
+                                    &lt;L7p:AuditDetailAssertion&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// FINE"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+
+                                    &lt;L7p:Detail stringValue="==&gt; Matched NonSoapVerifyElement for ID"/&gt;
+
+                                    &lt;L7p:Level stringValue="FINE"/&gt;
+                                    &lt;/L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:assertionComment&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Check VerifyCertificateGoids for match in id"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:All&gt;
+                                    &lt;L7p:assertionComment&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Match the possible scenarios for VerifyCertificate[Name|Goid]"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:OneOrMore&gt;
+                                    &lt;L7p:Include&gt;
+
+                                    &lt;L7p:PolicyGuid stringValue="8f33b165-bc16-4959-a524-aba67aff3cdf"/&gt;
+                                    &lt;/L7p:Include&gt;
+                                    &lt;L7p:SetVariable&gt;
+
+                                    &lt;L7p:Base64Expression stringValue="JHtzb3VyY2VUeXBlLnJlc3VsdH06ICR7Zm9sZGVyUGF0aC5yZXN1bHR9JHtuYW1lLnJlc3VsdH0gW2luICIoTm9uLVNPQVApIFZlcmlmeSBYTUwgRWxlbWVudCIgYXNzZXJ0aW9uXQ=="/&gt;
+
+                                    &lt;L7p:VariableToSet stringValue="depender"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:ManipulateMultiValuedVariable&gt;
+
+                                    &lt;L7p:SourceVariableName stringValue="depender"/&gt;
+
+                                    &lt;L7p:TargetVariableName stringValue="dependers.list"/&gt;
+                                    &lt;/L7p:ManipulateMultiValuedVariable&gt;
+                                    &lt;L7p:assertionComment&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Search policy XML for each policy matching our reference"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:All&gt;
+                                    &lt;L7p:TrueAssertion/&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Search policy XML for each possibility matching our reference, never fail"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:OneOrMore&gt;
+                                    &lt;/L7p:ForEachLoop&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Search for references in policy XML"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:All&gt;
+                                    &lt;L7p:TrueAssertion/&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Search for references to NonSoapVerifyElement in policy XML, never fail"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:OneOrMore&gt;
+                                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                    &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// FINE"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:Detail stringValue="==&gt; Searching for &amp;lt;L7p:TlsTrustedCertGoids in policy XML"/&gt;
+                                    &lt;L7p:Level stringValue="FINE"/&gt;
+                                    &lt;/L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:ResponseXpathAssertion&gt;
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Extract all policy objects that contain the TlsTrustedCertGoids element"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:VariablePrefix stringValue="policies"/&gt;
+                                    &lt;L7p:XmlMsgSrc stringValue="allPolicyXML"/&gt;
+                                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                    &lt;L7p:Expression stringValue="/AllPolicyXML/PolicyXML[contains(.,'&amp;lt;L7p:TlsTrustedCertGoids')]"/&gt;
+                                    &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="l7"/&gt;
+                                    &lt;L7p:value stringValue="http://ns.l7tech.com/2010/04/gateway-management"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Namespaces&gt;
+                                    &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                                    &lt;/L7p:XpathExpression&gt;
+                                    &lt;/L7p:ResponseXpathAssertion&gt;
+                                    &lt;L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// FINE"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:Detail stringValue="===&gt; Found some policy to analyse further"/&gt;
+                                    &lt;L7p:Level stringValue="FINE"/&gt;
+                                    &lt;/L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:ForEachLoop
+                                    L7p:Usage="Required"
+                                    loopVariable="policies.elements" variablePrefix="policy"&gt;
+                                    &lt;L7p:SetVariable&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Cast to message type for XPath"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+
+                                    &lt;L7p:Base64Expression stringValue="JHtwb2xpY3kuY3VycmVudH0="/&gt;
+                                    &lt;L7p:ContentType stringValue="text/xml; charset=utf-8"/&gt;
+                                    &lt;L7p:DataType variableDataType="message"/&gt;
+                                    &lt;L7p:VariableToSet stringValue="policyObject.xml"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:ResponseXpathAssertion&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Extract the policy XML from the policy object"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:VariablePrefix stringValue="policy.xml"/&gt;
+                                    &lt;L7p:XmlMsgSrc stringValue="policyObject.xml"/&gt;
+                                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                    &lt;L7p:Expression stringValue="/PolicyXML/text()"/&gt;
+                                    &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="s"/&gt;
+
+                                    &lt;L7p:value stringValue="http://schemas.xmlsoap.org/soap/envelope/"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="l7"/&gt;
+
+                                    &lt;L7p:value stringValue="http://ns.l7tech.com/2010/04/gateway-management"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Namespaces&gt;
+
+                                    &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                                    &lt;/L7p:XpathExpression&gt;
+                                    &lt;/L7p:ResponseXpathAssertion&gt;
+                                    &lt;L7p:SetVariable&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Cast to message type for XPath"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+
+                                    &lt;L7p:Base64Expression stringValue="JHtwb2xpY3kueG1sLnJlc3VsdH0="/&gt;
+                                    &lt;L7p:ContentType stringValue="text/xml; charset=utf-8"/&gt;
+                                    &lt;L7p:DataType variableDataType="message"/&gt;
+                                    &lt;L7p:VariableToSet stringValue="policy.xml"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                    &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:ResponseXpathAssertion&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Check if the policy XML has a reference to this trusted certificate by ID"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+
+                                    &lt;L7p:VariablePrefix stringValue=""/&gt;
+
+                                    &lt;L7p:XmlMsgSrc stringValue="policy.xml"/&gt;
+
+                                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+
+                                    &lt;L7p:Expression stringValue="//L7p:HttpRoutingAssertion/L7p:TlsTrustedCertGoids/L7p:item[@goidValue=$id.current]"/&gt;
+
+                                    &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="L7p"/&gt;
+
+                                    &lt;L7p:value stringValue="http://www.layer7tech.com/ws/policy"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Namespaces&gt;
+
+                                    &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                                    &lt;/L7p:XpathExpression&gt;
+                                    &lt;/L7p:ResponseXpathAssertion&gt;
+                                    &lt;L7p:AuditDetailAssertion&gt;
+
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// FINE"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:Detail stringValue="==&gt; Matched HttpRoutingAssertion/TlsTrustedCertGoids for ID"/&gt;
+                                    &lt;L7p:Level stringValue="FINE"/&gt;
+                                    &lt;/L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:Include&gt;
+
+                                    &lt;L7p:PolicyGuid stringValue="8f33b165-bc16-4959-a524-aba67aff3cdf"/&gt;
+                                    &lt;/L7p:Include&gt;
+                                    &lt;L7p:SetVariable&gt;
+
+                                    &lt;L7p:Base64Expression stringValue="JHtzb3VyY2VUeXBlLnJlc3VsdH06ICR7Zm9sZGVyUGF0aC5yZXN1bHR9JHtuYW1lLnJlc3VsdH0gW2luICJSb3V0ZSB2aWEgSFRUUChzKSBhc3NlcnRpb24iXQ=="/&gt;
+
+                                    &lt;L7p:VariableToSet stringValue="depender"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:ManipulateMultiValuedVariable&gt;
+
+                                    &lt;L7p:SourceVariableName stringValue="depender"/&gt;
+
+                                    &lt;L7p:TargetVariableName stringValue="dependers.list"/&gt;
+                                    &lt;/L7p:ManipulateMultiValuedVariable&gt;
+                                    &lt;L7p:assertionComment&gt;
+
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Search policy XML for each policy matching our reference"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:All&gt;
+                                    &lt;L7p:TrueAssertion/&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+
+                                    &lt;L7p:value stringValue="// Search policy XML for each possibility matching our reference, never fail"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:OneOrMore&gt;
+                                    &lt;/L7p:ForEachLoop&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Search for references in policy XML"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                    &lt;/wsp:All&gt;
+                                    &lt;L7p:TrueAssertion/&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Search for references to TlsTrustedCertGoids in policy XML, never fail"/&gt;
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:assertionComment&gt;
@@ -31458,7 +31898,7 @@
                                     &lt;/L7p:entry&gt;
                                     &lt;/L7p:Properties&gt;
                                     &lt;/L7p:AssertionComment&gt;
-                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies"/&gt;
+                                    &lt;L7p:Detail stringValue="====&gt; ID matched, processing for dependencies =================================="/&gt;
                                     &lt;L7p:Level stringValue="FINE"/&gt;
                                     &lt;/L7p:AuditDetailAssertion&gt;
                                     &lt;L7p:ResponseXpathAssertion&gt;
@@ -32080,7 +32520,7 @@
             <l7:Name>API Gateway Certificate Report</l7:Name>
             <l7:Id>c8401b4fe66b706c1ad6260099cc0b79</l7:Id>
             <l7:Type>SERVICE</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.505-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:54.510-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Service id="c8401b4fe66b706c1ad6260099cc0b79" version="3">
                     <l7:ServiceDetail folderId="7215d076e3f7201974e2be3edf13f52e" id="c8401b4fe66b706c1ad6260099cc0b79" version="3">
@@ -35001,7 +35441,7 @@
             <l7:Name>Utility: Get Policy</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf231742</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.505-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:54.510-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="7215d076e3f7201974e2be3edf231742" version="0">
                     <l7:Name>Utility: Get Policy</l7:Name>
@@ -35071,7 +35511,7 @@
             <l7:Name>Utility: Get Service</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf23307f</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.505-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:54.510-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="7215d076e3f7201974e2be3edf23307f" version="0">
                     <l7:Name>Utility: Get Service</l7:Name>
@@ -35141,7 +35581,7 @@
             <l7:Name>Utility Assertions Tester</l7:Name>
             <l7:Id>dfaa76af686fcb8fe1c2542b37613bd2</l7:Id>
             <l7:Type>SERVICE</l7:Type>
-            <l7:TimeStamp>2022-02-03T09:35:08.532-08:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-02-14T16:39:54.536-08:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Service id="dfaa76af686fcb8fe1c2542b37613bd2" version="4">
                     <l7:ServiceDetail folderId="7215d076e3f7201974e2be3edf13f52e" id="dfaa76af686fcb8fe1c2542b37613bd2" version="4">
