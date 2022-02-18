@@ -6,7 +6,14 @@
 #
 # Call with -h to see help
 #
-# Jay MacDonald - 20191017
+# Note: the lists of objects by ID are delimited by | to account for when
+#       objects come out of LDAP that may have spaces in the ID. If an LDAP
+#       object has a | in the DN it will break the analysis for that object
+#
+# Jay MacDonald - v1.0 - 20191017 - Original version
+# Jay MacDonald - v1.1 - 20220217 - Set to use | for delimiter in types lists
+#                                   since spaces interfered with LDAP IDs and
+#                                   fixed a few bugs
 #############################################################
 
 ################################
@@ -498,7 +505,7 @@ unset ITEM_LIST && declare -A ITEM_LIST
 REGEX_START_ITEM='^ *<l7:Item>?$'
 REGEX_END_ITEM='^ *</l7:Item>?$'
 REGEX_ID='^ +<l7:Id>(.+)</l7:Id>?$'
-REGEX_TYPE='^ +<l7:Type>(.+)</l7:Type>?$'
+REGEX_TYPE='^ +<l7:Type>([A-Z_]+)</l7:Type>?$'
 if [ "$FULL" == "true" ] ; then
 	REGEX_IGNORE_TYPES='(BOGUS)'
 else
@@ -546,249 +553,328 @@ while read LINE ; do
 			if [[ $TYPE =~ $REGEX_IGNORE_TYPES ]] ; then
 				IN_ITEM=0
 			else
-				ITEM_LIST[$TYPE]+=" $ID"
+				ITEM_LIST[$TYPE]+="|$ID"
 			fi
 		fi
 	fi
 	IFS=''
 done < $BUNDLE
-verbose ''
+verbose " Found ${#ITEMS[*]} items over $ON_LINE lines of XML"
 IFS=' '
+
+# Strip the leading | from each entry in the ITEM_LIST array
+for TYPE in ${!ITEM_LIST[*]} ; do
+	ITEM_LIST[$TYPE]=$(echo ${ITEM_LIST[$TYPE]} | sed 's/^|//')
+done
 
 ############################
 # Determine cluster hostname
 verbose '=> Determining cluster hostname:' -n
 log "=> Determining cluster hostname"
-CLUSTER_HOSTNAME="<unknown>"
-for OBJECT_ID in ${ITEM_LIST[CLUSTER_PROPERTY]} ; do
-	log "==> Processing CLUSTER_PROPERTY $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "===> NAME = $NAME"
-	if [ "$NAME" == "cluster.hostname" ] ; then
-		CLUSTER_HOSTNAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:ClusterProperty/l7:Value/text()" 2>/dev/null)")
-		log "===> CLUSTER_HOSTNAME = $CLUSTER_HOSTNAME"
-		break
-	fi
-done
-IFS='' ; verbose " $CLUSTER_HOSTNAME" ; IFS=' '
-
-#######################################################################
-# Process folders into FOLDERS array and determine parents and children
-verbose "=> Processing folders" -n
-log "=> Processing folders"
-log "==> List of folders found by ID: ${ITEM_LIST[FOLDER]}"
-for OBJECT_ID in ${ITEM_LIST[FOLDER]} ; do
-	verbose '.' -n
-	log "==> Processing FOLDER $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "===> NAME = $NAME"
-	FOLDERS[$OBJECT_ID]="$NAME"
-	eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item//@folderId" 2>/dev/null)
-	log "===> PARENTID = $folderId"
-	PARENTS[$OBJECT_ID]="$folderId"
-	if [ "$folderId" ] ; then
-		if [ "${CHILD_FOLDERS[$folderId]}" ] ; then
-			CHILD_FOLDERS[$folderId]+=" $OBJECT_ID"
-		else
-			CHILD_FOLDERS[$folderId]="$OBJECT_ID"
+CLUSTER_HOSTNAME="<unknown>"	# Default if not found
+if [ ${#ITEM_LIST[CLUSTER_PROPERTY]} -ne 0 ] ; then
+	IFS='|'
+	for OBJECT_ID in ${ITEM_LIST[CLUSTER_PROPERTY]} ; do
+		log "==> Processing CLUSTER_PROPERTY $OBJECT_ID"
+		IFS=' '
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "===> NAME = $NAME"
+		if [ "$NAME" == "cluster.hostname" ] ; then
+			CLUSTER_HOSTNAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:ClusterProperty/l7:Value/text()" 2>/dev/null)")
+			log "===> CLUSTER_HOSTNAME = $CLUSTER_HOSTNAME"
+			break
 		fi
-	fi
-done
-verbose ''
-
-##########################
-# Determine root folder ID
-# Root folder ID will be the one that either doesn't have a parent OR that we don't know the parent
-verbose "${!FOLDERS[@]}"
-verbose '=> Determining root folder ID:' -n
-log "=> Determining root folder ID"
-for ROOTNODEID in "${!FOLDERS[@]}" ; do
-	PARENT=${PARENTS[$ROOTNODEID]}
-	if [ -z "$PARENT" ] ; then
-		break
-	fi
-	if [ -z "${FOLDERS[${PARENTS[$ROOTNODEID]}]}" ] ; then
-		break
-	fi
-done
-IFS='' ; verbose " $ROOTNODEID" ; IFS=' '
-
-########################################
-# Set the name of the root node to empty
-if [ "${FOLDERS[$ROOTNODEID]}" == "Root Node" ] ; then
-	FOLDERS[$ROOTNODEID]=""
+		IFS='|'
+	done
 fi
 
-#############################
-# Load the FOLDER_PATHS array
-verbose "=> Determining folder paths" -n
-log "=> Determining folder paths"
-setFolderPaths "$ROOTNODEID" ""
-verbose ''
+IFS='' ; verbose " $CLUSTER_HOSTNAME" ; IFS='|'
+
+
+#######################################################################
+# Process folders if any found in the bundle
+verbose "=> Processing folders" -n
+
+if [ ${#ITEM_LIST[FOLDER]} -ne 0 ] ; then
+
+	#######################################################################
+	# Process folders into FOLDERS array and determine parents and children
+	# PARENTS is an associative array that holds the parentId for every folder
+	# CHILD_FOLDERS is an associative array that holds all the immediate chilren of a folder
+	log "=> Processing folders"
+	log "==> List of folders found by ID: ${ITEM_LIST[FOLDER]}"
+	IFS='|'
+	for OBJECT_ID in ${ITEM_LIST[FOLDER]} ; do
+		IFS=' '
+		verbose '.' -n
+		log "==> Processing FOLDER $OBJECT_ID"
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "===> NAME = $NAME"
+		FOLDERS[$OBJECT_ID]="$NAME"
+		eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item//@folderId" 2>/dev/null)
+		log "===> PARENTID = $folderId"
+		PARENTS[$OBJECT_ID]="$folderId"
+		if [ "$folderId" ] ; then
+			if [ "${CHILD_FOLDERS[$folderId]}" ] ; then
+				CHILD_FOLDERS[$folderId]+="|$OBJECT_ID"
+			else
+				CHILD_FOLDERS[$folderId]="$OBJECT_ID"
+			fi
+		fi
+		IFS='|'
+	done
+	verbose " Processed ${#FOLDERS[*]} folders"
+
+	##########################
+	# Determine root folder ID
+	# Root folder ID will be the one that either doesn't have a parent OR that we don't know the parent
+	verbose '=> Determining root folder ID:' -n
+	log "=> Determining root folder ID"
+	for ROOTNODEID in "${!FOLDERS[@]}" ; do
+		PARENT=${PARENTS[$ROOTNODEID]}
+		if [ -z "$PARENT" ] ; then
+			break
+		fi
+		if [ -z "${FOLDERS[${PARENTS[$ROOTNODEID]}]}" ] ; then
+			break
+		fi
+	done
+	IFS='' ; verbose " $ROOTNODEID" ; IFS='|'
+
+	########################################
+	# Set the name of the root node to empty
+	if [ "${FOLDERS[$ROOTNODEID]}" == "Root Node" ] ; then
+		FOLDERS[$ROOTNODEID]=""
+	fi
+
+	#############################
+	# Load the FOLDER_PATHS array
+	verbose "=> Determining folder paths" -n
+	log "=> Determining folder paths"
+	setFolderPaths "$ROOTNODEID" ""
+	verbose " Processed ${#FOLDER_PATHS[*]} folder paths"
+else
+	verbose ": No folders found in bundle"
+fi
 
 ########################################################################
 # Process services into SERVICES array and determine parent and children
 verbose "=> Processing services" -n
 log "=> Processing services"
-log "==> List of services found by ID: ${ITEM_LIST[SERVICE]}"
-for OBJECT_ID in ${ITEM_LIST[SERVICE]} ; do
-	verbose '.' -n
-	log "===> Processing SERVICE $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "====> NAME = $NAME"
-	eval $(echo "${ITEMS[$OBJECT_ID]}" | XPATHBIN "/l7:Item//@folderId" 2>/dev/null)
-	log "====> PARENTID = $folderId"
-	PARENTS[$OBJECT_ID]="$folderId"
-	if [ "$folderId" ] ; then
-		if [ "${CHILD_SERVICES[$folderId]}" ] ; then
-			CHILD_SERVICES[$folderId]+=" $OBJECT_ID"
-		else
-			CHILD_SERVICES[$folderId]="$OBJECT_ID"
+if [ ${#ITEM_LIST[SERVICE]} -ne 0 ] ; then
+	log "==> List of services found by ID: ${ITEM_LIST[SERVICE]}"
+	for OBJECT_ID in ${ITEM_LIST[SERVICE]} ; do
+		IFS=' '
+		verbose '.' -n
+		log "===> Processing SERVICE $OBJECT_ID"
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "====> NAME = $NAME"
+		eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item//@folderId" 2>/dev/null)
+		log "====> PARENTID = $folderId"
+		PARENTS[$OBJECT_ID]="$folderId"
+		if [ "$folderId" ] ; then
+			if [ "${CHILD_SERVICES[$folderId]}" ] ; then
+				CHILD_SERVICES[$folderId]+="|$OBJECT_ID"
+			else
+				CHILD_SERVICES[$folderId]="$OBJECT_ID"
+			fi
 		fi
-	fi
-	SERVICES[$OBJECT_ID]="$NAME"
-done
-verbose ''
+		SERVICES[$OBJECT_ID]="$NAME"
+		IFS='|'
+	done
+	verbose " Processed ${#SERVICES[*]} services"
+else
+	verbose ": No services found in bundle"
+fi
 
 ########################################################################
 # Process policies into POLICIES array and determine parent and children
 verbose "=> Processing policies" -n
 log "=> Processing policies"
-log "==> List of policies found by ID: ${ITEM_LIST[POLICY]}"
-for OBJECT_ID in ${ITEM_LIST[POLICY]} ; do
-	verbose '.' -n
-	log "===> Processing POLICY $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "====> NAME = $NAME"
-	eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item//@folderId" 2>/dev/null)
-	log "====> PARENTID = $folderId"
-	PARENTS[$OBJECT_ID]="$folderId"
-	if [ "$folderId" ] ; then
-		if [ "${CHILD_POLICIES[$folderId]}" ] ; then
-			CHILD_POLICIES[$folderId]+=" $OBJECT_ID"
-		else
-			CHILD_POLICIES[$folderId]="$OBJECT_ID"
+if [ ${#ITEM_LIST[POLICY]} -ne 0 ] ; then
+	log "==> List of policies found by ID: ${ITEM_LIST[POLICY]}"
+	for OBJECT_ID in ${ITEM_LIST[POLICY]} ; do
+		IFS=' '
+		verbose '.' -n
+		log "===> Processing POLICY $OBJECT_ID"
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "====> NAME = $NAME"
+		eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item//@folderId" 2>/dev/null)
+		log "====> PARENTID = $folderId"
+		PARENTS[$OBJECT_ID]="$folderId"
+		if [ "$folderId" ] ; then
+			if [ "${CHILD_POLICIES[$folderId]}" ] ; then
+				CHILD_POLICIES[$folderId]+="|$OBJECT_ID"
+			else
+				CHILD_POLICIES[$folderId]="$OBJECT_ID"
+			fi
 		fi
-	fi
-	POLICIES[$OBJECT_ID]="$NAME"
-	if [ "$DEPENDENCIES" == "true" ] ; then
-		eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:Policy/@guid" 2>/dev/null)
-		log "====> Policy GUID = $guid"
-		POLICIES_BY_GUID[$guid]="$OBJECT_ID"
-	fi
-done
-verbose ''
+		POLICIES[$OBJECT_ID]="$NAME"
+		if [ "$DEPENDENCIES" == "true" ] ; then
+			eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:Policy/@guid" 2>/dev/null)
+			log "====> Policy GUID = $guid"
+			POLICIES_BY_GUID[$guid]="$OBJECT_ID"
+		fi
+		IFS='|'
+	done
+	verbose " Processed ${#POLICIES[*]} policies"
+else
+	verbose ": No policies found in bundle"
+fi
 
 #####################################################################################################
 # Process encapsulated assertions into ENCAPSULATED_ASSERTION array and determine associated policies
 verbose "=> Processing encapsulated assertions" -n
 log "=> Processing encapsulated assertions"
-log "==> List of encapsulated assertions found by ID: ${ITEM_LIST[ENCAPSULATED_ASSERTION]}"
-for OBJECT_ID in ${ITEM_LIST[ENCAPSULATED_ASSERTION]} ; do
-	verbose '.' -n
-	log "===> Processing ENCAPSULATED_ASSERTION $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "====> NAME = $NAME"
-	ENCAPSULATED_ASSERTIONS[$OBJECT_ID]="$NAME"
-	eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:EncapsulatedAssertion/l7:PolicyReference/@id" 2>/dev/null)
-	log "====> Associated policy = $id (${POLICIES[$id]})"
-	ENCAPSULATED_ASSERTIONS_BY_POLICY_ID[$id]="$OBJECT_ID"
-	GUID=$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:EncapsulatedAssertion//l7:Guid/text()" 2>/dev/null)
-	log "====> Encapsulated assertion GUID = $guid"
-	ENCAPSULATED_ASSERTIONS_BY_GUID[$GUID]="$OBJECT_ID"
+if [ ${#ITEM_LIST[ENCAPSULATED_ASSERTION]} -ne 0 ] ; then
+	log "==> List of encapsulated assertions found by ID: ${ITEM_LIST[ENCAPSULATED_ASSERTION]}"
+	for OBJECT_ID in ${ITEM_LIST[ENCAPSULATED_ASSERTION]} ; do
+		IFS=' '
+		verbose '.' -n
+		log "===> Processing ENCAPSULATED_ASSERTION $OBJECT_ID"
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "====> NAME = $NAME"
+		ENCAPSULATED_ASSERTIONS[$OBJECT_ID]="$NAME"
+		eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:EncapsulatedAssertion/l7:PolicyReference/@id" 2>/dev/null)
+		log "====> Associated policy = $id (${POLICIES[$id]})"
+		ENCAPSULATED_ASSERTIONS_BY_POLICY_ID[$id]="$OBJECT_ID"
+		GUID=$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:EncapsulatedAssertion//l7:Guid/text()" 2>/dev/null)
+		log "====> Encapsulated assertion GUID = $guid"
+		ENCAPSULATED_ASSERTIONS_BY_GUID[$GUID]="$OBJECT_ID"
+		IFS='|'
 	done
-verbose ''
+	verbose " Processed ${#ENCAPSULATED_ASSERTIONS[*]} encapsulated assertions"
+else
+	verbose ": No encapsulated assertions found in bundle"
+fi
 
 ##########################################################
 # Process cluster properties into CLUSTER_PROPERTIES array
 verbose "=> Processing cluster properties" -n
 log "=> Processing cluster properties"
-log "==> List of cluster properties found by ID: ${ITEM_LIST[CLUSTER_PROPERTY]}"
-for OBJECT_ID in ${ITEM_LIST[CLUSTER_PROPERTY]} ; do
-	verbose '.' -n
-	log "===> Processing CLUSTER_PROPERTY $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "====> NAME = $NAME"
-	CLUSTER_PROPERTIES[$OBJECT_ID]="$NAME"
-done
-verbose ''
+if [ ${#ITEM_LIST[CLUSTER_PROPERTY]} -ne 0 ] ; then
+	log "==> List of cluster properties found by ID: ${ITEM_LIST[CLUSTER_PROPERTY]}"
+	for OBJECT_ID in ${ITEM_LIST[CLUSTER_PROPERTY]} ; do
+		IFS=' '
+		verbose '.' -n
+		log "===> Processing CLUSTER_PROPERTY $OBJECT_ID"
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "====> NAME = $NAME"
+		CLUSTER_PROPERTIES[$OBJECT_ID]="$NAME"
+		IFS='|'
+	done
+	verbose " Processed ${#CLUSTER_PROPERTIES[*]} cluster properties"
+else
+	verbose ": No encapsulated assertions found in bundle"
+fi
 
 #################################################
 # Process private keys into SSG_KEY_ENTRIES array
-verbose "=> Processing SSG keys" -n
-log "=> Processing SSG keys"
-log "==> List of SSG keys found by ID: ${ITEM_LIST[SSG_KEY_ENTRY]}"
-for OBJECT_ID in ${ITEM_LIST[SSG_KEY_ENTRY]} ; do
-	verbose '.' -n
-	log "===> Processing SSG_KEY_ENTRY $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "====> NAME = $NAME"
-	SSG_KEY_ENTRIES[$OBJECT_ID]="$NAME"
-done
-verbose ''
+verbose "=> Processing private keys" -n
+log "=> Processing private keys"
+if [ ${#ITEM_LIST[SSG_KEY_ENTRY]} -ne 0 ] ; then
+	log "==> List of SSG keys found by ID: ${ITEM_LIST[SSG_KEY_ENTRY]}"
+	for OBJECT_ID in ${ITEM_LIST[SSG_KEY_ENTRY]} ; do
+		IFS=' '
+		verbose '.' -n
+		log "===> Processing SSG_KEY_ENTRY $OBJECT_ID"
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "====> NAME = $NAME"
+		SSG_KEY_ENTRIES[$OBJECT_ID]="$NAME"
+		IFS='|'
+	done
+	verbose " Processed ${#SSG_KEY_ENTRIES[*]} private keys"
+else
+	verbose ": No private keys found in bundle"
+fi
 
 ######################################################################################
 # Process scheduled tasks into SCHEDULED_TASKS array and determine associated policies
 verbose "=> Processing scheduled tasks" -n
 log "=> Processing scheduled tasks"
-log "==> List of scheduled tasks found by ID: ${ITEM_LIST[SCHEDULED_TASK]}"
-for OBJECT_ID in ${ITEM_LIST[SCHEDULED_TASK]} ; do
-	verbose '.' -n
-	log "===> Processing SCHEDULED_TASK $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "====> NAME = $NAME"
-	SCHEDULED_TASKS[$OBJECT_ID]="$NAME"
-	eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:ScheduledTask/l7:PolicyReference/@id" 2>/dev/null)
-	log "====> Associated policy = $id (${POLICIES[$id]})"
-	SCHEDULED_TASKS_BY_POLICY_ID[$id]="$OBJECT_ID"
-done
-verbose ''
+if [ ${#ITEM_LIST[SCHEDULED_TASK]} -ne 0 ] ; then
+	log "==> List of scheduled tasks found by ID: ${ITEM_LIST[SCHEDULED_TASK]}"
+	for OBJECT_ID in ${ITEM_LIST[SCHEDULED_TASK]} ; do
+		IFS=' '
+		verbose '.' -n
+		log "===> Processing SCHEDULED_TASK $OBJECT_ID"
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "====> NAME = $NAME"
+		SCHEDULED_TASKS[$OBJECT_ID]="$NAME"
+		eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:ScheduledTask/l7:PolicyReference/@id" 2>/dev/null)
+		log "====> Associated policy = $id (${POLICIES[$id]})"
+		SCHEDULED_TASKS_BY_POLICY_ID[$id]="$OBJECT_ID"
+		IFS='|'
+	done
+	verbose " Processed ${#SCHEDULED_TASKS[*]} scheduled tasks"
+else
+	verbose ": No scheduled tasks found in bundle"
+fi
 
 ##########################################################
 # Process identity providers into IDENTITY_PROVIDERS array
 verbose "=> Processing identity providers" -n
 log "=> Processing identity providers"
-log "==> List of identity providers found by ID: ${ITEM_LIST[ID_PROVIDER_CONFIG]}"
-for OBJECT_ID in ${ITEM_LIST[ID_PROVIDER_CONFIG]} ; do
-	verbose '.' -n
-	log "===> Processing ID_PROVIDER_CONFIG $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "====> NAME = $NAME"
-	IDENTITY_PROVIDERS[$OBJECT_ID]="$NAME"
-done
-verbose ''
+if [ ${#ITEM_LIST[ID_PROVIDER_CONFIG]} -ne 0 ] ; then
+	log "==> List of identity providers found by ID: ${ITEM_LIST[ID_PROVIDER_CONFIG]}"
+	for OBJECT_ID in ${ITEM_LIST[ID_PROVIDER_CONFIG]} ; do
+		IFS=' '
+		verbose '.' -n
+		log "===> Processing ID_PROVIDER_CONFIG $OBJECT_ID"
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "====> NAME = $NAME"
+		IDENTITY_PROVIDERS[$OBJECT_ID]="$NAME"
+		IFS='|'
+	done
+	verbose " Processed ${#IDENTITY_PROVIDERS[*]} identity providers"
+else
+	verbose ": No identity providers found in bundle"
+fi
 
 ##################################################################
 # Process users into USERS array with associated identity provider
 verbose "=> Processing users" -n
 log "=> Processing users"
-log "==> List of users found by ID: ${ITEM_LIST[USER]}"
-for OBJECT_ID in ${ITEM_LIST[USER]} ; do
-	verbose '.' -n
-	log "===> Processing USER $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "====> NAME = $NAME"
-	eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:User/@providerId" 2>/dev/null)
-	log "====> Associated provider = $providerId (${IDENTITY_PROVIDERS[$providerId]})"
-	USERS[$OBJECT_ID]="$providerId:$NAME"
-done
-verbose ''
+if [ ${#ITEM_LIST[USER]} -ne 0 ] ; then
+	log "==> List of users found by ID: ${ITEM_LIST[USER]}"
+	for OBJECT_ID in ${ITEM_LIST[USER]} ; do
+		IFS=' '
+		verbose '.' -n
+		log "===> Processing USER $OBJECT_ID"
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "====> NAME = $NAME"
+		eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:User/@providerId" 2>/dev/null)
+		log "====> Associated provider = $providerId (${IDENTITY_PROVIDERS[$providerId]})"
+		USERS[$OBJECT_ID]="$providerId:$NAME"
+		IFS='|'
+	done
+	verbose " Processed ${#USERS[*]} users"
+else
+	verbose ": No users found in bundle"
+fi
 
 ####################################################################
 # Process groups into GROUPS array with associated identity provider
 verbose "=> Processing groups" -n
 log "=> Processing groups"
-log "==> List of groups found by ID: ${ITEM_LIST[GROUP]}"
-for OBJECT_ID in ${ITEM_LIST[GROUP]} ; do
-	verbose '.' -n
-	log "===> Processing GROUP $OBJECT_ID"
-	NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
-	log "====> NAME = $NAME"
-	eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:Group/@providerId" 2>/dev/null)
-	log "====> Associated provider = $providerId (${IDENTITY_PROVIDERS[$providerId]})"
-	GROUPS[$OBJECT_ID]="$providerId:$NAME"
-done
-verbose ''
+if [ ${#ITEM_LIST[GROUP]} -ne 0 ] ; then
+	log "==> List of groups found by ID: ${ITEM_LIST[GROUP]}"
+	for OBJECT_ID in ${ITEM_LIST[GROUP]} ; do
+		IFS=' '
+		verbose '.' -n
+		log "===> Processing GROUP $OBJECT_ID"
+		NAME=$(htmlDecode "$(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Name/text()" 2>/dev/null)")
+		log "====> NAME = $NAME"
+		eval $(echo "${ITEMS[$OBJECT_ID]}" | $XPATHBIN "/l7:Item/l7:Resource/l7:Group/@providerId" 2>/dev/null)
+		log "====> Associated provider = $providerId (${IDENTITY_PROVIDERS[$providerId]})"
+		GROUPS[$OBJECT_ID]="$providerId:$NAME"
+		IFS='|'
+	done
+	verbose " Processed ${#GROUPS[*]} groups"
+else
+	verbose ": No groups found in bundle"
+fi
+
 verbose ''
 
 # Display everything we found if $DEBUG is true
@@ -940,14 +1026,23 @@ echo "  Groups: ${#GROUPS[@]}"
 echo ""
 log "=================================== Displaying Items by Type"
 echo "Items by Type:"
+IFS=' '
 for TYPE in "${!ITEM_LIST[@]}" ; do
 	echo "  $TYPE:"
+	IFS='|'
 	for ID in ${ITEM_LIST[$TYPE]} ; do
+		IFS=' '
 		NAME=$(echo ${ITEMS[$ID]} | $XPATHBIN '/l7:Item/l7:Name/text()' 2>/dev/null)
 		echo "    $ID : $NAME"
+		IFS='|'
 	done
+	IFS=' '
 done
-echo ""
-log "=================================== Dumping Tree"
-echo "Tree:"
-getSubFolders $ROOTNODEID '' '0'
+
+# Dump the tree if we have any folders in the bundle
+if [ ${#FOLDERS[@]} -ne 0 ] ; then
+	echo ""
+	log "=================================== Dumping Tree"
+	echo "Tree:"
+	IFS='|' ; getSubFolders $ROOTNODEID '' '0' ; IFS=' '
+fi
