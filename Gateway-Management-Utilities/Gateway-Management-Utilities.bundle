@@ -5,7 +5,7 @@
             <l7:Name>Gateway Management Utilities</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf13f52e</l7:Id>
             <l7:Type>FOLDER</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.751-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:36.971-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Folder folderId="0000000000000000ffffffffffffec76" id="7215d076e3f7201974e2be3edf13f52e" version="0">
                     <l7:Name>Gateway Management Utilities</l7:Name>
@@ -16,7 +16,7 @@
             <l7:Name>fragments</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e62ecb</l7:Id>
             <l7:Type>FOLDER</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.751-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:36.971-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Folder folderId="7215d076e3f7201974e2be3edf13f52e" id="c4706d99077459bed7ca5ef6c9e62ecb" version="0">
                     <l7:Name>fragments</l7:Name>
@@ -27,7 +27,7 @@
             <l7:Name>Utility: Call Restman</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e4326b</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.755-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:36.974-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="fc38ba53-a1d8-4bb6-be56-819606f9d330" id="c4706d99077459bed7ca5ef6c9e4326b" version="2">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="fc38ba53-a1d8-4bb6-be56-819606f9d330" id="c4706d99077459bed7ca5ef6c9e4326b" version="2">
@@ -272,7 +272,7 @@
             <l7:Name>Utility: Call Restman</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e43323</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.755-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:36.978-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e43323" version="0">
                     <l7:Name>Utility: Call Restman</l7:Name>
@@ -341,7 +341,7 @@
             <l7:Name>Utility: List Generic Entities</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e9774ecf3</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.762-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:36.985-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="635c9c5a-6aa0-4b8f-b74f-b2dbb3de6a05" id="3c21f93d84b26244a446414e9774ecf3" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="635c9c5a-6aa0-4b8f-b74f-b2dbb3de6a05" id="3c21f93d84b26244a446414e9774ecf3" version="0">
@@ -960,7 +960,7 @@
             <l7:Name>Utility: List Policy Backed Services</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e97757263</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.771-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:36.990-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="1beb446f-b5b0-41f5-89d1-79e8fe122577" id="3c21f93d84b26244a446414e97757263" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="1beb446f-b5b0-41f5-89d1-79e8fe122577" id="3c21f93d84b26244a446414e97757263" version="0">
@@ -1540,7 +1540,7 @@
             <l7:Name>Utility: List Scheduled Tasks</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e97757a31</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.777-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:36.995-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="3b9346d2-cc38-41ef-aac3-965942d95749" id="3c21f93d84b26244a446414e97757a31" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="3b9346d2-cc38-41ef-aac3-965942d95749" id="3c21f93d84b26244a446414e97757a31" version="0">
@@ -2095,7 +2095,7 @@
             <l7:Name>Utility: List Listen Ports</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e9775919d</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.782-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="d076c049-b5b3-4990-aad3-d9c35c3e17ef" id="3c21f93d84b26244a446414e9775919d" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="d076c049-b5b3-4990-aad3-d9c35c3e17ef" id="3c21f93d84b26244a446414e9775919d" version="0">
@@ -2700,7 +2700,7 @@
             <l7:Name>Utility: Get All Policy XML</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e532e8</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.789-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.006-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="9deeaade-8769-4ff0-a112-6e1494d0f65d" id="c4706d99077459bed7ca5ef6c9e532e8" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="9deeaade-8769-4ff0-a112-6e1494d0f65d" id="c4706d99077459bed7ca5ef6c9e532e8" version="0">
@@ -3345,7 +3345,7 @@
             <l7:Name>Utility: Get All Policy XML</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e53443</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.789-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.006-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e53443" version="0">
                     <l7:Name>Utility: Get All Policy XML</l7:Name>
@@ -3404,7 +3404,7 @@
             <l7:Name>Utility: List Folders</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf13f575</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.799-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.013-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="219cafb1-ca3d-40e9-8270-f7d95673c74b" id="7215d076e3f7201974e2be3edf13f575" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="219cafb1-ca3d-40e9-8270-f7d95673c74b" id="7215d076e3f7201974e2be3edf13f575" version="0">
@@ -4416,7 +4416,7 @@
             <l7:Name>Utility: List Folders</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf147215</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.799-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.013-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="7215d076e3f7201974e2be3edf147215" version="0">
                     <l7:Name>Utility: List Folders</l7:Name>
@@ -4475,7 +4475,7 @@
             <l7:Name>Utility: List Policies</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf155afc</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.808-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.023-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="13743744-1348-481a-9c6b-f8ed3f6a89b6" id="7215d076e3f7201974e2be3edf155afc" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="13743744-1348-481a-9c6b-f8ed3f6a89b6" id="7215d076e3f7201974e2be3edf155afc" version="0">
@@ -5236,7 +5236,7 @@
             <l7:Name>Utility: List Policies</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf155c14</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.808-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.024-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="7215d076e3f7201974e2be3edf155c14" version="0">
                     <l7:Name>Utility: List Policies</l7:Name>
@@ -5302,7 +5302,7 @@
             <l7:Name>Utility: List Services</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf2288aa</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.816-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.036-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="485cd1ad-9ef9-4705-9424-d463f2bb39d4" id="7215d076e3f7201974e2be3edf2288aa" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="485cd1ad-9ef9-4705-9424-d463f2bb39d4" id="7215d076e3f7201974e2be3edf2288aa" version="0">
@@ -6149,7 +6149,7 @@
             <l7:Name>Utility: List Services</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf22c2f5</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.818-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.036-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="7215d076e3f7201974e2be3edf22c2f5" version="0">
                     <l7:Name>Utility: List Services</l7:Name>
@@ -6215,7 +6215,7 @@
             <l7:Name>Gateway Management Utilities Cacher</l7:Name>
             <l7:Id>6f93d02a97830d62c2715d6d3a003232</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.820-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.038-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="6cfa0630-4eb2-4d25-a020-b9f751744783" id="6f93d02a97830d62c2715d6d3a003232" version="8">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="6cfa0630-4eb2-4d25-a020-b9f751744783" id="6f93d02a97830d62c2715d6d3a003232" version="8">
@@ -6402,7 +6402,7 @@
             <l7:Name>Utility: Get Policy</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf231684</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.826-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.043-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="15f82eda-b44f-4688-b34f-180aaa5d2d26" id="7215d076e3f7201974e2be3edf231684" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="15f82eda-b44f-4688-b34f-180aaa5d2d26" id="7215d076e3f7201974e2be3edf231684" version="0">
@@ -6806,7 +6806,7 @@
             <l7:Name>Utility: Get Service</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf232fde</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.832-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.047-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="59074fe9-1cee-442d-bea4-79d9e3da5381" id="7215d076e3f7201974e2be3edf232fde" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="59074fe9-1cee-442d-bea4-79d9e3da5381" id="7215d076e3f7201974e2be3edf232fde" version="0">
@@ -7207,7 +7207,7 @@
             <l7:Name>Utility: List Encapsulated Assertions</l7:Name>
             <l7:Id>bc46b1606b0639d4d49278d55a44cd84</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.838-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.052-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="63027bfb-ecd6-4219-944a-eb6661e11ebe" id="bc46b1606b0639d4d49278d55a44cd84" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="63027bfb-ecd6-4219-944a-eb6661e11ebe" id="bc46b1606b0639d4d49278d55a44cd84" version="0">
@@ -7802,7 +7802,7 @@
             <l7:Name>Utility: List Cluster Properties</l7:Name>
             <l7:Id>bc46b1606b0639d4d49278d55a4909b9</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.844-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.058-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="5d651487-691b-4060-8de1-b91c798cdd58" id="bc46b1606b0639d4d49278d55a4909b9" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="5d651487-691b-4060-8de1-b91c798cdd58" id="bc46b1606b0639d4d49278d55a4909b9" version="0">
@@ -8369,7 +8369,7 @@
             <l7:Name>Internal Identity Provider</l7:Name>
             <l7:Id>0000000000000000fffffffffffffffe</l7:Id>
             <l7:Type>ID_PROVIDER_CONFIG</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.844-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.059-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:IdentityProvider id="0000000000000000fffffffffffffffe" version="0">
                     <l7:Name>Internal Identity Provider</l7:Name>
@@ -8381,7 +8381,7 @@
             <l7:Name>Utility: Form and Session Authentication</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e4e922</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.856-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.069-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="fefc1213-858e-4be0-82cd-67e980463597" id="c4706d99077459bed7ca5ef6c9e4e922" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="fefc1213-858e-4be0-82cd-67e980463597" id="c4706d99077459bed7ca5ef6c9e4e922" version="0">
@@ -9439,7 +9439,7 @@
             <l7:Name>Utility: List Private Keys</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e52876</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.866-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.075-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="1f2ab8ee-cf83-49df-b17e-5f78c6a2cf2d" id="c4706d99077459bed7ca5ef6c9e52876" version="20">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="1f2ab8ee-cf83-49df-b17e-5f78c6a2cf2d" id="c4706d99077459bed7ca5ef6c9e52876" version="20">
@@ -10139,7 +10139,7 @@
             <l7:Name>Utility: Get PolicyObject Info</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e5488e</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.867-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.079-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="8f33b165-bc16-4959-a524-aba67aff3cdf" id="c4706d99077459bed7ca5ef6c9e5488e" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="8f33b165-bc16-4959-a524-aba67aff3cdf" id="c4706d99077459bed7ca5ef6c9e5488e" version="0">
@@ -10376,7 +10376,7 @@
             <l7:Name>Utility: HTML Escape String</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e59800</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.868-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.081-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="58c91da2-50ba-48ff-800c-1c96ad9659c0" id="c4706d99077459bed7ca5ef6c9e59800" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="58c91da2-50ba-48ff-800c-1c96ad9659c0" id="c4706d99077459bed7ca5ef6c9e59800" version="0">
@@ -10468,7 +10468,7 @@
             <l7:Name>Utility: List Identity Providers</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e624a3</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.874-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.086-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="7618087f-f586-421d-aeb4-68541e0ebf3a" id="c4706d99077459bed7ca5ef6c9e624a3" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="7618087f-f586-421d-aeb4-68541e0ebf3a" id="c4706d99077459bed7ca5ef6c9e624a3" version="0">
@@ -11035,7 +11035,7 @@
             <l7:Name>Utility: List JMS Destinations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e64a12</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.882-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.092-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="ce8a2a1e-7f41-470c-aa4a-0203afefb27c" id="c4706d99077459bed7ca5ef6c9e64a12" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="ce8a2a1e-7f41-470c-aa4a-0203afefb27c" id="c4706d99077459bed7ca5ef6c9e64a12" version="0">
@@ -11730,7 +11730,7 @@
             <l7:Name>Utility: List Secure Passwords</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e65c43</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.888-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.099-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="18f3eb02-e82b-42a4-843a-276dfb2b0bfe" id="c4706d99077459bed7ca5ef6c9e65c43" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="18f3eb02-e82b-42a4-843a-276dfb2b0bfe" id="c4706d99077459bed7ca5ef6c9e65c43" version="0">
@@ -12353,7 +12353,7 @@
             <l7:Name>Utility: List SiteMinder Configurations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e688cb</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.894-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.104-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="4551eaad-90f5-467f-ba1d-c134ab0d3096" id="c4706d99077459bed7ca5ef6c9e688cb" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="4551eaad-90f5-467f-ba1d-c134ab0d3096" id="c4706d99077459bed7ca5ef6c9e688cb" version="0">
@@ -12958,7 +12958,7 @@
             <l7:Name>Utility: List Identity Providers</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e62585</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.894-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.104-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e62585" version="0">
                     <l7:Name>Utility: List Identity Providers</l7:Name>
@@ -13017,7 +13017,7 @@
             <l7:Name>Utility: List Users</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e6e077</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.903-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.112-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="57909023-fab7-453a-80dd-1c3354e7f942" id="c4706d99077459bed7ca5ef6c9e6e077" version="6">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="57909023-fab7-453a-80dd-1c3354e7f942" id="c4706d99077459bed7ca5ef6c9e6e077" version="6">
@@ -13936,7 +13936,7 @@
             <l7:Name>Utility: List Groups</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e6eb45</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.910-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.119-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="7cbd12a3-9650-4652-be81-8d14a80d5ef3" id="c4706d99077459bed7ca5ef6c9e6eb45" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="7cbd12a3-9650-4652-be81-8d14a80d5ef3" id="c4706d99077459bed7ca5ef6c9e6eb45" version="0">
@@ -14681,7 +14681,7 @@
             <l7:Name>Utility: List Email Listeners</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e8029f</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.916-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.125-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="29e9d372-9141-4543-b5ac-873454847d38" id="c4706d99077459bed7ca5ef6c9e8029f" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="29e9d372-9141-4543-b5ac-873454847d38" id="c4706d99077459bed7ca5ef6c9e8029f" version="0">
@@ -15295,7 +15295,7 @@
             <l7:Name>Utility: List HTTP Configurations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e80d57</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.921-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.136-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="fbf889bf-cb0b-4067-ac18-4b0ff6d5e6c1" id="c4706d99077459bed7ca5ef6c9e80d57" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="fbf889bf-cb0b-4067-ac18-4b0ff6d5e6c1" id="c4706d99077459bed7ca5ef6c9e80d57" version="0">
@@ -15834,7 +15834,7 @@
             <l7:Name>Utility: List Active Connectors</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e8150b</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.926-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.142-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="5e77b1ed-3cd9-4c5a-b038-601cca3fbc27" id="c4706d99077459bed7ca5ef6c9e8150b" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="5e77b1ed-3cd9-4c5a-b038-601cca3fbc27" id="c4706d99077459bed7ca5ef6c9e8150b" version="0">
@@ -16414,7 +16414,7 @@
             <l7:Name>Utility: List JDBC Connections</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf651f4</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.933-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.147-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="98bdf50c-2273-441a-8d94-d91f0a1bc268" id="d12aa7875d7217ab6c41e7d7acf651f4" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="98bdf50c-2273-441a-8d94-d91f0a1bc268" id="d12aa7875d7217ab6c41e7d7acf651f4" version="0">
@@ -17093,7 +17093,7 @@
             <l7:Name>Utility: List Cassandra Connections</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf66dff</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.941-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.154-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="a84290a6-ecec-41ed-96ea-6e9e68e2ff40" id="d12aa7875d7217ab6c41e7d7acf66dff" version="0">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="a84290a6-ecec-41ed-96ea-6e9e68e2ff40" id="d12aa7875d7217ab6c41e7d7acf66dff" version="0">
@@ -17744,7 +17744,7 @@
             <l7:Name>Utility: List Trusted Certificates</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf6992e</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.947-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.159-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Policy guid="339953eb-58b5-451e-a733-c4e01ed39dee" id="d12aa7875d7217ab6c41e7d7acf6992e" version="2">
                     <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="339953eb-58b5-451e-a733-c4e01ed39dee" id="d12aa7875d7217ab6c41e7d7acf6992e" version="2">
@@ -18345,15 +18345,15 @@
             <l7:Name>Utility: Set Web Page Wrappers</l7:Name>
             <l7:Id>eab176f668caa14ac7389886243507b7</l7:Id>
             <l7:Type>POLICY</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.948-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.161-07:00</l7:TimeStamp>
             <l7:Resource>
-                <l7:Policy guid="65c71f16-b384-4aab-a883-04179b673ed0" id="eab176f668caa14ac7389886243507b7" version="17">
-                    <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="65c71f16-b384-4aab-a883-04179b673ed0" id="eab176f668caa14ac7389886243507b7" version="17">
+                <l7:Policy guid="65c71f16-b384-4aab-a883-04179b673ed0" id="eab176f668caa14ac7389886243507b7" version="19">
+                    <l7:PolicyDetail folderId="c4706d99077459bed7ca5ef6c9e62ecb" guid="65c71f16-b384-4aab-a883-04179b673ed0" id="eab176f668caa14ac7389886243507b7" version="19">
                         <l7:Name>Utility: Set Web Page Wrappers</l7:Name>
                         <l7:PolicyType>Include</l7:PolicyType>
                         <l7:Properties>
                             <l7:Property key="revision">
-                                <l7:LongValue>18</l7:LongValue>
+                                <l7:LongValue>20</l7:LongValue>
                             </l7:Property>
                             <l7:Property key="soap">
                                 <l7:BooleanValue>false</l7:BooleanValue>
@@ -18405,6 +18405,9 @@
             &lt;L7p:Comment stringValue="** v1.0.0 - Jay MacDonald - 20220222 - Initial Version"/&gt;
         &lt;/L7p:CommentAssertion&gt;
         &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** v1.0.1 - Jay MacDonald - 20220228 - Added License Report"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
             &lt;L7p:Comment stringValue="**************************************************************************************************************"/&gt;
         &lt;/L7p:CommentAssertion&gt;
         &lt;L7p:SetVariable&gt;
@@ -18412,7 +18415,7 @@
             &lt;L7p:VariableToSet stringValue="html.top"/&gt;
         &lt;/L7p:SetVariable&gt;
         &lt;L7p:SetVariable&gt;
-            &lt;L7p:Base64Expression stringValue="ICAgIDxoci8+DQogICAgPHA+DQogICAgICA8YSBocmVmPSIvYXBpZ3cvdXRpbGl0eVRlc3RlciI+VXRpbGl0eSBBc3NlcnRpb25zIFRlc3RlcjwvYT4gfA0KICAgICAgPGEgaHJlZj0iL2FwaWd3L2RlcGVuZGVuY3lBbmFseXplciI+QVBJIEdhdGV3YXkgRGVwZW5kZW5jeSBBbmFseXplcjwvYT4gfA0KICAgICAgPGEgaHJlZj0iL2FwaWd3L2NlcnRpZmljYXRlUmVwb3J0Ij5BUEkgR2F0ZXdheSBDZXJ0aWZpY2F0ZSBSZXBvcnQ8L2E+IHwNCiAgICAgIDxhIGhyZWY9Ii9hcGlndy9jd3BNYW5hZ2VyIj5BUEkgR2F0ZXdheSBDbHVzdGVyIFdpZGUgUHJvcGVydHkgTWFuYWdlcjwvYT4="/&gt;
+            &lt;L7p:Base64Expression stringValue="ICAgIDxoci8+DQogICAgPHA+DQogICAgICA8YSBocmVmPSIvYXBpZ3cvdXRpbGl0eVRlc3RlciI+VXRpbGl0eSBBc3NlcnRpb25zIFRlc3RlcjwvYT4gfA0KICAgICAgPGEgaHJlZj0iL2FwaWd3L2RlcGVuZGVuY3lBbmFseXplciI+RGVwZW5kZW5jeSBBbmFseXplcjwvYT4gfA0KICAgICAgPGEgaHJlZj0iL2FwaWd3L2NlcnRpZmljYXRlUmVwb3J0Ij5DZXJ0aWZpY2F0ZSBSZXBvcnQ8L2E+IHwNCiAgICAgIDxhIGhyZWY9Ii9hcGlndy9saWNlbnNlUmVwb3J0Ij5MaWNlbnNlIFJlcG9ydDwvYT4gfA0KICAgICAgPGEgaHJlZj0iL2FwaWd3L2N3cE1hbmFnZXIiPkNsdXN0ZXIgV2lkZSBQcm9wZXJ0eSBNYW5hZ2VyPC9hPg=="/&gt;
             &lt;L7p:VariableToSet stringValue="html.bottom"/&gt;
         &lt;/L7p:SetVariable&gt;
         &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
@@ -18459,7 +18462,7 @@
             <l7:Name>Gateway Management Utilities CSS</l7:Name>
             <l7:Id>1b111294c2a94ddb44fa3aa78a70294a</l7:Id>
             <l7:Type>SERVICE</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.179-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Service id="1b111294c2a94ddb44fa3aa78a70294a" version="2">
                     <l7:ServiceDetail folderId="7215d076e3f7201974e2be3edf13f52e" id="1b111294c2a94ddb44fa3aa78a70294a" version="2">
@@ -18524,7 +18527,7 @@
             <l7:Name>Utility: Form and Session Authentication</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e4e966</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.179-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e4e966" version="1">
                     <l7:Name>Utility: Form and Session Authentication</l7:Name>
@@ -18595,7 +18598,7 @@
             <l7:Name>Utility: Set Web Page Wrappers</l7:Name>
             <l7:Id>eab176f668caa14ac7389886243507ea</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.179-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="eab176f668caa14ac7389886243507ea" version="3">
                     <l7:Name>Utility: Set Web Page Wrappers</l7:Name>
@@ -18657,10 +18660,2178 @@
             </l7:Resource>
         </l7:Item>
         <l7:Item>
+            <l7:Name>ssg</l7:Name>
+            <l7:Id>7e98c2ce3f1678a6d43e281bde7da42b</l7:Id>
+            <l7:Type>JDBC_CONNECTION</l7:Type>
+            <l7:TimeStamp>2022-04-28T17:07:37.389-07:00</l7:TimeStamp>
+            <l7:Resource>
+                <l7:JDBCConnection id="7e98c2ce3f1678a6d43e281bde7da42b" version="3">
+                    <l7:Name>ssg</l7:Name>
+                    <l7:Enabled>true</l7:Enabled>
+                    <l7:Properties>
+                        <l7:Property key="maximumPoolSize">
+                            <l7:IntegerValue>15</l7:IntegerValue>
+                        </l7:Property>
+                        <l7:Property key="minimumPoolSize">
+                            <l7:IntegerValue>3</l7:IntegerValue>
+                        </l7:Property>
+                    </l7:Properties>
+                    <l7:Extension>
+                        <l7:DriverClass>com.mysql.jdbc.Driver</l7:DriverClass>
+                        <l7:JdbcUrl>jdbc:mysql://localhost/ssg</l7:JdbcUrl>
+                        <l7:ConnectionProperties>
+                            <l7:Property key="EnableCancelTimeout">
+                                <l7:StringValue>true</l7:StringValue>
+                            </l7:Property>
+                            <l7:Property key="password">
+                                <l7:StringValue bundleKey="$L7C2$1bead,FiwSrNiUMraB/2WZyKR/dIdnMeMlv4ntnoY2NHQEVLM=$o7pEtVWYUCHrMsZinGf9iPu0I6qS9lMM/oilYWooE6fehLM8GzP0STMAM+FvCjxcLXmyjZyW1Ti5yPjyHRATmL7K3CebvCdNIHj78i5pQJOlCx7P9G47GfygImxJ7DPl">$L7C2$1,23wI2INHmNzR2a7FbcGU1ZIcme5sunTwJwM7Nqz73dI=$8jMmoF/fUwQvZg9d6MaD1QVUybSCCXDZk4mRtztx5WJBVU3MhoaBVMhsRzuGfAVhoJnKsjHsEIg60R1TLLE2xQ==</l7:StringValue>
+                            </l7:Property>
+                            <l7:Property key="user">
+                                <l7:StringValue>gateway</l7:StringValue>
+                            </l7:Property>
+                        </l7:ConnectionProperties>
+                    </l7:Extension>
+                </l7:JDBCConnection>
+            </l7:Resource>
+        </l7:Item>
+        <l7:Item>
+            <l7:Name>API Gateway License Report</l7:Name>
+            <l7:Id>6f93d02a97830d62c2715d6d3a0168c2</l7:Id>
+            <l7:Type>SERVICE</l7:Type>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
+            <l7:Resource>
+                <l7:Service id="6f93d02a97830d62c2715d6d3a0168c2" version="4">
+                    <l7:ServiceDetail folderId="7215d076e3f7201974e2be3edf13f52e" id="6f93d02a97830d62c2715d6d3a0168c2" version="4">
+                        <l7:Name>API Gateway License Report</l7:Name>
+                        <l7:Enabled>true</l7:Enabled>
+                        <l7:ServiceMappings>
+                            <l7:HttpMapping>
+                                <l7:UrlPattern>/apigw/licenseReport</l7:UrlPattern>
+                                <l7:Verbs>
+                                    <l7:Verb>GET</l7:Verb>
+                                    <l7:Verb>POST</l7:Verb>
+                                </l7:Verbs>
+                            </l7:HttpMapping>
+                        </l7:ServiceMappings>
+                        <l7:Properties>
+                            <l7:Property key="internal">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                            <l7:Property key="policyRevision">
+                                <l7:LongValue>42</l7:LongValue>
+                            </l7:Property>
+                            <l7:Property key="soap">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                            <l7:Property key="tracingEnabled">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                            <l7:Property key="wssProcessingEnabled">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                        </l7:Properties>
+                    </l7:ServiceDetail>
+                    <l7:Resources>
+                        <l7:ResourceSet tag="policy">
+                            <l7:Resource type="policy" version="41">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"&gt;
+    &lt;wsp:All wsp:Usage="Required"&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="**************************************************************************************************************"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** Service to query the ssg database and generate a report on licenses in the Gateway"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** "/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** Default to HTML form based response. Change to application/json or text/xml using format parameter"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** "/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** If ${request.http.parameter.format} = JSON or XML then use Basic Auth for authentication"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** "/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** IMPORTANT: Ensure the database connection is valid. Search for ONBOARD comment in policy"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** "/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** Response will set the following HTTP headers:"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="**   X-AlertLevel (0=OK | 1=INFO | 2=WARNING | 3=SEVERE)"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="**   X-AlertStatus (OK | INFO | WARNING | SEVERE)"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="**   X-AlertMessage (string)"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** "/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="** v1.0.0 - Jay MacDonald - 20220428 - Initial Version"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="**************************************************************************************************************"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:AuditAssertion/&gt;
+        &lt;L7p:SetVariable&gt;
+            &lt;L7p:Base64Expression stringValue="JHtyZXF1ZXN0Lmh0dHAucGFyYW1ldGVyLmZvcm1hdH0="/&gt;
+            &lt;L7p:VariableToSet stringValue="format"/&gt;
+        &lt;/L7p:SetVariable&gt;
+        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+            &lt;L7p:ComparisonAssertion&gt;
+                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                &lt;L7p:Expression2 stringValue=""/&gt;
+                &lt;L7p:Negate booleanValue="true"/&gt;
+                &lt;L7p:Operator operator="EMPTY"/&gt;
+                &lt;L7p:Predicates predicates="included"&gt;
+                    &lt;L7p:item binary="included"&gt;
+                        &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                        &lt;L7p:Negated booleanValue="true"/&gt;
+                        &lt;L7p:Operator operator="EMPTY"/&gt;
+                        &lt;L7p:RightValue stringValue=""/&gt;
+                    &lt;/L7p:item&gt;
+                &lt;/L7p:Predicates&gt;
+            &lt;/L7p:ComparisonAssertion&gt;
+            &lt;L7p:SetVariable&gt;
+                &lt;L7p:Base64Expression stringValue="SFRNTA=="/&gt;
+                &lt;L7p:VariableToSet stringValue="format"/&gt;
+            &lt;/L7p:SetVariable&gt;
+            &lt;L7p:assertionComment&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="// Confirm ${format} is set, default to HTML"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:assertionComment&gt;
+        &lt;/wsp:OneOrMore&gt;
+        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+            &lt;L7p:Regex&gt;
+                &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                &lt;L7p:CaseInsensitive booleanValue="true"/&gt;
+                &lt;L7p:OtherTargetMessageVariable stringValue="format"/&gt;
+                &lt;L7p:Regex stringValue="^(JSON|XML|HTML)$"/&gt;
+                &lt;L7p:Replacement stringValue=""/&gt;
+                &lt;L7p:Target target="OTHER"/&gt;
+            &lt;/L7p:Regex&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:CustomizeErrorResponse&gt;
+                    &lt;L7p:Content stringValue="Bad request: unknown format (${format})"/&gt;
+                    &lt;L7p:ExtraHeaders nameValuePairArray="included"/&gt;
+                    &lt;L7p:HttpStatus stringValue="400"/&gt;
+                &lt;/L7p:CustomizeErrorResponse&gt;
+                &lt;L7p:FalseAssertion/&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// Fail 400"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;L7p:assertionComment&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="// Validate ${format} else fail 400"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:assertionComment&gt;
+        &lt;/wsp:OneOrMore&gt;
+        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                    &lt;L7p:ComparisonAssertion&gt;
+                        &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                        &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                        &lt;L7p:Expression2 stringValue="JSON"/&gt;
+                        &lt;L7p:Predicates predicates="included"&gt;
+                            &lt;L7p:item binary="included"&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:RightValue stringValue="JSON"/&gt;
+                            &lt;/L7p:item&gt;
+                        &lt;/L7p:Predicates&gt;
+                    &lt;/L7p:ComparisonAssertion&gt;
+                    &lt;L7p:ComparisonAssertion&gt;
+                        &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                        &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                        &lt;L7p:Expression2 stringValue="XML"/&gt;
+                        &lt;L7p:Predicates predicates="included"&gt;
+                            &lt;L7p:item binary="included"&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:RightValue stringValue="XML"/&gt;
+                            &lt;/L7p:item&gt;
+                        &lt;/L7p:Predicates&gt;
+                    &lt;/L7p:ComparisonAssertion&gt;
+                    &lt;L7p:assertionComment&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// Check for ${format} == JSON|XML"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:assertionComment&gt;
+                &lt;/wsp:OneOrMore&gt;
+                &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;L7p:SslAssertion/&gt;
+                        &lt;L7p:HttpBasic/&gt;
+                        &lt;L7p:Authentication&gt;
+                            &lt;L7p:IdentityProviderOid goidValue="0000000000000000fffffffffffffffe"/&gt;
+                        &lt;/L7p:Authentication&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="dHJ1ZQ=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="loggedIn"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Authenticate using Basic Auth"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;L7p:SetVariable&gt;
+                        &lt;L7p:Base64Expression stringValue="ZmFsc2U="/&gt;
+                        &lt;L7p:VariableToSet stringValue="loggedIn"/&gt;
+                    &lt;/L7p:SetVariable&gt;
+                    &lt;L7p:assertionComment&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// Authenticate using Basic Auth and set ${loggedIn}"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:assertionComment&gt;
+                &lt;/wsp:OneOrMore&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// ${format} == JSON|XML"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:ComparisonAssertion&gt;
+                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                    &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                    &lt;L7p:Expression2 stringValue="HTML"/&gt;
+                    &lt;L7p:Predicates predicates="included"&gt;
+                        &lt;L7p:item binary="included"&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:RightValue stringValue="HTML"/&gt;
+                        &lt;/L7p:item&gt;
+                    &lt;/L7p:Predicates&gt;
+                &lt;/L7p:ComparisonAssertion&gt;
+                &lt;L7p:Encapsulated&gt;
+                    &lt;L7p:EncapsulatedAssertionConfigGuid stringValue="4bd10104-a43c-4ecf-ae4d-b95e312cad4b"/&gt;
+                    &lt;L7p:EncapsulatedAssertionConfigName stringValue="Utility: Form and Session Authentication"/&gt;
+                    &lt;L7p:Parameters mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="sessionTTL"/&gt;
+                            &lt;L7p:value stringValue="1800"/&gt;
+                        &lt;/L7p:entry&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="verifyAdmin"/&gt;
+                            &lt;L7p:value stringValue="true"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Parameters&gt;
+                &lt;/L7p:Encapsulated&gt;
+                &lt;L7p:Encapsulated&gt;
+                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// v1.0.0"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:AssertionComment&gt;
+                    &lt;L7p:EncapsulatedAssertionConfigGuid stringValue="43cbc673-f658-4e98-882d-111e752794b1"/&gt;
+                    &lt;L7p:EncapsulatedAssertionConfigName stringValue="Utility: Set Web Page Wrappers"/&gt;
+                    &lt;L7p:Parameters mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="utility.name"/&gt;
+                            &lt;L7p:value stringValue="API Gateway License Report"/&gt;
+                        &lt;/L7p:entry&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="utility.version"/&gt;
+                            &lt;L7p:value stringValue="1.0.0"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Parameters&gt;
+                &lt;/L7p:Encapsulated&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// ${format} == HTML"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;L7p:assertionComment&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="// Authentication"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:assertionComment&gt;
+        &lt;/wsp:OneOrMore&gt;
+        &lt;wsp:All wsp:Usage="Required"&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="VW5rbm93biBlcnJvciBmb3VuZA=="/&gt;
+                    &lt;L7p:VariableToSet stringValue="error.message"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="NTAw"/&gt;
+                    &lt;L7p:VariableToSet stringValue="error.status"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;L7p:ComparisonAssertion&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                            &lt;L7p:Expression2 stringValue="JSON"/&gt;
+                            &lt;L7p:Predicates predicates="included"&gt;
+                                &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="JSON"/&gt;
+                                &lt;/L7p:item&gt;
+                            &lt;/L7p:Predicates&gt;
+                        &lt;/L7p:ComparisonAssertion&gt;
+                        &lt;L7p:CustomizeErrorResponse&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// application/json"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Content stringValueReference="inline"&gt;&lt;![CDATA[{
+  "message": "${error.message}",
+  "status": "${error.status}"
+}]]&gt;&lt;/L7p:Content&gt;
+                            &lt;L7p:ContentType stringValue="application/json; charset=UTF-8"/&gt;
+                            &lt;L7p:ExtraHeaders nameValuePairArray="included"/&gt;
+                            &lt;L7p:HttpStatus stringValue="${error.status}"/&gt;
+                        &lt;/L7p:CustomizeErrorResponse&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// ${format} == JSON"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;L7p:ComparisonAssertion&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                            &lt;L7p:Expression2 stringValue="XML"/&gt;
+                            &lt;L7p:Predicates predicates="included"&gt;
+                                &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="XML"/&gt;
+                                &lt;/L7p:item&gt;
+                            &lt;/L7p:Predicates&gt;
+                        &lt;/L7p:ComparisonAssertion&gt;
+                        &lt;L7p:CustomizeErrorResponse&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// text/xml"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Content stringValueReference="inline"&gt;&lt;![CDATA[&lt;Error&gt;
+  &lt;Message&gt;${error.message}&lt;/Message&gt;
+  &lt;Status&gt;${error.status}&lt;/Status&gt;
+&lt;/Error&gt;]]&gt;&lt;/L7p:Content&gt;
+                            &lt;L7p:ContentType stringValue="text/xml; charset=UTF-8"/&gt;
+                            &lt;L7p:ExtraHeaders nameValuePairArray="included"/&gt;
+                            &lt;L7p:HttpStatus stringValue="${error.status}"/&gt;
+                        &lt;/L7p:CustomizeErrorResponse&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// ${format} == XML"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;L7p:CustomizeErrorResponse&gt;
+                        &lt;L7p:AssertionComment assertionComment="included"&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// text/html"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:AssertionComment&gt;
+                        &lt;L7p:Content stringValueReference="inline"&gt;&lt;![CDATA[${html.top}
+
+  &lt;h1&gt;Error&lt;/h1&gt;
+
+  &lt;p&gt;${error.message}&lt;/p&gt;
+
+${html.bottom}]]&gt;&lt;/L7p:Content&gt;
+                        &lt;L7p:ContentType stringValue="text/html; charset=UTF-8"/&gt;
+                        &lt;L7p:ExtraHeaders nameValuePairArray="included"/&gt;
+                        &lt;L7p:HttpStatus stringValue="${error.status}"/&gt;
+                    &lt;/L7p:CustomizeErrorResponse&gt;
+                    &lt;L7p:assertionComment&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// Set error template per ${format}"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:assertionComment&gt;
+                &lt;/wsp:OneOrMore&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// Configure error response"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;L7p:SetVariable&gt;
+                &lt;L7p:AssertionComment assertionComment="included"&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// 2 hours"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:AssertionComment&gt;
+                &lt;L7p:Base64Expression stringValue="NzIwMA=="/&gt;
+                &lt;L7p:VariableToSet stringValue="cacheAge"/&gt;
+            &lt;/L7p:SetVariable&gt;
+            &lt;L7p:SetVariable&gt;
+                &lt;L7p:AssertionComment assertionComment="included"&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// days"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:AssertionComment&gt;
+                &lt;L7p:Base64Expression stringValue="Nw=="/&gt;
+                &lt;L7p:VariableToSet stringValue="alertAge.WARNING"/&gt;
+            &lt;/L7p:SetVariable&gt;
+            &lt;L7p:SetVariable&gt;
+                &lt;L7p:AssertionComment assertionComment="included"&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// days"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:AssertionComment&gt;
+                &lt;L7p:Base64Expression stringValue="MzA="/&gt;
+                &lt;L7p:VariableToSet stringValue="alertAge.INFO"/&gt;
+            &lt;/L7p:SetVariable&gt;
+            &lt;L7p:assertionComment&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="// Configuration"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:assertionComment&gt;
+        &lt;/wsp:All&gt;
+        &lt;L7p:SetVariable&gt;
+            &lt;L7p:Base64Expression stringValue="PGR1bW15IC8+"/&gt;
+            &lt;L7p:ContentType stringValue="text/xml; charset=utf-8"/&gt;
+            &lt;L7p:DataType variableDataType="message"/&gt;
+            &lt;L7p:VariableToSet stringValue="dummy"/&gt;
+        &lt;/L7p:SetVariable&gt;
+        &lt;L7p:SetVariable&gt;
+            &lt;L7p:Base64Expression stringValue="MA=="/&gt;
+            &lt;L7p:VariableToSet stringValue="alert.level"/&gt;
+        &lt;/L7p:SetVariable&gt;
+        &lt;L7p:SetVariable&gt;
+            &lt;L7p:Base64Expression stringValue="T0s="/&gt;
+            &lt;L7p:VariableToSet stringValue="alert.status"/&gt;
+        &lt;/L7p:SetVariable&gt;
+        &lt;L7p:SetVariable&gt;
+            &lt;L7p:Base64Expression stringValue="QWxsIGxpY2Vuc2VzIGFyZSBmaW5l"/&gt;
+            &lt;L7p:VariableToSet stringValue="alert.message"/&gt;
+        &lt;/L7p:SetVariable&gt;
+        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:ComparisonAssertion&gt;
+                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                    &lt;L7p:Expression1 stringValue="${loggedIn}"/&gt;
+                    &lt;L7p:Operator operatorNull="null"/&gt;
+                    &lt;L7p:Predicates predicates="included"&gt;
+                        &lt;L7p:item dataType="included"&gt;
+                            &lt;L7p:Type variableDataType="boolean"/&gt;
+                        &lt;/L7p:item&gt;
+                        &lt;L7p:item binary="included"&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:RightValue stringValue="true"/&gt;
+                        &lt;/L7p:item&gt;
+                    &lt;/L7p:Predicates&gt;
+                &lt;/L7p:ComparisonAssertion&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue=""/&gt;
+                    &lt;L7p:DataType variableDataType="dateTime"/&gt;
+                    &lt;L7p:DateFormat stringValue="&amp;lt;Timestamp&gt;"/&gt;
+                    &lt;L7p:DateOffsetExpression stringValue=""/&gt;
+                    &lt;L7p:VariableToSet stringValue="now"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="JHtub3cuc2Vjb25kc30="/&gt;
+                    &lt;L7p:VariableToSet stringValue="calc.now"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                    &lt;L7p:JdbcQuery&gt;
+                        &lt;L7p:AssertionComment assertionComment="included"&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="LEFT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="ONBOARD"/&gt;
+                                &lt;/L7p:entry&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Ensure the database connection is valid!"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:AssertionComment&gt;
+                        &lt;L7p:ConnectionName stringValue="ssg"/&gt;
+                        &lt;L7p:ConvertVariablesToStrings booleanValue="false"/&gt;
+                        &lt;L7p:NamingMap mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="contents"/&gt;
+                                &lt;L7p:value stringValue="contents"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:NamingMap&gt;
+                        &lt;L7p:SqlQuery stringValue="SELECT contents FROM license_document"/&gt;
+                        &lt;L7p:VariablePrefix stringValue="licenses"/&gt;
+                    &lt;/L7p:JdbcQuery&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="RXJyb3IgcXVlcnlpbmcgZGF0YWJhc2U="/&gt;
+                            &lt;L7p:VariableToSet stringValue="error.message"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="NTAw"/&gt;
+                            &lt;L7p:VariableToSet stringValue="error.status"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:FalseAssertion/&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Fail 500"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;L7p:assertionComment&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// Query database else fail 500"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:assertionComment&gt;
+                &lt;/wsp:OneOrMore&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue=""/&gt;
+                    &lt;L7p:VariableToSet stringValue="licensesTable"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:ForEachLoop L7p:Usage="Required"
+                    loopVariable="licenses.contents" variablePrefix="license"&gt;
+                    &lt;L7p:SetVariable&gt;
+                        &lt;L7p:Base64Expression stringValue="JHtsaWNlbnNlLmN1cnJlbnR9"/&gt;
+                        &lt;L7p:ContentType stringValue="text/xml; charset=utf-8"/&gt;
+                        &lt;L7p:DataType variableDataType="message"/&gt;
+                        &lt;L7p:VariableToSet stringValue="license.xml"/&gt;
+                    &lt;/L7p:SetVariable&gt;
+                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                        &lt;L7p:ResponseXpathAssertion&gt;
+                            &lt;L7p:VariablePrefix stringValue="description"/&gt;
+                            &lt;L7p:XmlMsgSrc stringValue="license.xml"/&gt;
+                            &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                &lt;L7p:Expression stringValue="/ns:license/ns:description"/&gt;
+                                &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="ns"/&gt;
+                                    &lt;L7p:value stringValue="http://l7tech.com/license"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Namespaces&gt;
+                                &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                            &lt;/L7p:XpathExpression&gt;
+                        &lt;/L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="Tm8gZGVzY3JpcHRpb24gYXZhaWxhYmxl"/&gt;
+                            &lt;L7p:VariableToSet stringValue="description.result"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Ensure ${description.result} is set"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:OneOrMore&gt;
+                    &lt;L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:VariablePrefix stringValue="valid"/&gt;
+                        &lt;L7p:XmlMsgSrc stringValue="license.xml"/&gt;
+                        &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                            &lt;L7p:Expression stringValue="/ns:license/ns:valid"/&gt;
+                            &lt;L7p:Namespaces mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="ns"/&gt;
+                                    &lt;L7p:value stringValue="http://l7tech.com/license"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Namespaces&gt;
+                            &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                        &lt;/L7p:XpathExpression&gt;
+                    &lt;/L7p:ResponseXpathAssertion&gt;
+                    &lt;L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:VariablePrefix stringValue="expires"/&gt;
+                        &lt;L7p:XmlMsgSrc stringValue="license.xml"/&gt;
+                        &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                            &lt;L7p:Expression stringValue="/ns:license/ns:expires"/&gt;
+                            &lt;L7p:Namespaces mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="ns"/&gt;
+                                    &lt;L7p:value stringValue="http://l7tech.com/license"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Namespaces&gt;
+                            &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                        &lt;/L7p:XpathExpression&gt;
+                    &lt;/L7p:ResponseXpathAssertion&gt;
+                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                        &lt;L7p:ResponseXpathAssertion&gt;
+                            &lt;L7p:VariablePrefix stringValue="product.name"/&gt;
+                            &lt;L7p:XmlMsgSrc stringValue="license.xml"/&gt;
+                            &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                &lt;L7p:Expression stringValue="/ns:license/ns:product/@name"/&gt;
+                                &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="ns"/&gt;
+                                    &lt;L7p:value stringValue="http://l7tech.com/license"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Namespaces&gt;
+                                &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                            &lt;/L7p:XpathExpression&gt;
+                        &lt;/L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="VW5rbm93biBwcm9kdWN0"/&gt;
+                            &lt;L7p:VariableToSet stringValue="product.name.result"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Ensure ${product.name.result} is set"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:OneOrMore&gt;
+                    &lt;L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:VariablePrefix stringValue="version.major"/&gt;
+                        &lt;L7p:XmlMsgSrc stringValue="license.xml"/&gt;
+                        &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                            &lt;L7p:Expression stringValue="/ns:license/ns:product/ns:version/@major"/&gt;
+                            &lt;L7p:Namespaces mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="ns"/&gt;
+                                    &lt;L7p:value stringValue="http://l7tech.com/license"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Namespaces&gt;
+                            &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                        &lt;/L7p:XpathExpression&gt;
+                    &lt;/L7p:ResponseXpathAssertion&gt;
+                    &lt;L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:VariablePrefix stringValue="version.minor"/&gt;
+                        &lt;L7p:XmlMsgSrc stringValue="license.xml"/&gt;
+                        &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                            &lt;L7p:Expression stringValue="/ns:license/ns:product/ns:version/@minor"/&gt;
+                            &lt;L7p:Namespaces mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="ns"/&gt;
+                                    &lt;L7p:value stringValue="http://l7tech.com/license"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Namespaces&gt;
+                            &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                        &lt;/L7p:XpathExpression&gt;
+                    &lt;/L7p:ResponseXpathAssertion&gt;
+                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                        &lt;L7p:ComparisonAssertion&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:Expression1 stringValue="${version.minor.result}"/&gt;
+                            &lt;L7p:Operator operatorNull="null"/&gt;
+                            &lt;L7p:Predicates predicates="included"&gt;
+                                &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="string"/&gt;
+                                &lt;/L7p:item&gt;
+                                &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Negated booleanValue="true"/&gt;
+                                    &lt;L7p:Operator operator="EMPTY"/&gt;
+                                    &lt;L7p:RightValue stringValue=""/&gt;
+                                &lt;/L7p:item&gt;
+                            &lt;/L7p:Predicates&gt;
+                        &lt;/L7p:ComparisonAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="eA=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="version.minor.result"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Ensure ${version.minor.result} has a value"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:OneOrMore&gt;
+                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                        &lt;L7p:ResponseXpathAssertion&gt;
+                            &lt;L7p:VariablePrefix stringValue="featureset"/&gt;
+                            &lt;L7p:XmlMsgSrc stringValue="license.xml"/&gt;
+                            &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                &lt;L7p:Expression stringValue="/ns:license/ns:product/ns:featureset/@name"/&gt;
+                                &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="ns"/&gt;
+                                    &lt;L7p:value stringValue="http://l7tech.com/license"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Namespaces&gt;
+                                &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                            &lt;/L7p:XpathExpression&gt;
+                        &lt;/L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="RmVhdHVyZXNldCBub3QgZGVjbGFyZWQ="/&gt;
+                            &lt;L7p:VariableToSet stringValue="featureset.result"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Ensure ${featureset.result} is set"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:OneOrMore&gt;
+                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                        &lt;L7p:ResponseXpathAssertion&gt;
+                            &lt;L7p:VariablePrefix stringValue="licensee.email"/&gt;
+                            &lt;L7p:XmlMsgSrc stringValue="license.xml"/&gt;
+                            &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                &lt;L7p:Expression stringValue="/ns:license/ns:licensee/@contactEmail"/&gt;
+                                &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="ns"/&gt;
+                                    &lt;L7p:value stringValue="http://l7tech.com/license"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Namespaces&gt;
+                                &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                            &lt;/L7p:XpathExpression&gt;
+                        &lt;/L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="TGljZW5zZWUncyBlbWFpbCBub3QgZGVjbGFyZWQ="/&gt;
+                            &lt;L7p:VariableToSet stringValue="licensee.email.result"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Ensure ${licensee.email.result} is set"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:OneOrMore&gt;
+                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                        &lt;L7p:ResponseXpathAssertion&gt;
+                            &lt;L7p:VariablePrefix stringValue="licensee.name"/&gt;
+                            &lt;L7p:XmlMsgSrc stringValue="license.xml"/&gt;
+                            &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                &lt;L7p:Expression stringValue="/ns:license/ns:licensee/@name"/&gt;
+                                &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="ns"/&gt;
+                                    &lt;L7p:value stringValue="http://l7tech.com/license"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Namespaces&gt;
+                                &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                            &lt;/L7p:XpathExpression&gt;
+                        &lt;/L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="TGljZW5zZWUncyBuYW1lIG5vdCBkZWNsYXJlZA=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="licensee.name.result"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Ensure ${licensee.name.result} is set"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:OneOrMore&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtleHBpcmVzLnJlc3VsdH0="/&gt;
+                            &lt;L7p:DataType variableDataType="dateTime"/&gt;
+                            &lt;L7p:DateOffsetExpression stringValue=""/&gt;
+                            &lt;L7p:VariableToSet stringValue="expires"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtleHBpcmVzLnNlY29uZHN9"/&gt;
+                            &lt;L7p:VariableToSet stringValue="calc.expires"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:ResponseXpathAssertion&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Convert difference from seconds to float days"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:VariablePrefix stringValue="remaining"/&gt;
+                            &lt;L7p:XmlMsgSrc stringValue="dummy"/&gt;
+                            &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                &lt;L7p:Expression stringValue="($calc.expires - $calc.now) div 60 div 60 div 24"/&gt;
+                                &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="s"/&gt;
+                                    &lt;L7p:value stringValue="http://schemas.xmlsoap.org/soap/envelope/"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Namespaces&gt;
+                                &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                            &lt;/L7p:XpathExpression&gt;
+                        &lt;/L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:CommentAssertion&gt;
+                            &lt;L7p:Comment stringValue="** Isolate days"/&gt;
+                        &lt;/L7p:CommentAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Cast to string"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtyZW1haW5pbmcucmVzdWx0fQ=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="remaining.days"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:Regex&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Strip trailing decimals"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                            &lt;L7p:OtherTargetMessageVariable stringValue="remaining.days"/&gt;
+                            &lt;L7p:Regex stringValue="\..*"/&gt;
+                            &lt;L7p:Replace booleanValue="true"/&gt;
+                            &lt;L7p:Replacement stringValue=""/&gt;
+                            &lt;L7p:Target target="OTHER"/&gt;
+                        &lt;/L7p:Regex&gt;
+                        &lt;L7p:Regex&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Strip away integer portion to leave decimal days remainder"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                            &lt;L7p:OtherTargetMessageVariable stringValue="remaining.result"/&gt;
+                            &lt;L7p:Regex stringValue="^-?[0-9]*\."/&gt;
+                            &lt;L7p:Replace booleanValue="true"/&gt;
+                            &lt;L7p:Replacement stringValue="0."/&gt;
+                            &lt;L7p:Target target="OTHER"/&gt;
+                        &lt;/L7p:Regex&gt;
+                        &lt;L7p:CommentAssertion&gt;
+                            &lt;L7p:Comment stringValue="** Isolate hours"/&gt;
+                        &lt;/L7p:CommentAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Cast to string"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtyZW1haW5pbmcucmVzdWx0fQ=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="remaining.hours"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:ResponseXpathAssertion&gt;
+                            &lt;L7p:VariablePrefix stringValue="remaining"/&gt;
+                            &lt;L7p:XmlMsgSrc stringValue="dummy"/&gt;
+                            &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                &lt;L7p:Expression stringValue="$remaining.hours * 24"/&gt;
+                                &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="s"/&gt;
+                                    &lt;L7p:value stringValue="http://schemas.xmlsoap.org/soap/envelope/"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Namespaces&gt;
+                                &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                            &lt;/L7p:XpathExpression&gt;
+                        &lt;/L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Cast to string"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtyZW1haW5pbmcucmVzdWx0fQ=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="remaining.hours"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:Regex&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Strip trailing decimals"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                            &lt;L7p:OtherTargetMessageVariable stringValue="remaining.hours"/&gt;
+                            &lt;L7p:Regex stringValue="\..*"/&gt;
+                            &lt;L7p:Replace booleanValue="true"/&gt;
+                            &lt;L7p:Replacement stringValue=""/&gt;
+                            &lt;L7p:Target target="OTHER"/&gt;
+                        &lt;/L7p:Regex&gt;
+                        &lt;L7p:Regex&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Strip away integer portion to leave decimal hours remainder"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                            &lt;L7p:OtherTargetMessageVariable stringValue="remaining.result"/&gt;
+                            &lt;L7p:Regex stringValue="^[0-9]*\."/&gt;
+                            &lt;L7p:Replace booleanValue="true"/&gt;
+                            &lt;L7p:Replacement stringValue="0."/&gt;
+                            &lt;L7p:Target target="OTHER"/&gt;
+                        &lt;/L7p:Regex&gt;
+                        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${remaining.hours}"/&gt;
+                                &lt;L7p:Operator operatorNull="null"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="10"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Cast to string"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:AssertionComment&gt;
+                                &lt;L7p:Base64Expression stringValue="MCR7cmVtYWluaW5nLmhvdXJzfQ=="/&gt;
+                                &lt;L7p:VariableToSet stringValue="remaining.hours"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Prefix ${remaining.hours} with 0 if &amp;lt; 10"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:OneOrMore&gt;
+                        &lt;L7p:CommentAssertion&gt;
+                            &lt;L7p:Comment stringValue="** Isolate minutes"/&gt;
+                        &lt;/L7p:CommentAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Cast to string"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtyZW1haW5pbmcucmVzdWx0fQ=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="remaining.minutes"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:ResponseXpathAssertion&gt;
+                            &lt;L7p:VariablePrefix stringValue="remaining"/&gt;
+                            &lt;L7p:XmlMsgSrc stringValue="dummy"/&gt;
+                            &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                &lt;L7p:Expression stringValue="$remaining.minutes * 60"/&gt;
+                                &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="s"/&gt;
+                                    &lt;L7p:value stringValue="http://schemas.xmlsoap.org/soap/envelope/"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Namespaces&gt;
+                                &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                            &lt;/L7p:XpathExpression&gt;
+                        &lt;/L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Cast to string"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtyZW1haW5pbmcucmVzdWx0fQ=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="remaining.minutes"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:Regex&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Strip trailing decimals"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                            &lt;L7p:OtherTargetMessageVariable stringValue="remaining.minutes"/&gt;
+                            &lt;L7p:Regex stringValue="\..*"/&gt;
+                            &lt;L7p:Replace booleanValue="true"/&gt;
+                            &lt;L7p:Replacement stringValue=""/&gt;
+                            &lt;L7p:Target target="OTHER"/&gt;
+                        &lt;/L7p:Regex&gt;
+                        &lt;L7p:Regex&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Strip away integer portion to leave decimal minutes remainder"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                            &lt;L7p:OtherTargetMessageVariable stringValue="remaining.result"/&gt;
+                            &lt;L7p:Regex stringValue="^[0-9]*\."/&gt;
+                            &lt;L7p:Replace booleanValue="true"/&gt;
+                            &lt;L7p:Replacement stringValue="0."/&gt;
+                            &lt;L7p:Target target="OTHER"/&gt;
+                        &lt;/L7p:Regex&gt;
+                        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${remaining.minutes}"/&gt;
+                                &lt;L7p:Operator operatorNull="null"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="10"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Cast to string"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:AssertionComment&gt;
+                                &lt;L7p:Base64Expression stringValue="MCR7cmVtYWluaW5nLm1pbnV0ZXN9"/&gt;
+                                &lt;L7p:VariableToSet stringValue="remaining.minutes"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Prefix ${remaining.minutes} with 0 if &amp;lt; 10"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:OneOrMore&gt;
+                        &lt;L7p:CommentAssertion&gt;
+                            &lt;L7p:Comment stringValue="** Isolate seconds"/&gt;
+                        &lt;/L7p:CommentAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Cast to string"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtyZW1haW5pbmcucmVzdWx0fQ=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="remaining.seconds"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:ResponseXpathAssertion&gt;
+                            &lt;L7p:VariablePrefix stringValue="remaining"/&gt;
+                            &lt;L7p:XmlMsgSrc stringValue="dummy"/&gt;
+                            &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                &lt;L7p:Expression stringValue="$remaining.seconds * 60"/&gt;
+                                &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="s"/&gt;
+                                    &lt;L7p:value stringValue="http://schemas.xmlsoap.org/soap/envelope/"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Namespaces&gt;
+                                &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                            &lt;/L7p:XpathExpression&gt;
+                        &lt;/L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Cast to string"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtyZW1haW5pbmcucmVzdWx0fQ=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="remaining.seconds"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:Regex&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Strip trailing decimals"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                            &lt;L7p:OtherTargetMessageVariable stringValue="remaining.seconds"/&gt;
+                            &lt;L7p:Regex stringValue="\..*"/&gt;
+                            &lt;L7p:Replace booleanValue="true"/&gt;
+                            &lt;L7p:Replacement stringValue=""/&gt;
+                            &lt;L7p:Target target="OTHER"/&gt;
+                        &lt;/L7p:Regex&gt;
+                        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${remaining.seconds}"/&gt;
+                                &lt;L7p:Operator operatorNull="null"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="10"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Cast to string"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:AssertionComment&gt;
+                                &lt;L7p:Base64Expression stringValue="MCR7cmVtYWluaW5nLnNlY29uZHN9"/&gt;
+                                &lt;L7p:VariableToSet stringValue="remaining.seconds"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Prefix ${remaining.seconds} with 0 if &amp;lt; 10"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:OneOrMore&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Calculate days, hours, minutes and seconds until expiry"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                        &lt;wsp:All wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${remaining.days}"/&gt;
+                                &lt;L7p:Operator operatorNull="null"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="${alertAge.INFO}"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:Base64Expression stringValue="T0s="/&gt;
+                                &lt;L7p:VariableToSet stringValue="license.status"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Check for OK status"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:All&gt;
+                        &lt;wsp:All wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${remaining.days}"/&gt;
+                                &lt;L7p:Operator operatorNull="null"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="${alertAge.WARNING}"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:Base64Expression stringValue="SU5GTw=="/&gt;
+                                &lt;L7p:VariableToSet stringValue="license.status"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                &lt;L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Expression1 stringValue="${alert.level}"/&gt;
+                                    &lt;L7p:Operator operatorNull="null"/&gt;
+                                    &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="1"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;/L7p:Predicates&gt;
+                                &lt;/L7p:ComparisonAssertion&gt;
+                                &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="MQ=="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="alert.level"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="SU5GTw=="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="alert.status"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="QXQgbGVhc3Qgb25lIGxpY2Vuc2Ugd2lsbCBleHBpcmUgd2l0aGluZyAke2FsZXJ0QWdlLklORk99IGRheXM="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="alert.message"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set ${alert.level}, ${alert.status}, and ${alert.message}"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                &lt;/wsp:All&gt;
+                                &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set ${alert.*} if not already at a higher state"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:assertionComment&gt;
+                            &lt;/wsp:OneOrMore&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Check for INFO status"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:All&gt;
+                        &lt;wsp:All wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${remaining.days}"/&gt;
+                                &lt;L7p:Operator operatorNull="null"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="0"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:Base64Expression stringValue="V0FSTklORw=="/&gt;
+                                &lt;L7p:VariableToSet stringValue="license.status"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                &lt;L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Expression1 stringValue="${alert.level}"/&gt;
+                                    &lt;L7p:Operator operatorNull="null"/&gt;
+                                    &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="2"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;/L7p:Predicates&gt;
+                                &lt;/L7p:ComparisonAssertion&gt;
+                                &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="Mg=="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="alert.level"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="V0FSTklORw=="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="alert.status"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="QXQgbGVhc3Qgb25lIGxpY2Vuc2Ugd2lsbCBleHBpcmUgd2l0aGluZyAke2FsZXJ0QWdlLldBUk5JTkd9IGRheXM="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="alert.message"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set ${alert.level}, ${alert.status}, and ${alert.message}"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                &lt;/wsp:All&gt;
+                                &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set ${alert.*} if not already at a higher state"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:assertionComment&gt;
+                            &lt;/wsp:OneOrMore&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Check for WARNING status"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:All&gt;
+                        &lt;wsp:All wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${remaining.days}"/&gt;
+                                &lt;L7p:Operator operatorNull="null"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Operator operator="LT"/&gt;
+                                    &lt;L7p:RightValue stringValue="0"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:Base64Expression stringValue="U0VWRVJF"/&gt;
+                                &lt;L7p:VariableToSet stringValue="license.status"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                &lt;L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Expression1 stringValue="${alert.level}"/&gt;
+                                    &lt;L7p:Operator operatorNull="null"/&gt;
+                                    &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="3"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;/L7p:Predicates&gt;
+                                &lt;/L7p:ComparisonAssertion&gt;
+                                &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="Mw=="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="alert.level"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="U0VWRVJF"/&gt;
+                                    &lt;L7p:VariableToSet stringValue="alert.status"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="QXQgbGVhc3Qgb25lIGxpY2Vuc2UgaGFzIGV4cGlyZWQ="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="alert.message"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set ${alert.level}, ${alert.status}, and ${alert.message}"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                &lt;/wsp:All&gt;
+                                &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set ${alert.*} if not already at a higher state"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:assertionComment&gt;
+                            &lt;/wsp:OneOrMore&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Check for SEVERE status"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:All&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set ${alert.*} based on expiration status"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:OneOrMore&gt;
+                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                        &lt;wsp:All wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                                &lt;L7p:Expression2 stringValue="JSON"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="JSON"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                &lt;L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Expression1 stringValue="${license.iterations}"/&gt;
+                                    &lt;L7p:Expression2 stringValue="0"/&gt;
+                                    &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="0"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;/L7p:Predicates&gt;
+                                &lt;/L7p:ComparisonAssertion&gt;
+                                &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="JHtsaWNlbnNlc1RhYmxlfSw="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="licensesTable"/&gt;
+                                &lt;/L7p:SetVariable&gt;
+                                &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Append comma if not first iteration"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:assertionComment&gt;
+                            &lt;/wsp:OneOrMore&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:Base64Expression stringValue="JHtsaWNlbnNlc1RhYmxlfQ0KICAgIHsNCiAgICAgICJwcm9kdWN0IjogIiR7cHJvZHVjdC5uYW1lLnJlc3VsdH0iLA0KICAgICAgInZlcnNpb24iOiAiJHt2ZXJzaW9uLm1ham9yLnJlc3VsdH0uJHt2ZXJzaW9uLm1pbm9yLnJlc3VsdH0iLA0KICAgICAgImZlYXR1cmVzZXQiOiAiJHtmZWF0dXJlc2V0LnJlc3VsdH0iLA0KICAgICAgImRlc2NyaXB0aW9uIjogIiR7ZGVzY3JpcHRpb24ucmVzdWx0fSIsDQogICAgICAibGljZW5zZWUiOiB7DQogICAgICAgICAibmFtZSI6ICIke2xpY2Vuc2VlLm5hbWUucmVzdWx0fSIsDQogICAgICAgICAiZW1haWwiOiAiJHtsaWNlbnNlZS5lbWFpbC5yZXN1bHR9Ig0KICAgICAgfSwNCiAgICAgICJ2YWxpZCI6ICIke3ZhbGlkLnJlc3VsdH0iLA0KICAgICAgImV4cGlyZXMiOiAiJHtleHBpcmVzLnJlc3VsdH0iLA0KICAgICAgInJlbWFpbmluZyI6ICIke3JlbWFpbmluZy5kYXlzfToke3JlbWFpbmluZy5ob3Vyc306JHtyZW1haW5pbmcubWludXRlc306JHtyZW1haW5pbmcuc2Vjb25kc30iLA0KICAgICAgInN0YXR1cyI6ICIke2xpY2Vuc2Uuc3RhdHVzfSINCiAgICB9"/&gt;
+                                &lt;L7p:VariableToSet stringValue="licensesTable"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// ${format} == JSON"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:All&gt;
+                        &lt;wsp:All wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                                &lt;L7p:Expression2 stringValue="XML"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="XML"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:Base64Expression stringValue="JHtsaWNlbnNlc1RhYmxlfQ0KICAgIDxMaWNlbnNlPg0KICAgICAgPFByb2R1Y3Q+JHtwcm9kdWN0Lm5hbWUucmVzdWx0fTwvUHJvZHVjdD4NCiAgICAgIDxWZXJzaW9uPiR7dmVyc2lvbi5tYWpvci5yZXN1bHR9LiR7dmVyc2lvbi5taW5vci5yZXN1bHR9PC9WZXJzaW9uPg0KICAgICAgPEZlYXR1cmVTZXQ+JHtmZWF0dXJlc2V0LnJlc3VsdH08L0ZlYXR1cmVTZXQ+DQogICAgICA8RGVzY3JpcHRpb24+JHtkZXNjcmlwdGlvbi5yZXN1bHR9PC9EZXNjcmlwdGlvbj4NCiAgICAgIDxMaWNlbnNlZT4NCiAgICAgICAgPE5hbWU+JHtsaWNlbnNlZS5uYW1lLnJlc3VsdH08L05hbWU+DQogICAgICAgIDxFbWFpbD4ke2xpY2Vuc2VlLmVtYWlsLnJlc3VsdH08L0VtYWlsPg0KICAgICAgPC9MaWNlbnNlZT4NCiAgICAgIDxWYWxpZD4ke3ZhbGlkLnJlc3VsdH08L1ZhbGlkPg0KICAgICAgPEV4cGlyZXM+JHtleHBpcmVzLnJlc3VsdH08L0V4cGlyZXM+DQogICAgICA8UmVtYWluaW5nPiR7cmVtYWluaW5nLmRheXN9OiR7cmVtYWluaW5nLmhvdXJzfToke3JlbWFpbmluZy5taW51dGVzfToke3JlbWFpbmluZy5zZWNvbmRzfTwvUmVtYWluaW5nPg0KICAgICAgPFN0YXR1cz4ke2xpY2Vuc2Uuc3RhdHVzfTwvU3RhdHVzPg0KICAgIDwvTGljZW5zZT4="/&gt;
+                                &lt;L7p:VariableToSet stringValue="licensesTable"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// ${format} == XML"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:All&gt;
+                        &lt;wsp:All wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                                &lt;L7p:Expression2 stringValue="HTML"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="HTML"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Expression1 stringValue="${remaining.days}"/&gt;
+                                    &lt;L7p:Operator operatorNull="null"/&gt;
+                                    &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="${alertAge.INFO}"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;/L7p:Predicates&gt;
+                                    &lt;/L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="bGlnaHRncmVlbg=="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="bgcolor"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// No alert to set"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                &lt;/wsp:All&gt;
+                                &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Expression1 stringValue="${remaining.days}"/&gt;
+                                    &lt;L7p:Operator operatorNull="null"/&gt;
+                                    &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="${alertAge.WARNING}"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;/L7p:Predicates&gt;
+                                    &lt;/L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="eWVsbG93"/&gt;
+                                    &lt;L7p:VariableToSet stringValue="bgcolor"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set for INFO"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                &lt;/wsp:All&gt;
+                                &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Expression1 stringValue="${remaining.days}"/&gt;
+                                    &lt;L7p:Operator operatorNull="null"/&gt;
+                                    &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="int"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Operator operator="GE"/&gt;
+                                    &lt;L7p:RightValue stringValue="0"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;/L7p:Predicates&gt;
+                                    &lt;/L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="b3Jhbmdl"/&gt;
+                                    &lt;L7p:VariableToSet stringValue="bgcolor"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set for WARNING"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                &lt;/wsp:All&gt;
+                                &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Must be EXPIRED"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:Base64Expression stringValue="cmVk"/&gt;
+                                    &lt;L7p:VariableToSet stringValue="bgcolor"/&gt;
+                                &lt;/L7p:SetVariable&gt;
+                                &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set the background colour for the Time Remaining cell"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:assertionComment&gt;
+                            &lt;/wsp:OneOrMore&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:Base64Expression stringValue="JHtsaWNlbnNlc1RhYmxlfSAgPHRyPg0KICAgIDx0ZD4ke3Byb2R1Y3QubmFtZS5yZXN1bHR9PGJyLz5WZXJzaW9uICR7dmVyc2lvbi5tYWpvci5yZXN1bHR9LiR7dmVyc2lvbi5taW5vci5yZXN1bHR9PGJyLz4oJHtmZWF0dXJlc2V0LnJlc3VsdH0pPC90ZD4NCiAgICA8dGQ+JHtkZXNjcmlwdGlvbi5yZXN1bHR9PC90ZD4NCiAgICA8dGQ+JHtsaWNlbnNlZS5uYW1lLnJlc3VsdH08YnIvPigke2xpY2Vuc2VlLmVtYWlsLnJlc3VsdH0pPC90ZD4NCiAgICA8dGQ+JHt2YWxpZC5yZXN1bHR9PC90ZD4NCiAgICA8dGQ+JHtleHBpcmVzLnJlc3VsdH08L3RkPg0KICAgIDx0ZCBiZ2NvbG9yPSIke2JnY29sb3J9Ij4ke3JlbWFpbmluZy5kYXlzfToke3JlbWFpbmluZy5ob3Vyc306JHtyZW1haW5pbmcubWludXRlc306JHtyZW1haW5pbmcuc2Vjb25kc308L3RkPg0KICA8L3RyPg=="/&gt;
+                                &lt;L7p:VariableToSet stringValue="licensesTable"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// ${format} == HTML"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:All&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set response per ${format}"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:OneOrMore&gt;
+                &lt;/L7p:ForEachLoop&gt;
+                &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;L7p:ComparisonAssertion&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                            &lt;L7p:Expression2 stringValue="JSON"/&gt;
+                            &lt;L7p:Predicates predicates="included"&gt;
+                                &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="JSON"/&gt;
+                                &lt;/L7p:item&gt;
+                            &lt;/L7p:Predicates&gt;
+                        &lt;/L7p:ComparisonAssertion&gt;
+                        &lt;L7p:HardcodedResponse&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// application/json"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Base64ResponseBody stringValue="ewogICJhbGVydFN0YXR1cyI6ICIke2FsZXJ0LnN0YXR1c30iLAogICJhbGVydExldmVsIjogIiR7YWxlcnQubGV2ZWx9IiwKICAiYWxlcnRNZXNzYWdlIjogIiR7YWxlcnQubWVzc2FnZX0iLAogICJ0aHJlc2hvbGQuSU5GTyI6ICIke2FsZXJ0QWdlLklORk99IGRheXMiLAogICJ0aHJlc2hvbGQuV0FSTklORyI6ICIke2FsZXJ0QWdlLldBUk5JTkd9IGRheXMiLAogICJsaWNlbnNlcyI6IFske2xpY2Vuc2VzVGFibGV9CiAgXSwKICAiYWNjZXNzZWRCeSI6ICIke3JlcXVlc3QuYXV0aGVudGljYXRlZHVzZXJ9Igp9"/&gt;
+                            &lt;L7p:ResponseContentType stringValue="application/json; charset=UTF-8"/&gt;
+                        &lt;/L7p:HardcodedResponse&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// ${format} == JSON"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;L7p:ComparisonAssertion&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                            &lt;L7p:Expression2 stringValue="XML"/&gt;
+                            &lt;L7p:Predicates predicates="included"&gt;
+                                &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="XML"/&gt;
+                                &lt;/L7p:item&gt;
+                            &lt;/L7p:Predicates&gt;
+                        &lt;/L7p:ComparisonAssertion&gt;
+                        &lt;L7p:HardcodedResponse&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// text/xml"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Base64ResponseBody stringValue="PExpY2Vuc2VSZXBvcnQ+CiAgPEFsZXJ0U3RhdHVzPiR7YWxlcnQuc3RhdHVzfTwvQWxlcnRTdGF0dXM+CiAgPEFsZXJ0TGV2ZWw+JHthbGVydC5sZXZlbH08L0FsZXJ0TGV2ZWw+CiAgPEFsZXJ0TWVzc2FnZT4ke2FsZXJ0Lm1lc3NhZ2V9PC9BbGVydE1lc3NhZ2U+CiAgPFRocmVzaG9sZC5JTkZPPiR7YWxlcnRBZ2UuSU5GT30gZGF5czwvVGhyZXNob2xkLklORk8+CiAgPFRocmVzaG9sZC5XQVJOSU5HPiR7YWxlcnRBZ2UuV0FSTklOR30gZGF5czwvVGhyZXNob2xkLldBUk5JTkc+CiAgPExpY2Vuc2VzPiR7bGljZW5zZXNUYWJsZX0KICA8L0xpY2Vuc2VzPgogIDxBY2Nlc3NlZEJ5PiR7cmVxdWVzdC5hdXRoZW50aWNhdGVkdXNlcn08L0FjY2Vzc2VkQnk+CjwvTGljZW5zZVJlcG9ydD4="/&gt;
+                        &lt;/L7p:HardcodedResponse&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// ${format} == XML"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;L7p:ComparisonAssertion&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                            &lt;L7p:Expression2 stringValue="HTML"/&gt;
+                            &lt;L7p:Predicates predicates="included"&gt;
+                                &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="HTML"/&gt;
+                                &lt;/L7p:item&gt;
+                            &lt;/L7p:Predicates&gt;
+                        &lt;/L7p:ComparisonAssertion&gt;
+                        &lt;L7p:HardcodedResponse&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// text/html"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:Base64ResponseBody stringValue="JHtodG1sLnRvcH0KCjxoMj5MaWNlbnNlczwvaDI+Cjx0YWJsZSBjbGFzcz0idGFibGUtc3RyaXBlZCB0YWJsZS1ob3ZlciI+CiAgPHRyIHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjE2LDIxNiwyMTYpOyI+CiAgICA8dGg+UHJvZHVjdCwgVmVyc2lvbiwgJmFtcDsgRmVhdHVyZVNldDwvdGg+CiAgICA8dGg+RGVzY3JpcHRpb248L3RoPgogICAgPHRoPklzc3VlZCBUbzwvdGg+CiAgICA8dGg+U3RhcnQ8L3RoPgogICAgPHRoPkV4cGlyZXM8L3RoPgogICAgPHRoPlRpbWUgUmVtYWluaW5nPC90aD4KICA8L3RyPgoke2xpY2Vuc2VzVGFibGV9CjwvdGFibGU+Cgo8aDI+TGVnZW5kPC9oMj4KPHRhYmxlIGNsYXNzPSJ0YWJsZS1zdHJpcGVkIHRhYmxlLWhvdmVyIj4KICA8dHI+CiAgICA8dGQgYmdjb2xvcj0ibGlnaHRncmVlbiI+TGljZW5zZSBpcyBPSzwvdGQ+CiAgICA8dGQgYmdjb2xvcj0ieWVsbG93Ij5MaWNlbnNlIHdpbGwgZXhwaXJlIGluIGxlc3MgdGhhbiAke2FsZXJ0QWdlLklORk99IGRheXM8L3RkPgogICAgPHRkIGJnY29sb3I9Im9yYW5nZSI+TGljZW5zZSB3aWxsIGV4cGlyZSBpbiBsZXNzIHRoYW4gJHthbGVydEFnZS5XQVJOSU5HfSBkYXlzPC90ZD4KICAgIDx0ZCBiZ2NvbG9yPSJyZWQiPkxpY2Vuc2UgaGFzIGV4cGlyZWQ8L3RkPgogIDwvdHI+CjwvdGFibGU+Cgoke2h0bWwuYm90dG9tfQ=="/&gt;
+                            &lt;L7p:ResponseContentType stringValue="text/html; charset=UTF-8"/&gt;
+                        &lt;/L7p:HardcodedResponse&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// ${format} == HTML"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;L7p:assertionComment&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// Return response per ${format}"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:assertionComment&gt;
+                &lt;/wsp:OneOrMore&gt;
+                &lt;L7p:AddHeader&gt;
+                    &lt;L7p:HeaderName stringValue="X-AlertLevel"/&gt;
+                    &lt;L7p:HeaderValue stringValue="${alert.level}"/&gt;
+                    &lt;L7p:Target target="RESPONSE"/&gt;
+                &lt;/L7p:AddHeader&gt;
+                &lt;L7p:AddHeader&gt;
+                    &lt;L7p:HeaderName stringValue="X-AlertStatus"/&gt;
+                    &lt;L7p:HeaderValue stringValue="${alert.status}"/&gt;
+                    &lt;L7p:Target target="RESPONSE"/&gt;
+                &lt;/L7p:AddHeader&gt;
+                &lt;L7p:AddHeader&gt;
+                    &lt;L7p:HeaderName stringValue="X-AlertMessage"/&gt;
+                    &lt;L7p:HeaderValue stringValue="${alert.message}"/&gt;
+                    &lt;L7p:Target target="RESPONSE"/&gt;
+                &lt;/L7p:AddHeader&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// ${loggedIn} == true"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:ComparisonAssertion&gt;
+                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                    &lt;L7p:Expression1 stringValue="${loggedIn}"/&gt;
+                    &lt;L7p:Operator operatorNull="null"/&gt;
+                    &lt;L7p:Predicates predicates="included"&gt;
+                        &lt;L7p:item dataType="included"&gt;
+                            &lt;L7p:Type variableDataType="boolean"/&gt;
+                        &lt;/L7p:item&gt;
+                        &lt;L7p:item binary="included"&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:RightValue stringValue="false"/&gt;
+                        &lt;/L7p:item&gt;
+                    &lt;/L7p:Predicates&gt;
+                &lt;/L7p:ComparisonAssertion&gt;
+                &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                                &lt;L7p:Expression2 stringValue="JSON"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="JSON"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                                &lt;L7p:Expression2 stringValue="XML"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="XML"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Check for ${format} == JSON|XML"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:OneOrMore&gt;
+                        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                            &lt;wsp:All wsp:Usage="Required"&gt;
+                                &lt;L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Expression1 stringValue="${request.http.secure}"/&gt;
+                                    &lt;L7p:Operator operatorNull="null"/&gt;
+                                    &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="boolean"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="true"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;/L7p:Predicates&gt;
+                                &lt;/L7p:ComparisonAssertion&gt;
+                                &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="Tm90IEF1dGhvcml6ZWQ="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="error.message"/&gt;
+                                &lt;/L7p:SetVariable&gt;
+                                &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Secure connection, so just return &amp;quot;Not Authorized&amp;quot;"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:assertionComment&gt;
+                            &lt;/wsp:All&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:Base64Expression stringValue="U1NMIFJlcXVpcmVk"/&gt;
+                                &lt;L7p:VariableToSet stringValue="error.message"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Set error response depending on whether it came over SSL or not"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:OneOrMore&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="NDAx"/&gt;
+                            &lt;L7p:VariableToSet stringValue="error.status"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:FalseAssertion/&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// ${format} == JSON|XML"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;L7p:ComparisonAssertion&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:Expression1 stringValue="${format}"/&gt;
+                            &lt;L7p:Expression2 stringValue="HTML"/&gt;
+                            &lt;L7p:Predicates predicates="included"&gt;
+                                &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="HTML"/&gt;
+                                &lt;/L7p:item&gt;
+                            &lt;/L7p:Predicates&gt;
+                        &lt;/L7p:ComparisonAssertion&gt;
+                        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                            &lt;wsp:All wsp:Usage="Required"&gt;
+                                &lt;L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:Expression1 stringValue="${logout}"/&gt;
+                                    &lt;L7p:Operator operatorNull="null"/&gt;
+                                    &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item dataType="included"&gt;
+                                    &lt;L7p:Type variableDataType="boolean"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                                    &lt;L7p:RightValue stringValue="true"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;/L7p:Predicates&gt;
+                                &lt;/L7p:ComparisonAssertion&gt;
+                                &lt;L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// FINE"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:Detail stringValue="==&gt; Logging user out"/&gt;
+                                    &lt;L7p:Level stringValue="FINE"/&gt;
+                                &lt;/L7p:AuditDetailAssertion&gt;
+                                &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue=""/&gt;
+                                    &lt;L7p:DataType variableDataType="dateTime"/&gt;
+                                    &lt;L7p:DateOffsetExpression stringValue="-1"/&gt;
+                                    &lt;L7p:DateOffsetField intValue="5"/&gt;
+                                    &lt;L7p:VariableToSet stringValue="yesterday"/&gt;
+                                &lt;/L7p:SetVariable&gt;
+                                &lt;L7p:ManageCookie&gt;
+                                    &lt;L7p:CookieAttributes mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="name"/&gt;
+                                    &lt;L7p:value nameValuePair="included"&gt;
+                                    &lt;L7p:Key stringValue="name"/&gt;
+                                    &lt;L7p:Value stringValue="sessionKey"/&gt;
+                                    &lt;/L7p:value&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="max-age"/&gt;
+                                    &lt;L7p:value nameValuePair="included"&gt;
+                                    &lt;L7p:Key stringValue="max-age"/&gt;
+                                    &lt;L7p:Value stringValue="0"/&gt;
+                                    &lt;/L7p:value&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="httpOnly"/&gt;
+                                    &lt;L7p:value nameValuePair="included"&gt;
+                                    &lt;L7p:Key stringValue="httpOnly"/&gt;
+                                    &lt;L7p:Value stringValue="true"/&gt;
+                                    &lt;/L7p:value&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="secure"/&gt;
+                                    &lt;L7p:value nameValuePair="included"&gt;
+                                    &lt;L7p:Key stringValue="secure"/&gt;
+                                    &lt;L7p:Value stringValue="true"/&gt;
+                                    &lt;/L7p:value&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="value"/&gt;
+                                    &lt;L7p:value nameValuePair="included"&gt;
+                                    &lt;L7p:Key stringValue="value"/&gt;
+                                    &lt;L7p:Value stringValue="NULL"/&gt;
+                                    &lt;/L7p:value&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:CookieAttributes&gt;
+                                    &lt;L7p:Operation operation="ADD_OR_REPLACE"/&gt;
+                                    &lt;L7p:Target target="RESPONSE"/&gt;
+                                &lt;/L7p:ManageCookie&gt;
+                                &lt;L7p:CacheStorage&gt;
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Remove from cache by setting TTL to 0"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:CacheEntryKey stringValue="${cookie.sessionKey}"/&gt;
+                                    &lt;L7p:CacheId stringValue="loginCache"/&gt;
+                                    &lt;L7p:MaxEntries stringValue="25"/&gt;
+                                    &lt;L7p:MaxEntryAgeSeconds stringValue="0"/&gt;
+                                    &lt;L7p:MaxEntrySizeBytes stringValue="1000"/&gt;
+                                    &lt;L7p:OtherTargetMessageVariable stringValue="sessionDetail"/&gt;
+                                    &lt;L7p:Target target="OTHER"/&gt;
+                                &lt;/L7p:CacheStorage&gt;
+                                &lt;L7p:AddHeader&gt;
+                                    &lt;L7p:HeaderName stringValue="Location"/&gt;
+                                    &lt;L7p:HeaderValue stringValue="${request.url.path}"/&gt;
+                                    &lt;L7p:Target target="RESPONSE"/&gt;
+                                &lt;/L7p:AddHeader&gt;
+                                &lt;L7p:HardcodedResponse&gt;
+                                    &lt;L7p:Base64ResponseBody stringValue="JHtodG1sLnRvcH0KPHA+JHtmb3JtLm1lc3NhZ2V9PC9wPgoKPHA+PGEgaHJlZj0iJHtyZXF1ZXN0LnVybC5wYXRofSI+Q29udGludWU8L3A+CiR7aHRtbC5ib3R0b219"/&gt;
+                                    &lt;L7p:ResponseContentType stringValue="text/html; charset=UTF-8"/&gt;
+                                    &lt;L7p:ResponseStatus stringValue="302"/&gt;
+                                &lt;/L7p:HardcodedResponse&gt;
+                                &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Logout"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:assertionComment&gt;
+                            &lt;/wsp:All&gt;
+                            &lt;wsp:All wsp:Usage="Required"&gt;
+                                &lt;L7p:AuditDetailAssertion&gt;
+                                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// FINE"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:AssertionComment&gt;
+                                    &lt;L7p:Detail stringValue="==&gt; Not authenticated, returning login form"/&gt;
+                                    &lt;L7p:Level stringValue="FINE"/&gt;
+                                &lt;/L7p:AuditDetailAssertion&gt;
+                                &lt;L7p:HardcodedResponse&gt;
+                                    &lt;L7p:Base64ResponseBody stringValue="JHtodG1sLnRvcH0KCiAgICA8cD4ke2Zvcm0ubWVzc2FnZX08L3A+CgogICAgPHA+UGxlYXNlIHByb3ZpZGUgUG9saWN5IE1hbmFnZXIgYWRtaW5pc3RyYXRvciBjcmVkZW50aWFsczo8L3A+CiAgICA8Zm9ybSBtZXRob2Q9IlBPU1QiPgogICAgPHA+VXNlcm5hbWU6IDxpbnB1dCBuYW1lPSJ1c2VybmFtZSIgdHlwZT0idGV4dCIvPjxici8+CiAgICBQYXNzd29yZDogPGlucHV0IG5hbWU9InBhc3N3b3JkIiB0eXBlPSJwYXNzd29yZCIvPjxici8+CiAgICA8aW5wdXQgdHlwZT0ic3VibWl0IiB2YWx1ZT0iQ29udGludWUiLz48L3A+CiAgICA8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJhY3Rpb24iIHZhbHVlPSJsb2dpbiIvPgogICAgPC9mb3JtPgoKJHtodG1sLmJvdHRvbX0="/&gt;
+                                    &lt;L7p:ResponseContentType stringValue="text/html; charset=UTF-8"/&gt;
+                                &lt;/L7p:HardcodedResponse&gt;
+                                &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Failed or new"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                &lt;/L7p:assertionComment&gt;
+                            &lt;/wsp:All&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// Handle logout vs failed or new login"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:OneOrMore&gt;
+                        &lt;L7p:assertionComment&gt;
+                            &lt;L7p:Properties mapValue="included"&gt;
+                                &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// ${request.http.parameter.format} != JSON|XML"/&gt;
+                                &lt;/L7p:entry&gt;
+                            &lt;/L7p:Properties&gt;
+                        &lt;/L7p:assertionComment&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;L7p:assertionComment&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// Handle format parameter"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:assertionComment&gt;
+                &lt;/wsp:OneOrMore&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// ${loggedIn} == false"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;L7p:assertionComment&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="// Do processing if ${loggedIn} == true else return login form"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:assertionComment&gt;
+        &lt;/wsp:OneOrMore&gt;
+    &lt;/wsp:All&gt;
+&lt;/wsp:Policy&gt;
+</l7:Resource>
+                        </l7:ResourceSet>
+                    </l7:Resources>
+                </l7:Service>
+            </l7:Resource>
+        </l7:Item>
+        <l7:Item>
             <l7:Name>Utility: List Cassandra Connections</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf6720b</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="d12aa7875d7217ab6c41e7d7acf6720b" version="0">
                     <l7:Name>Utility: List Cassandra Connections</l7:Name>
@@ -18719,7 +20890,7 @@
             <l7:Name>Utility: Escape HTML String</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e59840</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e59840" version="0">
                     <l7:Name>Utility: Escape HTML String</l7:Name>
@@ -18767,7 +20938,7 @@
             <l7:Name>Utility: List Cluster Properties</l7:Name>
             <l7:Id>bc46b1606b0639d4d49278d55a490dce</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="bc46b1606b0639d4d49278d55a490dce" version="0">
                     <l7:Name>Utility: List Cluster Properties</l7:Name>
@@ -18826,7 +20997,7 @@
             <l7:Name>Utility: List Encapsulated Assertions</l7:Name>
             <l7:Id>bc46b1606b0639d4d49278d55a47e748</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="bc46b1606b0639d4d49278d55a47e748" version="0">
                     <l7:Name>Utility: List Encapsulated Assertions</l7:Name>
@@ -18885,7 +21056,7 @@
             <l7:Name>Utility: List Groups</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e6ebe7</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e6ebe7" version="0">
                     <l7:Name>Utility: List Groups</l7:Name>
@@ -18951,7 +21122,7 @@
             <l7:Name>Utility: List JDBC Connections</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf65398</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="d12aa7875d7217ab6c41e7d7acf65398" version="0">
                     <l7:Name>Utility: List JDBC Connections</l7:Name>
@@ -19011,7 +21182,7 @@
             <l7:Name>Utility: List JMS Destinations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e64f9f</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e64f9f" version="0">
                     <l7:Name>Utility: List JMS Destinations</l7:Name>
@@ -19070,7 +21241,7 @@
             <l7:Name>Utility: List Policy Backed Services</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e97757399</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="3c21f93d84b26244a446414e97757399" version="0">
                     <l7:Name>Utility: List Policy Backed Services</l7:Name>
@@ -19129,7 +21300,7 @@
             <l7:Name>Utility: List Scheduled Tasks</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e97757ceb</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="3c21f93d84b26244a446414e97757ceb" version="0">
                     <l7:Name>Utility: List Scheduled Tasks</l7:Name>
@@ -19188,7 +21359,7 @@
             <l7:Name>Utility: List Private Keys</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e5c6b8</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e5c6b8" version="0">
                     <l7:Name>Utility: List Private Keys</l7:Name>
@@ -19247,7 +21418,7 @@
             <l7:Name>Utility: List Generic Entities</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e9774ede0</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="3c21f93d84b26244a446414e9774ede0" version="0">
                     <l7:Name>Utility: List Generic Entities</l7:Name>
@@ -19306,7 +21477,7 @@
             <l7:Name>Utility: List Active Connectors</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e81607</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e81607" version="0">
                     <l7:Name>Utility: List Active Connectors</l7:Name>
@@ -19365,7 +21536,7 @@
             <l7:Name>Utility: List Secure Passwords</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e65da4</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e65da4" version="0">
                     <l7:Name>Utility: List Secure Passwords</l7:Name>
@@ -19424,7 +21595,7 @@
             <l7:Name>Utility: List Email Listeners</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e80382</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e80382" version="0">
                     <l7:Name>Utility: List Email Listeners</l7:Name>
@@ -19483,7 +21654,7 @@
             <l7:Name>Utility: List HTTP Configurations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e80e7c</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e80e7c" version="0">
                     <l7:Name>Utility: List HTTP Configurations</l7:Name>
@@ -19542,7 +21713,7 @@
             <l7:Name>Utility: List Listen Ports</l7:Name>
             <l7:Id>3c21f93d84b26244a446414e97759281</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="3c21f93d84b26244a446414e97759281" version="0">
                     <l7:Name>Utility: List Listen Ports</l7:Name>
@@ -19601,7 +21772,7 @@
             <l7:Name>Utility: List SiteMinder Configurations</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e6d213</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e6d213" version="0">
                     <l7:Name>Utility: List SiteMinder Configurations</l7:Name>
@@ -19660,7 +21831,7 @@
             <l7:Name>Utility: List Trusted Certificates</l7:Name>
             <l7:Id>d12aa7875d7217ab6c41e7d7acf69a23</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.420-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="d12aa7875d7217ab6c41e7d7acf69a23" version="0">
                     <l7:Name>Utility: List Trusted Certificates</l7:Name>
@@ -19719,7 +21890,7 @@
             <l7:Name>Utility: List Users</l7:Name>
             <l7:Id>c4706d99077459bed7ca5ef6c9e6e8a7</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:33.980-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.421-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="c4706d99077459bed7ca5ef6c9e6e8a7" version="0">
                     <l7:Name>Utility: List Users</l7:Name>
@@ -19785,7 +21956,7 @@
             <l7:Name>API Gateway Dependency Analyzer</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf13ee8c</l7:Id>
             <l7:Type>SERVICE</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:34.146-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.561-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Service id="7215d076e3f7201974e2be3edf13ee8c" version="2">
                     <l7:ServiceDetail folderId="7215d076e3f7201974e2be3edf13f52e" id="7215d076e3f7201974e2be3edf13ee8c" version="2">
@@ -33766,7 +35937,7 @@ ${html.bottom}]]&gt;&lt;/L7p:Content&gt;
             <l7:Name>API Gateway Certificate Report</l7:Name>
             <l7:Id>c8401b4fe66b706c1ad6260099cc0b79</l7:Id>
             <l7:Type>SERVICE</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:34.190-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.603-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Service id="c8401b4fe66b706c1ad6260099cc0b79" version="3">
                     <l7:ServiceDetail folderId="7215d076e3f7201974e2be3edf13f52e" id="c8401b4fe66b706c1ad6260099cc0b79" version="3">
@@ -36759,7 +38930,7 @@ ${html.bottom}]]&gt;&lt;/L7p:Content&gt;
             <l7:Name>Utility: Get Policy</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf231742</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:34.190-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.603-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="7215d076e3f7201974e2be3edf231742" version="0">
                     <l7:Name>Utility: Get Policy</l7:Name>
@@ -36829,7 +39000,7 @@ ${html.bottom}]]&gt;&lt;/L7p:Content&gt;
             <l7:Name>Utility: Get Service</l7:Name>
             <l7:Id>7215d076e3f7201974e2be3edf23307f</l7:Id>
             <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:34.190-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.603-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:EncapsulatedAssertion id="7215d076e3f7201974e2be3edf23307f" version="0">
                     <l7:Name>Utility: Get Service</l7:Name>
@@ -36899,7 +39070,7 @@ ${html.bottom}]]&gt;&lt;/L7p:Content&gt;
             <l7:Name>Utility Assertions Tester</l7:Name>
             <l7:Id>dfaa76af686fcb8fe1c2542b37613bd2</l7:Id>
             <l7:Type>SERVICE</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:34.220-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.631-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Service id="dfaa76af686fcb8fe1c2542b37613bd2" version="4">
                     <l7:ServiceDetail folderId="7215d076e3f7201974e2be3edf13f52e" id="dfaa76af686fcb8fe1c2542b37613bd2" version="4">
@@ -38402,7 +40573,7 @@ ${html.bottom}]]&gt;&lt;/L7p:Content&gt;
             <l7:Name>API Gateway Cluster Wide Property Manager</l7:Name>
             <l7:Id>eab176f668caa14ac738988624339c80</l7:Id>
             <l7:Type>SERVICE</l7:Type>
-            <l7:TimeStamp>2022-04-28T14:36:34.237-07:00</l7:TimeStamp>
+            <l7:TimeStamp>2022-04-28T17:07:37.646-07:00</l7:TimeStamp>
             <l7:Resource>
                 <l7:Service id="eab176f668caa14ac738988624339c80" version="1">
                     <l7:ServiceDetail folderId="7215d076e3f7201974e2be3edf13f52e" id="eab176f668caa14ac738988624339c80" version="1">
@@ -39613,6 +41784,8 @@ ${html.bottom}]]&gt;&lt;/L7p:Content&gt;
         <l7:Mapping action="NewOrUpdate" srcId="1b111294c2a94ddb44fa3aa78a70294a" srcUri="https://ssg100.l7tech.com:8443/restman/1.0/services/1b111294c2a94ddb44fa3aa78a70294a" type="SERVICE"/>
         <l7:Mapping action="NewOrUpdate" srcId="c4706d99077459bed7ca5ef6c9e4e966" srcUri="https://ssg100.l7tech.com:8443/restman/1.0/encapsulatedAssertions/c4706d99077459bed7ca5ef6c9e4e966" type="ENCAPSULATED_ASSERTION"/>
         <l7:Mapping action="NewOrUpdate" srcId="eab176f668caa14ac7389886243507ea" srcUri="https://ssg100.l7tech.com:8443/restman/1.0/encapsulatedAssertions/eab176f668caa14ac7389886243507ea" type="ENCAPSULATED_ASSERTION"/>
+        <l7:Mapping action="Ignore" srcId="7e98c2ce3f1678a6d43e281bde7da42b" srcUri="https://ssg100.l7tech.com:8443/restman/1.0/jdbcConnections/7e98c2ce3f1678a6d43e281bde7da42b" type="JDBC_CONNECTION"/>
+        <l7:Mapping action="NewOrUpdate" srcId="6f93d02a97830d62c2715d6d3a0168c2" srcUri="https://ssg100.l7tech.com:8443/restman/1.0/services/6f93d02a97830d62c2715d6d3a0168c2" type="SERVICE"/>
         <l7:Mapping action="NewOrUpdate" srcId="d12aa7875d7217ab6c41e7d7acf6720b" srcUri="https://ssg100.l7tech.com:8443/restman/1.0/encapsulatedAssertions/d12aa7875d7217ab6c41e7d7acf6720b" type="ENCAPSULATED_ASSERTION"/>
         <l7:Mapping action="NewOrUpdate" srcId="c4706d99077459bed7ca5ef6c9e59840" srcUri="https://ssg100.l7tech.com:8443/restman/1.0/encapsulatedAssertions/c4706d99077459bed7ca5ef6c9e59840" type="ENCAPSULATED_ASSERTION"/>
         <l7:Mapping action="NewOrUpdate" srcId="bc46b1606b0639d4d49278d55a490dce" srcUri="https://ssg100.l7tech.com:8443/restman/1.0/encapsulatedAssertions/bc46b1606b0639d4d49278d55a490dce" type="ENCAPSULATED_ASSERTION"/>

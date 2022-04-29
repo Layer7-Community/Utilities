@@ -6,7 +6,7 @@ This repository is for utilities and scripts that help when working with the Lay
 Name | Brief Description
 ----- | -----------------
 [**GMU Bundle Analyzer**](./GMU-Bundle-Analyzer) | *A script to analyze a single file bundle produced using the migrateOut command of the Gateway Migration Utility (GMU)*
-[**Gateway Management Utilities**](./Gateway-Management-Utilities) | *A suite of encapsulated assertions useful for calling RestMan directly from policy with a service to test the assertions (Utility Assertions Tester), plus the Gateway Dependency Analyzer utility that uses the assertions to query the Gateway and determine internal dependencies.*
+[**Gateway Management Utilities**](./Gateway-Management-Utilities) | *A suite of encapsulated assertions useful for calling RestMan directly from policy with a service to test the assertions (Utility Assertions Tester), plus the Gateway Dependency Analyzer utility that uses the assertions to query the Gateway and determine internal dependencies, a certificate report utility, a license report utility, and a cluster-wide property manager utility.*
 [**JWK Scripts**](./JWK-Scripts) | *Two scripts to help working with Java Web Keys*
 [**SSG DB Connection Monitor**](./SSG-DB-Connection-Monitor) | *Monitor the count of MySQL database connections and generate an alert when it is not 'normal'*
 
