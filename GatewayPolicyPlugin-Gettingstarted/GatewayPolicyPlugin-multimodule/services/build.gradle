@@ -1,0 +1,6 @@
+GatewayExportConfig {
+    folderPath = "/services"
+}
+dependencies {
+    bundle project(":common")
+}

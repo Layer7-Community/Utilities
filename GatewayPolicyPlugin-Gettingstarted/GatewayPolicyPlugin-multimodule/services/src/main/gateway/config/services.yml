@@ -1,0 +1,30 @@
+services/List Pets:
+  url: "/listPets"
+  policy: "services/List Pets"
+  httpMethods:
+  - "DELETE"
+  - "POST"
+  - "GET"
+  - "PUT"
+  properties: {}
+  wssProcessingEnabled: false
+services/Place Order:
+  url: "/orderPet"
+  policy: "services/Place Order"
+  httpMethods:
+  - "DELETE"
+  - "POST"
+  - "GET"
+  - "PUT"
+  properties: {}
+  wssProcessingEnabled: false
+services/Add Pet:
+  url: "/addPet"
+  policy: "services/Add Pet"
+  httpMethods:
+  - "DELETE"
+  - "POST"
+  - "GET"
+  - "PUT"
+  properties: {}
+  wssProcessingEnabled: false

@@ -1,0 +1,15 @@
+BasicAuth:
+  policy: "common/basic-auth"
+  arguments: []
+  results:
+  - name: "idp.error.login"
+    type: "string"
+  - name: "idp.error.message"
+    type: "string"
+  properties:
+    paletteFolder: "internalAssertions"
+    allowTracing: "false"
+    l7Template: "false"
+    description: "basic authentication policy"
+    passMetricsToParent: "false"
+  annotations: []

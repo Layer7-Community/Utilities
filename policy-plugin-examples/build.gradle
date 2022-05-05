@@ -1,0 +1,66 @@
+/*
+ * Copyright (c) 2018 CA. All rights reserved.
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ */
+
+buildscript {
+    repositories {
+        mavenLocal()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        // "+" will always pull the latest available
+        classpath "com.ca.apim.gateway:gateway-policy-plugin:1.0.+"
+        classpath "com.ca.apim.gateway:gateway-export-plugin:1.0.+"
+        classpath "com.ca.apim.gateway:gateway-import-plugin:1.0.+"
+    }
+}
+
+subprojects {
+    apply plugin: 'com.ca.apim.gateway.gateway-policy-plugin'
+    if (!project.name.equals('deployment')) {
+        apply plugin: 'com.ca.apim.gateway.gateway-export-plugin'
+        GatewayConnection {
+            url = 'https://localhost:8443/restman'
+        }
+    } 
+
+    group 'com.ca.apim.gateway'
+    version = '1.0.0'
+
+    repositories {
+        mavenLocal()
+        flatDir {
+            dirs new File(project.parent.rootDir, "lib")
+        }
+        jcenter()
+    }
+}
+
+wrapper {
+    gradleVersion = '4.10'
+}
+
+// Zip task
+FileTree tree = fileTree(dir: 'build/gateway/bundle', include: '*.metadata.yml')
+tree.each { File file ->
+    String bundleName = file.name.substring(0, file.name.indexOf('.metadata.yml'))
+    task "zip-${bundleName}"(type: Zip) {
+        archiveName = bundleName + '.zip'
+        from('build/gateway/bundle') {
+            include bundleName + '*.bundle'
+            include file.name
+        }
+    }
+}
+
+// Zip bundles task
+task zipBundles {
+    tree.each { File file ->
+        String bundleName = file.name.substring(0, file.name.indexOf('.metadata.yml'))
+        dependsOn 'zip-' + bundleName;
+    }
+}

@@ -1,0 +1,35 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.ca.apim.gateway:gateway-policy-plugin:1.0.+"
+        classpath "com.ca.apim.gateway:gateway-export-plugin:1.0.+"
+        classpath "com.ca.apim.gateway:gateway-import-plugin:1.0.+"
+    }
+}
+
+apply plugin: 'com.ca.apim.gateway.gateway-export-plugin'
+apply plugin: 'com.ca.apim.gateway.gateway-policy-plugin'
+apply plugin: 'com.ca.apim.gateway.gateway-import-plugin'
+
+group 'com.example'
+version '1.0.0'
+
+
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+    jcenter()
+}
+
+GatewayConnection {
+    url = "https://localhost:18443"
+    userName = "admin"
+    userPass= "password"
+}
+GatewayExportConfig {
+    folderPath = "/helloworld"
+}
