@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="LAYER_APIM"
+            name="Layer7 API Management">
+      </category>
+      <wizard
+            category="LAYER_APIM"
+            class="com.layer7.apim.customassertionplugin.wizards.CustomAssertionProjectNewWizard"
+            icon="icons/sample.gif"
+            id="com.layer7.apim.customassertionplugin.wizards.CustomAssertionProjectNewWizard"
+            name="Layer7 API Management Custom Assertion Project"
+            project="true">
+      </wizard>
+   </extension>
+</plugin>

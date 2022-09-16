@@ -1,0 +1,28 @@
+package $assertionPackageName$;
+
+import com.l7tech.policy.assertion.ext.AssertionEditor;
+import com.l7tech.policy.assertion.ext.CustomAssertion;
+import com.l7tech.policy.assertion.ext.CustomAssertionUI;
+
+import javax.swing.*;
+
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class $assertionCodeName$UI implements CustomAssertionUI, Serializable {
+
+    public AssertionEditor getEditor(CustomAssertion assertion) {
+        if (!(assertion instanceof $assertionCodeName$Assertion)) {
+            throw new IllegalArgumentException($assertionCodeName$Assertion.class + " type is required");
+        }
+        return new $assertionCodeName$Dialog(($assertionCodeName$Assertion) assertion);
+    }
+
+    public ImageIcon getSmallIcon() {
+        return null;
+    }
+
+    public ImageIcon getLargeIcon() {
+        return null;
+    }
+}
