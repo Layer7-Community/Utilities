@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="plugin_export" name="build">
+	<target name="plugin_export">
+		<pde.exportPlugins destination="/Users/bu895505/eclipse-workspace/Layer7_CustomAssertionPlugin4/export" exportSource="false" exportType="directory" plugins="Layer7_APIM_CustomAssertionPlugin" useJARFormat="false"/>
+	</target>
+</project>

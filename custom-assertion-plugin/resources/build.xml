@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="main" name="$assertionCodeName$Assertion">
+
+	<target name="main">
+		<delete dir="./build"/>
+		<mkdir dir="./build"/>
+		<mkdir dir="./build/classes"/>
+		<mkdir dir="./build/classes/lib"/>
+		<javac srcdir="./src" destdir="./build/classes" includeantruntime="false">
+			<classpath>
+				<fileset dir="./lib">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+		<copy todir="./build/classes">
+			<fileset dir="./resources">
+				<include name="custom_assertions.properties"/>
+			</fileset>
+		</copy>
+		<copy todir="./build/classes/lib">
+			<fileset dir="./lib">
+				<include name="**/*.jar"/>
+				<exclude name="layer7-api-8.11.01.jar"/>
+			</fileset>
+		</copy>
+		<jar destfile="./build/$assertionCodeName$Assertion.jar" basedir="./build/classes"/>
+	</target>
+
+</project>

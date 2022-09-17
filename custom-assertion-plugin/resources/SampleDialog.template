@@ -1,0 +1,204 @@
+package $assertionPackageName$;
+
+import com.l7tech.policy.assertion.ext.AssertionEditor;
+import com.l7tech.policy.assertion.ext.AssertionEditorSupport;
+import com.l7tech.policy.assertion.ext.EditListener;
+
+import javax.swing.*;
+import java.awt.Frame;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.Font;
+
+@SuppressWarnings("serial")
+public class $assertionCodeName$Dialog extends JDialog implements AssertionEditor {
+
+    private final $assertionCodeName$Assertion assertion;
+    private final AssertionEditorSupport editorSupport;
+	private final JPanel contentPanel = new JPanel();
+	private JTextField txtInputStringOne;
+	private JTextField txtInputStringTwo;
+	private JButton okButton;
+	private JButton cancelButton;
+	
+	public $assertionCodeName$Dialog($assertionCodeName$Assertion assertion) {
+		
+        super(Frame.getFrames().length > 0 ? Frame.getFrames()[0] : null, true);
+        setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        setTitle("$assertionDisplayName$");
+        this.assertion = assertion;
+        editorSupport = new AssertionEditorSupport(this);
+        init();
+        setUIFields(assertion);
+        
+	}	
+    
+	/**
+	 * @wbp.parser.constructor
+	 */
+    public void init(){
+    	
+        // call onCancel() when cross is clicked
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                onCancel();
+            }
+        });
+
+        // call onCancel() on ESCAPE
+        contentPanel.registerKeyboardAction(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onCancel();
+            }
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        
+		setBounds(100, 100, 373, 177);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		{
+			JLabel lblInputStringOne = new JLabel("Input String One:");
+			lblInputStringOne.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			lblInputStringOne.setBounds(12, 16, 108, 21);
+			contentPanel.add(lblInputStringOne);
+		}
+		{
+			txtInputStringOne = new JTextField();
+			txtInputStringOne.getDocument().addDocumentListener(new DocumentListener() {
+				
+				@Override
+				public void removeUpdate(DocumentEvent e) {
+					onRequiredFieldChanged();
+				}
+				
+				@Override
+				public void insertUpdate(DocumentEvent e) {
+					onRequiredFieldChanged();
+				}
+				
+				@Override
+				public void changedUpdate(DocumentEvent e) {
+					onRequiredFieldChanged();
+				}
+			});
+			txtInputStringOne.setBounds(119, 13, 223, 27);
+			contentPanel.add(txtInputStringOne);
+			txtInputStringOne.setColumns(10);
+		}
+		{
+			JLabel lblInputStringTwo = new JLabel("Input String Two:");
+			lblInputStringTwo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			lblInputStringTwo.setBounds(12, 52, 108, 21);
+			lblInputStringTwo.setHorizontalAlignment(SwingConstants.LEFT);
+			contentPanel.add(lblInputStringTwo);
+		}
+		{
+			txtInputStringTwo = new JTextField();
+			txtInputStringTwo.getDocument().addDocumentListener(new DocumentListener() {
+				
+				@Override
+				public void removeUpdate(DocumentEvent e) {
+					onRequiredFieldChanged();
+				}
+				
+				@Override
+				public void insertUpdate(DocumentEvent e) {
+					onRequiredFieldChanged();
+				}
+				
+				@Override
+				public void changedUpdate(DocumentEvent e) {
+					onRequiredFieldChanged();
+				}
+			});
+			txtInputStringTwo.setBounds(119, 49, 223, 27);
+			contentPanel.add(txtInputStringTwo);
+			txtInputStringTwo.setColumns(10);
+		}
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				okButton = new JButton("OK");
+				okButton.setEnabled(false);
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						onOK();
+					}
+				});
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						onCancel();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+    }
+
+	@Override
+	public void edit() {
+		setVisible(true);		
+	}
+	
+	@Override
+	public void addEditListener(EditListener arg0) {
+		editorSupport.addListener(arg0);		
+	}
+	
+	@Override
+	public void removeEditListener(EditListener arg0) {
+		editorSupport.removeListener(arg0);		
+	}
+	
+	private void onRequiredFieldChanged(){
+		okButton.setEnabled(!txtInputStringOne.getText().trim().isEmpty() && !txtInputStringTwo.getText().trim().isEmpty());
+	}
+
+	private void onOK(){
+        setAssertionFields(assertion);
+        editorSupport.fireEditAccepted(assertion);
+        setVisible(false);
+        dispose();
+	}
+	
+	private void onCancel(){
+        editorSupport.fireCancelled(assertion);
+        dispose();
+	}
+	
+    //Configure the $assertionCodeName$Assertion bean object using the values from the UI
+    private void setAssertionFields($assertionCodeName$Assertion assertion) {
+    	assertion.setInputStringOne(txtInputStringOne.getText());
+    	assertion.setInputStringTwo(txtInputStringTwo.getText());
+    }
+
+    //Configure the UI according to the $assertionCodeName$Assertion bean
+    private void setUIFields($assertionCodeName$Assertion assertion) {
+        txtInputStringOne.setText(assertion.getInputStringOne());
+        txtInputStringTwo.setText(assertion.getInputStringTwo());
+    }
+}

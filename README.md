@@ -11,6 +11,7 @@ Name | Brief Description
 [**Postman Collections**](./postman-collection) | *Provides sample postman collections for APIs provided by the Layer7 solution.*
 [**JWK Scripts**](./JWK-Scripts) | *Two scripts to help working with Java Web Keys*
 [**SSG DB Connection Monitor**](./SSG-DB-Connection-Monitor) | *Monitor the count of MySQL database connections and generate an alert when it is not 'normal'*
+[**Custom Assertion Plugin**](./custom-assertion-plugin) | *The Layer7 API Management Custom Assertion Plugin makes it very quick and easy to build new custom assertions for the Layer7 API Gateway using the Eclipse IDE.*
 
 ## Using the Utilities
 
