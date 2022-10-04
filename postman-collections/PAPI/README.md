@@ -1,5 +1,5 @@
 # PAPI
-This repository is for postman collections to perform a variaty of operations with the Layer 7 API Portal. 
+This repository is for postman collections to perform a variety of operations with the Layer 7 API Portal. 
 
 ## Here is a list of available utilities
 ## Content
