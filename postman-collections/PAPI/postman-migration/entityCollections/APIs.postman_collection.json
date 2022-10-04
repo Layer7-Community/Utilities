@@ -1,0 +1,1351 @@
+{
+	"info": {
+		"_postman_id": "fa1102f9-6e26-489f-8289-964cfc3cfeb0",
+		"name": "APIs",
+		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21138964"
+	},
+	"item": [
+		{
+			"name": "Get Standard API Eula's UUID From Source",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Get the Standard EULA api eula uuid from source and save to sourceStandardEulaUuid",
+							"",
+							"let response = pm.response.json();",
+							"let standardEulaUuid;",
+							"",
+							"response.results.forEach(function(eula) {",
+							"    if (pm.expect(eula.name).to.eql(\"Standard EULA\")) {",
+							"        standardEulaUuid = eula.uuid;",
+							"    }",
+							"});",
+							"",
+							"pm.collectionVariables.set(\"sourceStandardEulaUuid\", standardEulaUuid);",
+							"",
+							"//console.log(response);",
+							"console.log(\"sourceStandardEulaUuid=\" + standardEulaUuid);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://{{tenantUrl}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/eulas?name=Standard EULA",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"eulas"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Standard EULA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Standard API Eula's UUID From Destination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Get the Standard EULA api eula uuid from destination and save to destStandardEulaUuid",
+							"",
+							"// let response = pm.response.json();",
+							"// let standardEulaUuid;",
+							"",
+							"// response.results.forEach(function(eula) {",
+							"//     if (pm.expect(eula.name).to.eql(\"Standard EULA\")) {",
+							"//         standardEulaUuid = eula.uuid;",
+							"//     }",
+							"// });",
+							"",
+							"// pm.collectionVariables.set(\"destStandardEulaUuid\", standardEulaUuid);",
+							"",
+							"//console.log(response);",
+							"// console.log(\"destStandardEulaUuid=\" + standardEulaUuid);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://{{tenantUrl}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/eulas?name=Standard EULA",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"1.0",
+						"eulas"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Standard EULA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Api UUIDs From Source",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Get all API uuids from source and save to apisApiUuids",
+							"",
+							"jsonData = pm.response.json();",
+							"// console.log(jsonData)",
+							"var apisApiUuids = pm.variables.get(\"apisApiUuids\");",
+							"",
+							"if (apisApiUuids == null) {",
+							"    apisApiUuids = [];",
+							"}",
+							"",
+							"if (jsonData != null) {",
+							"    for (var each in jsonData.results) {",
+							"        apisApiUuids.push(jsonData.results[each].uuid);",
+							"    }",
+							"     pm.variables.set(\"apisApiUuids\", apisApiUuids);",
+							"}",
+							"",
+							"// console.log(\"currentPage=\" + jsonData.currentPage);",
+							"// console.log(\"responseJsonData.totalPages=\" + jsonData.totalPages);",
+							"",
+							"if (jsonData != null && jsonData.currentPage + 1 < jsonData.totalPages) {",
+							"    postman.setNextRequest(pm.info.requestName);",
+							"} else {",
+							"    postman.setNextRequest(\"Get Api Detail From Source\");",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var apisPage = pm.variables.get(\"apisPage\");",
+							"",
+							"if (apisPage == null) {",
+							"    pm.variables.set(\"apisPage\", 0);",
+							"} else {",
+							"    pm.variables.set(\"apisPage\", apisPage + 1);",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis?page={{apisPage}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"apis"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name,ASC",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pssg",
+							"disabled": true
+						},
+						{
+							"key": "subjectDn",
+							"value": "google",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "{{apisPage}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Api Detail From Source",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Get each of the API detail info from source one by and one based on the apisApiUuids and POST it to destination",
+							"",
+							"jsonData = pm.response.json();",
+							"",
+							"// API entity payload",
+							"pm.variables.set(\"uuid\", jsonData.uuid);",
+							"pm.variables.set(\"apiServiceType\", jsonData.apiServiceType);",
+							"pm.variables.set(\"name\", jsonData.name);",
+							"pm.variables.set(\"version\", jsonData.version);",
+							"pm.variables.set(\"locationUrl\", jsonData.locationUrl);",
+							"pm.variables.set(\"apiEulaUuid\", jsonData.apiEulaUuid);",
+							"// console.log(\"jsonData.apiEulaUuid=\" + jsonData.apiEulaUuid);",
+							"// console.log(\"pm.collectionVariables.get(\\\"sourceStandardEulaUuid\\\")=\" + pm.collectionVariables.get(\"sourceStandardEulaUuid\"));",
+							"// if (jsonData.apiEulaUuid == pm.collectionVariables.get(\"sourceStandardEulaUuid\")) {",
+							"//     pm.variables.set(\"apiEulaUuid\", pm.collectionVariables.get(\"destStandardEulaUuid\"));",
+							"// }",
+							"// if the api is GW published one and not yet accedpted, we need to assign a default api eula to it",
+							"// otherwise we're not able to migrate it due to the validation error",
+							"if (jsonData.apiEulaUuid == null) {",
+							"    pm.variables.set(\"apiEulaUuid\", pm.collectionVariables.get(\"sourceStandardEulaUuid\"));",
+							"}",
+							"",
+							"pm.variables.set(\"privateDescription\", jsonData.privateDescription);",
+							"pm.variables.set(\"accessStatus\", jsonData.accessStatus);",
+							"pm.variables.set(\"description\", jsonData.description);",
+							"pm.variables.set(\"ssgUrl\", jsonData.ssgUrl);",
+							"pm.variables.set(\"authenticationType\", jsonData.authenticationType);",
+							"pm.variables.set(\"authenticationParameters\", jsonData.authenticationParameters);",
+							"pm.variables.set(\"portalStatus\", jsonData.portalStatus);",
+							"pm.variables.set(\"managingOrgUuid\", jsonData.managingOrgUuid);",
+							"if (jsonData.managingOrgUuid == null) {",
+							"    pm.variables.set(\"managingOrgUuid\", \"\");",
+							"}",
+							"",
+							"// policies payload",
+							"pm.variables.set(\"policyEntities\", JSON.stringify(jsonData.policyEntities));",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
+							"var apisApiUuids = pm.variables.get(\"apisApiUuids\");",
+							"if (apisApiUuids == null) {",
+							"    throw new Error(\"apisApiUuids value is null\");",
+							"}",
+							"",
+							"pm.variables.set('apisApiUuid', apisApiUuids.shift());",
+							"",
+							"if (Array.isArray(apisApiUuids) && apisApiUuids.length > 0) {",
+							"    postman.setNextRequest(pm.info.requestName);",
+							"    postman.setNextRequest(\"Post Api To Destination\");",
+							"} else {",
+							"    postman.setNextRequest(\"Post Api To Destination\");",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis/{{apisApiUuid}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"apis",
+						"{{apisApiUuid}}"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name,ASC",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pssg",
+							"disabled": true
+						},
+						{
+							"key": "subjectDn",
+							"value": "google",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Api To Destination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"postman.setNextRequest(\"PUT Api Policies To Destination\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"uuid\": \"{{uuid}}\",\n  \"apiServiceType\": \"{{apiServiceType}}\",\n  \"name\": \"{{name}}\",\n  \"version\": \"{{version}}\",\n  \"locationUrl\": \"{{locationUrl}}\",\n  \"apiEulaUuid\": \"{{apiEulaUuid}}\",\n  \"privateDescription\": \"{{privateDescription}}\",\n  \"accessStatus\": \"{{accessStatus}}\",\n  \"description\": \"{{description}}\",\n  \"ssgUrl\": \"{{ssgUrl}}\",\n  \"authenticationType\": \"{{authenticationType}}\",\n  \"authenticationParameters\": \"{{authenticationParameters}}\",\n  \"portalStatus\": \"{{portalStatus}}\",\n  \"managingOrgUuid\": \"{{managingOrgUuid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"1.0",
+						"apis"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name,ASC",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pssg",
+							"disabled": true
+						},
+						{
+							"key": "subjectDn",
+							"value": "google",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Api Policies To Destination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"Get custom fields of API\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var policyEntities = pm.variables.get(\"policyEntities\");",
+							"console.log(\"policies=\" + policyEntities)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{policyEntities}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/policy-entities",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"1.0",
+						"apis",
+						"{{apisApiUuid}}",
+						"policy-entities"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name,ASC",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pssg",
+							"disabled": true
+						},
+						{
+							"key": "subjectDn",
+							"value": "google",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get custom fields of API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"result = pm.response.json();",
+							"",
+							"pm.variables.set(\"customFields\", JSON.stringify(result));",
+							"console.log(result)",
+							"",
+							"postman.setNextRequest(\"Save an API's custom fields\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/custom-fields",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"apis",
+						"{{apisApiUuid}}",
+						"custom-fields"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save an API's custom fields",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"Get all Organization and Rate Quota(Api per Org) associated with an API\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{customFields}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/custom-fields",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"1.0",
+						"apis",
+						"{{apisApiUuid}}",
+						"custom-fields"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Organization and Rate Quota(Api per Org) associated with an API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"result = pm.response.json();",
+							"",
+							"pm.variables.set(\"orgRateQuota\", JSON.stringify(result));",
+							"console.log(result);",
+							"",
+							"postman.setNextRequest(\"Associate Organization and Rate Quota(Api per Org) entities to API\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/org-rate-quotas",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"apis",
+						"{{apisApiUuid}}",
+						"org-rate-quotas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Associate Organization and Rate Quota(Api per Org) entities to API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"publish an API\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{orgRateQuota}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/org-rate-quotas",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"1.0",
+						"apis",
+						"{{apisApiUuid}}",
+						"org-rate-quotas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "publish an API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var apisApiUuids = pm.variables.get(\"apisApiUuids\");",
+							"",
+							"if (apisApiUuids.length > 0) {",
+							"    postman.setNextRequest(\"Get Api Detail From Source\");",
+							"} else {",
+							"    postman.setNextRequest(\"Get All API Tags\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/publish",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"1.0",
+						"apis",
+						"{{apisApiUuid}}",
+						"publish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All API Tags",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let apiTags = pm.response.json().results;",
+							"",
+							"pm.collectionVariables.set(\"apiTags\", apiTags);",
+							"pm.collectionVariables.set(\"apiTagsBody\", JSON.stringify(apiTags));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/tags",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST API Tags",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(pm.collectionVariables.get(\"apiTags\")[0]);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let apiTagsCreated = pm.response.json();",
+							"pm.collectionVariables.set(\"apiTagsCreated\",apiTagsCreated);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{apiTagsBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/tags",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"1.0",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all apis",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let allApis = pm.response.json().results;",
+							"",
+							"if (allApis && allApis.length > 0) {",
+							"    pm.collectionVariables.set(\"allApis\",allApis);  ",
+							"} else {",
+							"    postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"apis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all tags associated with an API",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
+							"let allApis = pm.collectionVariables.get(\"allApis\");",
+							"let currentApiUuid = allApis.shift().uuid;",
+							"pm.collectionVariables.set(\"currentApiUuid\",currentApiUuid);",
+							"pm.collectionVariables.set(\"allApis\",allApis);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let associatedTags = pm.response.json();",
+							"let allApis = pm.collectionVariables.get(\"allApis\");",
+							"",
+							"let apiTagsCreated = pm.collectionVariables.get(\"apiTagsCreated\");",
+							"let apiTags = pm.collectionVariables.get(\"apiTags\");",
+							"const apiTagMap = new Map();",
+							"for (let i = 0; i <apiTagsCreated.length; i++) {",
+							"    apiTagMap.set(apiTags[i].uuid,apiTagsCreated[i]);",
+							"}",
+							"",
+							"if (associatedTags && associatedTags.length > 0) {",
+							"    for (let i = 0; i < associatedTags.length; i++) {",
+							"        associatedTags[i]=apiTagMap.get(associatedTags[i].uuid).name;",
+							"    }",
+							"    console.log(associatedTags);",
+							"    pm.collectionVariables.set(\"associatedTags\",JSON.stringify(associatedTags));",
+							"} else {",
+							"    if (allApis && allApis.length > 0) {",
+							"        postman.setNextRequest(\"Get all tags associated with an API\");",
+							"    } else {",
+							"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis/{{currentApiUuid}}/tags",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"apis",
+						"{{currentApiUuid}}",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Associate Tag entities to API",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
+							"                        "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let allApis = pm.collectionVariables.get(\"allApis\");",
+							"",
+							"if (allApis && allApis.length > 0) {",
+							"        postman.setNextRequest(\"Get all tags associated with an API\");",
+							"    } else {",
+							"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
+							"    }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{associatedTags}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{currentApiUuid}}/tags",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"1.0",
+						"apis",
+						"{{currentApiUuid}}",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "standardEulaUuid",
+			"value": ""
+		},
+		{
+			"key": "apiName",
+			"value": ""
+		},
+		{
+			"key": "ssgUrl",
+			"value": ""
+		},
+		{
+			"key": "apiServiceType",
+			"value": ""
+		},
+		{
+			"key": "accessStatus",
+			"value": ""
+		},
+		{
+			"key": "apiUuid",
+			"value": ""
+		},
+		{
+			"key": "policyEntityUuid",
+			"value": ""
+		},
+		{
+			"key": "policyTemplateArguments",
+			"value": ""
+		},
+		{
+			"key": "version",
+			"value": ""
+		},
+		{
+			"key": "locationUrl",
+			"value": ""
+		},
+		{
+			"key": "description",
+			"value": ""
+		},
+		{
+			"key": "privateDescription",
+			"value": ""
+		},
+		{
+			"key": "authenticationType",
+			"value": ""
+		},
+		{
+			"key": "authenticationParameters",
+			"value": ""
+		},
+		{
+			"key": "managingOrgUuid",
+			"value": ""
+		},
+		{
+			"key": "apiTag",
+			"value": ""
+		},
+		{
+			"key": "apiTagName",
+			"value": ""
+		},
+		{
+			"key": "proxyUuid",
+			"value": ""
+		},
+		{
+			"key": "GwPublishedResponse",
+			"value": ""
+		},
+		{
+			"key": "GwApiUuid",
+			"value": ""
+		},
+		{
+			"key": "curentApiUuid",
+			"value": ""
+		},
+		{
+			"key": "apimSsg",
+			"value": "portal502-sherpas-ssg.apps.rancher-ironforge.apim.broadcom.net"
+		},
+		{
+			"key": "apimSsgPort",
+			"value": "443"
+		},
+		{
+			"key": "apiKey",
+			"value": "44d0f49db22f4b298a04384c31d2cd45"
+		},
+		{
+			"key": "secret",
+			"value": "aef5089b6a784dcea7c12b8e8274a005"
+		},
+		{
+			"key": "sss",
+			"value": ""
+		},
+		{
+			"key": "uuid",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "portalStatus",
+			"value": ""
+		},
+		{
+			"key": "publishedByPortal",
+			"value": ""
+		},
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "Apis.page",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "Apis.pageSize",
+			"value": "10",
+			"type": "string"
+		},
+		{
+			"key": "Apis.uuid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "destStandardEulaUuid",
+			"value": ""
+		},
+		{
+			"key": "sourceStandardEulaUuid",
+			"value": ""
+		},
+		{
+			"key": "apiTags",
+			"value": ""
+		},
+		{
+			"key": "apiTagsBody",
+			"value": ""
+		},
+		{
+			"key": "apiTagsCreated",
+			"value": ""
+		},
+		{
+			"key": "allApis",
+			"value": ""
+		},
+		{
+			"key": "currentApiUuid",
+			"value": ""
+		},
+		{
+			"key": "associatedTags",
+			"value": ""
+		}
+	]
+}

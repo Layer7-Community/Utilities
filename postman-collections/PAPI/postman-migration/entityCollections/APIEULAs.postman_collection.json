@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "73870d7a-010e-4281-ae85-633a6039f590",
+		"name": "API EULAs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14032036"
+	},
+	"item": [
+		{
+			"name": "API EULAs",
+			"item": [
+				{
+					"name": "Get All API Eulas",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"var eulaUuids = response.results.map (eula => eula.uuid);",
+									"pm.variables.set('eulaUuids', eulaUuids);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/eulas",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"eulas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Individual API Eula",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var eulaUuids = pm.variables.get('eulaUuids');",
+									"",
+									"pm.variables.set('eulaUuid', eulaUuids.shift());",
+									"",
+									"if (Array.isArray(eulaUuids) && eulaUuids.length > 0) {",
+									"    postman.setNextRequest('Get Individual API Eula');",
+									"    postman.setNextRequest('Post Individual API Eula');",
+									"} else {",
+									"    postman.setNextRequest('Post Individual API Eula');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();",
+									"",
+									"var eulaUuid = response.uuid;",
+									"pm.variables.set('eulaUuid', eulaUuid);",
+									"",
+									"var eulaName = response.name;",
+									"if (eulaName == 'Standard EULA') {",
+									"    pm.variables.set('eulaName', eulaName + '_from_target_tenant');",
+									"} else {",
+									"    pm.variables.set('eulaName', eulaName);",
+									"}",
+									"",
+									"var eulaContent = response.content.replace(/\\r?\\n/g, \" \");",
+									"pm.variables.set('eulaContent', eulaContent);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/eulas/{{eulaUuid}}",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"eulas",
+								"{{eulaUuid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Individual API Eula",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var eulaUuid = pm.variables.get('eulaUuid');",
+									"var eulaName = pm.variables.get('eulaName');",
+									"var eulaContent = pm.variables.get('eulaContent');",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var eulaUuids = pm.variables.get('eulaUuids');",
+									"",
+									"if (eulaUuids.length > 0) {",
+									"    postman.setNextRequest('Get Individual API Eula');",
+									"};"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "https://{{destApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"uuid\": \"{{eulaUuid}}\", \n  \"name\": \"{{eulaName}}\",\n  \"content\": \"{{eulaContent}}\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/eulas",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"eulas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

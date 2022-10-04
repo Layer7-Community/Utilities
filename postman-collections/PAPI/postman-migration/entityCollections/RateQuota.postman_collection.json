@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "892be656-3636-41d8-b783-181971dfb2cb",
+		"name": "Rate Quotas",
+		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21139065"
+	},
+	"item": [
+		{
+			"name": "Rate Quota",
+			"item": [
+				{
+					"name": "Get All RateQuotas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"var rateQuotas = pm.variables.get(\"rateQuotas\");",
+									"",
+									"if (rateQuotas == null) {",
+									"    rateQuotas = [];",
+									"}",
+									"",
+									"if (response != null) {",
+									"    rateQuotas = rateQuotas.concat(response.results);",
+									"    console.log(rateQuotas);",
+									"    pm.variables.set(\"rateQuotas\", rateQuotas);",
+									"}",
+									"",
+									"if (response != null && response.currentPage + 1 < response.totalPages) {",
+									"    postman.setNextRequest(\"Get All RateQuotas\");",
+									"} else {",
+									"    postman.setNextRequest(\"Post All RateQuotas\");",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var page = pm.variables.get(\"page\");",
+									"",
+									"if (page == null) {",
+									"    pm.variables.set(\"page\", 0);",
+									"} else {",
+									"    pm.variables.set(\"page\", page + 1);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/rate-quotas?page={{page}}",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"rate-quotas"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post All RateQuotas",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const rateQuotas = pm.variables.get(\"rateQuotas\");",
+									"",
+									"if (rateQuotas == null) {",
+									"    throw new Error(\"rateQuotas value is null\");",
+									"}",
+									"",
+									"var rateQuota = rateQuotas.shift();  ",
+									"var containsDefaultRq = false;",
+									"",
+									"do {",
+									"    if (rateQuota != null && (rateQuota.name == \"Internal Plan\" || rateQuota.name == \"Bronze Account Plan\")) {",
+									"        rateQuota = rateQuotas.shift(); ",
+									"        containsDefaultRq = true;",
+									"    } else {",
+									"        containsDefaultRq = false;",
+									"    }",
+									"} while (containsDefaultRq);",
+									"",
+									"pm.variables.set(\"rateQuota\", JSON.stringify(rateQuota));",
+									"",
+									"if (Array.isArray(rateQuotas) && rateQuotas.length > 0){",
+									"    postman.setNextRequest(\"Post All RateQuotas\");",
+									"} else {",
+									"    postman.setNextRequest(null);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{rateQuota}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/rate-quotas",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"rate-quotas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "c15f3842-1236-4562-8d32-9dc6153a13c4",
+		"name": "Organizations",
+		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Organizations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"var organizations = pm.variables.get(\"organizations\");",
+							"",
+							"if (organizations == null) {",
+							"    organizations = [];",
+							"}",
+							"",
+							"if (response != null) {",
+							"    organizations = organizations.concat(response.results);",
+							"    pm.variables.set(\"organizations\", organizations);",
+							"}",
+							"",
+							"if (response != null && response.currentPage + 1 < response.totalPages) {",
+							"    postman.setNextRequest(\"Get All Organizations\");",
+							"} else {",
+							"    postman.setNextRequest(\"Post All Organizations\");",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var page = pm.variables.get(\"page\");",
+							"",
+							"if (page == null) {",
+							"    pm.variables.set(\"page\", 0);",
+							"} else {",
+							"    pm.variables.set(\"page\", page + 1);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{sourceApimTenantUrl}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/tenant-admin/1.0/organizations?page={{page}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"tenant-admin",
+						"1.0",
+						"organizations"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "{{page}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post All Organizations",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const organizations = pm.variables.get(\"organizations\");",
+							"",
+							"if (organizations == null) {",
+							"    throw new Error(\"organizations value is null\");",
+							"}",
+							"",
+							"var organization = organizations.shift();  ",
+							"var containsDefaultRq = false;",
+							"if (organization != null) {",
+							"    if ((organization.accountPlanUuid == \"e7f3fcb1-6383-11ec-8ee9-566f18220043\")) { //source default acc plan",
+							"        organization.accountPlanUuid = \"9e4cf9dd-dc6f-11ec-baef-566f18220043\"; //dest default acc plan",
+							"    }",
+							"",
+							"    const destOrganization = {",
+							"        \"Uuid\": organization.uuid,",
+							"        \"Name\": organization.name,",
+							"        \"Description\": organization.description,",
+							"        \"Status\": organization.status,",
+							"        \"AccountPlanUuid\": organization.accountPlanUuid,",
+							"        \"Type\": organization.type",
+							"    };",
+							"    pm.variables.set(\"organization\", JSON.stringify(destOrganization));",
+							"}",
+							"",
+							"if (Array.isArray(organizations) && organizations.length > 0){",
+							"    postman.setNextRequest(\"Post All Organizations\");",
+							"} else {",
+							"    postman.setNextRequest(null);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{organization}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/Organizations",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"Organizations"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "sourceGateaugageToken",
+			"value": ""
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "destGateaugageToken",
+			"value": ""
+		}
+	]
+}
