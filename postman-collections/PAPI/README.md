@@ -1,6 +1,10 @@
+# PAPI
+This repository is for postman collections to perform a variaty of operations with the Layer 7 API Portal. 
+
+## Here is a list of available utilities
 ## Content
 
 Name | Brief Description
 ----- | -----------------
 [**postman-migration**](./postman-migration) | *postman collection for migrating core portal entites from destination to source portal*
-[**postman-custom-pages**](./postman-custom-pages) | *postman colection for migrating contentn bundles between portals*
+[**postman-custom-pages**](./postman-custom-pages) | *postman colection for migrating custom pages assignments between portals*

@@ -1,2 +1,2 @@
-# PAPI 
-Layer 7 API Management portal postman collections to showcase variety of PAPI interactions
+# postman-collections 
+Layer 7 API postman collections to showcase a variety of programmatic API interactions with various products
