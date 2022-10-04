@@ -1,2 +1,2 @@
-#postman-migration - postman collection for migrating core portal entites from destination to source portal
-#postman-content-bundle - postman colection for migrating contentn bundles between portals 
+# PAPI 
+Layer 7 API Management portal postman collections to cover variaty of PAPI interactions
