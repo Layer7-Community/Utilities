@@ -1,0 +1,1253 @@
+{
+	"info": {
+		"_postman_id": "c5f88252-643b-4a0a-9031-6523fe6c72b3",
+		"name": "Documents",
+		"description": "Notes\n\n- Locale variable needs to be defined\n- Home typeUUid variable needs to be a defined",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAllAPI's",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"let apiUuidArray = [];",
+							"let docsApiTree = [];",
+							"let docsApiToPost = [];",
+							"response.results.forEach(function(api) {",
+							"    apiUuidArray.push(api.uuid)",
+							"});",
+							"//console.log(apiUuidArray);",
+							"pm.globals.set(\"apiUuidArray\", apiUuidArray);",
+							"pm.globals.set(\"docsApiTree\", docsApiTree);",
+							"pm.globals.set(\"docsApiToPost\", docsApiToPost);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "gateaugage=05d1926f-acab-49b4-ab26-66f371c11775",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis/",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"apis",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDocsTreeForAPI",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let apiUuidArray = pm.globals.get(\"apiUuidArray\");",
+							"let responseDocs = [];",
+							"//console.log(apiUuidArray)",
+							"let apiUuid = apiUuidArray.shift();",
+							"//console.log(apiUuid)",
+							"if (Array.isArray(apiUuidArray) && apiUuidArray.length > 0) {",
+							"    pm.collectionVariables.set(\"typeUuid\", apiUuid);",
+							"    postman.setNextRequest(\"GetDocsTreeForAPI\")",
+							"} else {",
+							"    pm.collectionVariables.set(\"typeUuid\", apiUuid);",
+							"}",
+							"",
+							"pm.globals.set(\"apiUuidArray\", apiUuidArray);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"docsApiTreeTemp = pm.globals.get(\"docsApiTree\")",
+							"for (let i in response) {",
+							" docApiTreeDetails = response[i];",
+							" //console.log(docApiTreeDetails)",
+							" typeUuid = docApiTreeDetails.typeUuid",
+							" navtitle = docApiTreeDetails.navtitle",
+							" docsApiTreeTemp.push({\"typeUuid\":typeUuid,\"navtitle\" : navtitle})",
+							"} ",
+							"//console.log(docsApiTreeTemp)",
+							"pm.globals.set(\"docsApiTree\", docsApiTreeTemp)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/document-service/1.0/docs/API/{{typeUuid}}?locale={{sourceDocLocale}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"API",
+						"{{typeUuid}}"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "{{sourceDocLocale}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDocsForAPI",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let docsApiTreeTemp = pm.globals.get(\"docsApiTree\");",
+							"//console.log(docsApiTreeTemp)",
+							"let docApiTreeDetails = docsApiTreeTemp.shift();",
+							"//console.log(docApiTreeDetails)",
+							"if (Array.isArray(docsApiTreeTemp) && docsApiTreeTemp.length > 0) {",
+							"    pm.collectionVariables.set(\"typeUuid\", docApiTreeDetails.typeUuid);",
+							"    pm.collectionVariables.set(\"navtitle\", docApiTreeDetails.navtitle);",
+							"    postman.setNextRequest(\"GetDocsForAPI\")",
+							"} else {",
+							"    pm.collectionVariables.set(\"typeUuid\", docApiTreeDetails.typeUuid);",
+							"    pm.collectionVariables.set(\"navtitle\", docApiTreeDetails.navtitle);",
+							"}",
+							"",
+							"pm.globals.set(\"docsApiTree\", docsApiTreeTemp);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"//console.log(\"RESPONSE FINAL API\")",
+							"//console.log(response)",
+							"docsApiToPost = pm.globals.get(\"docsApiToPost\");",
+							"docsApiToPost.push(response)",
+							"pm.globals.set(\"docsApiToPost\", docsApiToPost);",
+							"//console.log(docsApiToPost)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/document-service/1.0/docs/API/{{typeUuid}}/{{navtitle}}?locale={{sourceDocLocale}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"API",
+						"{{typeUuid}}",
+						"{{navtitle}}"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "{{sourceDocLocale}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostAPIDocs",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"docsApiToPost = pm.globals.get(\"docsApiToPost\");",
+							"let docsApiToPostNew = [];",
+							"let docsApiPostTemp = pm.globals.get(\"docsApiToPost\");",
+							"//console.log(docsApiPostTemp)",
+							"let docApiPostDetails = docsApiPostTemp.shift();",
+							"//console.log(docApiPostDetails);",
+							"pm.collectionVariables.set(\"body\", JSON.stringify(docApiPostDetails));",
+							"pm.collectionVariables.set(\"typeUuid\", docApiPostDetails.typeUuid);",
+							"pm.collectionVariables.set(\"navtitle\", docApiPostDetails.navtitle);",
+							"let tempParentUuid = docApiPostDetails.parentUuid",
+							"if(tempParentUuid == \"\"){",
+							"    if (Array.isArray(docsApiPostTemp) && docsApiPostTemp.length > 0) {",
+							"        //console.log(\"Root Array::\" + JSON.stringify(docApiPostDetails))    ",
+							"        postman.setNextRequest(\"PostAPIDocs\")",
+							"    } else {",
+							"        //console.log(\"Root Done::\" + JSON.stringify(docApiPostDetails))    ",
+							"    }",
+							"} else {",
+							"    let parentCreated = false;",
+							"    for (var i=0; i < docsApiPostTemp.length; i++) {",
+							"        temp = docsApiPostTemp[i]",
+							"        //console.log(temp)",
+							"        if(temp.uuid == tempParentUuid){",
+							"            // Parent has not been created yet, creating parent first",
+							"            //console.log(\"Creating Parent::\" + JSON.stringify(temp))",
+							"            pm.collectionVariables.set(\"body\", JSON.stringify(temp));",
+							"            pm.collectionVariables.set(\"typeUuid\", temp.typeUuid);",
+							"            pm.collectionVariables.set(\"navtitle\", temp.navtitle);    ",
+							"            if (Array.isArray(docsApiPostTemp) && docsApiPostTemp.length > 0) {",
+							"               //console.log(\"Creating Parent Array::\" + JSON.stringify(temp))    ",
+							"                postman.setNextRequest(\"PostAPIDocs\")",
+							"            } else {",
+							"                //console.log(\"Creating Parent Done::\" + JSON.stringify(temp))  ",
+							"            }",
+							"            parentCreated = true;",
+							"        } else {",
+							"            docsApiToPostNew.push(temp)",
+							"        }",
+							"    }",
+							"    if(parentCreated){",
+							"        //if parent was created, the child still needs to be created, adding it back to the stack",
+							"        docsApiToPostNew.push(docApiPostDetails)",
+							"    }else{",
+							"        // the child is already removed using shift(), just process it.",
+							"            pm.collectionVariables.set(\"body\", JSON.stringify(docApiPostDetails));",
+							"            pm.collectionVariables.set(\"typeUuid\", docApiPostDetails.typeUuid);",
+							"            pm.collectionVariables.set(\"navtitle\", docApiPostDetails.navtitle);  ",
+							"            if (Array.isArray(docsApiPostTemp) && docsApiPostTemp.length > 0) {",
+							"               //console.log(\"Creating Child Array::\" + JSON.stringify(docApiPostDetails))    ",
+							"                postman.setNextRequest(\"PostAPIDocs\")",
+							"            } else {",
+							"                //console.log(\"Creating Child Done::\" + JSON.stringify(docApiPostDetails))    ",
+							"            }   ",
+							"    }",
+							"    docsApiPostTemp = docsApiToPostNew",
+							"",
+							"}",
+							"//console.log(\"Left Over:\" + JSON.stringify(docsApiPostTemp))",
+							"pm.globals.set(\"docsApiToPost\", docsApiPostTemp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/document-service/1.0/docs/API/{{typeUuid}}/{{navtitle}}",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"API",
+						"{{typeUuid}}",
+						"{{navtitle}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllApplication's",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"let applicationUuidArray = [];",
+							"let docsApplicationTree = [];",
+							"let docsApplicationToPost = [];",
+							"response.results.forEach(function(application) {",
+							"    applicationUuidArray.push(application.uuid)",
+							"});",
+							"//console.log(applicationUuidArray);",
+							"pm.globals.set(\"applicationUuidArray\", applicationUuidArray);",
+							"pm.globals.set(\"docsApplicationTree\", docsApplicationTree);",
+							"pm.globals.set(\"docsApplicationToPost\", docsApplicationToPost);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"type": "text",
+						"value": "gateaugage=05d1926f-acab-49b4-ab26-66f371c11775",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/applications",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"applications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDocsTreeForApplication",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let applicationUuidArray = pm.globals.get(\"applicationUuidArray\");",
+							"let responseDocs = [];",
+							"//console.log(applicationUuidArray)",
+							"let applicationUuid = applicationUuidArray.shift();",
+							"//console.log(applicationUuid)",
+							"if (Array.isArray(applicationUuidArray) && applicationUuidArray.length > 0) {",
+							"    pm.collectionVariables.set(\"typeUuid\", applicationUuid);",
+							"    postman.setNextRequest(\"GetDocsTreeForApplication\")",
+							"} else {",
+							"    pm.collectionVariables.set(\"typeUuid\", applicationUuid);",
+							"}",
+							"",
+							"pm.globals.set(\"applicationUuidArray\", applicationUuidArray);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"docsApplicationTreeTemp = pm.globals.get(\"docsApplicationTree\")",
+							"for (let i in response) {",
+							" docApplicationTreeDetails = response[i];",
+							" //console.log(docApplicationTreeDetails)",
+							" typeUuid = docApplicationTreeDetails.typeUuid",
+							" navtitle = docApplicationTreeDetails.navtitle",
+							" docsApplicationTreeTemp.push({\"typeUuid\":typeUuid,\"navtitle\" : navtitle})",
+							"} ",
+							"//console.log(docsApplicationTreeTemp)",
+							"pm.globals.set(\"docsApplicationTree\", docsApplicationTreeTemp)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/document-service/1.0/docs/APPLICATION/{{typeUuid}}?locale={{sourceDocLocale}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"APPLICATION",
+						"{{typeUuid}}"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "{{sourceDocLocale}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDocsForApplication",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let docsApplicationTreeTemp = pm.globals.get(\"docsApplicationTree\");",
+							"//console.log(docsApplicationTreeTemp)",
+							"let docApplicationTreeDetails = docsApplicationTreeTemp.shift();",
+							"//console.log(docApplicationTreeDetails)",
+							"if (Array.isArray(docsApplicationTreeTemp) && docsApplicationTreeTemp.length > 0) {",
+							"    pm.collectionVariables.set(\"typeUuid\", docApplicationTreeDetails.typeUuid);",
+							"    pm.collectionVariables.set(\"navtitle\", docApplicationTreeDetails.navtitle);",
+							"    postman.setNextRequest(\"GetDocsForApplication\")",
+							"} else {",
+							"    pm.collectionVariables.set(\"typeUuid\", docApplicationTreeDetails.typeUuid);",
+							"    pm.collectionVariables.set(\"navtitle\", docApplicationTreeDetails.navtitle);",
+							"}",
+							"",
+							"pm.globals.set(\"docsApplicationTree\", docsApplicationTreeTemp);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"//console.log(\"RESPONSE FINAL APPLICATION\")",
+							"//console.log(response)",
+							"docsApplicationToPost = pm.globals.get(\"docsApplicationToPost\");",
+							"docsApplicationToPost.push(response)",
+							"pm.globals.set(\"docsApplicationToPost\", docsApplicationToPost);",
+							"//console.log(docsApplicationToPost)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/document-service/1.0/docs/APPLICATION/{{typeUuid}}/{{navtitle}}?locale={{sourceDocLocale}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"APPLICATION",
+						"{{typeUuid}}",
+						"{{navtitle}}"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "{{sourceDocLocale}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostApplicationDocs",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"docsApplicationToPost = pm.globals.get(\"docsApplicationToPost\");",
+							"let docsApplicationToPostNew = [];",
+							"let docsApplicationPostTemp = pm.globals.get(\"docsApplicationToPost\");",
+							"//console.log(docsApplicationPostTemp)",
+							"let docApplicationPostDetails = docsApplicationPostTemp.shift();",
+							"//console.log(docApplicationPostDetails);",
+							"pm.collectionVariables.set(\"body\", JSON.stringify(docApplicationPostDetails));",
+							"pm.collectionVariables.set(\"typeUuid\", docApplicationPostDetails.typeUuid);",
+							"pm.collectionVariables.set(\"navtitle\", docApplicationPostDetails.navtitle);",
+							"let tempParentUuid = docApplicationPostDetails.parentUuid",
+							"if(tempParentUuid == \"\"){",
+							"    if (Array.isArray(docsApplicationPostTemp) && docsApplicationPostTemp.length > 0) {",
+							"        //console.log(\"Root Array::\" + JSON.stringify(docApplicationPostDetails))    ",
+							"        postman.setNextRequest(\"PostApplicationDocs\")",
+							"    } else {",
+							"        //console.log(\"Root Done::\" + JSON.stringify(docApplicationPostDetails))    ",
+							"    }",
+							"} else {",
+							"    let parentCreated = false;",
+							"    for (var i=0; i < docsApplicationPostTemp.length; i++) {",
+							"        temp = docsApplicationPostTemp[i]",
+							"        console.log(temp)",
+							"        if(temp.uuid == tempParentUuid){",
+							"            // Parent has not been created yet, creating parent first",
+							"            //console.log(\"Creating Parent::\" + JSON.stringify(temp))",
+							"            pm.collectionVariables.set(\"body\", JSON.stringify(temp));",
+							"            pm.collectionVariables.set(\"typeUuid\", temp.typeUuid);",
+							"            pm.collectionVariables.set(\"navtitle\", temp.navtitle);    ",
+							"            if (Array.isArray(docsApplicationPostTemp) && docsApplicationPostTemp.length > 0) {",
+							"               //console.log(\"Creating Parent Array::\" + JSON.stringify(temp))    ",
+							"                //postman.setNextRequest(\"PostApplicationDocs\")",
+							"            } else {",
+							"                //console.log(\"Creating Parent Done::\" + JSON.stringify(temp))    ",
+							"            }",
+							"            parentCreated = true;",
+							"        } else {",
+							"            docsApplicationToPostNew.push(temp)",
+							"        }",
+							"    }",
+							"    if(parentCreated){",
+							"        //if parent was created, the child still needs to be created, adding it back to the stack",
+							"        docsApplicationToPostNew.push(docApplicationPostDetails)",
+							"    }else{",
+							"        // the child is already removed using shift(), just process it.",
+							"            pm.collectionVariables.set(\"body\", JSON.stringify(docApplicationPostDetails));",
+							"            pm.collectionVariables.set(\"typeUuid\", docApplicationPostDetails.typeUuid);",
+							"            pm.collectionVariables.set(\"navtitle\", docApplicationPostDetails.navtitle);  ",
+							"            if (Array.isArray(docsApplicationPostTemp) && docsApplicationPostTemp.length > 0) {",
+							"               //console.log(\"Creating Child Array::\" + JSON.stringify(docApplicationPostDetails))    ",
+							"                postman.setNextRequest(\"PostApplicationDocs\")",
+							"            } else {",
+							"                //console.log(\"Creating Child Done::\" + JSON.stringify(docApplicationPostDetails))    ",
+							"            }   ",
+							"    }",
+							"    docsApplicationPostTemp = docsApplicationToPostNew",
+							"",
+							"}",
+							"//console.log(\"Left Over:\" + JSON.stringify(docsApplicationPostTemp))",
+							"pm.globals.set(\"docsApplicationToPost\", docsApplicationPostTemp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/document-service/1.0/docs/APPLICATION/{{typeUuid}}/{{navtitle}}",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"APPLICATION",
+						"{{typeUuid}}",
+						"{{navtitle}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDocsHomeTree",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"let docsHomeTree = [];",
+							"let docsHomeToPost = [];",
+							"for (let i in response) {",
+							" docHomeTreeDetails = response[i];",
+							" //console.log(docHomeTreeDetails)",
+							" typeUuid = docHomeTreeDetails.typeUuid",
+							" navtitle = docHomeTreeDetails.navtitle",
+							" docsHomeTree.push({\"typeUuid\":typeUuid,\"navtitle\" : navtitle})",
+							"} ",
+							"//console.log(docsHomeTree)",
+							"//console.log(docsHomeToPost)",
+							"pm.globals.set(\"docsHomeTree\", docsHomeTree)",
+							"pm.globals.set(\"docsHomeToPost\", docsHomeToPost)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/document-service/1.0/docs/home/home1?locale={{sourceDocLocale}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"home",
+						"home1"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "{{sourceDocLocale}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDocsForHome",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let docsHomeTreeTemp = pm.globals.get(\"docsHomeTree\");",
+							"//console.log(docsHomeTreeTemp)",
+							"let docHomeTreeDetails = docsHomeTreeTemp.shift();",
+							"//console.log(docHomeTreeDetails)",
+							"if (Array.isArray(docsHomeTreeTemp) && docsHomeTreeTemp.length > 0) {",
+							"    pm.collectionVariables.set(\"typeUuid\", docHomeTreeDetails.typeUuid);",
+							"    pm.collectionVariables.set(\"navtitle\", docHomeTreeDetails.navtitle);",
+							"    postman.setNextRequest(\"GetDocsForHome\")",
+							"} else {",
+							"    pm.collectionVariables.set(\"typeUuid\", docHomeTreeDetails.typeUuid);",
+							"    pm.collectionVariables.set(\"navtitle\", docHomeTreeDetails.navtitle);",
+							"}",
+							"",
+							"pm.globals.set(\"docsHomeTree\", docsHomeTreeTemp);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"//console.log(\"RESPONSE FINAL HOME\")",
+							"//console.log(response)",
+							"docsHomeToPostTemp = pm.globals.get(\"docsHomeToPost\");",
+							"//console.log(docsHomeToPostTemp)",
+							"docsHomeToPostTemp.push(response)",
+							"pm.globals.set(\"docsHomeToPost\", docsHomeToPostTemp);",
+							"//console.log(docsHomeToPostTemp)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/document-service/1.0/docs/home/{{typeUuid}}/{{navtitle}}?locale={{sourceDocLocale}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"home",
+						"{{typeUuid}}",
+						"{{navtitle}}"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "{{sourceDocLocale}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostHomeDocs",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"docsHomeToPost = pm.globals.get(\"docsHomeToPost\");",
+							"let docsHomeToPostNew = [];",
+							"let docsHomePostTemp = pm.globals.get(\"docsHomeToPost\");",
+							"//console.log(docsHomePostTemp)",
+							"let docHomePostDetails = docsHomePostTemp.shift();",
+							"//console.log(docHomePostDetails);",
+							"pm.collectionVariables.set(\"body\", JSON.stringify(docHomePostDetails));",
+							"pm.collectionVariables.set(\"typeUuid\", docHomePostDetails.typeUuid);",
+							"pm.collectionVariables.set(\"navtitle\", docHomePostDetails.navtitle);",
+							"let tempParentUuid = docHomePostDetails.parentUuid",
+							"if(tempParentUuid == \"\"){",
+							"    if (Array.isArray(docsHomePostTemp) && docsHomePostTemp.length > 0) {",
+							"        //console.log(\"Root Array::\" + JSON.stringify(docHomePostDetails))    ",
+							"        postman.setNextRequest(\"PostHomeDocs\")",
+							"    } else {",
+							"        //console.log(\"Root Done::\" + JSON.stringify(docHomePostDetails))    ",
+							"    }",
+							"} else {",
+							"    let parentCreated = false;",
+							"    for (var i=0; i < docsHomePostTemp.length; i++) {",
+							"        temp = docsHomePostTemp[i]",
+							"        console.log(temp)",
+							"        if(temp.uuid == tempParentUuid){",
+							"            // Parent has not been created yet, creating parent first",
+							"            console.log(\"Creating Parent::\" + JSON.stringify(temp))",
+							"            pm.collectionVariables.set(\"body\", JSON.stringify(temp));",
+							"            pm.collectionVariables.set(\"typeUuid\", temp.typeUuid);",
+							"            pm.collectionVariables.set(\"navtitle\", temp.navtitle);    ",
+							"            if (Array.isArray(docsHomePostTemp) && docsHomePostTemp.length > 0) {",
+							"               //console.log(\"Creating Parent Array::\" + JSON.stringify(temp))    ",
+							"                postman.setNextRequest(\"PostHomeDocs\")",
+							"            } else {",
+							"                //console.log(\"Creating Parent Done::\" + JSON.stringify(temp))    ",
+							"            }",
+							"            parentCreated = true;",
+							"        } else {",
+							"            docsHomeToPostNew.push(temp)",
+							"        }",
+							"    }",
+							"    if(parentCreated){",
+							"        //if parent was created, the child still needs to be created, adding it back to the stack",
+							"        docsHomeToPostNew.push(docHomePostDetails)",
+							"    }else{",
+							"        // the child is already removed using shift(), just process it.",
+							"            pm.collectionVariables.set(\"body\", JSON.stringify(docHomePostDetails));",
+							"            pm.collectionVariables.set(\"typeUuid\", docHomePostDetails.typeUuid);",
+							"            pm.collectionVariables.set(\"navtitle\", docHomePostDetails.navtitle);  ",
+							"            if (Array.isArray(docsHomePostTemp) && docsHomePostTemp.length > 0) {",
+							"               //console.log(\"Creating Child Array::\" + JSON.stringify(docHomePostDetails))    ",
+							"                postman.setNextRequest(\"PostHomeDocs\")",
+							"            } else {",
+							"                //console.log(\"Creating Child Done::\" + JSON.stringify(docHomePostDetails))    ",
+							"            }   ",
+							"    }",
+							"    docsHomePostTemp = docsHomeToPostNew",
+							"",
+							"}",
+							"pm.globals.set(\"docsHomeToPost\", docsHomePostTemp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/document-service/1.0/docs/home/{{typeUuid}}/{{navtitle}}",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"home",
+						"{{typeUuid}}",
+						"{{navtitle}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDocsCustomTree",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"let docsCustomTree = [];",
+							"let docsCustomToPost = [];",
+							"for (let i in response) {",
+							" docCustomTreeDetails = response[i];",
+							" //console.log(docCustomTreeDetails)",
+							" typeUuid = docCustomTreeDetails.typeUuid",
+							" navtitle = docCustomTreeDetails.navtitle",
+							" docsCustomTree.push({\"typeUuid\":typeUuid,\"navtitle\" : navtitle})",
+							"} ",
+							"//console.log(docsCustomTree)",
+							"pm.globals.set(\"docsCustomTree\", docsCustomTree)",
+							"pm.globals.set(\"docsCustomToPost\", docsCustomToPost)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/document-service/1.0/docs/custom/wiki1?locale={{sourceDocLocale}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"custom",
+						"wiki1"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "{{sourceDocLocale}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDocsForCustom",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let docsCustomTreeTemp = pm.globals.get(\"docsCustomTree\");",
+							"//console.log(docsCustomTreeTemp)",
+							"let docCustomTreeDetails = docsCustomTreeTemp.shift();",
+							"//console.log(docCustomTreeDetails)",
+							"if (Array.isArray(docsCustomTreeTemp) && docsCustomTreeTemp.length > 0) {",
+							"    pm.collectionVariables.set(\"typeUuid\", docCustomTreeDetails.typeUuid);",
+							"    pm.collectionVariables.set(\"navtitle\", docCustomTreeDetails.navtitle);",
+							"    postman.setNextRequest(\"GetDocsForCustom\")",
+							"} else {",
+							"    pm.collectionVariables.set(\"typeUuid\", docCustomTreeDetails.typeUuid);",
+							"    pm.collectionVariables.set(\"navtitle\", docCustomTreeDetails.navtitle);",
+							"}",
+							"",
+							"pm.globals.set(\"docsCustomTree\", docsCustomTreeTemp);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"//console.log(\"RESPONSE FINAL Custom\")",
+							"//console.log(response)",
+							"docsCustomToPost = pm.globals.get(\"docsCustomToPost\");",
+							"docsCustomToPost.push(response)",
+							"pm.globals.set(\"docsCustomToPost\", docsCustomToPost);",
+							"//console.log(docsCustomToPost)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/document-service/1.0/docs/custom/{{typeUuid}}/{{navtitle}}?locale={{sourceDocLocale}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"custom",
+						"{{typeUuid}}",
+						"{{navtitle}}"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "{{sourceDocLocale}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostCustomDocs",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"docsCustomToPost = pm.globals.get(\"docsCustomToPost\");",
+							"let docsCustomToPostNew = [];",
+							"let docsCustomPostTemp = pm.globals.get(\"docsCustomToPost\");",
+							"//console.log(docsCustomPostTemp)",
+							"let docCustomPostDetails = docsCustomPostTemp.shift();",
+							"//console.log(docCustomPostDetails);",
+							"pm.collectionVariables.set(\"body\", JSON.stringify(docCustomPostDetails));",
+							"pm.collectionVariables.set(\"typeUuid\", docCustomPostDetails.typeUuid);",
+							"pm.collectionVariables.set(\"navtitle\", docCustomPostDetails.navtitle);",
+							"let tempParentUuid = docCustomPostDetails.parentUuid",
+							"if(tempParentUuid == \"\"){",
+							"    if (Array.isArray(docsCustomPostTemp) && docsCustomPostTemp.length > 0) {",
+							"        //console.log(\"Root Array::\" + JSON.stringify(docCustomPostDetails))    ",
+							"        postman.setNextRequest(\"PostCustomDocs\")",
+							"    } else {",
+							"        //console.log(\"Root Done::\" + JSON.stringify(docCustomPostDetails))    ",
+							"    }",
+							"} else {",
+							"    let parentCreated = false;",
+							"    for (var i=0; i < docsCustomPostTemp.length; i++) {",
+							"        temp = docsCustomPostTemp[i]",
+							"        //console.log(temp)",
+							"        if(temp.uuid == tempParentUuid){",
+							"            // Parent has not been created yet, creating parent first",
+							"            //console.log(\"Creating Parent::\" + JSON.stringify(temp))",
+							"            pm.collectionVariables.set(\"body\", JSON.stringify(temp));",
+							"            pm.collectionVariables.set(\"typeUuid\", temp.typeUuid);",
+							"            pm.collectionVariables.set(\"navtitle\", temp.navtitle);    ",
+							"            if (Array.isArray(docsCustomPostTemp) && docsCustomPostTemp.length > 0) {",
+							"               //console.log(\"Creating Parent Array::\" + JSON.stringify(temp))    ",
+							"                postman.setNextRequest(\"PostCustomDocs\")",
+							"            } else {",
+							"                //console.log(\"Creating Parent Done::\" + JSON.stringify(temp))    ",
+							"            }",
+							"            parentCreated = true;",
+							"        } else {",
+							"            docsCustomToPostNew.push(temp)",
+							"        }",
+							"    }",
+							"    if(parentCreated){",
+							"        //if parent was created, the child still needs to be created, adding it back to the stack",
+							"        docsCustomToPostNew.push(docCustomPostDetails)",
+							"    }else{",
+							"        // the child is already removed using shift(), just process it.",
+							"            pm.collectionVariables.set(\"body\", JSON.stringify(docCustomPostDetails));",
+							"            pm.collectionVariables.set(\"typeUuid\", docCustomPostDetails.typeUuid);",
+							"            pm.collectionVariables.set(\"navtitle\", docCustomPostDetails.navtitle);  ",
+							"            if (Array.isArray(docsCustomPostTemp) && docsCustomPostTemp.length > 0) {",
+							"               //console.log(\"Creating Child Array::\" + JSON.stringify(docCustomPostDetails))    ",
+							"                postman.setNextRequest(\"PostCustomDocs\")",
+							"            } else {",
+							"                //console.log(\"Creating Child Done::\" + JSON.stringify(docCustomPostDetails))    ",
+							"            }   ",
+							"    }",
+							"    docsCustomPostTemp = docsCustomToPostNew",
+							"",
+							"}",
+							"pm.globals.set(\"docsCustomToPost\", docsCustomPostTemp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/document-service/1.0/docs/custom/{{typeUuid}}/{{navtitle}}",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"document-service",
+						"1.0",
+						"docs",
+						"custom",
+						"{{typeUuid}}",
+						"{{navtitle}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "7e234f92-bab1-463f-9685-bc7a89b89e7b",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiUuidArray",
+			"value": ""
+		},
+		{
+			"key": "typeUuid",
+			"value": ""
+		},
+		{
+			"key": "navtitle",
+			"value": ""
+		},
+		{
+			"key": "body",
+			"value": ""
+		}
+	]
+}

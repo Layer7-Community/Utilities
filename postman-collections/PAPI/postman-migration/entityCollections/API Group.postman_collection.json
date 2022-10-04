@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "2fed1ed1-5e60-428f-8f22-20bf563c0af3",
+		"name": "API Group",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21138964"
+	},
+	"item": [
+		{
+			"name": "Get All API groups",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.request.headers.add({\"key\":\"Authorization\",",
+							"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let apiGroups = pm.response.json();",
+							"",
+							"if (apiGroups && apiGroups.length > 0) {",
+							"    pm.collectionVariables.set(\"apiGroups\",apiGroups);",
+							"} else {",
+							"    postman.setNextRequest(null);",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{sourceApimTenantUrl}}",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://{{sourceApimTenantUrl}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/api-groups",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"api-groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST API Group",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.request.headers.add({\"key\":\"Authorization\",",
+							"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});",
+							"",
+							"",
+							"let apiGroups = pm.collectionVariables.get(\"apiGroups\")",
+							"var body = apiGroups.shift();",
+							"var body_str = JSON.stringify(body);",
+							"pm.collectionVariables.set(\"apiGroups\",apiGroups);",
+							"pm.collectionVariables.set(\"apiGroup\",body_str);",
+							"pm.collectionVariables.set(\"apiGroupUuid\",body.uuid)",
+							"console.log(body_str);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{destApimTenantUrl}}",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://{{destApimTenantUrl}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{apiGroup}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/api-groups",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"1.0",
+						"api-groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get APIs of an API group",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.request.headers.add({\"key\":\"Authorization\",",
+							"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let apiApiGroups = pm.response.json();",
+							"let apiGroups = pm.collectionVariables.get(\"apiGroups\");",
+							"",
+							"if (apiApiGroups && apiApiGroups.length > 0) {",
+							"    pm.collectionVariables.set(\"apiApiGroups\",apiApiGroups);",
+							"} else {",
+							"    if (apiGroups && apiGroups.length > 0) {",
+							"        postman.setNextRequest(\"POST API Group\");",
+							"    } else {",
+							"        postman.setNextRequest(null);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://{{sourceApimTenantUrl}}",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://{{sourceApimTenantUrl}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/api-groups/{{apiGroupUuid}}/apis",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"1.0",
+						"api-groups",
+						"{{apiGroupUuid}}",
+						"apis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD API to API Groups",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.request.headers.add({\"key\":\"Authorization\",",
+							"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let apiGroups = pm.collectionVariables.get(\"apiGroups\");",
+							"",
+							"if (apiGroups && apiGroups.length > 0) {",
+							"    postman.setNextRequest(\"POST API Group\");",
+							"} else {",
+							"    postman.setNextRequest(null);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{destApimTenantUrl}}",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://{{destApimTenantUrl}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{apiApiGroups}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/api-groups/{{apiGroupUuid}}/apis",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"1.0",
+						"api-groups",
+						"{{apiGroupUuid}}",
+						"apis"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "adminUsername",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"key": "adminPassword",
+			"value": "7layer",
+			"type": "string"
+		},
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "apiGroups",
+			"value": ""
+		},
+		{
+			"key": "apiGroup",
+			"value": ""
+		},
+		{
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "apiGroupUuid",
+			"value": ""
+		},
+		{
+			"key": "apiApiGroups",
+			"value": ""
+		}
+	]
+}

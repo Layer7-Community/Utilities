@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "e67d59d0-9da4-40fe-9709-b87416d1fa33",
+		"name": "TAGS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21138964"
+	},
+	"item": [
+		{
+			"name": "migrate organization tags",
+			"item": [
+				{
+					"name": "Get All Organization Tags",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\"key\":\"Authorization\",",
+									"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let orgTags = pm.response.json().results;",
+									"",
+									"pm.collectionVariables.set(\"orgTags\",orgTags);",
+									"pm.collectionVariables.set(\"orgTagsBody\",JSON.stringify(orgTags));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/tenant-admin/1.0/tags",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"tenant-admin",
+								"1.0",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Organization Tags",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\"key\":\"Authorization\",",
+									"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"orgTagsCreated\",pm.response.json())",
+									"",
+									"let orgTagsCreated = pm.response.json();",
+									"pm.collectionVariables.set(\"orgTagsCreated\",orgTagsCreated);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{orgTagsBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/tenant-admin/1.0/tags",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"tenant-admin",
+								"1.0",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Organizaitons Uuid that are associated with the Tag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let tagOrgs = pm.response.json(); // organizations that are associated with the tag",
+									"",
+									"let orgTags = pm.collectionVariables.get(\"orgTags\"); // remaining tags",
+									"",
+									"if (tagOrgs && tagOrgs.length > 0) {",
+									"    pm.collectionVariables.set(\"tagOrgs\",JSON.stringify(tagOrgs));",
+									"} else {",
+									"    if (orgTags && orgTags.length > 0) {",
+									"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
+									"    }",
+									"    ",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\"key\":\"Authorization\",",
+									"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});",
+									"let orgTags = pm.collectionVariables.get(\"orgTags\");",
+									"let currentTagUuid = orgTags.shift().uuid;",
+									"pm.collectionVariables.set(\"currentTagUuid\",currentTagUuid);",
+									"pm.collectionVariables.set(\"orgTags\",orgTags);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/tenant-admin/1.0/tags/{{currentTagUuid}}/organizations",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"tenant-admin",
+								"1.0",
+								"tags",
+								"{{currentTagUuid}}",
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update tag-organization association",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\"key\":\"Authorization\",",
+									"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});",
+									"",
+									"let orgTagsCreated = pm.collectionVariables.get(\"orgTagsCreated\");",
+									"let currentTagUuid = orgTagsCreated.shift().uuid;",
+									"pm.collectionVariables.set(\"orgTagsCreated\",orgTagsCreated);",
+									"pm.collectionVariables.set(\"currentTagUuid\",currentTagUuid);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let orgTags = pm.collectionVariables.get(\"orgTags\");",
+									"if (orgTags && orgTags.length > 0) {",
+									"    postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\")",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{tagOrgs}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/tenant-admin/1.0/tags/{{currentTagUuid}}/organizations",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"tenant-admin",
+								"1.0",
+								"tags",
+								"{{currentTagUuid}}",
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "apiTags",
+			"value": ""
+		},
+		{
+			"key": "orgTags",
+			"value": ""
+		},
+		{
+			"key": "allApis",
+			"value": ""
+		},
+		{
+			"key": "currentApiUuid",
+			"value": ""
+		},
+		{
+			"key": "currentTagUuid",
+			"value": ""
+		},
+		{
+			"key": "tagOrgs",
+			"value": ""
+		},
+		{
+			"key": "apiTagsBody",
+			"value": ""
+		},
+		{
+			"key": "orgTagsBody",
+			"value": ""
+		},
+		{
+			"key": "associatedTags",
+			"value": ""
+		},
+		{
+			"key": "orgTagsCreated",
+			"value": ""
+		},
+		{
+			"key": "apiTagsCreated",
+			"value": ""
+		}
+	]
+}
