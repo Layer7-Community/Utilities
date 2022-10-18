@@ -1,0 +1,49 @@
+license:
+  accept: true
+  existingSecretName: ssg-license
+
+existingGatewaySecretName: ssg-secret
+
+pmtagger:
+  enabled: false
+
+management:
+  service:
+    enabled: false
+
+service:
+  ports:
+    - name: https
+      internal: 8443
+      external: 8443
+      protocol: TCP
+    - name: management
+      internal: 9443
+      external: 9443
+      protocol: TCP
+
+# Database configuration
+database:
+  enabled: false
+  create: false
+
+# This script reads files in /opt/docker/custom and moves them into the correct location
+# for Gateway startup. Enabling this with an empty /opt/docker/custom folder will have no effect.
+# We recommend using an initContainer with a shared volume to populate the /opt/docker/custom folder.
+# The initContainer can either be built with all of the required files, or dynamically retrieve files
+# from an external location.
+# See the Readme for details and examples.
+bootstrap:
+  script:
+    enabled: true
+
+# Add initContainers to the Gateway
+initContainers:
+- name: simple-init
+  image: docker.io/layer7api/simple-init:1.0.0
+  imagePullPolicy: Always
+  volumeMounts:
+  - name: config-directory
+    mountPath: /opt/docker/custom
+  command: ["/bin/cp"]
+  args: ["-r",".", "/opt/docker/custom/"]
