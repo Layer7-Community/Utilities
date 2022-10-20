@@ -36,6 +36,7 @@ database:
 bootstrap:
   script:
     enabled: true
+  cleanup: true
 
 # Add initContainers to the Gateway
 initContainers:
@@ -45,5 +46,3 @@ initContainers:
   volumeMounts:
   - name: config-directory
     mountPath: /opt/docker/custom
-  command: ["/bin/cp"]
-  args: ["-r",".", "/opt/docker/custom/"]

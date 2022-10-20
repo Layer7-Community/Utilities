@@ -1,6 +1,9 @@
 ## Gateway Init Container Examples
 This repository provides examples of how to configure initContainers for the Layer7 API Gateway to load files into the right locations for bootstrap. This avoids the majority of use cases you might have for maintaining a custom gateway image.
 
+### Important note
+Files loaded onto the container gateway's filesystem will generally not be encrypted, meaning if a user has direct access (exec) they will be able to view/copy them. This level of access is generally (and should be) restricted presenting a low level of risk. If you are looking for an alternative to bootstrap for your MySQL-backed Gateway deployment then Restman is the best approach.
+
 ### Examples
 There are 2 examples that you can use to get started. Each example provides a values file for the Gateway Helm Chart to simplify trying these options out.
 
@@ -55,8 +58,9 @@ Dockerfile
 FROM busybox
 
 WORKDIR /config
-COPY config .
-USER 65532:65532
+COPY config config
+COPY entrypoint.sh .
+CMD [ "/bin/sh", "./entrypoint.sh" ]
 ```
 
 - Shared Volume - ```/opt/docker/custom```
@@ -65,25 +69,24 @@ USER 65532:65532
 gateway-values.yaml
 -------------------
 initContainers:
-- name: custom-init
+- name: simple-init
   image: docker.io/layer7api/simple-init:1.0.0
   imagePullPolicy: Always
   volumeMounts:
   - name: config-directory
     mountPath: /opt/docker/custom
-  command: ["/bin/cp"]
-  args: ["-r",".", "/opt/docker/custom/"]
 ```
 
 ### Folder Format
 These initContainers work in conjunction with a script the Gateway Helm Chart provides that runs on the Container Gateway.
 
-- Enabled with the following flag in the Gateway values file.
+- Enabled with the following flag in the Gateway values file. The cleanup flag removes the contents in /opt/docker/custom before exiting.
 
 ```
 boostrap:
   script:
     enabled: true
+  cleanup: true
 ```
 ##### All files, whether loaded in dynamically or simply copied will need to follow this folder structure.
 
