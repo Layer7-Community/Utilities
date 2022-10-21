@@ -1,1 +1,1 @@
-## Place a custom healthcheck.sh in this folder
+## Place custom healthcheck scripts in this folder

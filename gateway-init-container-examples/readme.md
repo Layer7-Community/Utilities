@@ -2,7 +2,9 @@
 This repository provides examples of how to configure initContainers for the Layer7 API Gateway to load files into the right locations for bootstrap. This avoids the majority of use cases you might have for maintaining a custom gateway image.
 
 ### Important note
-Files loaded onto the container gateway's filesystem will generally not be encrypted, meaning if a user has direct access (exec) they will be able to view/copy them. This level of access is generally (and should be) restricted presenting a low level of risk. If you are looking for an alternative to bootstrap for your MySQL-backed Gateway deployment then Restman is the best approach.
+Files loaded onto the container gateway's filesystem will generally not be encrypted, meaning if a user has direct access (exec) they will be able to view/copy them.
+
+This level of access is generally (and should be) restricted presenting a low level of risk. If you are looking for an alternative to bootstrap for your MySQL-backed Gateway deployment then Restman is the best approach.
 
 ### Examples
 There are 2 examples that you can use to get started. Each example provides a values file for the Gateway Helm Chart to simplify trying these options out.
@@ -106,8 +108,8 @@ boostrap:
     - Source ```/opt/docker/custom/scripts/custom```
     - Target ```/opt/docker/rc.d/```
   - Health Check
-    - Source ```/opt/docker/custom/scripts/healthcheck/healthcheck.sh```
-    - Target ```/opt/docker/rc.d/diagnostic/healthcheck.sh```
+    - Source ```/opt/docker/custom/scripts/healthcheck/```
+    - Target ```/opt/docker/rc.d/diagnostic/health_check```
 
 
 ## Build your own initContainer
