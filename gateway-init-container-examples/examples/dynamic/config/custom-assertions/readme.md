@@ -1,1 +1,1 @@
-## Place custom assertions in this folder
+## Place custom assertions (.jar) in this folder

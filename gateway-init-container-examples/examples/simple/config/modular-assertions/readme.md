@@ -1,1 +1,1 @@
-## Place modular assertions in this folder
+## Place modular assertions (.aar) in this folder

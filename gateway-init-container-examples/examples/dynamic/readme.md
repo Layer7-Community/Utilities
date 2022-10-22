@@ -1,12 +1,12 @@
 ## Dynamic
-This example loads private keys, stored passwords, trusted certificates (.cer) and cluster-wide properties. It assumes that you have a script to load in gateway resources from an external location. To keep things simple, we've pre-populated the pki folder.
+This example loads private keys, stored passwords, trusted certificates (.cer), cluster-wide properties and custom scripts. It assumes that you have a script to load in gateway resources from an external location. To keep things simple, we've pre-populated the pki folder.
 
-## Benefits
+## Running this example
+This example works with resources in the [gateway](../../gateway/) check out the [readme](../../readme.md) for more details.
 
 ### Files
 - Dockerfile
  - image: [python:slim](https://hub.docker.com/layers/library/python/slim/images/sha256-dd5373185c7a15f37665b9dc97c981e65f2ba8d2dca02f6cfd680d803756e6b9?context=explore)
-
 
 ### Folders
 - PKI
@@ -44,7 +44,6 @@ KEY_DIR=pki
 - CLUSTERPROP.name=value
 
 ***Any .cer files in KEY_DIR will be automatically bundled.***
-
 
 ### Verify
 

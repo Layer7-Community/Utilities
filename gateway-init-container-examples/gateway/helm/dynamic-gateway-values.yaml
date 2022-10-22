@@ -7,6 +7,40 @@ existingGatewaySecretName: ssg-secret
 pmtagger:
   enabled: false
 
+existingHealthCheck:
+  enabled: false
+  configMap:
+    name: healthcheck-scripts
+    # defaultMode: 292
+    # optional: false
+  secret:
+    # name: healthcheck-scripts
+    # csi:
+    #   driver: secrets-store.csi.k8s.io
+    #   readOnly: true
+    #   volumeAttributes:
+    #     secretProviderClass: "vault-database"
+
+customConfig:
+  enabled: true
+  mounts:
+  - name: sampletrafficloggerca-override
+    mountPath: /opt/SecureSpan/Gateway/node/default/etc/conf/sampletrafficloggerca.properties
+    subPath: sampletrafficloggerca.properties
+    configMap:
+      name: config-override-configmap
+      item:
+        key: sampletrafficloggerca.properties
+        path: sampletrafficloggerca.properties
+  - name: ssg-security-override
+    mountPath: /opt/SecureSpan/Gateway/runtime/etc/ssg.security
+    subPath: ssg.security
+    secret:
+      name: config-override-secret
+      item:
+        key: ssg.security
+        path: ssg.security
+
 management:
   service:
     enabled: false
@@ -63,7 +97,7 @@ config:
         - Published service message input
         properties:
         - name: server
-          value: A
+          value: brcmlabsdemo
         tls:
           enabled: true
           privateKey: 00000000000000000000000000000002:gatewaybrcmlabs
@@ -104,7 +138,7 @@ config:
         - Built-in services
         properties:
         - name: server
-          value: B
+          value: brcmlabsdemo
         tls:
           enabled: true
           privateKey: 00000000000000000000000000000002:gateway1brcmlabs

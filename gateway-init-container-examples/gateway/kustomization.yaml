@@ -5,6 +5,16 @@ resources:
   - ./namespace.yaml
 generatorOptions:
  disableNameSuffixHash: true
+configMapGenerator:
+  - name: healthcheck-scripts-configmap
+    files:
+      - "./scripts/healthcheck/001_healthcheck.sh"
+      - "./scripts/healthcheck/002_healthcheck.sh"
+    # - "./scripts/healthcheck/base.sh"
+  - name: config-override-configmap
+    files:
+      - "./properties/sampletrafficloggerca.properties"
+      - "./properties/ssg.security"
 secretGenerator:
   - name: ssg-secret
     env: gateway.env
@@ -13,3 +23,12 @@ secretGenerator:
   - name: ssg-license
     files:
       - "license"
+  - name: healthcheck-scripts-secret
+    files:
+      - "./scripts/healthcheck/001_healthcheck.sh"
+      - "./scripts/healthcheck/002_healthcheck.sh"
+    # - "./scripts/healthcheck/base.sh"
+  - name: config-override-secret
+    files:
+      - "./properties/sampletrafficloggerca.properties"
+      - "./properties/ssg.security"

@@ -1,1 +1,0 @@
-## Place custom healthcheck scripts in this folder
