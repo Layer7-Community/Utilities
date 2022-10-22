@@ -6,7 +6,7 @@ Files loaded onto the container gateway's filesystem will generally not be encry
 
 This level of access is generally (and should be) restricted presenting a low level of risk. If you are looking for an alternative to bootstrap for your MySQL-backed Gateway deployment then Restman is the best approach.
 
-***NOTE:*** The install process automatically sets license.accept to true. By using this example you accepting the license agreement.
+***NOTE: The install process automatically sets license.accept to true. By using this example you accept the license agreement.***
 
 ### Examples
 There are 2 examples that you can use to get started. Each example provides a values file for the Gateway Helm Chart to simplify trying these options out.
