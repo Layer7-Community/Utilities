@@ -1,0 +1,963 @@
+{
+	"info": {
+		"_postman_id": "a7d68050-6cc6-47c2-bcb8-9ded070ad97b",
+		"name": "MAG Server APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2437298"
+	},
+	"item": [
+		{
+			"name": "Configuration",
+			"item": [
+				{
+					"name": "List all Cluster Wide Properties(CWPs) related to MAG",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/mag/configuration?apikey={{CWP_api_key}}",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"mag",
+								"configuration"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "{{CWP_api_key}}",
+									"description": "The apikey set in the CWP mag.api.key to authenticate the API."
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "This API can be used to quickly verify the MAG flow after the installation/upgrade.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/mag/health?apikey={{CWP_api_key}}",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"mag",
+								"health"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "{{CWP_api_key}}",
+									"description": "The apikey set in the CWP mag.api.key to authenticate the API."
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MSSO with Password",
+			"item": [
+				{
+					"name": "Device Enrollment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{adminUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "sub",
+									"value": "{{adminUserSub}}",
+									"type": "text"
+								},
+								{
+									"key": "custom",
+									"value": "customField",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/enrollment",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"enrollment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"generatedClientIdP\", jsonData.client_id);",
+									"pm.environment.set(\"generatedClientSecretP\", jsonData.client_secret);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "device-id",
+								"value": "{{deviceIdP}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "nonce",
+									"value": "{{$randomInt}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/client/initialize",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"client",
+								"initialize"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device Register with Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"magIdentifierP\", postman.getResponseHeader('mag-identifier'));",
+									"pm.environment.set(\"sessionDataP\", postman.getResponseHeader('id-token'));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var generatedClientId = pm.environment.get('generatedClientIdP');",
+									"var generatedClientSecret = pm.environment.get('generatedClientSecretP');",
+									"var encodedClientAuthorization = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(generatedClientId+\":\"+generatedClientSecret));",
+									"pm.environment.set(\"encodedClientAuthorizationP\", encodedClientAuthorization);",
+									"",
+									"var nonAdminUserName = pm.environment.get('nonAdminUserName');",
+									"var nonAdminUserPassword = pm.environment.get('nonAdminUserPassword');",
+									"var encodedAuthorization = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(nonAdminUserName+\":\"+nonAdminUserPassword));",
+									"pm.environment.set(\"encodedAuthorization\", encodedAuthorization);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Basic {{encodedAuthorization}}",
+								"type": "text"
+							},
+							{
+								"key": "client-authorization",
+								"value": "Basic {{encodedClientAuthorizationP}}",
+								"type": "text"
+							},
+							{
+								"key": "device-id",
+								"value": "{{deviceIdP}}",
+								"type": "text"
+							},
+							{
+								"key": "device-name",
+								"value": "{{deviceName}}",
+								"type": "text"
+							},
+							{
+								"key": "nonce",
+								"value": "1234",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{csrP}}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/register",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Access Token with Password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var generatedClientId = pm.environment.get('generatedClientIdP');",
+									"var generatedClientSecret = pm.environment.get('generatedClientSecretP');",
+									"var encodedClientAuthorization = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(generatedClientId+\":\"+generatedClientSecret));",
+									"pm.environment.set(\"encodedClientAuthorizationP\", encodedClientAuthorization);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"accessTokenP\", jsonData.access_token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedClientAuthorizationP}}",
+								"type": "text"
+							},
+							{
+								"key": "mag-identifier",
+								"value": "{{magIdentifierP}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{nonAdminUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid msso phone profile address email msso_client_register msso_register mas_messaging mas_storage mas_identity mas_identity_retrieve_users mas_identity_create_users mas_identity_update_users mas_identity_delete_users mas_identity_retrieve_groups mas_identity_create_groups mas_identity_update_groups mas_identity_delete_groups msso_device_metadata",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{nonAdminUserPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{accessTokenP}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/list",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Device Meta data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "mag-identifier",
+								"value": "{{magIdentifierP}}",
+								"type": "text"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{accessTokenP}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/metadata",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"metadata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create an attribute for the Device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "mag-identifier",
+								"value": "{{magIdentifierP}}",
+								"type": "text"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{accessTokenP}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"year\",\n  \"value\": \"2021\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/metadata",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"metadata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create or update attribute",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "mag-identifier",
+								"value": "{{magIdentifierP}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessTokenP}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"model\",\n    \"value\": \"Android\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/metadata",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"metadata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all attributes",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "mag-identifier",
+								"value": "{{magIdentifierP}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessTokenP}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/metadata",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"metadata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve an attribute",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "mag-identifier",
+								"value": "{{magIdentifierP}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessTokenP}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/metadata/model",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"metadata",
+								"model"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a specific attribute",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "mag-identifier",
+								"value": "{{magIdentifierP}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessTokenP}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/metadata/model",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"metadata",
+								"model"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sample Protected API",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "mag-identifier",
+								"value": "{{magIdentifierP}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessTokenP}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/http-response-test",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"http-response-test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MSSO with Client Credentials",
+			"item": [
+				{
+					"name": "Device Enrollment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{adminUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "sub",
+									"value": "{{adminUserSub}}",
+									"type": "text"
+								},
+								{
+									"key": "custom",
+									"value": "customField",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/enrollment",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"enrollment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"generatedClientIdCC\", jsonData.client_id);",
+									"pm.environment.set(\"generatedClientSecretCC\", jsonData.client_secret);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "device-id",
+								"value": "{{deviceIdCC}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "nonce",
+									"value": "{{$randomInt}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/client/initialize",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"client",
+								"initialize"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device Register using Client Credentials",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var generatedClientId = pm.environment.get('generatedClientIdCC');",
+									"var generatedClientSecret = pm.environment.get('generatedClientSecretCC');",
+									"var encodedClientAuthorization = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(generatedClientId+\":\"+generatedClientSecret));",
+									"pm.environment.set(\"encodedClientAuthorizationCC\", encodedClientAuthorization);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"magIdentifierCC\", postman.getResponseHeader('mag-identifier'));",
+									"pm.environment.set(\"sessionDataCC\", postman.getResponseHeader('id-token'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "client-authorization",
+								"value": "Basic {{encodedClientAuthorizationCC}}",
+								"type": "text"
+							},
+							{
+								"key": "device-id",
+								"value": "{{deviceIdCC}}",
+								"type": "text"
+							},
+							{
+								"key": "device-name",
+								"value": "{{deviceName}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{csrCC}}"
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/register/client",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"register",
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Access Token with Client Credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"accessTokenCC\", jsonData.access_token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "mag-identifier",
+								"value": "{{magIdentifierCC}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "scope",
+									"value": "openid msso phone profile address email msso_client_register msso_register mas_messaging mas_storage mas_identity mas_identity_retrieve_users mas_identity_create_users mas_identity_update_users mas_identity_delete_users mas_identity_retrieve_groups mas_identity_create_groups mas_identity_update_groups mas_identity_delete_groups msso_device_metadata",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{generatedClientIdCC}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{generatedClientSecretCC}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{accessTokenCC}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/list",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sample protected API",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "mag-identifier",
+								"value": "{{magIdentifierCC}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessTokenCC}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/http-response-test",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"http-response-test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Enterprise Browser",
+			"item": [
+				{
+					"name": "Enterprise Browser related APIs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/enterprise/browser",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"enterprise",
+								"browser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
