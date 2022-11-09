@@ -2,7 +2,7 @@
 postman-user-registration-request
 
 ## Purpose
-This postman collection include all requests need to perform a registration request workflow demo
+This postman collection include all requests needed to perform a registration request workflow demo
 
 ## Content
 This collection include these following requests:
