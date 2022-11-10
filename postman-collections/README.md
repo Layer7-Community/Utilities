@@ -3,7 +3,7 @@ Layer 7 API postman collections to showcase a variety of programmatic API intera
 
 Name | Brief Description
 ----- | -----------------
-[**Gateway**](./Gateway) | *Collections for use with the Layer7 API Gateway*
 [**MAG**](./MAG) | *Collections for use with the Layer7 Mobile API Gateway*
 [**OTK**](./OTK) | *Collections for use with the Layer7 OAuth Toolkit*
-[**PAPI**](./PAPI) | *Collections for use with the Layer7 API Developer Portal*
+[**PAPI**](./PAPI) | *Collections for use with the Layer7 API Developer Portal API*
+[**Restman**](./restman) | *Collections for use with the Layer7 API Gateway Restman API*
