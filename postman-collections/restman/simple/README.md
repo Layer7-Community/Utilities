@@ -1,4 +1,4 @@
-Layer7 does not maintain a Postman collection for its largely auto-generated Restman API. The API does provide a WADL specification that can be downloaded from the APIs documentation exposed by the gateway. This simple Postman collection example was created by converting the WADL to OAS 3.0 to Postman.
+Layer7 does not maintain a Postman collection for its largely auto-generated Restman API. The API does provide a WADL specification that can be downloaded from the APIs documentation exposed by the gateway. This [simple Postman collection](./RESTMAN.postman_collection.json) example was created by converting the WADL to OAS 3.0 to Postman.
 
 To convert the WADL to OAS 3.0, this [api-spec-converter](https://github.com/LucyBot-Inc/api-spec-converter) utility was used with this command line:
 
