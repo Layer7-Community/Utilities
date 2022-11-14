@@ -1,0 +1,1230 @@
+{
+	"info": {
+		"_postman_id": "57ff4301-2b32-4976-99ec-feab94d0ee04",
+		"name": "APIPlan",
+		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11324814"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Get Source Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"sourceToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sourceSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{sourceApiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "OOB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Destination Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"destToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{destSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{destApiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "OOB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "APIPLans",
+			"item": [
+				{
+					"name": "Check Source APIPlan Feature",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"let value = response.Value;",
+									"",
+									"if(value == null || value === false){",
+									"    console.log('Source tenant ApiPlan feature is disabled')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}",
+									"console.log('Source tenant ApiPlan feature is enabled')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/Settings('FEATURE_FLAG_API_PLANS')",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"Settings('FEATURE_FLAG_API_PLANS')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Destination APIPlan Feature",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"let value = response.Value;",
+									"",
+									"if(value == null || value === false){",
+									"    console.log('Destination tenant ApiPlan feature is disabled')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}",
+									"console.log('Destination tenant ApiPlan feature is enabled')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/Settings('FEATURE_FLAG_API_PLANS')",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"Settings('FEATURE_FLAG_API_PLANS')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source All APIPlans",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const response = pm.response.json();",
+									"var apiPlansJson = pm.collectionVariables.get(\"apiPlans\");",
+									"var apiPlans = [];",
+									"if (apiPlansJson != null) {",
+									"    apiPlans = JSON.parse(apiPlansJson);",
+									"}",
+									"",
+									"if (response != null) {",
+									"    apiPlans = apiPlans.concat(response.results);",
+									"    pm.collectionVariables.set(\"apiPlans\", JSON.stringify(apiPlans));",
+									"}",
+									"",
+									"if (response != null && response.currentPage + 1 < response.totalPages) {",
+									"    postman.setNextRequest(\"Get Source APIPlans\");",
+									"} else {",
+									"    pm.collectionVariables.unset(\"apiPlansPage\");",
+									"    // console.log(apiPlans);",
+									"    pm.collectionVariables.set(\"apiPlansIndex\", 0)",
+									"    postman.setNextRequest(\"Get Source APIPlans APIs\");",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"var page = pm.collectionVariables.get(\"apiPlansPage\");",
+									"",
+									"if (page == null) {",
+									"    pm.collectionVariables.set(\"apiPlansPage\", 0);",
+									"    // reset gatewayBundles if page is null",
+									"    pm.collectionVariables.unset(\"apiPlans\")",
+									"} else {",
+									"    pm.collectionVariables.set(\"aapiPlaapiPlansPagensPage\", page + 1);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/api-plans?page={{apiPlansPage}}&size=10&sort=name",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"api-plans"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{apiPlansPage}}"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source APIPlans APIs",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"if(collections == null || index == null || index >= collections.length) {",
+									"    console,log('ERROR: missing apiPlans or apiPlansIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"    console.log('Get ApiPlans[' + index + '] apis...')",
+									"    var collection = collections[index]",
+									"",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"uuid\", collection.uuid)",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"// console.log(index)",
+									"var collection = collections[index];",
+									"// console.log(JSON.stringify(collection))",
+									"collection[\"apiPlanApis\"] = pm.response.json();",
+									"",
+									"// save the apis back to collectionVariables.",
+									"collections[index] = collection;",
+									"pm.collectionVariables.set('apiPlans', JSON.stringify(collections))",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/api-plans/{{uuid}}/apis",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"api-plans",
+								"{{uuid}}",
+								"apis"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source APIPlans Organizations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"if(collections == null || index == null || index >= collections.length) {",
+									"    console,log('ERROR: missing apiPlans or apiPlansIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"    console.log('Get ApiPlans[' + index + '] Organizations...')",
+									"    var collection = collections[index]",
+									"",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"uuid\", collection.uuid)",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"// console.log(index)",
+									"var collection = collections[index];",
+									"// console.log(JSON.stringify(collection))",
+									"collection[\"apiPlanOrganizations\"] = pm.response.json();",
+									"",
+									"// save the organizations back to collectionVariables.",
+									"collections[index] = collection;",
+									"pm.collectionVariables.set('apiPlans', JSON.stringify(collections))",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/api-plans/{{uuid}}/organizations",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"0.1",
+								"api-plans",
+								"{{uuid}}",
+								"organizations"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Destination APIPlan",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"// console.log(collections)",
+									"// console.log(index)",
+									"if(collections == null || index == null || index >= collections.length) {",
+									"    console,log('ERROR: missing apiPlans or apiPlansIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"    console.log('Creating ApiPlans[' + index + ']...')",
+									"    var collection = collections[index]",
+									"",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"apiPlan\", JSON.stringify(collection))",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{destToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{apiPlan}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/api-plans",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"api-plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setup Destination APIPlans Api Associaion",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"// console.log(index)",
+									"if(collections == null || index == null || index >= collections.length) {",
+									"    console.log('ERROR: missing ApiPlans or apiPlansIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"",
+									"    var collection = collections[index];",
+									"    // console.log(collection)",
+									"    if(collection == null || collection.apiPlanApis == null || collection.apiPlanApis.length == 0){",
+									"    console.log('No Apis found in ApiPlans[' + index + ']')",
+									"        postman.setNextRequest('Setup Destination APIPlans Org Associaion')",
+									"    }else{",
+									"        var apiPlanApis = collection.apiPlanApis;",
+									"        // console.log('apiPlanApis:'+ JSON.stringify(apiPlanApis))",
+									"        pm.collectionVariables.set('apiPlanApiIndex', 0);",
+									"        pm.collectionVariables.set('apiPlanApis', apiPlanApis);",
+									"        pm.collectionVariables.set('planUuid', collection.uuid);",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Destination APIPlan Api Association",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var collections = pm.collectionVariables.get('apiPlanApis')",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlanApiIndex'))",
+									"",
+									"if(collections == null || index == null){",
+									"    console,log('ERROR: missing apiPlanApis or apiPlanApiIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}",
+									"",
+									"var planUuid = pm.collectionVariables.get('planUuid')",
+									"// console.log(index)",
+									"",
+									"if(index >= collections.length){",
+									"    console.log('ERROR: index {' + index + '} out of boundary: ' + collections.length)",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"    console.log('Associating ApiPlans{' + planUuid + '} with Apis['+ index + ']...')",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"apiUuid\", collections[index].uuid);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"collections = pm.collectionVariables.get('apiPlanApis')",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlanApiIndex'))",
+									"var planUuid = pm.collectionVariables.get('planUuid')",
+									"",
+									"index = index + 1;",
+									"if(index >= collections.length){",
+									"    console.log('Finished apiPlan{' + planUuid + '} ' + collections.length + ' Api associations.')",
+									"    postman.setNextRequest('Setup Destination APIPlans Org Associaion')",
+									"}else{",
+									"    // iterate to the next api",
+									"    pm.collectionVariables.set(\"apiPlanApiIndex\", index);",
+									"    postman.setNextRequest('Put Destination APIPlan Api Association')",
+									"}",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{destToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{apiPlan}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/api-plans/{{planUuid}}/api/{{apiUuid}}",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"api-plans",
+								"{{planUuid}}",
+								"api",
+								"{{apiUuid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setup Destination APIPlans Org Associaion",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"// console.log(index)",
+									"if(collections == null || index == null || index >= collections.length) {",
+									"    console.log('ERROR: missing ApiPlans or apiPlansIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"",
+									"    var collection = collections[index];",
+									"    // console.log(collection)",
+									"    if(collection == null || collection.apiPlanOrganizations == null || collection.apiPlanOrganizations.length == 0){",
+									"    console.log('No Org found in ApiPlans[' + index + ']')",
+									"        postman.setNextRequest('End Loop APIPlans')",
+									"    }else{",
+									"        var apiPlanOrganizations = collection.apiPlanOrganizations;",
+									"        // console.log('apiPlanOrganizations:'+ JSON.stringify(apiPlanOrganizations))",
+									"        pm.collectionVariables.set('apiPlanOrgIndex', 0);",
+									"        pm.collectionVariables.set('apiPlanOrgs', apiPlanOrganizations);",
+									"        pm.collectionVariables.set('planUuid', collection.uuid);",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Destination APIPlan Org Accoication",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var collections = pm.collectionVariables.get('apiPlanOrgs')",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlanOrgIndex'))",
+									"",
+									"if(collections == null || index == null){",
+									"    console,log('ERROR: missing apiPlanOrgs or apiPlanOrgIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}",
+									"",
+									"var planUuid = pm.collectionVariables.get('planUuid')",
+									"// console.log(index)",
+									"",
+									"console.log('Associating ApiPlans{' + planUuid + '} with Orgs['+ index + ']...')",
+									"// set path variable for uuid",
+									"pm.variables.set(\"orgUuid\", collections[index].uuid);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"collections = pm.collectionVariables.get('apiPlanOrgs')",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlanOrgIndex'))",
+									"var planUuid = pm.collectionVariables.get('planUuid')",
+									"",
+									"index = index + 1;",
+									"// console.log(index)",
+									"if(index >= collections.length){",
+									"    console.log('Finished apiPlan{' + planUuid + '} ' + collections.length + ' Org associations.')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"    // iterate to the next org",
+									"    // console.log('save org index: ' + index)",
+									"    pm.collectionVariables.set(\"apiPlanOrgIndex\", index);",
+									"    postman.setNextRequest('Put Destination APIPlan Org Accoication')",
+									"}",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{destToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{apiPlan}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/api-plans/{{planUuid}}/organization/{{orgUuid}}",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"api-plans",
+								"{{planUuid}}",
+								"organization",
+								"{{orgUuid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "End Loop APIPlans",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"if(collections == null || index == null) {",
+									"    // TODO: set next request in collection instead of null.",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"    index = index + 1;",
+									"    if(index >= collections.length){",
+									"        console.log('Finished all ' + collections.length + ' ApiPlans migration.')",
+									"        postman.setNextRequest(null)",
+									"    }else{",
+									"        console.log('Loop to ApiPlans[' + index + '] migration...')",
+									"",
+									"        // set ApiPlan next iteration",
+									"        pm.collectionVariables.set(\"apiPlansIndex\", index)",
+									"        // next loop starts from \"Get Source APIPlans APIs\" request",
+									"        postman.setNextRequest('Get Source APIPlans APIs')",
+									"    }",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apimSsg",
+			"value": "portal502-sherpas-ssg.apps.rancher-ironforge.apim.broadcom.net"
+		},
+		{
+			"key": "apimSsgPort",
+			"value": "443"
+		},
+		{
+			"key": "apiKey",
+			"value": "44d0f49db22f4b298a04384c31d2cd45"
+		},
+		{
+			"key": "secret",
+			"value": "aef5089b6a784dcea7c12b8e8274a005"
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "aapiPlansPage",
+			"value": ""
+		},
+		{
+			"key": "aapiPlaapiPlansPagensPage",
+			"value": ""
+		},
+		{
+			"key": "apiPlans",
+			"value": ""
+		},
+		{
+			"key": "apiPlansIndex",
+			"value": ""
+		},
+		{
+			"key": "apiPlanApis",
+			"value": ""
+		},
+		{
+			"key": "apiPlanOrganizations",
+			"value": ""
+		},
+		{
+			"key": "apiPlan",
+			"value": ""
+		},
+		{
+			"key": "apiPlanOrgIndex",
+			"value": ""
+		},
+		{
+			"key": "apiPlanOrgs",
+			"value": ""
+		},
+		{
+			"key": "planUuid",
+			"value": ""
+		},
+		{
+			"key": "apiPlanApiIndex",
+			"value": ""
+		}
+	]
+}

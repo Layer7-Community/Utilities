@@ -1,0 +1,971 @@
+{
+	"info": {
+		"_postman_id": "ec8aa22d-9f4c-445a-a5af-4a75feba1b65",
+		"name": "GatewayBundle",
+		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11324814"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Get Source Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"sourceToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sourceSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{sourceApiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "OOB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Destination Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"destToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{destSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{destApiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "OOB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GatewayBundle",
+			"item": [
+				{
+					"name": "Get Source GatewayBundles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"const response = pm.response.json();",
+									"var jsonData = response.results;",
+									"",
+									"// get existing gatewayBundles from collection variables",
+									"var gatewayBundlesJson = pm.collectionVariables.get(\"gatewayBundles\")",
+									"var gatewayBundles = []",
+									"if(gatewayBundlesJson != null){",
+									"    gatewayBundles =  JSON.parse(gatewayBundlesJson)",
+									"}",
+									"",
+									"// save the bundles in response into collection variables except the system reserved one.",
+									"for (var index in jsonData){",
+									"    var gatewayBundle = jsonData[index]",
+									"    // do not save the system reserved bundle",
+									"    if (gatewayBundle.name !== \"Rate & Quota Policy Template\" &&",
+									"    gatewayBundle.groupName !== \"l7.apim.system\" ){",
+									"        gatewayBundles.push(gatewayBundle)",
+									"        console.log(gatewayBundle)",
+									"    }",
+									"}",
+									"",
+									"pm.collectionVariables.set(\"gatewayBundles\", JSON.stringify(gatewayBundles))",
+									"",
+									"if (response != null && response.currentPage + 1 < response.totalPages) {",
+									"    postman.setNextRequest(\"Get Source GatewayBundles\");",
+									"} else {",
+									"    pm.collectionVariables.unset(\"gatewayBundlesPage\");",
+									"    pm.collectionVariables.set(\"gatewayBundleIndex\", 0)",
+									"    postman.setNextRequest('Download Source GatewayBundle Metadata')",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var page = pm.collectionVariables.get(\"gatewayBundlesPage\");",
+									"",
+									"if (page == null) {",
+									"    pm.collectionVariables.set(\"gatewayBundlesPage\", 0);",
+									"    // reset gatewayBundles if page is null",
+									"    pm.collectionVariables.unset(\"gatewayBundles\")",
+									"} else {",
+									"    pm.collectionVariables.set(\"gatewayBundlesPage\", page + 1);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/policy-management/0.1/gateway-bundles?page={{gatewayBundlesPage}}",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"policy-management",
+								"0.1",
+								"gateway-bundles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{gatewayBundlesPage}}"
+								},
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download Source GatewayBundle Metadata",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"if(gatewayBundles === null || index === null) {",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"    console.log('Downloading GatewayBundle ' + index + ' Metadata...')",
+									"    var gatewaybundle = gatewayBundles[index]",
+									"",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"uuid\", gatewaybundle.uuid)",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"var gatewaybundle = gatewayBundles[index]",
+									"",
+									"// The opts for the server, also includes the data to be written to file",
+									"let opts = {",
+									"    requestName: gatewaybundle.name + '-' + gatewaybundle.version,",
+									"    fileExtension: 'metadata.yml',",
+									"    mode: 'writeFile', ",
+									"    uniqueIdentifier: false,",
+									"    responseData: pm.response.text()",
+									"};",
+									"// send the downloaded file content to local server running on port 3000.",
+									"pm.sendRequest({",
+									"    url: 'http://localhost:3000/write',",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(opts)",
+									"    }",
+									"}, function (err, res) {",
+									"    console.log(res);",
+									"});",
+									"",
+									"console.log('sending Gateway Bunlde ' + index + ' Metadata to localserver to save it to Postman Wokring Folder')",
+									"",
+									"// If we are *not* on the last item in the list,",
+									"// increment the index and set the next request to ",
+									"// this one. Otherwise end the loop.",
+									"",
+									"if (index + 1 < gatewayBundles.length){",
+									"    pm.collectionVariables.set('gatewayBundleIndex', index + 1)",
+									"    postman.setNextRequest('Download Source GatewayBundle Metadata')",
+									"}else{",
+									"    // reset the index for the next request",
+									"    pm.collectionVariables.set('gatewayBundleIndex', 0)",
+									"    postman.setNextRequest('Download Source GatewayBundle Install Bundle')",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/policy-management/0.1/gateway-bundles/{{uuid}}/metadata",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"policy-management",
+								"0.1",
+								"gateway-bundles",
+								"{{uuid}}",
+								"metadata"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download Source GatewayBundle Install Bundle",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"if(gatewayBundles === null || index === null) {",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"        console.log('Downloading GatewayBundle ' + index + ' Install Bundle...')",
+									"    var gatewaybundle = gatewayBundles[index]",
+									"",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"uuid\", gatewaybundle.uuid)",
+									"    pm.variables.set(\"bundleVersion\", gatewaybundle.version)",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"var gatewaybundle = gatewayBundles[index]",
+									"",
+									"// The opts for the server, also includes the data to be written to file",
+									"let opts = {",
+									"    requestName: gatewaybundle.name + '-' + gatewaybundle.version,",
+									"    fileExtension: 'install.bundle',",
+									"    mode: 'writeFile', // Change this to any function of the fs library of node to use it.",
+									"    uniqueIdentifier: false,",
+									"    responseData: pm.response.text()",
+									"};",
+									"// send the downloaded file content to local server running on port 3000.",
+									"pm.sendRequest({",
+									"    url: 'http://localhost:3000/write',",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(opts)",
+									"    }",
+									"}, function (err, res) {",
+									"    console.log(res);",
+									"});",
+									"",
+									"console.log('sending Gateway Bunlde ' + index + ' Install Bundle to localserver to save it to Postman Wokring Folder')",
+									"",
+									"// If we are *not* on the last item in the list,",
+									"// increment the index and set the next request to ",
+									"// this one. Otherwise end the loop.",
+									"",
+									"if (index + 1 < gatewayBundles.length){",
+									"    pm.collectionVariables.set('gatewayBundleIndex', index + 1)",
+									"    postman.setNextRequest('Download Source GatewayBundle Install Bundle')",
+									"}else{",
+									"    // reset the index for the next request",
+									"    pm.collectionVariables.set('gatewayBundleIndex', 0)",
+									"    postman.setNextRequest('Download Source GatewayBundle Delete Bundle')",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/policy-management/0.1/gateway-bundles/{{uuid}}/bundle?bundleVersion={{bundleVersion}}",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"policy-management",
+								"0.1",
+								"gateway-bundles",
+								"{{uuid}}",
+								"bundle"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								},
+								{
+									"key": "bundleVersion",
+									"value": "{{bundleVersion}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download Source GatewayBundle Delete Bundle",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"if(gatewayBundles === null || index === null) {",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"        console.log('Downloading GatewayBundle ' + index + ' Delete Bundle...')",
+									"    var gatewaybundle = gatewayBundles[index]",
+									"",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"uuid\", gatewaybundle.uuid)",
+									"    pm.variables.set(\"bundleVersion\", gatewaybundle.version)",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"var gatewaybundle = gatewayBundles[index]",
+									"",
+									"// The opts for the server, also includes the data to be written to file",
+									"let opts = {",
+									"    requestName: gatewaybundle.name + '-' + gatewaybundle.version,",
+									"    fileExtension: 'delete.bundle',",
+									"    mode: 'writeFile', // Change this to any function of the fs library of node to use it.",
+									"    uniqueIdentifier: false,",
+									"    responseData: pm.response.text()",
+									"};",
+									"// send the downloaded file content to local server running on port 3000.",
+									"pm.sendRequest({",
+									"    url: 'http://localhost:3000/write',",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(opts)",
+									"    }",
+									"}, function (err, res) {",
+									"    console.log(res);",
+									"});",
+									"",
+									"",
+									"console.log('sending Gateway Bunlde ' + index + ' Delete Bundle to localserver to save it to Postman Wokring Folder')",
+									"",
+									"// If we are *not* on the last item in the list,",
+									"// increment the index and set the next request to ",
+									"// this one. Otherwise end the loop.",
+									"",
+									"if (index + 1 < gatewayBundles.length){",
+									"    pm.collectionVariables.set('gatewayBundleIndex', index + 1)",
+									"    postman.setNextRequest('Download Source GatewayBundle Delete Bundle')",
+									"}else{",
+									"    // reset the index for the next request",
+									"    pm.collectionVariables.set('gatewayBundleIndex', 0)",
+									"    postman.setNextRequest('Post Destination GatewayBundle')",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/policy-management/0.1/gateway-bundles/{{uuid}}/bundle?type=delete&bundleVersion={{bundleVersion}}",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"policy-management",
+								"0.1",
+								"gateway-bundles",
+								"{{uuid}}",
+								"bundle"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "delete"
+								},
+								{
+									"key": "bundleVersion",
+									"value": "{{bundleVersion}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Destination GatewayBundle",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"if(gatewayBundles === null || index === null) {",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"    console.log('gatewaybundle ' + index)",
+									"    var gatewaybundle = gatewayBundles[index]",
+									"",
+									"",
+									"    // // set file names that are saved in the Postman working folder",
+									"    pm.variables.set(\"metadataFileName\", gatewaybundle.name + '-' + gatewaybundle.version + '.metadata.yml')",
+									"    pm.variables.set(\"installBundleFileName\", gatewaybundle.name + '-' + gatewaybundle.version + '.install.bundle')",
+									"    pm.variables.set(\"deleteBundleFileName\", gatewaybundle.name + '-' + gatewaybundle.version + '.delete.bundle')",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"",
+									"",
+									"console.log('created GatewayBundle ' + index + ' out of ' + gatewayBundles.length)",
+									"// If we are *not* on the last item in the list,",
+									"// increment the index and set the next request to ",
+									"// this one. Otherwise end the loop.",
+									"",
+									"if (index + 1 < gatewayBundles.length){",
+									"    pm.collectionVariables.set('gatewayBundleIndex', index + 1)",
+									"    postman.setNextRequest('Post Destination GatewayBundle')",
+									"}else{",
+									"    postman.setNextRequest(null)",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{destToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"contentType": "text/yml",
+									"type": "file",
+									"src": "{{metadataFileName}}"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": "{{installBundleFileName}}"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": "{{deleteBundleFileName}}"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/policy-management/0.1/gateway-bundles",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"policy-management",
+								"0.1",
+								"gateway-bundles"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "standardEulaUuid",
+			"value": ""
+		},
+		{
+			"key": "apiName",
+			"value": ""
+		},
+		{
+			"key": "ssgUrl",
+			"value": ""
+		},
+		{
+			"key": "apiServiceType",
+			"value": ""
+		},
+		{
+			"key": "accessStatus",
+			"value": ""
+		},
+		{
+			"key": "apiUuid",
+			"value": ""
+		},
+		{
+			"key": "policyEntityUuid",
+			"value": ""
+		},
+		{
+			"key": "policyTemplateArguments",
+			"value": ""
+		},
+		{
+			"key": "version",
+			"value": ""
+		},
+		{
+			"key": "locationUrl",
+			"value": ""
+		},
+		{
+			"key": "description",
+			"value": ""
+		},
+		{
+			"key": "privateDescription",
+			"value": ""
+		},
+		{
+			"key": "authenticationType",
+			"value": ""
+		},
+		{
+			"key": "authenticationParameters",
+			"value": ""
+		},
+		{
+			"key": "managingOrgUuid",
+			"value": ""
+		},
+		{
+			"key": "apiTag",
+			"value": ""
+		},
+		{
+			"key": "apiTagName",
+			"value": ""
+		},
+		{
+			"key": "proxyUuid",
+			"value": ""
+		},
+		{
+			"key": "GwPublishedResponse",
+			"value": ""
+		},
+		{
+			"key": "GwApiUuid",
+			"value": ""
+		},
+		{
+			"key": "curentApiUuid",
+			"value": ""
+		},
+		{
+			"key": "apimSsg",
+			"value": "portal502-sherpas-ssg.apps.rancher-ironforge.apim.broadcom.net"
+		},
+		{
+			"key": "apimSsgPort",
+			"value": "443"
+		},
+		{
+			"key": "apiKey",
+			"value": "44d0f49db22f4b298a04384c31d2cd45"
+		},
+		{
+			"key": "secret",
+			"value": "aef5089b6a784dcea7c12b8e8274a005"
+		},
+		{
+			"key": "sss",
+			"value": ""
+		},
+		{
+			"key": "uuid",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "portalStatus",
+			"value": ""
+		},
+		{
+			"key": "publishedByPortal",
+			"value": ""
+		},
+		{
+			"key": "customFieldUuid1",
+			"value": ""
+		},
+		{
+			"key": "value1",
+			"value": ""
+		},
+		{
+			"key": "customFieldUuid2",
+			"value": ""
+		},
+		{
+			"key": "value2",
+			"value": ""
+		},
+		{
+			"key": "gatewayBundle_index",
+			"value": ""
+		},
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "gatewayBundleIndex",
+			"value": ""
+		},
+		{
+			"key": "gatewayBundles",
+			"value": ""
+		}
+	]
+}

@@ -1,0 +1,9 @@
+# This file appends or override parts of the java.security file
+#
+# For Example to change security provider order,
+# security.provider.1 = ABC
+# security.provider.2 = XYZ
+
+# For the Tomcat 9.0.x Upgrade feature
+authconfigprovider.factory=org.apache.catalina.authenticator.jaspic.AuthConfigFactoryImpl
+securerandom.strongAlgorithms=DRBG:SUN

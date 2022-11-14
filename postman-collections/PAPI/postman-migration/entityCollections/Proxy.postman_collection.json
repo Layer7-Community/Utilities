@@ -1,0 +1,415 @@
+{
+	"info": {
+		"_postman_id": "892be656-3636-41d8-b783-181971dfb2cb",
+		"name": "Proxies",
+		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21139065"
+	},
+	"item": [
+		{
+			"name": "Proxy",
+			"item": [
+				{
+					"name": "Get All Proxies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.variables.set(\"proxies\", response);",
+									"",
+									"    var proxyUuids = response.map(response => response.uuid);",
+									"    pm.variables.set(\"proxyUuids\", proxyUuids);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/deployments/internal/proxies",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"deployments",
+								"internal",
+								"proxies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post All Proxies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"Put AppDeploymentType of Proxy\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let proxies = pm.variables.get(\"proxies\");",
+									"console.log(proxies);",
+									"",
+									"if (proxies == null) {",
+									"    throw new Error(\"proxies value is null\");",
+									"}",
+									"",
+									"let proxy = proxies.shift();  ",
+									"pm.variables.set(\"proxyUuid\", proxy.uuid);",
+									"pm.variables.set(\"proxyName\", proxy.name);",
+									"pm.variables.set(\"proxyDeploymentType\", proxy.apiDeploymentType);",
+									"pm.variables.set(\"proxyAppDeploymentType\", proxy.appDeploymentType);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uuid\": \"{{proxyUuid}}\",\n    \"name\":\"{{proxyName}}\",\n    \"deploymentType\":\"{{proxyDeploymentType}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/deployments/1.0/proxies",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"deployments",
+								"1.0",
+								"proxies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put AppDeploymentType of Proxy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let proxies = pm.variables.get(\"proxies\");",
+									"",
+									"let proxyAppDeploymentType = pm.variables.get(\"proxyAppDeploymentType\");",
+									"",
+									"if (proxyAppDeploymentType == null) {",
+									"    throw new Error(\"proxyAppDeploymentType value is null\");",
+									"} ",
+									"",
+									"if (Array.isArray(proxies) && proxies.length > 0) {",
+									"    postman.setNextRequest(\"Post All Proxies\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\":\"{{proxyAppDeploymentType}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/deployments/0.1/proxies/{{proxyUuid}}/deployment-type/APPLICATION",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"deployments",
+								"0.1",
+								"proxies",
+								"{{proxyUuid}}",
+								"deployment-type",
+								"APPLICATION"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Proxy Orgs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"let proxyUuids = pm.variables.get(\"proxyUuids\");",
+									"",
+									"if (Array.isArray(response) && response.length > 0) {",
+									"    pm.variables.set(\"proxyOrgs\", response);",
+									"    postman.setNextRequest(\"Post Proxy Orgs\");",
+									"} else if (Array.isArray(proxyUuids) && proxyUuids.length > 0) {",
+									"    postman.setNextRequest(\"Get Proxy Orgs\");",
+									"} else {",
+									"    postman.setNextRequest(null);",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let proxyUuids = pm.variables.get(\"proxyUuids\");",
+									"",
+									"if (proxyUuids == null) {",
+									"    throw new Error(\"proxyUuids value is null\");",
+									"}",
+									"",
+									"let proxyUuid = proxyUuids.shift();",
+									"",
+									"pm.variables.set(\"proxyUuid\", proxyUuid);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/deployments/1.0/proxies/{{proxyUuid}}/organizations",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"deployments",
+								"1.0",
+								"proxies",
+								"{{proxyUuid}}",
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Proxy Orgs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let proxyOrgs = pm.variables.get(\"proxyOrgs\");",
+									"",
+									"if (proxyOrgs == null) {",
+									"    throw new Error(\"proxyOrgs value is null\");",
+									"}",
+									"",
+									"pm.variables.set(\"proxyOrgsJson\", JSON.stringify(proxyOrgs));",
+									"",
+									"let proxyUuids = pm.variables.get(\"proxyUuids\");",
+									"",
+									"if (Array.isArray(proxyUuids) && proxyUuids.length > 0) {",
+									"    postman.setNextRequest(\"Get Proxy Orgs\");",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{proxyOrgsJson}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/deployments/1.0/proxies/{{proxyUuid}}/organizations",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"deployments",
+								"1.0",
+								"proxies",
+								"{{proxyUuid}}",
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "2d7b88c4-04ee-4b4d-9a57-00f370036f70",
+		"name": "Users",
+		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Get Source Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"sourceToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sourceSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{sourceApiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{apimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "OOB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Destination Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"destToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{destSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{destApiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{apimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "OOB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Dest Orgs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"var orgs = pm.variables.get(\"orgs\");",
+									"",
+									"if (orgs == null) {",
+									"    orgs = [];",
+									"}",
+									"",
+									"if (response != null) {",
+									"    orgs = orgs.concat(response.results);",
+									"    console.log(orgs);",
+									"    pm.variables.set(\"orgs\", orgs);",
+									"}",
+									"",
+									"if (response != null && response.currentPage + 1 < response.totalPages) {",
+									"    postman.setNextRequest(\"Get All Dest Orgs\");",
+									"} else {",
+									"    pm.collectionVariables.set(\"destOrgs\", orgs);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var page = pm.variables.get(\"page\");",
+									"",
+									"if (page == null) {",
+									"    pm.variables.set(\"page\", 0);",
+									"} else {",
+									"    pm.variables.set(\"page\", page + 1);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/tenant-admin/1.0/organizations?page={{page}}",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"tenant-admin",
+								"1.0",
+								"organizations"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Migrate Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const userList = pm.response.json().list;",
+									"const destOrgs = pm.collectionVariables.get(\"destOrgs\");",
+									"",
+									"if (destOrgs == null || destOrgs.length == 0) {",
+									"    console.log(\"Warning: zero organizations detected in target tenant!\")",
+									"}",
+									"",
+									"const destOrgMap = new Map();",
+									"for (let i = 0; i < destOrgs.length; i++) {",
+									"    destOrgMap.set(destOrgs[i].name, destOrgs[i].uuid);",
+									"}",
+									"//console.log(destOrgMap)",
+									"",
+									"let destUrl = \"https://\" + pm.environment.get(\"destSsgUrl\") + \":\" + pm.environment.get(\"destSsgPort\") + \"/\" + ",
+									"    pm.environment.get(\"destTenantId\") + \"/v2/users\";",
+									"let destToken = pm.collectionVariables.get(\"destToken\");",
+									"",
+									"for (let i = 0; i < userList.length; i++) {",
+									"    let user = userList[i];",
+									"    ",
+									"    // Skip admin",
+									"    if (user.username == \"admin\") {",
+									"        continue;",
+									"    }",
+									"",
+									"    // Build access array, get matching orgUuid from destination",
+									"    let srcAccesses = user.access;",
+									"    let destAccesses = [];",
+									"    for (let j = 0; j < srcAccesses.length; j++) {",
+									"        let destOrgUuid = destOrgMap.get(srcAccesses[j].orgName);",
+									"        ",
+									"        if (destOrgUuid == null) {",
+									"            console.log(\"Organization not found in target tenant : \" + srcAccesses[j].orgName);",
+									"            continue;",
+									"        }",
+									"",
+									"        destAccesses.push({",
+									"            \"roleUuid\": srcAccesses[j].roleUuid,",
+									"            \"orgUuid\": destOrgUuid",
+									"        });",
+									"    }",
+									"",
+									"    let body = {",
+									"        \"email\": user.email,",
+									"        \"locale\": user.locale,",
+									"        \"status\": \"REGISTRATION_INIT\",",
+									"        \"access\": destAccesses,",
+									"        \"firstName\": user.firstName,",
+									"        \"lastName\": user.lastName",
+									"    }",
+									"",
+									"    console.log(body);",
+									"",
+									"    // Post user",
+									"    pm.sendRequest({",
+									"        url: destUrl,",
+									"        method: \"POST\",",
+									"        header: {",
+									"            \"Content-Type\": \"application/json\",",
+									"            \"Authorization\": \"Bearer \" + destToken",
+									"        },",
+									"        body: {",
+									"            mode: 'raw',",
+									"            raw:JSON.stringify(body)",
+									"        }, ",
+									"        function (err, response) {  ",
+									"            console.log(\"Post user failed: \" + response.json());  ",
+									"        }",
+									"    });",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/v2/users",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "destOrgs",
+			"value": ""
+		}
+	]
+}

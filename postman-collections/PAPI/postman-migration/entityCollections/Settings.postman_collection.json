@@ -1,0 +1,469 @@
+{
+	"info": {
+		"_postman_id": "b1f514a7-3210-4968-b18e-a5228a8cf54a",
+		"name": "Settings",
+		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Get Source Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"sourceToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sourceSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{sourceApiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{apimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "OOB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Destination Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"destToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{destSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{destApiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{apimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "OOB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Initialize",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"destSettingUuid\", null);",
+							"pm.collectionVariables.set(\"destSettingValue\", null);",
+							"pm.collectionVariables.set(\"sourceSettingValue\", null);",
+							"pm.collectionVariables.set(\"setting\", null);",
+							"pm.collectionVariables.set(",
+							"    \"settings\", ",
+							"    settings = [",
+							"        \"ACTIVATE_MSSO\",",
+							"        \"API_DESCRIPTOR_HOST_OVERRIDE\", ",
+							"        \"APIM_PLATFORM\",",
+							"        \"APP_EDIT_WF_EXCLUDE_PROPS\",",
+							"        \"APPLICATION_EMAIL_NOTIFICATION_REQUEST_WORKFLOW\",",
+							"        \"APPLICATION_REQUEST_WORKFLOW\",",
+							"        \"DELETE_APPLICATION_REQUEST_WORKFLOW\",",
+							"        \"DESKTOP_CSS_URI\",",
+							"        \"EDIT_APPLICATION_REQUEST_WORKFLOW\",",
+							"        \"EXT_USER_DASHBOARD_URI\",",
+							"        \"EXT_USER_MY_PROFILE_URI\",",
+							"        \"FEATURE_FLAG_API_PLANS\",",
+							"        \"FEATURE_FLAG_ENABLE_DEPRECATED_API\",",
+							"        \"HOME_URI\",",
+							"        \"LOGIN_URI\",",
+							"        \"LOGOUT_DEFAULT_TARGET_URI\",",
+							"        \"MOBILE_CSS_URI\",",
+							"        \"REGISTRATION_REQUEST_WORKFLOW\",",
+							"        \"REGISTRATION_STATUS\",",
+							"        \"REGISTRATION_TERMS_OF_USE\",",
+							"        \"TENANT_I18N_URI\"",
+							"    ]",
+							");     "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://postman-echo.com/get",
+					"protocol": "http",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Setting From Source",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let settings = pm.collectionVariables.get(\"settings\");",
+							"console.log(settings);",
+							"",
+							"",
+							"let currentSetting = settings.shift();",
+							"pm.collectionVariables.set(\"setting\", currentSetting);",
+							"pm.collectionVariables.set(\"settings\", settings);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"let responseJson = pm.response.json();",
+							"let settingValue = responseJson.Value;",
+							"",
+							"pm.collectionVariables.set('sourceSettingValue', JSON.stringify(settingValue));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/Settings('{{setting}}')",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"Settings('{{setting}}')"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Setting UUID From Destination",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseJson = pm.response.json();",
+							"let destSettingUuid = responseJson.Uuid;",
+							"let destSettingValue = JSON.stringify(responseJson.Value);",
+							"",
+							"pm.collectionVariables.set('destSettingUuid', destSettingUuid);",
+							"pm.collectionVariables.set('destSettingValue', destSettingValue);",
+							"",
+							"let sourceSettingValue = pm.collectionVariables.get('sourceSettingValue');",
+							"let settingName = pm.collectionVariables.get('setting');",
+							"",
+							"// For FEATURE_FLAG_API_PLANS setting:",
+							"//      This setting is one way only, which means you can't turn it off, and if it's already on you can't overwrite it with on again because it will throw an error.",
+							"if (settingName == \"FEATURE_FLAG_API_PLANS\" && (sourceSettingValue == destSettingValue || sourceSettingValue == \"false\")) {",
+							"    const settings = pm.collectionVariables.get(\"settings\");",
+							"",
+							"    if (settings && settings.length > 0) {",
+							"        postman.setNextRequest(\"Get Setting From Source\");",
+							"    } else {",
+							"        postman.setNextRequest(null);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/Settings('{{setting}}')",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"Settings('{{setting}}')"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Destination Setting",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const setting = pm.collectionVariables.get(\"setting\");",
+							"const settings = pm.collectionVariables.get(\"settings\");",
+							"",
+							"if (settings && settings.length > 0) {",
+							"    postman.setNextRequest(\"Get Setting From Source\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Uuid\": \"{{destSettingUuid}}\",\n    \"Name\": \"{{setting}}\",\n    \"Value\": {{sourceSettingValue}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/Settings('{{setting}}')",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"Settings('{{setting}}')"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "destSettingUuid",
+			"value": ""
+		},
+		{
+			"key": "destSettingValue",
+			"value": ""
+		},
+		{
+			"key": "sourceSettingValue",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "settings",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "setting",
+			"value": ""
+		}
+	]
+}

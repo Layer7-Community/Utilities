@@ -1,0 +1,601 @@
+{
+	"info": {
+		"_postman_id": "4ecb6040-2aad-49d4-a621-23dda513f861",
+		"name": "Custom Pages",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23586521"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Get Source Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"sourceToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sourceSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{sourceApiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "OOB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Destination Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"destToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{destSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{destApiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "OOB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/auth/oauth/v2/token",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"auth",
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Destination Portal Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "https://{{destTenantUrl}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"eula\":\"accept\",\"username\":\"admin\",\"password\":\"7layer\",\"uuid\":\"{{GENERATED_GUID}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destTenantUrl}}/api/{{destTenantId}}/authenticate/login",
+							"protocol": "https",
+							"host": [
+								"{{destTenantUrl}}"
+							],
+							"path": [
+								"api",
+								"{{destTenantId}}",
+								"authenticate",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source Portal Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "https://{{sourceTenantUrl}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"eula\":\"accept\",\"username\":\"admin\",\"password\":\"7layer\",\"uuid\":\"{{GENERATED_GUID}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{sourceTenantUrl}}/api/{{sourceTenantId}}/authenticate/login",
+							"protocol": "https",
+							"host": [
+								"{{sourceTenantUrl}}"
+							],
+							"path": [
+								"api",
+								"{{sourceTenantId}}",
+								"authenticate",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get All Content Bundles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"var foundBundle = null;",
+							"pm.collectionVariables.unset(\"sourcePublishedCustomPageBundleName\")",
+							"",
+							"response.each(bundle => {",
+							"    if (bundle.status === 'published') {",
+							"        foundBundle = bundle;",
+							"        pm.collectionVariables.set(\"sourcePublishedCustomPageBundleName\", bundle.name);",
+							"        console.log(bundle.name);",
+							"    }",
+							"});",
+							"if(pm.collectionVariables.get(\"sourcePublishedCustomPageBundleName\") === undefined) {",
+							"    postman.setNextRequest(null);",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{sourceTenantUrl}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "gateaugage=8bec4dca-59d7-4f63-a09c-57c93cc52df1",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://{{sourceTenantUrl}}/admin/content/1.0/bundles",
+					"protocol": "https",
+					"host": [
+						"{{sourceTenantUrl}}"
+					],
+					"path": [
+						"admin",
+						"content",
+						"1.0",
+						"bundles"
+					],
+					"query": [
+						{
+							"key": "$format",
+							"value": "json",
+							"disabled": true
+						},
+						{
+							"key": "$inlinecount",
+							"value": "allpages",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Content Pages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"pm.collectionVariables.set(\"sourceCustomPages\", response);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceTenantUrl}}/api/{{sourceTenantId}}/custom/1.0/pages",
+					"protocol": "https",
+					"host": [
+						"{{sourceTenantUrl}}"
+					],
+					"path": [
+						"api",
+						"{{sourceTenantId}}",
+						"custom",
+						"1.0",
+						"pages"
+					],
+					"query": [
+						{
+							"key": "$format",
+							"value": "json",
+							"disabled": true
+						},
+						{
+							"key": "$inlinecount",
+							"value": "allpages",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Destination Content Bundles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"const sourcePublishedCustomPageBundleName = pm.collectionVariables.get(\"sourcePublishedCustomPageBundleName\");",
+							"console.log(sourcePublishedCustomPageBundleName);",
+							"response.each(bundle => {",
+							"    if (bundle.name === sourcePublishedCustomPageBundleName) {",
+							"        pm.collectionVariables.set(\"destCustomPageBundleUuid\", bundle.uuid);",
+							"        console.log(bundle.uuid);",
+							"    }",
+							"});",
+							"if (pm.collectionVariables.get(\"destCustomPageBundleUuid\") == null) {",
+							"    pm.setNextRequest(null);",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{sourceTenantUrl}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "gateaugage=8bec4dca-59d7-4f63-a09c-57c93cc52df1",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://{{destTenantUrl}}/admin/content/1.0/bundles",
+					"protocol": "https",
+					"host": [
+						"{{destTenantUrl}}"
+					],
+					"path": [
+						"admin",
+						"content",
+						"1.0",
+						"bundles"
+					],
+					"query": [
+						{
+							"key": "$format",
+							"value": "json",
+							"disabled": true
+						},
+						{
+							"key": "$inlinecount",
+							"value": "allpages",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post All Custom Pages",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var sourceCustomPages = pm.collectionVariables.get(\"sourceCustomPages\");",
+							"",
+							"sourceCustomPages.each(customPage => {",
+							"    delete customPage.uuid;",
+							"});",
+							"",
+							"pm.variables.set(\"destCustomPages\", JSON.stringify(sourceCustomPages));",
+							"console.log(sourceCustomPages);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{destTenantUrl}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Referer",
+						"value": "https://{{destTenantUrl}}",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{destCustomPages}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destTenantUrl}}/api/{{destTenantId}}/custom/1.0/pages/assign?bundleUuid={{destCustomPageBundleUuid}}",
+					"protocol": "https",
+					"host": [
+						"{{destTenantUrl}}"
+					],
+					"path": [
+						"api",
+						"{{destTenantId}}",
+						"custom",
+						"1.0",
+						"pages",
+						"assign"
+					],
+					"query": [
+						{
+							"key": "bundleUuid",
+							"value": "{{destCustomPageBundleUuid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "sourceGateaugageToken",
+			"value": ""
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "destGateaugageToken",
+			"value": ""
+		},
+		{
+			"key": "destCustomPageBundleUuid",
+			"value": ""
+		},
+		{
+			"key": "sourceCustomPages",
+			"value": ""
+		}
+	]
+}

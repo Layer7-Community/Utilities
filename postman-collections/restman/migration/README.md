@@ -22,5 +22,3 @@ Documentation
 Each collection have pretty much documented seperately. We just need click on Documentation in postman to view as below,
 
 ![image](./images/image3.png)
-
-

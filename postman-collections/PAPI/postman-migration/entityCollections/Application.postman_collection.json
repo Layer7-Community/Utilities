@@ -1,0 +1,748 @@
+{
+	"info": {
+		"_postman_id": "54ffea64-8112-4daf-8c9b-c1e632a9d850",
+		"name": "Application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11333670"
+	},
+	"item": [
+		{
+			"name": "Application",
+			"item": [
+				{
+					"name": "Get All Applications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var AllApplicationsResponse = pm.response.json().results;\r",
+									"pm.collectionVariables.set('AllApplicationsResponse', AllApplicationsResponse );\r",
+									"if (AllApplicationsResponse.length == 0){\r",
+									"    console.log(\"No applications to migrate\");\r",
+									"    postman.setNextRequest(null);\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"Get Application\");\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true,
+							"accept-encoding": true
+						},
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/applications?size=1000",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"applications"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Application",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
+									"//console.log(AllApplicationsResponse);\r",
+									"let curentAppUuid = AllApplicationsResponse.shift().uuid;\r",
+									"//console.log(curentAppUuid);\r",
+									"pm.collectionVariables.set(\"curentAppUuid\", curentAppUuid);\r",
+									"pm.collectionVariables.set(\"AllApplicationsResponse\", AllApplicationsResponse);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
+									"//console.log(AllApplicationsResponse);\r",
+									"let appPayload = pm.response.json();\r",
+									"let appUuid = appPayload.uuid;\r",
+									"let appName = appPayload.name;\r",
+									"let appDescr = appPayload.description;\r",
+									"let appOrgUuid = appPayload.organizationUuid;\r",
+									"let appOrgName = appPayload.organizationName;\r",
+									"let appStatus = appPayload.status;\r",
+									"let appDisabledByType = appPayload.disabledByType;\r",
+									"//console.log(appPayload);\r",
+									"\r",
+									"pm.collectionVariables.set(\"appUuid\", appUuid);\r",
+									"pm.collectionVariables.set(\"appName\", appName);\r",
+									"pm.collectionVariables.set(\"appDescr\", appDescr);\r",
+									"pm.collectionVariables.set(\"appOrgUuid\", appOrgUuid);\r",
+									"pm.collectionVariables.set(\"appOrgName\", appOrgName);\r",
+									"pm.collectionVariables.set(\"appStatus\", appStatus);\r",
+									"pm.collectionVariables.set(\"appDisabledByType\", appDisabledByType);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/applications/{{curentAppUuid}}",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Organization by name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"let currentOrgUuid;",
+									"",
+									"response.results.forEach(function(orgs) {",
+									"    if (orgs.name==(pm.collectionVariables.get(\"appOrgName\"))) {",
+									"        currentOrgUuid = orgs.uuid;",
+									"    }",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"currentOrgUuid\", currentOrgUuid);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false,
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://apim",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Referer",
+								"value": "https://{{tenantId}}.{{portalUrl}}/",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/tenant-admin/1.0/organizations",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"tenant-admin",
+								"1.0",
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post application on tenent2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();\r",
+									"let curentAppUuidT2 = response.uuid;\r",
+									"pm.collectionVariables.set(\"curentAppUuidT2\", curentAppUuidT2);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"uuid\": \"{{appUuid}}\",\r\n  \"name\": \"{{appName}}\",\r\n  \"description\": \"{{appDescr}}\",\r\n  \"organizationUuid\": \"{{currentOrgUuid}}\",\r\n  \"status\": \"{{appStatus}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/applications",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get API's for application tenant1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let appApiResponse = pm.response.json();\r",
+									"let apiUUIDs;\r",
+									"if (appApiResponse.length == 0){\r",
+									"    postman.setNextRequest(\"Get api-groups for application tenant1\");\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"Put API's for application on tenant2\");\r",
+									"}\r",
+									"apiUUIDs = JSON.stringify(appApiResponse);\r",
+									"pm.collectionVariables.set(\"apiUUIDs\", apiUUIDs);\r",
+									"//console.log(apiUUIDs);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/applications/{{curentAppUuid}}/apis",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuid}}",
+								"apis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put API's for application on tenant2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{apiUUIDs}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/applications/{{curentAppUuidT2}}/apis",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"apis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get api-groups for application tenant1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let appApiGroupResponse = pm.response.json();\r",
+									"let apiGroupUUIDs;\r",
+									"apiGroupUUIDs = JSON.stringify(appApiGroupResponse);\r",
+									"pm.collectionVariables.set(\"apiGroupUUIDs\", apiGroupUUIDs);\r",
+									"//console.log(apiGroupUUIDs);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/applications/{{curentAppUuid}}/api-groups",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuid}}",
+								"api-groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put api-groups for application on tenant2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{apiGroupUUIDs}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/applications/{{curentAppUuidT2}}/api-groups",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"api-groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get custom-fields for application tenant1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"const AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
+									"let appCustomFieldsResponse = pm.response.json();\r",
+									"let customFieldUUIDs;\r",
+									"customFieldUUIDs = JSON.stringify(appCustomFieldsResponse);\r",
+									"pm.collectionVariables.set(\"customFieldUUIDs\", customFieldUUIDs);\r",
+									"//console.log(customFieldUUIDs);\r",
+									"if (appCustomFieldsResponse.length == 0){\r",
+									"    if (AllApplicationsResponse && AllApplicationsResponse.length > 0){\r",
+									"        postman.setNextRequest(\"Get Application\");\r",
+									"    } else {\r",
+									"        postman.setNextRequest(null);\r",
+									"    }\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"Put custom-fields for application on tenant2\");\r",
+									"}    \r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/applications/{{curentAppUuid}}/custom-fields",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuid}}",
+								"custom-fields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put custom-fields for application on tenant2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
+									"if (AllApplicationsResponse && AllApplicationsResponse.length > 0){\r",
+									"    postman.setNextRequest(\"Get Application\");\r",
+									"} else {\r",
+									"    postman.setNextRequest(null);\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{customFieldUUIDs}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/applications/{{curentAppUuidT2}}/custom-fields",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"custom-fields"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "AllApplicationsResponse",
+			"value": ""
+		},
+		{
+			"key": "curentAppUuid",
+			"value": ""
+		},
+		{
+			"key": "appUuid",
+			"value": ""
+		},
+		{
+			"key": "appName",
+			"value": ""
+		},
+		{
+			"key": "appDescr",
+			"value": ""
+		},
+		{
+			"key": "appOrgUuid",
+			"value": ""
+		},
+		{
+			"key": "appStatus",
+			"value": ""
+		},
+		{
+			"key": "appDisabledByType",
+			"value": ""
+		},
+		{
+			"key": "curentAppUuidT2",
+			"value": ""
+		},
+		{
+			"key": "apiUUIDs",
+			"value": ""
+		},
+		{
+			"key": "apiGroupUUIDs",
+			"value": ""
+		},
+		{
+			"key": "customFieldUUIDs",
+			"value": ""
+		},
+		{
+			"key": "appOrgName",
+			"value": ""
+		},
+		{
+			"key": "currentOrgUuid",
+			"value": ""
+		}
+	]
+}

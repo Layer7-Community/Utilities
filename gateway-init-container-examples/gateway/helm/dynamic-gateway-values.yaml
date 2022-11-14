@@ -1,0 +1,170 @@
+license:
+  accept: true
+  existingSecretName: ssg-license
+
+existingGatewaySecretName: ssg-secret
+
+pmtagger:
+  enabled: false
+
+existingHealthCheck:
+  enabled: false
+  configMap:
+    name: healthcheck-scripts
+    # defaultMode: 292
+    # optional: false
+  secret:
+    # name: healthcheck-scripts
+    # csi:
+    #   driver: secrets-store.csi.k8s.io
+    #   readOnly: true
+    #   volumeAttributes:
+    #     secretProviderClass: "vault-database"
+
+customConfig:
+  enabled: true
+  mounts:
+  - name: sampletrafficloggerca-override
+    mountPath: /opt/SecureSpan/Gateway/node/default/etc/conf/sampletrafficloggerca.properties
+    subPath: sampletrafficloggerca.properties
+    configMap:
+      name: config-override-configmap
+      item:
+        key: sampletrafficloggerca.properties
+        path: sampletrafficloggerca.properties
+  - name: ssg-security-override
+    mountPath: /opt/SecureSpan/Gateway/runtime/etc/ssg.security
+    subPath: ssg.security
+    secret:
+      name: config-override-secret
+      item:
+        key: ssg.security
+        path: ssg.security
+
+management:
+  service:
+    enabled: false
+
+service:
+  ports:
+    - name: https
+      internal: 8443
+      external: 8443
+      protocol: TCP
+    - name: management
+      internal: 9443
+      external: 9443
+      protocol: TCP
+
+# Database configuration
+database:
+  enabled: false
+  create: false
+
+# This script reads files in /opt/docker/custom and moves them into the correct location
+# for Gateway startup. Enabling this with an empty /opt/docker/custom folder will have no effect.
+# We recommend using an initContainer with a shared volume to populate the /opt/docker/custom folder.
+# The initContainer can either be built with all of the required files, or dynamically retrieve files
+# from an external location.
+# See the Readme for details and examples.
+bootstrap:
+  script:
+    enabled: true
+  cleanup: true
+
+# Add initContainers to the Gateway
+initContainers:
+- name: dynamic-init
+  image: docker.io/layer7api/dynamic-init:1.0.0
+  imagePullPolicy: Always
+  envFrom:
+  - secretRef:
+      name: init-secret
+  volumeMounts:
+  - name: config-directory
+    mountPath: /opt/docker/custom
+
+config:
+  listenPorts:
+    custom:
+      enabled: true
+    ports:
+      - name: Default HTTPS (8443)
+        port: 8443
+        enabled: true
+        protocol: HTTPS
+        managementFeatures:
+        - Published service message input
+        properties:
+        - name: server
+          value: brcmlabsdemo
+        tls:
+          enabled: true
+          privateKey: 00000000000000000000000000000002:gatewaybrcmlabs
+          clientAuthentication: Optional
+          versions:
+          - TLSv1.2
+          - TLSv1.3
+          useCipherSuitesOrder: true
+          cipherSuites:
+          - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384
+          - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+          - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+          - TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_DHE_RSA_WITH_AES_256_CBC_SHA256
+          - TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+          - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+          - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+          - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+          - TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_DHE_RSA_WITH_AES_128_CBC_SHA256
+          - TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+          - TLS_AES_256_GCM_SHA384
+          - TLS_AES_128_GCM_SHA256
+      - name: Default HTTPS (9443)
+        port: 9443
+        enabled: true
+        protocol: HTTPS
+        managementFeatures:
+        - Published service message input
+        - Administrative access
+        - Browser-based administration
+        - Built-in services
+        properties:
+        - name: server
+          value: brcmlabsdemo
+        tls:
+          enabled: true
+          privateKey: 00000000000000000000000000000002:gateway1brcmlabs
+          clientAuthentication: Optional
+          versions:
+          - TLSv1.2
+          - TLSv1.3
+          useCipherSuitesOrder: true
+          cipherSuites:
+          - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384
+          - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+          - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+          - TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_DHE_RSA_WITH_AES_256_CBC_SHA256
+          - TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+          - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+          - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+          - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+          - TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_DHE_RSA_WITH_AES_128_CBC_SHA256
+          - TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+          - TLS_AES_256_GCM_SHA384
+          - TLS_AES_128_GCM_SHA256
