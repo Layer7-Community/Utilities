@@ -1,0 +1,312 @@
+{
+	"info": {
+		"_postman_id": "97c2dbb9-f6fb-402f-9304-d665c8b936f4",
+		"name": "Published Service Migration",
+		"description": "**Pre-requisites**\n\n1.  Make sure to select GATEWAY-ENVIRONMENT-VARIABLES before running any request and fill in the below information\n    \n\n| Variable | Type | Description | **User Input** |\n| --- | --- | --- | --- |\n| gw_src_host | string | Hostname or IP address of the Source Gateway | Mandatory to provide by user |\n| gw_src_user | string | Source Gateway Username | Mandatory to provide by user |\n| gw_src_password | string | Source Gateway Password | Mandatory to provide by user |\n| gw_dst_host | string | Hostname or IP address of the Source Gateway | Mandatory to provide by user |\n| gw_dst_user | string | Destination Gateway Username | Mandatory to provide by user |\n| gw_dst_password | string | Destination Gateway Password | Mandatory to provide by user |\n\n### Service Alias\n\nA service alias allows a service to appear in more than one folder in the Services and Policies list. The service alias is a linked copy of the original service.\n\nIt is mandatory to provide \"serviceNameToMigrate\" in the variables Section of this Collection. Also it is mandatory to run the entire collection with below 3 API's i;e Run the entire collection to migrate single service. The service with all it's dependencies will get migrated\n\nExport Published Service By Name\n\nExport Published Services\n\nImport Published Services\n\n**Collection Variables**\n\n| Variable | Type | Description | **User Input** |\n| --- | --- | --- | --- |\n| serviceNameToMigrate | string | The Name of the published service to return | Mandatory to provide incase for Service migration. |",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6652005"
+	},
+	"item": [
+		{
+			"name": "Export Published Service By Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var ENTITY=\"ServiceDetail\";\r",
+							"var XML_NS = \"xmlns:l7=\\\"http://ns.l7tech.com/2010/04/gateway-management\\\"\";\r",
+							"var ADDITIONAL_NODE = \"\";\r",
+							"var reqNodes = responseBody.substr(responseBody.indexOf('<l7:'+ENTITY+''));\r",
+							"//console.log(\"response  is : \"+reqNodes);\r",
+							"\r",
+							"var refinedResponse = JSON.stringify(reqNodes).replaceAll(\"<l7:Resource>\", \"\").replaceAll(\"</l7:Resource>\", \"\").replaceAll(\"<l7:Item>\", \"\").replaceAll(\"</l7:Item>\", \"\").replaceAll(\"<l7:List>\", \"\").replaceAll(\"</l7:List>\", \"\").replaceAll(\"\\\\n\", \"\").replaceAll(\"\\\\\", \"\");\r",
+							"\r",
+							"//console.log(\"refinedResponse  is : \"+refinedResponse);\r",
+							"var finalXmlEntity = refinedResponse.substr(1, refinedResponse.length-14);\r",
+							"\r",
+							"//console.log(\"finalXmlEntity  is : \"+finalXmlEntity);\r",
+							"\r",
+							"//console.log(xml2Json(finalXmlEntity));\r",
+							"var serviceId  =xml2Json(finalXmlEntity)['l7:'+ENTITY+'']['$']['id']\r",
+							"\r",
+							"//console.log(\"serviceId Id is : \"+serviceId);\r",
+							"\r",
+							"pm.collectionVariables.set('serviceId', serviceId);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{gw_src_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{gw_src_admin}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "L7-key-passphrase",
+						"value": "N2xheWVy",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{gw_src_host}}:{{gw_src_port}}/restman/1.0/services?name={{serviceNameToMigrate}}",
+					"protocol": "https",
+					"host": [
+						"{{gw_src_host}}"
+					],
+					"port": "{{gw_src_port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"services"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{serviceNameToMigrate}}"
+						}
+					]
+				},
+				"description": "Returns a single Published Service with all it's dependencies from Source Gateway with the given Name"
+			},
+			"response": []
+		},
+		{
+			"name": "Export Published Services",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var ENTITY=\"Bundle\";\r",
+							"var XML_NS = \"xmlns:l7=\\\"http://ns.l7tech.com/2010/04/gateway-management\\\"\";\r",
+							"var ADDITIONAL_NODE = \"\";\r",
+							"var response = responseBody.substr(responseBody.indexOf('<l7:Item'));\r",
+							"var reqNodes = response.substr(response.indexOf('<l7:'+ENTITY+''));\r",
+							"//trim last '</l7:Item>'\r",
+							"reqNodes = reqNodes.substr(0, reqNodes.lastIndexOf('</l7:Item>'));\r",
+							"//console.log(\"reqNodes   : \"+reqNodes);\r",
+							"//trim last '</l7:Resource>'\r",
+							"refindedResponse = reqNodes.substr(0, reqNodes.lastIndexOf('</l7:Resource>'));\r",
+							"// Add xmlns for import\r",
+							"refindedResponse = refindedResponse.replace(\"<l7:\"+ENTITY+\"\", \"<l7:\" + ENTITY +\" \" + XML_NS +\"\");\r",
+							"//console.log(\"refindedResponse   : \"+refindedResponse);\r",
+							"\r",
+							"pm.collectionVariables.set(\"exportServiceBundleXMLBody\",refindedResponse );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var serviceId = pm.collectionVariables.get('serviceId');\r",
+							"//console.log(\"serviceId is : \"+ serviceId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{gw_src_admin}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{gw_src_password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "L7-key-passphrase",
+						"value": "N2xheWVy",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{gw_src_host}}:{{gw_src_port}}/restman/1.0/bundle?service={{serviceId}}&defaultAction=NewOrUpdate&encryptSecrets=true",
+					"protocol": "https",
+					"host": [
+						"{{gw_src_host}}"
+					],
+					"port": "{{gw_src_port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"bundle"
+					],
+					"query": [
+						{
+							"key": "service",
+							"value": "{{serviceId}}"
+						},
+						{
+							"key": "defaultAction",
+							"value": "NewOrUpdate"
+						},
+						{
+							"key": "encryptSecrets",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Returns a single Published Service with all it's dependencies from Source Gateway with given serviceID.\n\nNote: User doesn't need to pass the serviceID manually, it will be fetched automatically to this request, when this API \"Export Published Service By Name\" get's executed as first request when we run this entire collection"
+			},
+			"response": []
+		},
+		{
+			"name": "Import Published Services",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var exportServiceBundleXMLBody =  pm.collectionVariables.get(\"exportServiceBundleXMLBody\");\r",
+							"\r",
+							"//console.log(\"exportServiceBundleXMLBody  is: \"+exportServiceBundleXMLBody);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200|201\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{gw_dst_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{gw_dst_admin}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					},
+					{
+						"key": "L7-key-passphrase",
+						"value": "N2xheWVy",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{exportServiceBundleXMLBody}}"
+				},
+				"url": {
+					"raw": "https://{{gw_dst_host}}:{{gw_dst_port}}/restman/1.0/bundle",
+					"protocol": "https",
+					"host": [
+						"{{gw_dst_host}}"
+					],
+					"port": "{{gw_dst_port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"bundle"
+					]
+				},
+				"description": "Creates or Updates an existing Published Service with all it's dependencies into the Target Gateway. If a Published Service with the given Name does not exist one will be created, otherwise the existing one will be updated"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "7layer",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "serviceNameToMigrate",
+			"value": "serviceNameToMigrate"
+		}
+	]
+}
