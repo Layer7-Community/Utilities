@@ -3606,17 +3606,17 @@
 		},
 		{
 			"key": "adminPassword",
-			"value": "7layer",
+			"value": "password",
 			"type": "string"
 		},
 		{
 			"key": "roleUsername",
-			"value": "xinrantest",
+			"value": "orgadmin",
 			"type": "string"
 		},
 		{
 			"key": "rolePassword",
-			"value": "777Layer!",
+			"value": "password",
 			"type": "string"
 		},
 		{
