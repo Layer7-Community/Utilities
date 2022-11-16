@@ -448,7 +448,7 @@
 		},
 		{
 			"key": "adminPassword",
-			"value": "7layer",
+			"value": "password",
 			"type": "string"
 		},
 		{
@@ -462,7 +462,7 @@
 		},
 		{
 			"key": "registrationUserEmail",
-			"value": "XinRan.Zhang@Broadcom.com",
+			"value": "user@email.com",
 			"type": "string"
 		},
 		{
