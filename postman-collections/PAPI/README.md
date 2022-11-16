@@ -9,3 +9,4 @@ Name | Brief Description
 [**postman-custom-pages**](./postman-custom-pages) | *postman colection for migrating custom pages assignments between portals*
 [**postman-user-registration-request**](./postman-user-registration-request) | *postman colection for testing portal user registration request workflow*
 [**postman-application-request**](./postman-application-request) | *postman colection for testing portal application request workflow*
+

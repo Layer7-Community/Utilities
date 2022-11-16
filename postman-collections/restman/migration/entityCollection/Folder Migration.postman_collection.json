@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "e30a7d14-a5fd-4f77-bdfe-9d31071c6277",
+		"name": "Folder Migration",
+		"description": "**Pre-requisites**\n\n1.  Make sure to select GATEWAY-ENVIRONMENT-VARIABLES before running any request and fill in the below information\n    \n\n| Variable | Type | Description | **User Input** |\n| --- | --- | --- | --- |\n| gw_src_host | string | Hostname or IP address of the Source Gateway | Mandatory to provide by user |\n| gw_src_user | string | Source Gateway Username | Mandatory to provide by user |\n| gw_src_password | string | Source Gateway Password | Mandatory to provide by user |\n| gw_dst_host | string | Hostname or IP address of the Source Gateway | Mandatory to provide by user |\n| gw_dst_user | string | Destination Gateway Username | Mandatory to provide by user |\n| gw_dst_password | string | Destination Gateway Password | Mandatory to provide by user |\n\n### Folder\n\nFolders are used to organize the policies, services, and aliases you have on the Gateway.\n\nIt is mandatory to provide \"folderNameToMigrate\" in the variables Section of this Collection. Also it is mandatory to run the entire collection with below 3 API's i;e Run the entire collection to migrate single Folder. The Folder with all it's dependencies and subfolders will get migrated\n\nExport Folder By Name\n\nExport Folder\n\nImport Folder\n\n**Collection Variables**\n\n| Variable | Type | Description | **User Input** |\n| --- | --- | --- | --- |\n| folderNameToMigrate | string | The Name of the Folder to return | Mandatory to provide incase for Folder migration. |",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6652005"
+	},
+	"item": [
+		{
+			"name": "Export Folder  By Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var ENTITY=\"Folder\";\r",
+							"var XML_NS = \"xmlns:l7=\\\"http://ns.l7tech.com/2010/04/gateway-management\\\"\";\r",
+							"var ADDITIONAL_NODE = \"\";\r",
+							"var reqNodes = responseBody.substr(responseBody.indexOf('<l7:'+ENTITY+''));\r",
+							"\r",
+							"//console.log(\"response  is : \"+reqNodes);\r",
+							"\r",
+							"var refinedResponse = JSON.stringify(reqNodes).replaceAll(\"<l7:Resource>\", \"\").replaceAll(\"</l7:Resource>\", \"\").replaceAll(\"<l7:Item>\", \"\").replaceAll(\"</l7:Item>\", \"\").replaceAll(\"<l7:List>\", \"\").replaceAll(\"</l7:List>\", \"\").replaceAll(\"\\\\n\", \"\").replaceAll(\"\\\\\", \"\");\r",
+							"\r",
+							"//console.log(\"refinedResponse  is : \"+refinedResponse);\r",
+							"var finalXmlEntity = refinedResponse.substr(1, refinedResponse.length-2);\r",
+							"\r",
+							"//console.log(\"finalXmlEntity  is : \"+finalXmlEntity);\r",
+							"\r",
+							"//console.log(xml2Json(finalXmlEntity));\r",
+							"var folderId  =xml2Json(finalXmlEntity)['l7:'+ENTITY+'']['$']['id']\r",
+							"\r",
+							"//console.log(\"Folder Id is : \"+folderId);\r",
+							"\r",
+							"pm.collectionVariables.set('folderId', folderId);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{gw_src_admin}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{gw_src_password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{gw_src_host}}:{{gw_src_port}}/restman/1.0/folders?name={{folderNameToMigrate}}",
+					"protocol": "https",
+					"host": [
+						"{{gw_src_host}}"
+					],
+					"port": "{{gw_src_port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"folders"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{folderNameToMigrate}}"
+						}
+					]
+				},
+				"description": "Returns a single Folder with all it's dependencies and subfolders from Source Gateway with the given Name"
+			},
+			"response": []
+		},
+		{
+			"name": "Export Folder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var ENTITY=\"Bundle\";\r",
+							"var XML_NS = \"xmlns:l7=\\\"http://ns.l7tech.com/2010/04/gateway-management\\\"\";\r",
+							"var ADDITIONAL_NODE = \"\";\r",
+							"var response = responseBody.substr(responseBody.indexOf('<l7:Item'));\r",
+							"var reqNodes = response.substr(response.indexOf('<l7:'+ENTITY+''));\r",
+							"//trim last '</l7:Item>'\r",
+							"reqNodes = reqNodes.substr(0, reqNodes.lastIndexOf('</l7:Item>'));\r",
+							"//console.log(\"reqNodes   : \"+reqNodes);\r",
+							"//trim last '</l7:Resource>'\r",
+							"refindedResponse = reqNodes.substr(0, reqNodes.lastIndexOf('</l7:Resource>'));\r",
+							"// Add xmlns for import\r",
+							"refindedResponse = refindedResponse.replace(\"<l7:\"+ENTITY+\"\", \"<l7:\" + ENTITY +\" \" + XML_NS +\"\");\r",
+							"//console.log(\"refindedResponse   : \"+refindedResponse);\r",
+							"\r",
+							"pm.collectionVariables.set(\"exportAllEntitiesBundleXMLBody\",refindedResponse );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var folderId = pm.collectionVariables.get('folderId');\r",
+							"//console.log(\"folderId is : \"+ folderId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{gw_src_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{gw_src_admin}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "L7-key-passphrase",
+						"value": "N2xheWVy",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{gw_src_host}}:{{gw_src_port}}/restman/1.0/bundle?folder={{folderId}}&defaultAction=NewOrUpdate&encryptSecrets=true",
+					"protocol": "https",
+					"host": [
+						"{{gw_src_host}}"
+					],
+					"port": "{{gw_src_port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"bundle"
+					],
+					"query": [
+						{
+							"key": "folder",
+							"value": "{{folderId}}"
+						},
+						{
+							"key": "defaultAction",
+							"value": "NewOrUpdate"
+						},
+						{
+							"key": "encryptSecrets",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Returns a single Folder with all it's dependencies and subfolders from Source Gateway with given folderID.\n\nNote: User doesn't need to pass the folderID manually, it will be fetched automatically to this request, when this API \"Export Folder By Name\" get's executed as first request when we run this entire collection"
+			},
+			"response": []
+		},
+		{
+			"name": "Import Folder",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var exportAllEntitiesBundleXMLBody =  pm.collectionVariables.get(\"exportAllEntitiesBundleXMLBody\");\r",
+							"\r",
+							"//console.log(\"exportAllEntitiesBundleXMLBody  is: \"+exportAllEntitiesBundleXMLBody);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200|201\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{gw_dst_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{gw_dst_admin}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{exportAllEntitiesBundleXMLBody}}"
+				},
+				"url": {
+					"raw": "https://{{gw_dst_host}}:{{gw_dst_port}}/restman/1.0/bundle",
+					"protocol": "https",
+					"host": [
+						"{{gw_dst_host}}"
+					],
+					"port": "{{gw_dst_port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"bundle"
+					]
+				},
+				"description": "Creates or Updates an existing Folder with all it's dependencies and sub-folders into the Target Gateway. If a Folder with the given Name does not exist one will be created, otherwise the existing one will be updated"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "7layer",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "folderNameToMigrate",
+			"value": "folderNameToMigrate"
+		}
+	]
+}
