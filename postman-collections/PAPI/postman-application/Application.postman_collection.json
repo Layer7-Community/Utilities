@@ -2306,22 +2306,22 @@
 	"variable": [
 		{
 			"key": "tenantId",
-			"value": "t1",
+			"value": "Tenant ID",
 			"type": "string"
 		},
 		{
 			"key": "portalUrl",
-			"value": "dev.ca.com",
+			"value": "Portal Url",
 			"type": "string"
 		},
 		{
 			"key": "adminUsername",
-			"value": "admin",
+			"value": "username",
 			"type": "string"
 		},
 		{
 			"key": "adminPassword",
-			"value": "7layer",
+			"value": "password",
 			"type": "string"
 		},
 		{
