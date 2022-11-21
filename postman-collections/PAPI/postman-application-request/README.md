@@ -1,5 +1,5 @@
-# postman-user-application-request
-postman-user-application-request
+# postman-application-request
+postman-application-request
 
 ## Purpose
 This postman collection include all requests needed to perform an Application request workflow demo
