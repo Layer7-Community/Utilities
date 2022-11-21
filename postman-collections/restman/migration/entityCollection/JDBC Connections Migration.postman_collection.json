@@ -1,0 +1,402 @@
+{
+	"info": {
+		"_postman_id": "0d8dec97-323e-4f33-bd2e-21c278a2f57a",
+		"name": "JDBC Connections Migration",
+		"description": "**Pre-requisites**\n\n1.  Make sure to select GATEWAY-ENVIRONMENT-VARIABLES before running any request and fill in the below information\n    \n\n| Variable | Type | Description | **User Input** |\n| --- | --- | --- | --- |\n| gw_src_host | string | Hostname or IP address of the Source Gateway | Mandatory to provide by user |\n| gw_src_user | string | Source Gateway Username | Mandatory to provide by user |\n| gw_src_password | string | Source Gateway Password | Mandatory to provide by user |\n| gw_dst_host | string | Hostname or IP address of the Source Gateway | Mandatory to provide by user |\n| gw_dst_user | string | Destination Gateway Username | Mandatory to provide by user |\n| gw_dst_password | string | Destination Gateway Password | Mandatory to provide by user |\n\nNote: All the jdbc connections are migrated with default password as \"password\". So, After migration, user have to manually change the jdbc connection passwords in the target gateway for each connection.\n\n### JDBC Connection\n\nJDBC connections allow the Gateway to query external databases and then use the query results during policy consumption.\n\nUser has choice to migrate either single JDBC connection or all JDBC connections exist in the source gateway.\n\nIf User choose to migrate single JDBC connection then it is mandatory to follow below 2 actions\n\n1.  provide the jdbcConnectionName in the variables section of this collection(Click on collection Variables Fill intital and current values of jdbcConnectionName variable)\n2.  While running collection, select only below list of API's\n    \n\nExport Single JDBC Connection By Name\n\nImport Single JDBC Connection\n\nIf User choose to migrate All JDBC connections then select only below list of API's. While running the below choosen requests then User doesn't need to provide the jdbcConnectionName.\n\nExport JDBC Connections\n\nImport JDBC Connections\n\n**Collection Variables**\n\n| Variable | Type | Description | **User Input** |\n| --- | --- | --- | --- |\n| jdbcConnectionName | string | The Name of the JDBC connection to return | Mandatory to provide incase of single JDBC connection migration. |",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6652005"
+	},
+	"item": [
+		{
+			"name": "Export Single JDBC Connection By Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var ENTITY=\"JDBCConnection\";\r",
+							"var XML_NS = \"xmlns:l7=\\\"http://ns.l7tech.com/2010/04/gateway-management\\\"\";\r",
+							"var ADDITIONAL_NODE = \"<l7:Property key=\\\"password\\\"><l7:StringValue>password</l7:StringValue></l7:Property>\";\r",
+							"var reqNodes = responseBody.substr(responseBody.indexOf('<l7:'+ENTITY+'')).replaceAll(\"\\n\", \"\");\r",
+							"\r",
+							"if (reqNodes) {\r",
+							"    var refinedResponse = reqNodes.replaceAll(\"<l7:Resource>\", \"\").replaceAll(\"</l7:Resource>\", \"\").replaceAll(\"<l7:Item>\", \"\").replaceAll(\"</l7:Item>\", \"\").replaceAll(\"<l7:List>\", \"\").replaceAll(\"</l7:List>\", \"\").replaceAll(\"\\\\n\", \"\").replaceAll(\"\\\\\", \"\").replaceAll(\"  \", \"\");\r",
+							"\r",
+							"    var finalXmlEntity = refinedResponse.replace(\"</l7:ConnectionProperties>\", ADDITIONAL_NODE +\" </l7:ConnectionProperties>\").replace(\"<l7:\"+ENTITY+\"\", \"<l7:\" + ENTITY +\" \" + XML_NS +\"\").replaceAll(\"\\\\\", \"\");\r",
+							"\r",
+							"    /* Removing version if it exists */\r",
+							"    var version = xml2Json(finalXmlEntity)['l7:'+ENTITY+'']['$']['version'];\r",
+							"    const version_element = \"version=\" + \"\\\"\" + version + \"\\\"\";\r",
+							"    finalXmlEntity = finalXmlEntity.replaceAll(version_element, \"\");\r",
+							"\r",
+							"    var jdbcConnId  =xml2Json(finalXmlEntity)['l7:'+ENTITY+'']['$']['id'];\r",
+							"\r",
+							"    pm.collectionVariables.set('singleJdbcConnectionEntityID', jdbcConnId);\r",
+							"    pm.collectionVariables.set(\"singleJdbcConnectionXMLBody\", finalXmlEntity); \r",
+							"}\r",
+							"else {\r",
+							"    console.log(\"No JDBC connection available with this name\");\r",
+							"    pm.collectionVariables.set('singleJdbcConnectionEntityID', \"\");\r",
+							"    pm.collectionVariables.set(\"singleJdbcConnectionXMLBody\", \"\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{gw_src_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{gw_src_admin}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{gw_src_host}}:{{gw_src_port}}/restman/1.0/jdbcConnections?name={{jdbcConnectionName}}",
+					"protocol": "https",
+					"host": [
+						"{{gw_src_host}}"
+					],
+					"port": "{{gw_src_port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"jdbcConnections"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{jdbcConnectionName}}"
+						}
+					]
+				},
+				"description": "Returns a single JDBC connection with the given Name from Source Gateway"
+			},
+			"response": []
+		},
+		{
+			"name": "Import Single JDBC Connection",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{gw_dst_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{gw_dst_admin}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{singleJdbcConnectionXMLBody}}"
+				},
+				"url": {
+					"raw": "https://{{gw_dst_host}}:{{gw_dst_port}}/restman/1.0/jdbcConnections/{{singleJdbcConnectionEntityID}}",
+					"protocol": "https",
+					"host": [
+						"{{gw_dst_host}}"
+					],
+					"port": "{{gw_dst_port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"jdbcConnections",
+						"{{singleJdbcConnectionEntityID}}"
+					]
+				},
+				"description": "Creates or Updates an existing JDBC connection in the Target Gateway. If a JDBC connection with the given Name does not exist one will be created, otherwise the existing one will be updated\n\n**Collection Variables**\n\n| Variable | Type | Description |\n| --- | --- | --- |\n| jdbcConnectionName | string | The Name of the JDBC connection to return |"
+			},
+			"response": []
+		},
+		{
+			"name": "Export JDBC Connections",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var ENTITY=\"JDBCConnection\";",
+							"var XML_NS = \"xmlns:l7=\\\"http://ns.l7tech.com/2010/04/gateway-management\\\"\";",
+							"var ADDITIONAL_NODE = \"<l7:Property key=\\\"password\\\"><l7:StringValue>password</l7:StringValue></l7:Property>\";",
+							"var response = responseBody.substr(responseBody.indexOf('<l7:Item'));",
+							"var reqNodes = response.substr(response.indexOf('<l7:'+ENTITY+''));",
+							"var refindedResponse = JSON.stringify(reqNodes).replaceAll(\"<l7:Resource>\", \"\").replaceAll(\"</l7:Resource>\", \"\").replaceAll(\"<l7:Item>\", \"\").replaceAll(\"</l7:Item>\", \"\").replaceAll(\"<l7:List>\", \"\").replaceAll(\"</l7:List>\", \"\").replaceAll(\"\\\\n\", \"\");",
+							"let listOfEntities = refindedResponse.split(\"</l7:\" + ENTITY + \">\");",
+							"let entities;",
+							"for (var e in listOfEntities) {",
+							"    if (e < listOfEntities.length-1) {",
+							"        var entity = listOfEntities[e].substr(listOfEntities[e].indexOf(\"<l7:\"+ENTITY)) + \"</l7:\"+ENTITY+\">\";",
+							"        /* 1. Entity is ready with all necessary input data. */",
+							"        var finalEntity = JSON.stringify(entity).replace(\"</l7:ConnectionProperties>\", ADDITIONAL_NODE +\" </l7:ConnectionProperties>\").replace(\"<l7:\"+ENTITY+\"\", \"<l7:\" + ENTITY +\" \" + XML_NS +\"\").replaceAll(\"\\\\\", \"\");",
+							"        var finalXmlEntity = finalEntity.substr(1, finalEntity.length-2);",
+							"        /* 2. Fetching id */",
+							"        var finalJsonEntity = xml2Json(finalXmlEntity);",
+							"        var id = finalJsonEntity['l7:'+ENTITY+'']['$']['id']",
+							"        var version = finalJsonEntity['l7:'+ENTITY+'']['$']['version']",
+							"        /* 3. Removing version if it exists */",
+							"        const version_element = \"version=\" + \"\\\"\" + version + \"\\\"\";",
+							"        finalXmlEntity = finalXmlEntity.replaceAll(version_element, \"\");",
+							"        /* 4. Preparing entity node array list. */",
+							"        if(!entities || entities.length == 0) {",
+							"            entities = [id + \"ID_ENTITY\" + finalXmlEntity + \"END_ENTITY\"];",
+							"        } else {",
+							"            entities = entities + [id + \"ID_ENTITY\" + finalXmlEntity + \"END_ENTITY\"];",
+							"        }",
+							"    }",
+							"}",
+							"",
+							"//console.log(entities);",
+							"",
+							"/* Setting Response to the postman collection */",
+							"if (entities && entities.length >= 1) {",
+							"    if(entities.length > 1) {",
+							"        entities =  entities.substr(0, entities.length-10);",
+							"        let lstEntities = entities.split(\"END_ENTITY\");",
+							"        pm.collectionVariables.set('lstEntitiesArr', lstEntities);",
+							"    } else {",
+							"        pm.collectionVariables.set('lstEntitiesArr', entities);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{gw_src_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{gw_src_admin}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{gw_src_host}}:{{gw_src_port}}/restman/1.0/jdbcConnections",
+					"protocol": "https",
+					"host": [
+						"{{gw_src_host}}"
+					],
+					"port": "{{gw_src_port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"jdbcConnections"
+					]
+				},
+				"description": "Returns All JDBC connections from Source Gateway"
+			},
+			"response": []
+		},
+		{
+			"name": "Import JDBC Connections",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let lstEntities = pm.collectionVariables.get('lstEntitiesArr');\r",
+							"\r",
+							"if (lstEntities.length > 0) {\r",
+							"\r",
+							"    /* Reading first entity and remove from the list\r",
+							"    DONT FORGET TO SETUP AGAIN TO COLLCTIONS VARIABLES. */\r",
+							"    let currentEntity = lstEntities.shift();\r",
+							"    //console.log(\"currentEntity  is:   \" + currentEntity);\r",
+							"    \r",
+							"    let currentEntityArray =  currentEntity.split(\"ID_ENTITY\");\r",
+							"    let currentEntityId = currentEntityArray[0];\r",
+							"    let currentEntityXML = currentEntityArray[1];\r",
+							"    currentEntityXML = currentEntityXML.replaceAll(\"END_ENTITY\", \"\");\r",
+							"    \r",
+							"    /* Setting id, request body to collectionVariables for furhur processing. */\r",
+							"    pm.collectionVariables.set(\"jdbcConnectionEntityID\", currentEntityId);\r",
+							"    pm.collectionVariables.set(\"jdbcConnectionXMLBody\", currentEntityXML);\r",
+							"    \r",
+							"    /* Setting modified (One entity removed for processing) entities again to environment */\r",
+							"    pm.collectionVariables.set('lstEntitiesArr', lstEntities);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const lstEntities = pm.collectionVariables.get('lstEntitiesArr');\r",
+							"if (lstEntities && lstEntities.length > 0) {\r",
+							"    postman.setNextRequest(\"Import JDBC Connections\");\r",
+							"} else {\r",
+							"    pm.collectionVariables.unset(\"jdbcConnectionEntityID\");\r",
+							"    pm.collectionVariables.unset(\"jdbcConnectionXMLBody\");\r",
+							"    //postman.setNextRequest(null);\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status code is 200|201\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{gw_dst_admin}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{gw_dst_password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{jdbcConnectionXMLBody}}"
+				},
+				"url": {
+					"raw": "https://{{gw_dst_host}}:{{gw_dst_port}}/restman/1.0/jdbcConnections/{{jdbcConnectionEntityID}}",
+					"protocol": "https",
+					"host": [
+						"{{gw_dst_host}}"
+					],
+					"port": "{{gw_dst_port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"jdbcConnections",
+						"{{jdbcConnectionEntityID}}"
+					]
+				},
+				"description": "Creates or Updates an existing JDBC connection in the Target Gateway. If a JDBC connection does not exist one will be created, otherwise the existing one will be updated\n\nNote: User doesn't need to pass the \"jdbcconnectionEntityID\" in the API Path because the ID will automatically be updated in this API path after Get call for Export JDBC Connections is executed."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "7layer",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "jdbcConnectionName",
+			"value": "jdbcConnectionName",
+			"type": "string"
+		},
+		{
+			"key": "lstEntitiesArr",
+			"value": ""
+		}
+	]
+}
