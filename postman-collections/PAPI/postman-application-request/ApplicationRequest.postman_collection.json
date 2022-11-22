@@ -2752,32 +2752,32 @@
 	"variable": [
 		{
 			"key": "tenantId",
-			"value": "t1",
+			"value": "Tenant ID",
 			"type": "string"
 		},
 		{
 			"key": "portalUrl",
-			"value": "dev.ca.com",
+			"value": "Portal URL",
 			"type": "string"
 		},
 		{
 			"key": "adminUsername",
-			"value": "admin",
+			"value": "AdminUsername",
 			"type": "string"
 		},
 		{
 			"key": "adminPassword",
-			"value": "7layer",
+			"value": "Password",
 			"type": "string"
 		},
 		{
 			"key": "roleUsername",
-			"value": "xinrantest",
+			"value": "OrgUsername",
 			"type": "string"
 		},
 		{
 			"key": "rolePassword",
-			"value": "777Layer!",
+			"value": "Password",
 			"type": "string"
 		},
 		{

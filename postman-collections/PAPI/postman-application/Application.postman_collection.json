@@ -1669,22 +1669,22 @@
 	"variable": [
 		{
 			"key": "tenantId",
-			"value": "t1",
+			"value": "Tenant ID",
 			"type": "string"
 		},
 		{
 			"key": "portalUrl",
-			"value": "dev.ca.com",
+			"value": "Portal URL",
 			"type": "string"
 		},
 		{
 			"key": "adminUsername",
-			"value": "admin",
+			"value": "AdminUsername",
 			"type": "string"
 		},
 		{
 			"key": "adminPassword",
-			"value": "7layer",
+			"value": "Password",
 			"type": "string"
 		},
 		{
@@ -1720,11 +1720,6 @@
 			"type": "string"
 		},
 		{
-			"key": "applicationRequestUuid",
-			"value": "",
-			"type": "string"
-		},
-		{
 			"key": "applicationName",
 			"value": "",
 			"type": "string"
@@ -1746,11 +1741,6 @@
 		{
 			"key": "apiGroupUuid",
 			"value": ""
-		},
-		{
-			"key": "requestUuid",
-			"value": "",
-			"type": "string"
 		},
 		{
 			"key": "eulaUuid",
