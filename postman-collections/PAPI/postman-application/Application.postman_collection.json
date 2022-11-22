@@ -1520,7 +1520,7 @@
 									"response": []
 								},
 								{
-									"name": "Link Api and Api-Plan",
+									"name": "Link Api and API Plan",
 									"request": {
 										"method": "PUT",
 										"header": [],
@@ -1565,7 +1565,7 @@
 									"response": []
 								},
 								{
-									"name": "Link User's Org and Api-Plan",
+									"name": "Link User's Org and API Plan",
 									"request": {
 										"method": "PUT",
 										"header": [],

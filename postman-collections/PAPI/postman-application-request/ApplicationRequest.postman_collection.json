@@ -3048,7 +3048,7 @@
 							"response": []
 						},
 						{
-							"name": "Link Api and Api-Plan",
+							"name": "Link Api and API Plan",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -3093,7 +3093,7 @@
 							"response": []
 						},
 						{
-							"name": "Link User's Org and Api-Plan",
+							"name": "Link User's Org and API Plan",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -3601,22 +3601,22 @@
 		},
 		{
 			"key": "adminUsername",
-			"value": "admin",
+			"value": "AdminUser",
 			"type": "string"
 		},
 		{
 			"key": "adminPassword",
-			"value": "7layer",
+			"value": "password",
 			"type": "string"
 		},
 		{
 			"key": "roleUsername",
-			"value": "xinrantest",
+			"value": "OrgUser",
 			"type": "string"
 		},
 		{
 			"key": "rolePassword",
-			"value": "777Layer!",
+			"value": "password",
 			"type": "string"
 		},
 		{
