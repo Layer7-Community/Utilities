@@ -1,8 +1,8 @@
-# postman-user-application-request
-postman-user-application-request
+# postman-application-request
+postman-application-request
 
 ## Purpose
-This postman collection include all requests needed to perform an Application request workflow demo
+This postman collection include all requests needed for Application request workflow
 
 ## Content
 This collection include requests required to:
@@ -23,7 +23,7 @@ To work with this collection, setup tenant ID, portal Url, Portal-Admin's and an
 
 Please be advised that API Group and API Plan cannot be use to together (specifically, if there is one API Group attached to an application, the API Plan cannot be enable)
 
-If You want to run this Collection as a demo via Postman Collection Runner, you need to 
+If You want to run this Collection as an example via Postman Collection Runner, you need to 
 
 - Confirm there is no API Group attached to any application (or the API Plan part will not work)
 - Confirm there is no Application Custom Field already exist (as a work-around, you can modify the request for create application, adding your custom field and it's value)
