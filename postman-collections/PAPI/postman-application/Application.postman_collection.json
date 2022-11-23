@@ -571,7 +571,7 @@
 					]
 				},
 				{
-					"name": "Get a Organization UUID",
+					"name": "Get an OrgUUID for create Application",
 					"event": [
 						{
 							"listen": "test",
