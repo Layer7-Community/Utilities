@@ -2,6 +2,12 @@ license:
   accept: true
   existingSecretName: ssg-license
 
+image:
+  registry: docker.io
+  repository: caapim/gateway
+  tag: 10.1.00_CR3
+  pullPolicy: IfNotPresent
+
 existingGatewaySecretName: ssg-secret
 
 pmtagger:
@@ -36,12 +42,11 @@ database:
 bootstrap:
   script:
     enabled: true
-  cleanup: true
 
 # Add initContainers to the Gateway
 initContainers:
 - name: simple-init
-  image: docker.io/layer7api/simple-init:1.0.0
+  image: docker.io/layer7api/simple-init:1.0.1
   imagePullPolicy: Always
   volumeMounts:
   - name: config-directory
