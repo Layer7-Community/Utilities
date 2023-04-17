@@ -6,6 +6,42 @@ Files loaded onto the container gateway's filesystem will generally not be encry
 
 This level of access is generally (and should be) restricted presenting a low level of risk. If you are looking for an alternative to bootstrap for your MySQL-backed Gateway deployment then Restman is the best approach.
 
+### Updates to these examples
+The referenced initContainer images contain the sample files present in each config folder for simple and dynamic respectively, these are used to test folder permissions on the target Gateway and are either empty or do nothing (script).
+
+This is okay for local Kubernetes installations, these examples are a starting point only and you should [build your own initContainers](#build-your-own-initcontainer)
+
+### Updates to Container Gateway 10.1.00_CR3
+In Container Gateway 10.1.00_CR3 we revised folder permissions which allows initContainers to write to additional locations that make using initContainers much more useful for things like external java libraries, custom configuration and health checks.
+
+These include the following additional config types. See [here](#folder-format) for more details.
+- External Libraries (.jar)
+  - Source ```/opt/docker/custom/external-libraries```
+  - Target ```/opt/SecureSpan/Gateway/runtime/lib/ext```
+- Custom Properties (.properties)
+  - Source ```/opt/docker/custom/custom-properties```
+  - Target ```/opt/SecureSpan/Gateway/node/default/etc/conf/```
+- Custom Health Check (.sh)
+  - Source ```/opt/docker/custom/health-checks```
+  - Target ```/opt/docker/rc.d/diagnostic/health_check```
+
+
+If you are ***not using 10.1.00_CR3*** you will still be able to use this example for the following
+- Restman Bundles (.bundle)
+  - Source ```/opt/docker/custom/bundles```
+  - Target ```/opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle```
+- Custom Assertions (.jar)
+  - Source ```/opt/docker/custom/custom-assertions```
+  - Target ```/opt/SecureSpan/Gateway/runtime/modules/lib/```
+- Modular Assertions (.aar)
+  - Source ```/opt/docker/custom/modular-assertions```
+  - Target ```/opt/SecureSpan/Gateway/runtime/modules/assertions```
+- Custom Scripts (.sh)
+  - Source ```/opt/docker/scripts```
+  - Target ```automatically run```
+
+These changes will be available in Gateway 11.0.00_CR1 later on.
+
 ***NOTE: The install process automatically sets license.accept to true. By using this example you accept the license agreement.***
 
 ### Examples
@@ -113,13 +149,12 @@ initContainers:
 ### Folder Format
 These initContainers work in conjunction with a script the Gateway Helm Chart provides that runs on the Container Gateway.
 
-- Enabled with the following flag in the Gateway values file. The cleanup flag removes the contents in /opt/docker/custom before exiting.
+- Enabled with the following flag in the Gateway values file.
 
 ```
 boostrap:
   script:
     enabled: true
-  cleanup: true
 ```
 ##### All files, whether loaded in dynamically or simply copied will need to follow this folder structure.
 
@@ -134,6 +169,18 @@ boostrap:
 - Modular Assertions (.aar)
   - Source ```/opt/docker/custom/modular-assertions```
   - Target ```/opt/SecureSpan/Gateway/runtime/modules/assertions```
+- External Libraries (.jar)
+  - Source ```/opt/docker/custom/external-libraries```
+  - Target ```/opt/SecureSpan/Gateway/runtime/lib/ext```
+- Custom Properties (.properties)
+  - Source ```/opt/docker/custom/custom-properties```
+  - Target ```/opt/SecureSpan/Gateway/node/default/etc/conf/```
+- Custom Health Check (.sh)
+  - Source ```/opt/docker/custom/health-checks```
+  - Target ```/opt/docker/rc.d/diagnostic/health_check```
+- Custom Scripts (.sh)
+  - Source ```/opt/docker/scripts```
+  - Target ```automatically run```
 
 ### ConfigMap/Secrets
 These examples can be configured to use custom health checks and custom configuration files. Healthchecks are defined [here](./gateway/scripts/healthcheck/) folder, Custom config files are defined [here](./gateway/properties/). Both of these directories are used in [kustomization.yaml](./gateway/kustomization.yaml) to create configmaps/secrets 

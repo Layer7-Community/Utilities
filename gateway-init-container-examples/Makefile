@@ -5,11 +5,11 @@
 
 install:
 	kubectl apply -k ./gateway
-	helm repo add layer7 https://caapim.github.io/apim-charts/
-	helm repo update
+#helm repo add layer7 https://caapim.github.io/apim-charts/
+#helm repo update
 simple:
-	helm install ssg -f ./gateway/helm/simple-gateway-values.yaml -n layer7 layer7/gateway
+	helm upgrade -i ssg -f ./gateway/helm/simple-gateway-values.yaml -n layer7 layer7/gateway
 dynamic:
-	helm install ssg -f ./gateway/helm/dynamic-gateway-values.yaml -n layer7 layer7/gateway
+	helm upgrade -i ssg -f ./gateway/helm/dynamic-gateway-values.yaml -n layer7 layer7/gateway
 uninstall:
 	kubectl delete namespace layer7

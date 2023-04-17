@@ -1,0 +1,1 @@
+## Place custom health checks (.sh) in this folder.
