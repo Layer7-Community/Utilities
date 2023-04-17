@@ -1,0 +1,1754 @@
+{
+	"info": {
+		"_postman_id": "d8084d4f-7e55-42c7-ac83-b7634e79cf8a",
+		"name": "ApplicationDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23459780"
+	},
+	"item": [
+		{
+			"name": "Login to Admin",
+			"item": [
+				{
+					"name": "Login to Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false,
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{tenantId}}.{{portalUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "https://{{tenantId}}.{{portalUrl}}/admin/login?to-default-config=true",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"eula\": \"accept\",\n  \"username\": \"{{adminUsername}}\",\n  \"password\": \"{{adminPassword}}\",\n  \"uuid\": \"{{GENERATED_GUID}}\"\n}"
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/authenticate/login",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"authenticate",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Application",
+			"item": [
+				{
+					"name": "Create APIs",
+					"item": [
+						{
+							"name": "List all End-User Licence Agreements",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    var jsonData = pm.response.json();",
+											"    for (var result of jsonData.results) {",
+											"        if (result.name === \"Standard EULA\") {",
+											"                pm.collectionVariables.set(\"eulaUuid\", jsonData.results[0].uuid);",
+											"        }",
+											"    }",
+											"",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/eulas",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"api-management",
+										"1.0",
+										"eulas"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "magna eiusmod cupidatat sunt",
+											"description": "Filter by full or partial name of EULA",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "34432939",
+											"description": "Number of EULAs per page to be fetched.",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "34432939",
+											"description": "Fetch records of given page number.",
+											"disabled": true
+										}
+									]
+								},
+								"description": "List all End-User Licence Agreements. In the APIM Portal, Users must agree to the EULA when it is added to an App but they must chose what EULA is to be applied for their API as part of publishing that API to Portal. When Administrators add an API to their Application, they must agree to the EULA. All APIs published on the API Portal need a EULA. Portal Admin and Api-owner can add new EULAs and can edit an API EULA that is not assigned to an API, or by passing 'forceUpdate=true' flag."
+							},
+							"response": []
+						},
+						{
+							"name": "Create an API",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    var jsonData = pm.response.json();",
+											"    pm.collectionVariables.set(\"apiUuid\", jsonData.uuid);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"version\": \"1.0\",\n    \"apiEulaUuid\": \"{{eulaUuid}}\",\n    \"privateDescription\": \"\",\n    \"accessStatus\": \"PUBLIC\",\n    \"description\": \"\",\n    \"orgUuid\": null,\n    \"ssgUrl\": \"{{$randomFirstName}}\",\n    \"authenticationType\": \"NONE\",\n    \"authenticationParameters\": \"{}\",\n    \"locationUrl\": \"{{$randomLastName}}\",\n    \"apiServiceType\": \"REST\",\n    \"type\": \"BASIC\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/apis",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"api-management",
+										"1.0",
+										"apis"
+									]
+								},
+								"description": "Creates a REST or SOAP API in an INCOMPLETE state. Before an API can be published which changes it to ENABLED, it needs to have at least one policy entity, any required custom fields defined and if it's a SOAP API it needs a WSDL asset attached. The required fields are name, apiServiceType (REST or SOAP), version, apiEulaUuid, accessStatus (PUBLIC or PRIVATE), ssgUrl (relative API URI that is part the API proxy URL. For Gateway-published APIs, the value gets set as part of the sync, as defined by the Service Resolution Path in the service.), authenticationType (NONE, OAUTH2 or API_KEY), authenticationParameters, managingOrgUuid and locationUrl (hosted location URL of API). Optional parameters are description and privateDescription."
+							},
+							"response": []
+						},
+						{
+							"name": "Create another API for request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    var jsonData = pm.response.json();",
+											"    pm.collectionVariables.set(\"api2Uuid\", jsonData.uuid);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"version\": \"1.0\",\n    \"apiEulaUuid\": \"{{eulaUuid}}\",\n    \"privateDescription\": \"\",\n    \"accessStatus\": \"PUBLIC\",\n    \"description\": \"\",\n    \"orgUuid\": null,\n    \"ssgUrl\": \"{{$randomFirstName}}\",\n    \"authenticationType\": \"NONE\",\n    \"authenticationParameters\": \"{}\",\n    \"locationUrl\": \"{{$randomLastName}}\",\n    \"apiServiceType\": \"REST\",\n    \"type\": \"BASIC\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/apis",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"api-management",
+										"1.0",
+										"apis"
+									]
+								},
+								"description": "Creates a REST or SOAP API in an INCOMPLETE state. Before an API can be published which changes it to ENABLED, it needs to have at least one policy entity, any required custom fields defined and if it's a SOAP API it needs a WSDL asset attached. The required fields are name, apiServiceType (REST or SOAP), version, apiEulaUuid, accessStatus (PUBLIC or PRIVATE), ssgUrl (relative API URI that is part the API proxy URL. For Gateway-published APIs, the value gets set as part of the sync, as defined by the Service Resolution Path in the service.), authenticationType (NONE, OAUTH2 or API_KEY), authenticationParameters, managingOrgUuid and locationUrl (hosted location URL of API). Optional parameters are description and privateDescription."
+							},
+							"response": []
+						},
+						{
+							"name": "Get Policy Templates",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    jsonData = pm.response.json();",
+											"    pm.collectionVariables.set(\"policyUuid\", jsonData.policyTemplates[0].uuid);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/policyTemplates",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"policyTemplates"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Attach Policy to API",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n        \"policyEntityUuid\": \"{{policyUuid}}\",\n        \"policyTemplateArguments\": []\n}]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/apis/:apiUuid/policy-entities",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"api-management",
+										"1.0",
+										"apis",
+										":apiUuid",
+										"policy-entities"
+									],
+									"variable": [
+										{
+											"key": "apiUuid",
+											"value": "{{apiUuid}}",
+											"description": "(Required) uuid"
+										}
+									]
+								},
+								"description": "Update the main API details. The required fields are name, apiServiceType (REST or SOAP), version, apiEulaUuid, accessStatus (PUBLIC or PRIVATE), ssgUrl (relative API URI that is part the API proxy URL. For Gateway-published APIs, the value gets set as part of the sync, as defined by the Service Resolution Path in the service.), authenticationType (NONE, OAUTH2 or API_KEY), authenticationParameters , managingOrgUuid and locationUrl (hosted location URL of API). Optional parameters are description and privateDescription."
+							},
+							"response": []
+						},
+						{
+							"name": "Attach Policy to the other API",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n        \"policyEntityUuid\": \"{{policyUuid}}\",\n        \"policyTemplateArguments\": []\n}]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/apis/:apiUuid/policy-entities",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"api-management",
+										"1.0",
+										"apis",
+										":apiUuid",
+										"policy-entities"
+									],
+									"variable": [
+										{
+											"key": "apiUuid",
+											"value": "{{api2Uuid}}",
+											"description": "(Required) uuid"
+										}
+									]
+								},
+								"description": "Update the main API details. The required fields are name, apiServiceType (REST or SOAP), version, apiEulaUuid, accessStatus (PUBLIC or PRIVATE), ssgUrl (relative API URI that is part the API proxy URL. For Gateway-published APIs, the value gets set as part of the sync, as defined by the Service Resolution Path in the service.), authenticationType (NONE, OAUTH2 or API_KEY), authenticationParameters , managingOrgUuid and locationUrl (hosted location URL of API). Optional parameters are description and privateDescription."
+							},
+							"response": []
+						},
+						{
+							"name": "Publish API",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/apis/:apiUuid/publish",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"api-management",
+										"1.0",
+										"apis",
+										":apiUuid",
+										"publish"
+									],
+									"variable": [
+										{
+											"key": "apiUuid",
+											"value": "{{apiUuid}}",
+											"description": "(Required) uuid"
+										}
+									]
+								},
+								"description": "Publish an API changing its state from INCOMPLETE to ENABLED. To publish an API it needs any required Custom Field values, at least one Policy Entity and if it's a SOAP API it needs a WSDL asset."
+							},
+							"response": []
+						},
+						{
+							"name": "Publish the other API",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/apis/:apiUuid/publish",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"api-management",
+										"1.0",
+										"apis",
+										":apiUuid",
+										"publish"
+									],
+									"variable": [
+										{
+											"key": "apiUuid",
+											"value": "{{api2Uuid}}",
+											"description": "(Required) uuid"
+										}
+									]
+								},
+								"description": "Publish an API changing its state from INCOMPLETE to ENABLED. To publish an API it needs any required Custom Field values, at least one Policy Entity and if it's a SOAP API it needs a WSDL asset."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Api Group",
+					"item": [
+						{
+							"name": "Create an API Group Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    var jsonData = pm.response.json();",
+											"    pm.collectionVariables.set(\"apiGroupUuid\", jsonData.uuid)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"{{$randomFirstName}}\",\n  \"status\": \"ENABLED\",\n  \"description\": \"testing description\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/api-groups",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"api-management",
+										"1.0",
+										"api-groups"
+									]
+								},
+								"description": "Create an API Group."
+							},
+							"response": []
+						},
+						{
+							"name": "Associate APIs with the specified API Group. Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n  {\n    \"uuid\": \"{{apiUuid}}\"\n  },\n  {\n    \"uuid\": \"{{api2Uuid}}\"\n  }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/api-groups/:uuid/apis",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"api-management",
+										"1.0",
+										"api-groups",
+										":uuid",
+										"apis"
+									],
+									"variable": [
+										{
+											"key": "uuid",
+											"value": "{{apiGroupUuid}}",
+											"description": "(Required) The UUID of the API Group to associate the provided APIs with."
+										}
+									]
+								},
+								"description": "Associate APIs with the specified API Group. The previous API associations will be removed if not present in payload."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get an OrgUUID for create Application",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"userOrgUuid\",jsonData.results[0].uuid);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/tenant-admin/1.0/organizations?status=ENABLED",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"tenant-admin",
+								"1.0",
+								"organizations"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ENABLED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create an application",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Save applicationUuid\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"applicationUuid\", jsonData.uuid);",
+									"    pm.collectionVariables.set(\"applicationName\", jsonData.name);",
+									"});",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"uuid\": \"{{$guid}}\",\n  \"name\": \"{{$randomFullName}}\",\n  \"description\": \"autoGenerate\",\n  \"organizationUuid\": \"{{userOrgUuid}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"api-management",
+								"1.0",
+								"applications"
+							]
+						},
+						"description": "Create an application.\n          Mostly Org Admins and Developers work with applications in API Portal. However, Portal Admin and API Owners work with applications to test their APIs and API Portal. All users except Developers can add applications. When you add an application, API Portal auto-generates an API key and shared secret for the application. Org Admins and Developers who want their application to use the APIs in the application must add the API key and shared secret (if using OAuth) to their application."
+					},
+					"response": []
+				},
+				{
+					"name": "Adds an API key to an application",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"apiKey\", jsonData.apiKey);",
+									"    pm.collectionVariables.set(\"keySecret\", jsonData.keySecret);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{$randomFullName}}\",\n  \"applicationUuid\": \"{{applicationUuid}}\",\n  \"defaultKey\": true,\n  \"status\": \"ENABLED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications/:appUuid/api-keys",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								":appUuid",
+								"api-keys"
+							],
+							"variable": [
+								{
+									"key": "appUuid",
+									"value": "{{applicationUuid}}",
+									"description": "the Uuid of the application to add a APIKey"
+								}
+							]
+						},
+						"description": "Adds an API key to an application. An API key requires a name and that its parent's applicationUuid is created. You can optionally supply its key, secret, OAuth parameters and specify if it is the default key. Adding an API key and assigning it as the default key unassigns the current default key. Applications can have only one assigned default key. You can manage the default key in the application entity via its key, secret, and OAuth values. If hashed secrets are enabled and configurable as either plain text or hashed, you can supply keySecretHashed to choose a hashed secret (true) or plaintext secret (false). API keys have their own status and are added with the ENABLED state."
+					},
+					"response": []
+				},
+				{
+					"name": "Attach API for the Application",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Cookie",
+								"value": "{{Cookie}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"uuid\": \"{{apiUuid}}\"\n    }\n  ]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications/:appUuid/apis",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								":appUuid",
+								"apis"
+							],
+							"variable": [
+								{
+									"key": "appUuid",
+									"value": "{{applicationUuid}}",
+									"description": "(Required) the uuid of the Application that need to be updated"
+								}
+							]
+						},
+						"description": "replace all the apis of an application with the ones in the request"
+					},
+					"response": []
+				},
+				{
+					"name": "Publish an Application",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Cookie",
+								"value": "{{Cookie}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications/:AppUuid/publish",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								":AppUuid",
+								"publish"
+							],
+							"variable": [
+								{
+									"key": "AppUuid",
+									"value": "{{applicationUuid}}",
+									"description": "The Uuid for application to be published"
+								}
+							]
+						},
+						"description": "publish an application with that uuid"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Edit Application",
+			"item": [
+				{
+					"name": "Prepare Env",
+					"item": [
+						{
+							"name": "Create a Custom Field",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    var jsonData = pm.response.json();",
+											"    pm.collectionVariables.set(\"customFieldName\", jsonData.Name);",
+											"    pm.collectionVariables.set(\"customFieldUuid\", jsonData.Uuid);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Uuid\": \"{{GENERATED_GUID}}\",\n  \"Name\": \"{{$randomFirstName}}\",\n  \"Status\": \"ENABLED\",\n  \"Required\": true,\n  \"Description\": \"{{$randomBitcoin}}\",\n  \"Type\": \"SINGLE_SELECT\",\n  \"EntityType\": \"APPLICATION\",\n  \"OptionsList\": {\n    \"results\": [\n      {\n        \"Value\": \"b\",\n        \"Ordinal\": 0\n      }\n    ]\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/CustomFields",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"CustomFields"
+									]
+								},
+								"description": "Create a custom field record"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Application's API Plan (DO NOT USE WITH API GROUP)",
+					"item": [
+						{
+							"name": "Create API Plans for Org User",
+							"item": [
+								{
+									"name": "Get Status of Api Plan feature flag",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 && Set application workflow request status\", function () {",
+													"    pm.response.to.have.status(200);",
+													"    var jsonData = pm.response.json();",
+													"    pm.collectionVariables.set(\"apiPlanUuid\", jsonData.Uuid);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/Settings('FEATURE_FLAG_API_PLANS')",
+											"protocol": "https",
+											"host": [
+												"{{tenantId}}",
+												"{{portalUrl}}"
+											],
+											"path": [
+												"api",
+												"{{tenantId}}",
+												"Settings('FEATURE_FLAG_API_PLANS')"
+											]
+										},
+										"description": "Returns the value of a given portal setting by its name.\n The following settings can be retrieved using this method:\n GOOGLE_ANALYTICS_ID: Google Analytics tracking is enabled in the Portal when providing the Google Analytics code via this setting, Values (e.g. Google Analytics ID e.g. UA-XXXXX-XX);\n ACTIVATE_MSSO: Enables/disables Portal-based support for MAG Mobile Single Sign On clients. Values (true, false);\n APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when creating applications, Values (ENABLED, DISABLED);\n EDIT_APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when editing applications, Values (ENABLED, DISABLED);\n DELETE_APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when deleting applications, Values (ENABLED, DISABLED);\n APP_EDIT_WF_EXCLUDE_PROPS: Allows to specify a list of fields that users can change without requiring approval process when editing applications, Values (e.g. {\"Fields\":[\"Name\",\"Description\",\"Status\"],\"CustomFields\":[\"MyCustomField\",\"AnotherCustomField\"]}); \nThe CustomFields object array values matches the actual name of the Custom Field.\nEXT_USER_DASHBOARD_URI: Returns the URI of the Dashboard seen by external users (e.g. \"/app/mydashboard.html\")\nAPIHUB_SETTINGS: The value returns a JSON object for each API Hub instance of host, forgotpasswordPath, and resetpasswordPath;\nDEFAULT_ORGANIZATION_TYPE:Sets the default type of the organization that is created when \"Type\" field is not specified, Values (CONSUMER, PUBLISHER)."
+									},
+									"response": []
+								},
+								{
+									"name": "Enable API Plan Feature Flag",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"Uuid\": \"{{apiPlanUuid}}\",\n    \"TenantId\": \"t1\",\n    \"Value\": \"true\",\n    \"Name\": \"FEATURE_FLAG_API_PLANS\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/Settings('FEATURE_FLAG_API_PLANS')",
+											"protocol": "https",
+											"host": [
+												"{{tenantId}}",
+												"{{portalUrl}}"
+											],
+											"path": [
+												"api",
+												"{{tenantId}}",
+												"Settings('FEATURE_FLAG_API_PLANS')"
+											]
+										},
+										"description": "Returns the value of a given portal setting by its name.\n The following settings can be retrieved using this method:\n GOOGLE_ANALYTICS_ID: Google Analytics tracking is enabled in the Portal when providing the Google Analytics code via this setting, Values (e.g. Google Analytics ID e.g. UA-XXXXX-XX);\n ACTIVATE_MSSO: Enables/disables Portal-based support for MAG Mobile Single Sign On clients. Values (true, false);\n APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when creating applications, Values (ENABLED, DISABLED);\n EDIT_APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when editing applications, Values (ENABLED, DISABLED);\n DELETE_APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when deleting applications, Values (ENABLED, DISABLED);\n APP_EDIT_WF_EXCLUDE_PROPS: Allows to specify a list of fields that users can change without requiring approval process when editing applications, Values (e.g. {\"Fields\":[\"Name\",\"Description\",\"Status\"],\"CustomFields\":[\"MyCustomField\",\"AnotherCustomField\"]}); \nThe CustomFields object array values matches the actual name of the Custom Field.\nEXT_USER_DASHBOARD_URI: Returns the URI of the Dashboard seen by external users (e.g. \"/app/mydashboard.html\")\nAPIHUB_SETTINGS: The value returns a JSON object for each API Hub instance of host, forgotpasswordPath, and resetpasswordPath;\nDEFAULT_ORGANIZATION_TYPE:Sets the default type of the organization that is created when \"Type\" field is not specified, Values (CONSUMER, PUBLISHER)."
+									},
+									"response": []
+								},
+								{
+									"name": "Create an API Plan",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"    var jsonData = pm.response.json();",
+													"    pm.collectionVariables.set(\"apiPlanUuid\", jsonData.uuid);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json;charset=UTF-8"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"{{$randomFirstName}}\",\n  \"description\": \"magna qui\",\n  \"rateLimit\": 681386450,\n  \"quota\": 1551890433,\n  \"quotaInterval\": \"MONTH\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/api-plans",
+											"protocol": "https",
+											"host": [
+												"{{tenantId}}",
+												"{{portalUrl}}"
+											],
+											"path": [
+												"api",
+												"{{tenantId}}",
+												"api-management",
+												"1.0",
+												"api-plans"
+											]
+										},
+										"description": "Create an API Plan that controls how APIs can be consumed by developers within an organization. The API Plan comprises rate limit and/or quota information, along with the public or private APIs that these controls apply to. You can choose which organizations the API Plan applies to, allowing you to set custom access limits per organization for the the same APIs."
+									},
+									"response": []
+								},
+								{
+									"name": "Link Api and Api-Plan",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "[]",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/0.1/api-plans/:apiPlanUuid/api/:apiUuid",
+											"protocol": "https",
+											"host": [
+												"{{tenantId}}",
+												"{{portalUrl}}"
+											],
+											"path": [
+												"api",
+												"{{tenantId}}",
+												"api-management",
+												"0.1",
+												"api-plans",
+												":apiPlanUuid",
+												"api",
+												":apiUuid"
+											],
+											"variable": [
+												{
+													"key": "apiPlanUuid",
+													"value": "{{apiPlanUuid}}"
+												},
+												{
+													"key": "apiUuid",
+													"value": "{{apiUuid}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Link User's Org and Api-Plan",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/0.1/api-plans/:apiPlanUuid/organization/:orgUuid",
+											"protocol": "https",
+											"host": [
+												"{{tenantId}}",
+												"{{portalUrl}}"
+											],
+											"path": [
+												"api",
+												"{{tenantId}}",
+												"api-management",
+												"0.1",
+												"api-plans",
+												":apiPlanUuid",
+												"organization",
+												":orgUuid"
+											],
+											"variable": [
+												{
+													"key": "apiPlanUuid",
+													"value": "{{apiPlanUuid}}"
+												},
+												{
+													"key": "orgUuid",
+													"value": "{{userOrgUuid}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Update API plan of an Application Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n      \"uuid\": \"{{apiUuid}}\",\n      \"apiPlanUuid\": \"{{apiPlanUuid}}\"\n    }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/0.1/applications/:appUuid/api-plans",
+									"protocol": "https",
+									"host": [
+										"{{tenantId}}",
+										"{{portalUrl}}"
+									],
+									"path": [
+										"api",
+										"{{tenantId}}",
+										"api-management",
+										"0.1",
+										"applications",
+										":appUuid",
+										"api-plans"
+									],
+									"variable": [
+										{
+											"key": "appUuid",
+											"value": "{{applicationUuid}}",
+											"description": "(Required) Uuid of the Application to be publish"
+										}
+									]
+								},
+								"description": "Update API plan of an Application by Uuid"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Application's API",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n      {\n          \"uuid\": \"{{apiUuid}}\"\n      },\n      {\n          \"uuid\": \"{{api2Uuid}}\"\n      }\n  ]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications/:appUuid/apis?action=add",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								":appUuid",
+								"apis"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "add"
+								}
+							],
+							"variable": [
+								{
+									"key": "appUuid",
+									"value": "{{applicationUuid}}",
+									"description": "(Required) The uuid of application that need to update api"
+								}
+							]
+						},
+						"description": "add or remove api from an application"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Application's Detail",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{applicationName}}\",\n  \"uuid\": \"{{applicationUuid}}\",\n  \"status\": \"ENABLED\",\n  \"organizationUuid\": \"{{userOrgUuid}}\",\n  \"description\": \"{{$randomFullName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications/:appUuid",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								":appUuid"
+							],
+							"variable": [
+								{
+									"key": "appUuid",
+									"value": "{{applicationUuid}}",
+									"description": "(Required) The UUID of the Application"
+								}
+							]
+						},
+						"description": "Update the Application's basic information with given UUID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Application's Custom Field",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n      \"customFieldUuid\": \"{{customFieldUuid}}\",\n      \"value\": \"b\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications/:appUuid/custom-fields",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								":appUuid",
+								"custom-fields"
+							],
+							"variable": [
+								{
+									"key": "appUuid",
+									"value": "{{applicationUuid}}",
+									"description": "(Required) The Application's UUID for replacing custom-fields"
+								}
+							]
+						},
+						"description": "Update an Application's custom field by its UUID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Application's Api Key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{$randomFullName}}\",\n  \"applicationUuid\": \"{{applicationUuid}}\",\n  \"defaultKey\": true,\n  \"status\": \"ENABLED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications/:appUuid/api-keys/{{apiKey}}",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								":appUuid",
+								"api-keys",
+								"{{apiKey}}"
+							],
+							"variable": [
+								{
+									"key": "appUuid",
+									"value": "{{applicationUuid}}",
+									"description": "the Uuid of the application to add a APIKey"
+								}
+							]
+						},
+						"description": "Adds an API key to an application. An API key requires a name and that its parent's applicationUuid is created. You can optionally supply its key, secret, OAuth parameters and specify if it is the default key. Adding an API key and assigning it as the default key unassigns the current default key. Applications can have only one assigned default key. You can manage the default key in the application entity via its key, secret, and OAuth values. If hashed secrets are enabled and configurable as either plain text or hashed, you can supply keySecretHashed to choose a hashed secret (true) or plaintext secret (false). API keys have their own status and are added with the ENABLED state."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Application's API Group (DONT USE WITH API PLAN)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"uuid\": \"{{apiGroupUuid}}\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications/:appUuid/api-groups",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								":appUuid",
+								"api-groups"
+							],
+							"variable": [
+								{
+									"key": "appUuid",
+									"value": "{{applicationUuid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Returns a list of all Applications",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications",
+					"protocol": "https",
+					"host": [
+						"{{tenantId}}",
+						"{{portalUrl}}"
+					],
+					"path": [
+						"api",
+						"{{tenantId}}",
+						"api-management",
+						"1.0",
+						"applications"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "ENABLED",
+							"description": "The status of the application to filter the list of applications.",
+							"disabled": true
+						},
+						{
+							"key": "apiUuid",
+							"value": "magna eiusmod cupidatat sunt",
+							"description": "The API UUID to filter the list of applications having this API.",
+							"disabled": true
+						},
+						{
+							"key": "apiGroupUuid",
+							"value": "magna eiusmod cupidatat sunt",
+							"description": "The API Group UUID to filter the list of applications having this API Group.",
+							"disabled": true
+						},
+						{
+							"key": "apiPlanUuid",
+							"value": "magna eiusmod cupidatat sunt",
+							"description": "The API Plan UUID to filter the list of applications having an API that is configured to use this API Plan.",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "magna eiusmod cupidatat sunt",
+							"description": "The list of application containing this name.",
+							"disabled": true
+						},
+						{
+							"key": "orgName",
+							"value": "magna eiusmod cupidatat sunt",
+							"description": "The list of application containing this organization name.",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Returns a list of all Applications.\n          Mostly Org Admins and Developers work with applications in API Portal. However, Portal Admin and API Owners work with applications to test their APIs and API Portal. All users except Developers can add applications. When you add an application, API Portal auto-generates an API key and shared secret for the application. Org Admins and Developers who want their application to use the APIs in the application must add the API key and shared secret (if using OAuth) to their application."
+			},
+			"response": []
+		},
+		{
+			"name": "Returns one of the Applications",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications/:appUuid",
+					"protocol": "https",
+					"host": [
+						"{{tenantId}}",
+						"{{portalUrl}}"
+					],
+					"path": [
+						"api",
+						"{{tenantId}}",
+						"api-management",
+						"1.0",
+						"applications",
+						":appUuid"
+					],
+					"variable": [
+						{
+							"key": "appUuid",
+							"value": "{{applicationUuid}}"
+						}
+					]
+				},
+				"description": "Returns a list of all Applications.\n          Mostly Org Admins and Developers work with applications in API Portal. However, Portal Admin and API Owners work with applications to test their APIs and API Portal. All users except Developers can add applications. When you add an application, API Portal auto-generates an API key and shared secret for the application. Org Admins and Developers who want their application to use the APIs in the application must add the API key and shared secret (if using OAuth) to their application."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete one of the Application",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/applications/:appUuid",
+					"protocol": "https",
+					"host": [
+						"{{tenantId}}",
+						"{{portalUrl}}"
+					],
+					"path": [
+						"api",
+						"{{tenantId}}",
+						"api-management",
+						"1.0",
+						"applications",
+						":appUuid"
+					],
+					"variable": [
+						{
+							"key": "appUuid",
+							"value": "{{applicationUuid}}"
+						}
+					]
+				},
+				"description": "Returns a list of all Applications.\n          Mostly Org Admins and Developers work with applications in API Portal. However, Portal Admin and API Owners work with applications to test their APIs and API Portal. All users except Developers can add applications. When you add an application, API Portal auto-generates an API key and shared secret for the application. Org Admins and Developers who want their application to use the APIs in the application must add the API key and shared secret (if using OAuth) to their application."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "scope",
+				"value": "{{scope}}",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{clientSecrect}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{clientID}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{tokenUrl}}",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "tenantId",
+			"value": "Tenant ID",
+			"type": "string"
+		},
+		{
+			"key": "portalUrl",
+			"value": "Portal URL",
+			"type": "string"
+		},
+		{
+			"key": "adminUsername",
+			"value": "Admin Username",
+			"type": "string"
+		},
+		{
+			"key": "adminPassword",
+			"value": "Admin Password",
+			"type": "string"
+		},
+		{
+			"key": "applicationUuid",
+			"value": ""
+		},
+		{
+			"key": "apiUuid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "policyUuid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userOrgUuid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "apiKey",
+			"value": ""
+		},
+		{
+			"key": "keySecret",
+			"value": ""
+		},
+		{
+			"key": "api2Uuid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "applicationName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "customFieldName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "customFieldUuid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "apiPlanUuid",
+			"value": ""
+		},
+		{
+			"key": "apiGroupUuid",
+			"value": ""
+		},
+		{
+			"key": "eulaUuid",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,474 @@
+{
+	"info": {
+		"_postman_id": "d7aa59cf-6311-4c05-a846-2e45eccc4002",
+		"name": "UserRegistrationRequest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23459780"
+	},
+	"item": [
+		{
+			"name": "Prepare Environment",
+			"item": [
+				{
+					"name": "Login to Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false,
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{tenantId}}.{{portalUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "https://{{tenantId}}.{{portalUrl}}/admin/login?to-default-config=true",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"eula\": \"accept\",\n  \"username\": \"{{adminUsername}}\",\n  \"password\": \"{{adminPassword}}\",\n  \"uuid\": \"{{GENERATED_GUID}}\"\n}"
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/authenticate/login",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"authenticate",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Returns Status of Registration Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 && Set registration workflow request status\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"settingUuid\", jsonData.Uuid);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/Settings('REGISTRATION_REQUEST_WORKFLOW')",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"Settings('REGISTRATION_REQUEST_WORKFLOW')"
+							]
+						},
+						"description": "Returns the value of a given portal setting by its name.\n The following settings can be retrieved using this method:\n GOOGLE_ANALYTICS_ID: Google Analytics tracking is enabled in the Portal when providing the Google Analytics code via this setting, Values (e.g. Google Analytics ID e.g. UA-XXXXX-XX);\n ACTIVATE_MSSO: Enables/disables Portal-based support for MAG Mobile Single Sign On clients. Values (true, false);\n APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when creating applications, Values (ENABLED, DISABLED);\n EDIT_APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when editing applications, Values (ENABLED, DISABLED);\n DELETE_APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when deleting applications, Values (ENABLED, DISABLED);\n APP_EDIT_WF_EXCLUDE_PROPS: Allows to specify a list of fields that users can change without requiring approval process when editing applications, Values (e.g. {\"Fields\":[\"Name\",\"Description\",\"Status\"],\"CustomFields\":[\"MyCustomField\",\"AnotherCustomField\"]}); \nThe CustomFields object array values matches the actual name of the Custom Field.\nEXT_USER_DASHBOARD_URI: Returns the URI of the Dashboard seen by external users (e.g. \"/app/mydashboard.html\")\nAPIHUB_SETTINGS: The value returns a JSON object for each API Hub instance of host, forgotpasswordPath, and resetpasswordPath;\nDEFAULT_ORGANIZATION_TYPE:Sets the default type of the organization that is created when \"Type\" field is not specified, Values (CONSUMER, PUBLISHER)."
+					},
+					"response": []
+				},
+				{
+					"name": "Enable Registration Request Workflow",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Uuid\": \"{{settingUuid}}\",\n  \"Name\": \"REGISTRATION_REQUEST_WORKFLOW\",\n  \"Value\": \"ENABLED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/Settings('REGISTRATION_REQUEST_WORKFLOW')",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"api",
+								"{{tenantId}}",
+								"Settings('REGISTRATION_REQUEST_WORKFLOW')"
+							]
+						},
+						"description": "Updates the value of a given portal setting by its name or uuid.\n The following settings can be retrieved using this method:\n GOOGLE_ANALYTICS_ID: Google Analytics tracking is enabled in the Portal when providing the Google Analytics code via this setting, Values (e.g. Google Analytics ID e.g. UA-XXXXX-XX);\n ACTIVATE_MSSO: Enables/disables Portal-based support for MAG Mobile Single Sign On clients. Values (true, false);\n APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when creating applications, Values (ENABLED, DISABLED);\n EDIT_APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when editing applications, Values (ENABLED, DISABLED);\n DELETE_APPLICATION_REQUEST_WORKFLOW: Enables/disables approval process when deleting applications, Values (ENABLED, DISABLED);\n APP_EDIT_WF_EXCLUDE_PROPS: Allows to specify a list of fields that users can change without requiring approval process when editing applications,  Values (e.g. {\"Fields\":[\"Name\",\"Description\",\"Status\"],\"CustomFields\":[\"MyCustomField\",\"AnotherCustomField\"]});\nThe CustomFields object array values must match the actual name of the Custom Field. The minimum json structure is {\\\"Fields\\\":[],\\\"CustomFields\\\":[]}.\nEXT_USER_DASHBOARD_URI: Updates the URI of the Dashboard seen by external users (e.g. \"/admin/app/dashboard.html\")\nFEATURE_FLAG_INTEGRATION_ENGINE: Enables/disables integrations in the Portal. \nPerform a GET request to retrieve the Uuid for the setting. Then call a PUT request to enable the integration. E.g. {\"Name\": \"FEATURE_FLAG_INTEGRATION_ENGINE\",\"Uuid\":\"<GENERATED_UUID>\",\"Value\": \"true\"}\n APIHUB_SETTINGS: Updates the JSON object for an API Hub instance, for example, {\n\"Name\": \"APIHUB_SETTINGS\",\n\"Value\": \"[{\\\\\"name\\\\\": \\\\\"APIHub-example\\\\\",\\\\\"host\\\\\": \\\\\"apihub.example.com\\\\\",\\\\\"forgetpasswordPath\\\\\": \\\\\"/#/new-password\\\\\",\\\\\"signuppath\\\\\": \\\\\"/#/account-setup\\\\\"}]\",\n\"Uuid\": \"<GENERATED_UUID>\"\n};\nDEFAULT_ORGANIZATION_TYPE:Updates the default type of the organization that is created when \"Type\" field is not specified, Values (CONSUMER, PUBLISHER)."
+					},
+					"response": []
+				},
+				{
+					"name": "Register a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonObject = xml2Json(responseBody);",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"    pm.collectionVariables.set(\"userUuid\", jsonObject.entry.content[\"m:properties\"][\"d:Uuid\"]);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true,
+							"user-agent": true,
+							"content-type": true,
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": " text/plain, */*; q=0.01",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": " application/json; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "https://{{tenantId}}.{{portalUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": " https://{{tenantId}}.{{portalUrl}}/admin/app/registration",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Email\":\"{{registrationUserEmail}}\",\"OrganizationName\":\"\",\"OrganizationDescription\":\"\",\"FormField\":\"\",\"Uuid\":\"{{GENERATED_GUID}}\"}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenantId}}.{{portalUrl}}/admin/Portal.svc/Registrations",
+							"protocol": "https",
+							"host": [
+								"{{tenantId}}",
+								"{{portalUrl}}"
+							],
+							"path": [
+								"admin",
+								"Portal.svc",
+								"Registrations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Returns a list of all Developer Requests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    var userUuid = pm.collectionVariables.get(\"userUuid\");",
+							"    for (var result of jsonData.results) {",
+							"        if (result.entityUuid == userUuid) {",
+							"            pm.collectionVariables.set(\"requestUuid\", result.uuid);",
+							"        }",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/requests",
+					"protocol": "https",
+					"host": [
+						"{{tenantId}}",
+						"{{portalUrl}}"
+					],
+					"path": [
+						"api",
+						"{{tenantId}}",
+						"api-management",
+						"1.0",
+						"requests"
+					],
+					"query": [
+						{
+							"key": "organizationName",
+							"value": "magna eiusmod cupidatat sunt",
+							"description": "The Organization that the request belongs to",
+							"disabled": true
+						},
+						{
+							"key": "entityUuid",
+							"value": "magna eiusmod cupidatat sunt",
+							"description": "The Entity (Application/User) Uuid that the request belongs to",
+							"disabled": true
+						},
+						{
+							"key": "entityName",
+							"value": "magna eiusmod cupidatat sunt",
+							"description": "The Entity name (either Application's name or User's email) that the request belongs to",
+							"disabled": true
+						},
+						{
+							"key": "requestType",
+							"value": "APPLICATION_API_PLANS",
+							"description": "The type of request we want to fetch",
+							"disabled": true
+						},
+						{
+							"key": "requestStatus",
+							"value": "ACCEPTED",
+							"description": "The status of request we want to fetch",
+							"disabled": true
+						},
+						{
+							"key": "pageSize",
+							"value": "34432939",
+							"description": "Size a single page of requests you want to fetch at a single time",
+							"disabled": true
+						},
+						{
+							"key": "pageNum",
+							"value": "34432939",
+							"description": "The page of request that you want to fetch",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Returns a list of Developer Requests.There are two possible request types that developers can create. Registration Requests originate from individuals seeking to register an Organization and associated Admin User. Application Requests originate from developers who want a key for their application. Listing and viewing Developer Requests is restricted to those users with an Administrator or API Owner role.  Administrators can list and view both Registration and Application Requests while API owners can only list and view Application Requests"
+			},
+			"response": []
+		},
+		{
+			"name": "Get a specific Request",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/requests/:uuid",
+					"protocol": "https",
+					"host": [
+						"{{tenantId}}",
+						"{{portalUrl}}"
+					],
+					"path": [
+						"api",
+						"{{tenantId}}",
+						"api-management",
+						"1.0",
+						"requests",
+						":uuid"
+					],
+					"variable": [
+						{
+							"key": "uuid",
+							"value": "{{requestUuid}}",
+							"description": "(Required) The UUID of the request to return."
+						}
+					]
+				},
+				"description": "Get a specific Request."
+			},
+			"response": []
+		},
+		{
+			"name": "Review a specific Request",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;charset=UTF-8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"uuid\": \"{{requestUuid}}\",\n  \"action\": \"ACCEPT\",\n  \"reason\": \"dolore\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/requests/:uuid/review",
+					"protocol": "https",
+					"host": [
+						"{{tenantId}}",
+						"{{portalUrl}}"
+					],
+					"path": [
+						"api",
+						"{{tenantId}}",
+						"api-management",
+						"1.0",
+						"requests",
+						":uuid",
+						"review"
+					],
+					"variable": [
+						{
+							"key": "uuid",
+							"value": "{{requestUuid}}",
+							"description": "(Required) The UUID of the request to return."
+						}
+					]
+				},
+				"description": "Review a specific Request. Support for updating a Request is provided to allow authorized users to accept or reject a Request. A Request can be accepted by setting the Action field to 'ACCEPT' and by optionally setting the Reason field to provide an explanation for the approval. A Request can be rejected by setting the Action field to 'REJECT' and by further setting the Reason field to provide a required explanation as to why the request was rejected. Updates to other fields will be ignored."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "tenantId",
+			"value": "t1",
+			"type": "string"
+		},
+		{
+			"key": "portalUrl",
+			"value": "dev.ca.com",
+			"type": "string"
+		},
+		{
+			"key": "adminUsername",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"key": "adminPassword",
+			"value": "password",
+			"type": "string"
+		},
+		{
+			"key": "settingUuid",
+			"value": ""
+		},
+		{
+			"key": "requestUuid",
+			"value": "fd04ff58-74e0-4a66-a7fc-24eecc5f83d8",
+			"type": "string"
+		},
+		{
+			"key": "registrationUserEmail",
+			"value": "user@email.com",
+			"type": "string"
+		},
+		{
+			"key": "userUuid",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
