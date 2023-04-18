@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2b4200c9-aa7e-443a-b6f3-03823f4b1bf6",
+		"_postman_id": "fac768c2-df5d-46e3-b9b4-173b1a12a138",
 		"name": "MAG Server APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26793729"
@@ -80,9 +80,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"",
-									"pm.environment.set(\"enrollmentResponse\", responseBody);",
-									""
+									"pm.environment.set(\"enrollmentResponseP\", responseBody);"
 								],
 								"type": "text/javascript"
 							}
@@ -140,9 +138,9 @@
 							"script": {
 								"exec": [
 									"const sdk = require('postman-collection');",
-									"const apiUrl = new sdk.Url(pm.environment.get(\"enrollmentResponse\"));",
-									"pm.environment.set(\"sessionDataE\", apiUrl.getQueryString(\"sessionData\").replace(\"sessionData=\", \"\"));",
-									"pm.environment.set(\"subjectKeyHashE\", apiUrl.getQueryString(\"subjectKeyHash\").replace(\"subjectKeyHash=\", \"\"));"
+									"const apiUrl = new sdk.Url(pm.environment.get(\"enrollmentResponseP\"));",
+									"pm.environment.set(\"sessionDataP\", apiUrl.getQueryString(\"sessionData\").replace(\"sessionData=\", \"\"));",
+									"pm.environment.set(\"subjectKeyHashP\", apiUrl.getQueryString(\"subjectKeyHash\").replace(\"subjectKeyHash=\", \"\"));"
 								],
 								"type": "text/javascript"
 							}
@@ -152,7 +150,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://{{hostname}}:{{port}}/connect/device/config?sessionData={{sessionDataE}}&subjectKeyHash={{subjectKeyHashE}}",
+							"raw": "https://{{hostname}}:{{port}}/connect/device/config?sessionData={{sessionDataP}}&subjectKeyHash={{subjectKeyHashP}}",
 							"protocol": "https",
 							"host": [
 								"{{hostname}}"
@@ -166,11 +164,11 @@
 							"query": [
 								{
 									"key": "sessionData",
-									"value": "{{sessionDataE}}"
+									"value": "{{sessionDataP}}"
 								},
 								{
 									"key": "subjectKeyHash",
-									"value": "{{subjectKeyHashE}}"
+									"value": "{{subjectKeyHashP}}"
 								}
 							]
 						}
@@ -671,6 +669,17 @@
 			"item": [
 				{
 					"name": "Device Enrollment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"enrollmentResponseCC\", responseBody);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -710,6 +719,51 @@
 								"connect",
 								"device",
 								"enrollment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device Config",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const sdk = require('postman-collection');",
+									"const apiUrl = new sdk.Url(pm.environment.get(\"enrollmentResponseCC\"));",
+									"pm.environment.set(\"sessionDataCC\", apiUrl.getQueryString(\"sessionData\").replace(\"sessionData=\", \"\"));",
+									"pm.environment.set(\"subjectKeyHashCC\", apiUrl.getQueryString(\"subjectKeyHash\").replace(\"subjectKeyHash=\", \"\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/connect/device/config?sessionData={{sessionDataCC}}&subjectKeyHash={{subjectKeyHashCC}}",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"connect",
+								"device",
+								"config"
+							],
+							"query": [
+								{
+									"key": "sessionData",
+									"value": "{{sessionDataCC}}"
+								},
+								{
+									"key": "subjectKeyHash",
+									"value": "{{subjectKeyHashCC}}"
+								}
 							]
 						}
 					},
