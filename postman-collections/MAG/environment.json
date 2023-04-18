@@ -1,5 +1,5 @@
 {
-	"id": "869f9e4e-4e7b-4965-9577-ebd1e3004fcf",
+	"id": "6261588d-2531-4ea4-a484-ca00306396ac",
 	"name": "mag-sdk-automation-gw-10-0.lvn.broadcom.net",
 	"values": [
 		{
@@ -165,24 +165,6 @@
 			"enabled": true
 		},
 		{
-			"key": "sessionDataE",
-			"value": "",
-			"type": "any",
-			"enabled": true
-		},
-		{
-			"key": "subjectKeyHashE",
-			"value": "",
-			"type": "any",
-			"enabled": true
-		},
-		{
-			"key": "enrollmentResponse",
-			"value": "",
-			"type": "any",
-			"enabled": true
-		},
-		{
 			"key": "sessionIdAuthorizeGenerated",
 			"value": "",
 			"type": "any",
@@ -193,9 +175,33 @@
 			"value": "",
 			"type": "any",
 			"enabled": true
+		},
+		{
+			"key": "subjectKeyHashP",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "enrollmentResponseP",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "enrollmentResponseCC",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "subjectKeyHashCC",
+			"value": "",
+			"type": "any",
+			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2023-04-17T11:02:04.024Z",
+	"_postman_exported_at": "2023-04-18T07:04:39.282Z",
 	"_postman_exported_using": "Postman/10.12.13"
 }
