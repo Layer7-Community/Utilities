@@ -1,0 +1,10 @@
+.idea
+.DS_Store
+.tmp
+exploded
+target.properties
+./*.json
+./*.xml
+./*.zip
+schema/metadata.json
+output/*
