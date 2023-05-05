@@ -1,6 +1,6 @@
 {
-	"id": "214ad989-0a34-40f8-bda9-f517c133ebb8",
-	"name": "mag-sdk-gw-10-0.lvn.broadcom.net",
+	"id": "6261588d-2531-4ea4-a484-ca00306396ac",
+	"name": "mag-sdk-automation-gw-10-0.lvn.broadcom.net",
 	"values": [
 		{
 			"key": "hostname",
@@ -34,7 +34,7 @@
 		},
 		{
 			"key": "adminUserPassword",
-			"value": "autotest",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
@@ -163,9 +163,45 @@
 			"value": "",
 			"type": "any",
 			"enabled": true
+		},
+		{
+			"key": "sessionIdAuthorizeGenerated",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "authorizeIdGenerated",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "subjectKeyHashP",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "enrollmentResponseP",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "enrollmentResponseCC",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "subjectKeyHashCC",
+			"value": "",
+			"type": "any",
+			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2022-10-09T11:08:36.546Z",
-	"_postman_exported_using": "Postman/9.31.21-221006-1155"
+	"_postman_exported_at": "2023-04-18T07:04:39.282Z",
+	"_postman_exported_using": "Postman/10.12.13"
 }

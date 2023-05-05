@@ -34,8 +34,14 @@ Name | Brief Description
 *encodedClientAuthorizationP* | *Password flow: Base64 encoded generated client id and secret*
 *accessTokenP* | *Password flow: access token*
 *sessionDataP* | *Password flow: session data*
+*enrollmentResponseP* | *Password flow: device enrollment response*
+*subjectKeyHashP* | *Password flow: subject key hash from enrollment response*
 *generatedClientIdCC* | *Client credentials flow: client id generated on initialization*
 *generatedClientSecretCC* | *Client credentials flow: client secret generated on initialization*
 *encodedClientAuthorizationCC* | *Client credentials flow: Base64 encoded generated client id and secret*
 *accessTokenCC* | *Client credentials flow: access token*
 *sessionDataCC* | *Clent credentials flow: sessions data*
+*enrollmentResponseCC* | *Clent credentials: device enrollment response*
+*subjectKeyHashCC* | *Clent credentials: subject key hash from enrollment response*
+*sessionIdAuthorizeGenerated*  | *Social login authorize flow*
+*authorizeIdGenerated* | *Touchless login flow*
