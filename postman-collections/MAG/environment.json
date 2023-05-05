@@ -4,13 +4,13 @@
 	"values": [
 		{
 			"key": "hostname",
-			"value": "gw-10cr03-rc1-0.apim.labs.broadcom.net",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "port",
-			"value": "8443",
+			"value": "9443",
 			"type": "default",
 			"enabled": true
 		},
@@ -22,7 +22,7 @@
 		},
 		{
 			"key": "client_id",
-			"value": "674cdcd6-2522-48b2-8194-5b180315904c",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
@@ -34,7 +34,7 @@
 		},
 		{
 			"key": "adminUserPassword",
-			"value": "7layer",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
@@ -46,13 +46,13 @@
 		},
 		{
 			"key": "nonAdminUserName",
-			"value": "spock",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "nonAdminUserPassword",
-			"value": "StRonG5^)",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
@@ -64,25 +64,25 @@
 		},
 		{
 			"key": "deviceIdP",
-			"value": "QkRFQ0I0RjUtMkYyRS00QjRGLTkwNTQtRjdCODMwRUI4ODIw",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "csrP",
-			"value": "MIIC8DCCAdgCAQAwgaoxCzAJBgNVBAYTAklOMRIwEAYDVQQIDAlLQVJOQVRBS0Ex\nEjAQBgNVBAcMCUJhbmdhbG9yZTEQMA4GA1UECgwHYW55IG9yZzE5MDcGA1UECwww\nUmtVNE1qaENNREl0UkVRMk5pMDBSVFkyTFRoR05FVXROekJGUVRVd01qQkRSVEkz\nMQ4wDAYDVQQDDAVzcG9jazEWMBQGCgmSJomT8ixkARkWBmlQaG9uZTCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK4XIhlLeaXNVl/gcOuWzyt6j5tZQ6LM\ncxNcp++PFxfbb0clbhQuZGbdA2d4XUs7at3r2gsLRHdyOGwJ8EV2aeNEiylYRoCy\n3XZRVYmfLwWCPa/vRoOb+1sTBNeb39def61z8ow8ZPBRrbgqktekM7UouHPjsBcq\n8DbW768xXny0y5i/RTSbcGm7dzwT1quOsawbz6iK1WPj5iHHeMaqwaSvDPyTO9Ui\naUxtDumoMHe/pnx0a7NoaAC/AZUokVm7ba+PkcwCEyVuhEuCAt6XwMqCB2nbTxaA\nWOTchofGVCpUGrFc8PyvG2gmC/V2EHYT+xBoa2kWTbQBO6Yiw61sNGcCAwEAAaAA\nMA0GCSqGSIb3DQEBCwUAA4IBAQB7ldEXVBkXLK5MJ6JOyxJYQw6wvIKU0VtxIxMi\nZy9KYr56C6Xo0ssxVFCY0TnQlQwcXbqj0wb3IHl9UAWwDJbCBwnhQIv7HYg0yr9x\nGV1aFUCpQp3h4TFGNAv8dSUNG0nSNUC/CCMZBBuBhd1bDV9dz6qikrz+cLO8zaal\nRbboP44cNU052+eOatSOzckjj9zUuMqt611shqN3YMFiGXQ5cyZCRTsxjHELhHqu\nRbV7URaklzr7BmTA1RYMBz/RnFWidkgilM9AhpDf8Wic8IV1DU6e2LBs2FpwXMR/\ns574urwkuFMUkXl6keV0W49SVsAmVpmJzhi7cEQ/ehOaer3E",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "deviceIdCC",
-			"value": "OUZCQ0FDRjMtQkUwMi00Q0M1LUIxQTQtQTk1MTBBNThFQTkx",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "csrCC",
-			"value": "MIIC9DCCAdwCAQAwga4xCzAJBgNVBAYTAklOMRIwEAYDVQQIDAlLQVJOQVRBS0Ex\nEjAQBgNVBAcMCUJhbmdhbG9yZTEUMBIGA1UECgwLYW5vdGhlciBvcmcxOTA3BgNV\nBAsMME9VWkNRMEZEUmpNdFFrVXdNaTAwUTBNMUxVSXhRVFF0UVRrMU1UQkJOVGhG\nUVRreDEOMAwGA1UEAwwFc3BvY2sxFjAUBgoJkiaJk/IsZAEZFgZpUGhvbmUwggEi\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDcfwzYklYx+5xQ/Y7GadUyabs5\nrgGLpAyVwbQNzM0Tylk73652MezCSGRtRPMRyVAt8UR7i+ttnn7lwwNzKT5V3lRs\nF3HGOPNLAHSh3DiAgisPOxOZXLsU7vJnqEL6OO3Fml9SjZrZsp2mgUUSLCkTFAoI\ngZI47xxWN1kT2ZIueic0viu9J/n0+DMuLIJFgtYELSMn5WCfpZsGwcRgmnucuUnd\nzqBn2x8Fa+lw9EB+cJyuGdybF5EYkFuJ1T3w+6VZA3EtM+aHLwUVDkzki1M3yOIw\n009vSLLpT36sCORuSUtoTYIh622S6fjTxU2rbe4YTEISurbhyK7sFUnz3yrRAgMB\nAAGgADANBgkqhkiG9w0BAQsFAAOCAQEANnSJN7q0Z47x+HgoOaTiJUH5Eom6TMw+\nwxBhLUoo96O5HrTxmVu58erobFCxW/jMEJmIK/TzxTFwova72iuUoLe6lQGtJDPn\ndtilVThreENGcTFwH4uh819DME8nfRtvRN4ELeOEqXoPbTAI1kb8wYzDAH3en7fp\nNcD1ui/yxoIxVQOsQJbNWJn1NckdOgo4nrSwZ4zEiEv5xOPrz9donEW/30KlD6w2\n8+XyJQmxUWhjGMvszv++xOhtD4HhVyIg2+QHZTcQqOfJTPUPZhG8cTfb2CKh6FCL\nlNMM8/Hh7zKYFfbQ5d0RqxeTVK2FNwWlhXeHmnsY0vujOVmDnwMVww==",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
@@ -94,13 +94,13 @@
 		},
 		{
 			"key": "generatedClientIdP",
-			"value": "28d1edef-171c-45dd-9bab-26a90e321f6b",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "generatedClientSecretP",
-			"value": "60882883-c5a0-4820-885a-a8f112a5b589",
+			"value": "",
 			"type": "default",
 			"enabled": true
 		},
