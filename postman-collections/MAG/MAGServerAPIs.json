@@ -1410,27 +1410,5 @@
 				]
 			}
 		}
-	],
-	"variable": [
-		{
-			"key": "hostname",
-			"value": "surya-mas-sdk-server.apim.broadcom.net"
-		},
-		{
-			"key": "port",
-			"value": "8443"
-		},
-		{
-			"key": "CWP_api_key",
-			"value": "xyz"
-		},
-		{
-			"key": "sessionDataEnrollment",
-			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.ew0KICAiZXhwIjoxNjgxMTk1OTU0LA0KICAiYXVkIjoiNzA4NWFmM2EtMTYzNC00NzMxLWIyNzktOTA1NTJkNDJiZjI5IiwNCiAgInByZWZlcnJlZF91c2VybmFtZSI6ImFkbWluIiwNCiAgImlzcyI6Imh0dHBzOi8vZW5yb2xsbWVudC5nYXRld2F5LmNhLmNvbSIsDQogICJhdXRoX3RpbWUiOjE2ODExOTU2NTQsDQogICJub25jZSI6IjIwMjMtMDQtMTFUMDY6NDc6MzQuNDMxWiIsDQogICJzdWIiOiJhZG1pbmlzdHJhdG9yIiwNCiAgImN1c3RvbSI6Y3VzdG9tRmllbGQNCn0.j9_vXa-ap5fluInnlEKDnGbFi5NPFtkze32hLIeESrRDf1JAF_67HBxuKjt7yfAbSOO_eSqD_3yxuKQFlK_C4CElnmY-_1p34ejW5gom8azRghPBo-bOfmsQnrGXGS7VPf2yLcMC5eiLvXhMs0L_uy8hAj2YaXSNwxmbPq9nLqWPZlNLLBLO5cftlCiVH4M3lUlRnShQiQSEv0FPrel5IfsfIB352XHLgSOexVNF2Zd_CAAf_tMXmq_2mEPHbD9PtftKiBR3196CWfmVC4GKm2ulewWhqmUr0BX26gNImlTZjH7oaDLxXzBVj77mOT1v39HUFnvrA_qNMkTGme4Eww"
-		},
-		{
-			"key": "subjecKeyHash",
-			"value": "3DYesXhQU2oXuCbJInpSNK7sDpUZV80g7BJnkxT3G8g%3D"
-		}
 	]
 }
