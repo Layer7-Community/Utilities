@@ -12,6 +12,6 @@ This collection include these following requests:
 - Return all requests (with optional filter)
 - Get a specific request by UUID
 - Review and Approve/Reject the request
-
+- Review multiple Registration requests
 ## Requirements
 To work with this collection, setup tenant ID, portal Url, portal-admin's Username and Password in the collection variable

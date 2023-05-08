@@ -374,7 +374,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"uuid\": \"{{requestUuid}}\",\n  \"action\": \"ACCEPT\",\n  \"reason\": \"dolore\"\n}",
+					"raw": "{\n  \"uuid\": \"{{requestUuid}}\",\n  \"action\": \"ACCEPT\",\n  \"reason\": \"dolore\", \n \"sendResponseEmail\": \"true\", \n \"organizationUuid\": \"{{orgUUID}}\", \n \"roleUuid\":  \"{{roleUUID}}\", \n \"email\": \"{{email}}\" \n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -382,7 +382,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/requests/:uuid/review",
+					"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/requests/:uuid/reviews",
 					"protocol": "https",
 					"host": [
 						"{{tenantId}}",
@@ -405,7 +405,51 @@
 						}
 					]
 				},
-				"description": "Review a specific Request. Support for updating a Request is provided to allow authorized users to accept or reject a Request. A Request can be accepted by setting the Action field to 'ACCEPT' and by optionally setting the Reason field to provide an explanation for the approval. A Request can be rejected by setting the Action field to 'REJECT' and by further setting the Reason field to provide a required explanation as to why the request was rejected. Updates to other fields will be ignored."
+				"description": "Review a specific Request. Support for updating a Request is provided to allow authorized users to accept or reject a Request. A Request can be accepted by setting the Action field to 'ACCEPT' and by optionally setting the Reason field to provide an explanation for the approval. A Request can be rejected by setting the Action field to 'REJECT' and by further setting the Reason field to provide a required explanation as to why the request was rejected. Updates to other fields will be ignored. The following payload properties - sendResponseEmail, organizationUuid, roleUuid, and email - are only applicable to registration requests. If organizationUuid is presented and valid, then roleUuid is mandatory.\""
+			},
+			"response": []
+		},
+		{
+			"name": "Review multiple Registration Requests",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;charset=UTF-8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"action\":\"ACCEPT\",\n \"reason\":\"reason\",\n \"approvalOverrideValues\":{ \n \"organizationUuid\":\"{{orgUUID}}\", \n \"roleUuid\":\"{{roleUUID}}\" \n }, \n \"registrationUuids\":[ \n \"{{1requestUUID}}\", \n \"{{2requestUUID}}\", \n \"{{3requestUUID}}\" \n ], \n \"sendResponseEmail\":\"true\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{tenantId}}.{{portalUrl}}/api/{{tenantId}}/api-management/1.0/requests/registrations/reviews",
+					"protocol": "https",
+					"host": [
+						"{{tenantId}}",
+						"{{portalUrl}}"
+					],
+					"path": [
+						"api",
+						"{{tenantId}}",
+						"api-management",
+						"1.0",
+						"requests",
+						"registrations",
+						"reviews"
+					]
+				},
+				"description": "Review multiple registration requests. Requests can be accepted by setting the Action field to 'ACCEPT' and by optionally setting the Reason field to provide an explanation for the approval. Requests can be rejected by setting the Action field to 'REJECT' and by further setting the Reason field to provide a required explanation as to why the request was rejected.  For the bulk rejection, It allows bulk registration rejection with or without sending out notification emails. For the bulk acception, it allows bulk changing the Organization, and Role for all the registrations with or without sending out approval notification emails."
 			},
 			"response": []
 		}
