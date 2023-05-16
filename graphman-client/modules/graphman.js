@@ -47,7 +47,6 @@ module.exports = {
             body: body || {}
         };
         
-        
         const isUsernamePasswordAuthentication = gateway.username && gateway.password
         const isCertificateAuthentication = gateway.certificateKeyName && gateway.certificateCertName
 
