@@ -1,0 +1,17 @@
+{
+  "sourceGateway": {
+    "address": "https://localhost:8443/graphman",
+    "certificateCertName": "authentication-certificate.pem",
+    "certificateKeyName": "authentication-certificate.key",
+    "rejectUnauthorized": false,
+    "passphrase": "7layer"
+  },
+
+  "targetGateway": {
+    "address": "https://localhost:8443/graphman",
+    "certificateCertName": "authentication-certificate.pem",
+    "certificateKeyName": "authentication-certificate.key",
+    "rejectUnauthorized": false,
+    "passphrase": "7layer"
+  }
+}
