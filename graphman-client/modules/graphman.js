@@ -70,7 +70,7 @@ module.exports = {
     invoke: function (options, callback) {
         PRE_REQUEST_EXTN.call(options);
         const req = ((!options.protocol||options.protocol === 'https'||options.protocol === 'https:') ? https : http).request(options, function (response) {
-            let respInfo = { initialized: false, chunks: [] };
+            let respInfo = {initialized: false, chunks: []};
 
             response.on('data', function (chunk) {
                 if (!respInfo.initialized) {
