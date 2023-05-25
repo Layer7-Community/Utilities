@@ -48,14 +48,12 @@ module.exports = {
 
         if (gateway.username && gateway.password) {
             req.auth = gateway.username + ":" + gateway.password;
-        }
-        else if (gateway.keyFilename && gateway.certFilename) {
+        } else if (gateway.keyFilename && gateway.certFilename) {
             // This expects the certificate.pem and certificate.key file(s) to be in the graphman-client directory. 
             req.key = utils.readFileBinary(`${__dirname}/../${gateway.keyFilename}`);
             req.cert = utils.readFileBinary(`${__dirname}/../${gateway.certFilename}`);
-        }
-        else {
-            throw new Error("Either username/password or certificate authentication must be configured. Please provide the following values: \n 'Username/Password Authentication: the username and password fields' \n 'Certificate Authentication: keyFilename and certFilename fields'.");
+        } else {
+            throw new Error("Authentication details are missing. Please provide either basic authentication (username/password) or mTLS based authentication (keyFilename/certFilename)");
         }
 
         req.minVersion = req.maxVersion = gateway.tlsProtocol || "TLSv1.2";
@@ -64,8 +62,8 @@ module.exports = {
 
     invoke: function (options, callback) {
         PRE_REQUEST_EXTN.call(options);
-        const req = ((!options.protocol || options.protocol === 'https' || options.protocol === 'https:') ? https : http).request(options, function (response) {
-            let respInfo = { initialized: false, chunks: [] };
+        const req = ((!options.protocol||options.protocol === 'https'||options.protocol === 'https:') ? https : http).request(options, function (response) {
+            let respInfo = {initialized: false, chunks: []};
 
             response.on('data', function (chunk) {
                 if (!respInfo.initialized) {
@@ -94,7 +92,7 @@ module.exports = {
                 } else {
                     utils.info("unexpected graphman http response");
                     utils.info(data);
-                    callback({ error: data, data: {} });
+                    callback({error: data, data: {}});
                 }
             });
         });
