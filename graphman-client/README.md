@@ -57,6 +57,27 @@ example:
 }
 ```
 
+If you wish to authenticate using a certificate provide the following values in the file graphman.configuration:
+```
+{
+  "sourceGateway": {
+    "address": "https://fl683674-dev-02.apim.broadcom.net:8443/graphman",
+    "certFilename": "authentication-certificate.pem",
+    "keyFilename": "authentication-certificate.key",
+    "rejectUnauthorized": false,
+    "passphrase": "7layer"
+  },
+
+  "targetGateway": {
+    "address": "https://fl683674-dev-02.apim.broadcom.net:6443/graphman",
+    "certFilename": "authentication-certificate.pem",
+    "keyFilename": "authentication-certificate.key",
+    "rejectUnauthorized": false,
+    "passphrase": "7layer"
+  }
+}
+```
+
 You are now ready to start using Graphman. To bundle the entire configuration of the source gateway, run the
 following command:
 ```

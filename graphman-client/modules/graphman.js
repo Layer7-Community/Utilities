@@ -43,9 +43,18 @@ module.exports = {
             method: 'POST',
             rejectUnauthorized: gateway.rejectUnauthorized,
             headers: headers,
-            auth: gateway.username + ":" + gateway.password,
             body: body || {}
         };
+
+        if (gateway.username && gateway.password) {
+            req.auth = gateway.username + ":" + gateway.password;
+        } else if (gateway.keyFilename && gateway.certFilename) {
+            // This expects the certificate.pem and certificate.key file(s) to be in the graphman-client directory. 
+            req.key = utils.readFileBinary(`${__dirname}/../${gateway.keyFilename}`);
+            req.cert = utils.readFileBinary(`${__dirname}/../${gateway.certFilename}`);
+        } else {
+            throw new Error("Authentication details are missing. Please provide either basic authentication (username/password) or mTLS based authentication (keyFilename/certFilename)");
+        }
 
         req.minVersion = req.maxVersion = gateway.tlsProtocol || "TLSv1.2";
         return req;
