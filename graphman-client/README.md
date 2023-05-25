@@ -62,16 +62,16 @@ If you wish to authenticate using a certificate provide the following values in 
 {
   "sourceGateway": {
     "address": "https://fl683674-dev-02.apim.broadcom.net:8443/graphman",
-    "certificateCertName": "authentication-certificate.pem",
-    "certificateKeyName": "authentication-certificate.key",
+    "certFilename": "authentication-certificate.pem",
+    "keyFilename": "authentication-certificate.key",
     "rejectUnauthorized": false,
     "passphrase": "7layer"
   },
 
   "targetGateway": {
     "address": "https://fl683674-dev-02.apim.broadcom.net:6443/graphman",
-    "certificateCertName": "authentication-certificate.pem",
-    "certificateKeyName": "authentication-certificate.key",
+    "certFilename": "authentication-certificate.pem",
+    "keyFilename": "authentication-certificate.key",
     "rejectUnauthorized": false,
     "passphrase": "7layer"
   }

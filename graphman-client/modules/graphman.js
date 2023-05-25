@@ -7,7 +7,6 @@ const PRE_REQUEST_EXTN = utils.extension("graphman-pre-request");
 const PRE_RESPONSE_EXTN = utils.extension("graphman-pre-response");
 const http = require("http");
 const https = require("https");
-const fs = require("fs");
 
 module.exports = {
     configuration: function (params) {
@@ -46,20 +45,17 @@ module.exports = {
             headers: headers,
             body: body || {}
         };
-        
-        const isUsernamePasswordAuthentication = gateway.username && gateway.password
-        const isCertificateAuthentication = gateway.certificateKeyName && gateway.certificateCertName
 
-        if(!isUsernamePasswordAuthentication || !isCertificateAuthentication) {
-            throw new Error("Either username/password or certificate authentication must be configured. Please provide the following values: \n 'Username/Password Authentication: the username and password fields' \n 'Certificate Authentication: certificateKeyName and certificateCertName fields'.");
-        }
-        if (isUsernamePasswordAuthentication) {
+        if (gateway.username && gateway.password) {
             req.auth = gateway.username + ":" + gateway.password;
         }
-        if (isCertificateAuthentication) {
+        else if (gateway.keyFilename && gateway.certFilename) {
             // This expects the certificate.pem and certificate.key file(s) to be in the graphman-client directory. 
-            req.key = fs.readFileSync(`${__dirname}/../${gateway.certificateKeyName}`);
-            req.cert = fs.readFileSync(`${__dirname}/../${gateway.certificateCertName}`);
+            req.key = utils.readFileBinary(`${__dirname}/../${gateway.keyFilename}`);
+            req.cert = utils.readFileBinary(`${__dirname}/../${gateway.certFilename}`);
+        }
+        else {
+            throw new Error("Either username/password or certificate authentication must be configured. Please provide the following values: \n 'Username/Password Authentication: the username and password fields' \n 'Certificate Authentication: keyFilename and certFilename fields'.");
         }
 
         req.minVersion = req.maxVersion = gateway.tlsProtocol || "TLSv1.2";
@@ -68,8 +64,8 @@ module.exports = {
 
     invoke: function (options, callback) {
         PRE_REQUEST_EXTN.call(options);
-        const req = ((!options.protocol||options.protocol === 'https'||options.protocol === 'https:') ? https : http).request(options, function(response) {
-            let respInfo = {initialized: false, chunks: []};
+        const req = ((!options.protocol || options.protocol === 'https' || options.protocol === 'https:') ? https : http).request(options, function (response) {
+            let respInfo = { initialized: false, chunks: [] };
 
             response.on('data', function (chunk) {
                 if (!respInfo.initialized) {
@@ -98,7 +94,7 @@ module.exports = {
                 } else {
                     utils.info("unexpected graphman http response");
                     utils.info(data);
-                    callback({error: data, data: {}});
+                    callback({ error: data, data: {} });
                 }
             });
         });

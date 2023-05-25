@@ -23,7 +23,7 @@ module.exports = {
         console.log("        # address - a valid graphman url. Default is https://localhost:8443/graphman");
         console.log("        # username - gateway user for administration.");
         console.log("        # password - gateway user's password for administration.");
-        console.log("        # certificateCertName - gateway user certificate certificate used for authentication.");
+        console.log("        # certFilename - gateway user certificate certificate used for authentication.");
         console.log("        # certificateCertKey - gateway user certificate key used for authentication.");
         console.log("        # passphrase - encryption passphrase used to encode/decode the secrets in the bundles.");
         console.log("        # rejectUnauthorized - use this boolean flag whether to trust the gateway server certificate without verification.");
