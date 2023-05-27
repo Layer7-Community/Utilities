@@ -24,7 +24,7 @@ module.exports = {
         console.log("        # username - gateway user for administration.");
         console.log("        # password - gateway user's password for administration.");
         console.log("        # certFilename - user's certificate for authentication.");
-        console.log("        # certFilename - user's certificate for authentication.");
+        console.log("        # keyFilename - user's private key for authentication.");
         console.log("        # passphrase - encryption passphrase used to encode/decode the secrets in the bundles.");
         console.log("        # rejectUnauthorized - use this boolean flag whether to trust the gateway server certificate without verification.");
         console.log("      --targetGateway.*");
