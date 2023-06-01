@@ -929,21 +929,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "basic",
-											"basic": [
-												{
-													"key": "password",
-													"value": "7layer",
-													"type": "string"
-												},
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -1013,21 +998,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "basic",
-											"basic": [
-												{
-													"key": "password",
-													"value": "7layer",
-													"type": "string"
-												},
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -1277,21 +1247,6 @@
 								{
 									"name": "Global Policy By Tag",
 									"request": {
-										"auth": {
-											"type": "basic",
-											"basic": [
-												{
-													"key": "password",
-													"value": "7layer",
-													"type": "string"
-												},
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -1314,21 +1269,6 @@
 								{
 									"name": "Global Policies By Folder",
 									"request": {
-										"auth": {
-											"type": "basic",
-											"basic": [
-												{
-													"key": "password",
-													"value": "7layer",
-													"type": "string"
-												},
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -2008,21 +1948,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "basic",
-											"basic": [
-												{
-													"key": "password",
-													"value": "7layer",
-													"type": "string"
-												},
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -2056,21 +1981,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "basic",
-											"basic": [
-												{
-													"key": "password",
-													"value": "7layer",
-													"type": "string"
-												},
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -2201,21 +2111,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "basic",
-											"basic": [
-												{
-													"key": "password",
-													"value": "7layer",
-													"type": "string"
-												},
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -2862,21 +2757,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "basic",
-											"basic": [
-												{
-													"key": "password",
-													"value": "7layer",
-													"type": "string"
-												},
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -2909,21 +2789,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "basic",
-											"basic": [
-												{
-													"key": "password",
-													"value": "7layer",
-													"type": "string"
-												},
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -3480,21 +3345,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "basic",
-											"basic": [
-												{
-													"key": "password",
-													"value": "7layer",
-													"type": "string"
-												},
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
