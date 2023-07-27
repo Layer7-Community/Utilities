@@ -28,7 +28,7 @@ These include the following additional config types. See [here](#folder-format) 
 
 If you are ***not using 10.1.00_CR3*** you will still be able to use this example for the following
 - Restman Bundles (.bundle)
-  - Source ```/opt/docker/custom/bundles```
+  - Source ```/opt/docker/custom/bundle```
   - Target ```/opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle```
 - Custom Assertions (.jar)
   - Source ```/opt/docker/custom/custom-assertions```
@@ -161,7 +161,7 @@ boostrap:
 ![Folder Structure](./resources/folder_structure.png)
 
 - Restman Bundles (.bundle)
-  - Source ```/opt/docker/custom/bundles```
+  - Source ```/opt/docker/custom/bundle```
   - Target ```/opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle```
 - Custom Assertions (.jar)
   - Source ```/opt/docker/custom/custom-assertions```
