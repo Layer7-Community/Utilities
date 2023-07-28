@@ -1,0 +1,904 @@
+{
+	"info": {
+		"_postman_id": "64fff58e-411c-4495-b5f1-7e970518619b",
+		"name": "CIBA Flow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "626938"
+	},
+	"item": [
+		{
+			"name": "Lib install",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should be 200\", function () {",
+							"    pm.response.to.have.status(200)",
+							"    pm.globals.set(\"pmlib_code\", responseBody)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://joolfe.github.io/postman-util-lib/dist/bundle.js",
+					"protocol": "https",
+					"host": [
+						"joolfe",
+						"github",
+						"io"
+					],
+					"path": [
+						"postman-util-lib",
+						"dist",
+						"bundle.js"
+					]
+				},
+				"description": "Load the postman-util-lib from github.io and load into postman global variable."
+			},
+			"response": []
+		},
+		{
+			"name": "CIBA Backchanel Service",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{otk.password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{otk.username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<l7:Bundle xmlns:l7=\"http://ns.l7tech.com/2010/04/gateway-management\">\r\n    <l7:References>\r\n        <l7:Item>\r\n            <l7:Name>ciba-update-status</l7:Name>\r\n            <l7:Id>9d83bc29283ee3d0d9d8b5d8dcef11dc</l7:Id>\r\n            <l7:Type>SERVICE</l7:Type>\r\n            <l7:TimeStamp>2023-07-27T12:54:18.394Z</l7:TimeStamp>\r\n            <l7:Resource>\r\n                <l7:Service id=\"9d83bc29283ee3d0d9d8b5d8dcef11dc\" version=\"72\">\r\n                    <l7:ServiceDetail folderId=\"0000000000000000ffffffffffffec76\" id=\"9d83bc29283ee3d0d9d8b5d8dcef11dc\" version=\"72\">\r\n                        <l7:Name>ciba-update-status</l7:Name>\r\n                        <l7:Enabled>true</l7:Enabled>\r\n                        <l7:ServiceMappings>\r\n                            <l7:HttpMapping>\r\n                                <l7:UrlPattern>/ciba/status</l7:UrlPattern>\r\n                                <l7:Verbs>\r\n                                    <l7:Verb>GET</l7:Verb>\r\n                                    <l7:Verb>POST</l7:Verb>\r\n                                    <l7:Verb>PUT</l7:Verb>\r\n                                    <l7:Verb>DELETE</l7:Verb>\r\n                                </l7:Verbs>\r\n                            </l7:HttpMapping>\r\n                        </l7:ServiceMappings>\r\n                        <l7:Properties>\r\n                            <l7:Property key=\"hasRouting\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"internal\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"policyRevision\">\r\n                                <l7:LongValue>1</l7:LongValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"soap\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"tracingEnabled\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"wssProcessingEnabled\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                        </l7:Properties>\r\n                    </l7:ServiceDetail>\r\n                    <l7:Resources>\r\n                        <l7:ResourceSet tag=\"policy\">\r\n                            <l7:Resource type=\"policy\" version=\"1\">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;\r\n&lt;wsp:Policy xmlns:L7p=&quot;http://www.layer7tech.com/ws/policy&quot; xmlns:wsp=&quot;http://schemas.xmlsoap.org/ws/2002/12/policy&quot;&gt;\r\n    &lt;wsp:All wsp:Usage=&quot;Required&quot;&gt;\r\n        &lt;wsp:OneOrMore wsp:Usage=&quot;Required&quot;&gt;\r\n            &lt;L7p:ComparisonAssertion&gt;\r\n                &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                &lt;L7p:Expression1 stringValue=&quot;${request.http.parameter.auth_req_id}&quot;/&gt;\r\n                &lt;L7p:Expression2 stringValue=&quot;&quot;/&gt;\r\n                &lt;L7p:Negate booleanValue=&quot;true&quot;/&gt;\r\n                &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                &lt;L7p:Predicates predicates=&quot;included&quot;&gt;\r\n                    &lt;L7p:item binary=&quot;included&quot;&gt;\r\n                        &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                        &lt;L7p:Negated booleanValue=&quot;true&quot;/&gt;\r\n                        &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                        &lt;L7p:RightValue stringValue=&quot;&quot;/&gt;\r\n                    &lt;/L7p:item&gt;\r\n                &lt;/L7p:Predicates&gt;\r\n            &lt;/L7p:ComparisonAssertion&gt;\r\n            &lt;L7p:ComparisonAssertion&gt;\r\n                &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                &lt;L7p:Expression1 stringValue=&quot;${request.http.parameter.auth_status}&quot;/&gt;\r\n                &lt;L7p:Expression2 stringValue=&quot;&quot;/&gt;\r\n                &lt;L7p:Negate booleanValue=&quot;true&quot;/&gt;\r\n                &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                &lt;L7p:Predicates predicates=&quot;included&quot;&gt;\r\n                    &lt;L7p:item binary=&quot;included&quot;&gt;\r\n                        &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                        &lt;L7p:Negated booleanValue=&quot;true&quot;/&gt;\r\n                        &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                        &lt;L7p:RightValue stringValue=&quot;&quot;/&gt;\r\n                    &lt;/L7p:item&gt;\r\n                &lt;/L7p:Predicates&gt;\r\n            &lt;/L7p:ComparisonAssertion&gt;\r\n            &lt;L7p:ComparisonAssertion&gt;\r\n                &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                &lt;L7p:Expression1 stringValue=&quot;${request.http.parameter.auth_time}&quot;/&gt;\r\n                &lt;L7p:Expression2 stringValue=&quot;&quot;/&gt;\r\n                &lt;L7p:Negate booleanValue=&quot;true&quot;/&gt;\r\n                &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                &lt;L7p:Predicates predicates=&quot;included&quot;&gt;\r\n                    &lt;L7p:item binary=&quot;included&quot;&gt;\r\n                        &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                        &lt;L7p:Negated booleanValue=&quot;true&quot;/&gt;\r\n                        &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                        &lt;L7p:RightValue stringValue=&quot;&quot;/&gt;\r\n                    &lt;/L7p:item&gt;\r\n                &lt;/L7p:Predicates&gt;\r\n            &lt;/L7p:ComparisonAssertion&gt;\r\n            &lt;L7p:RaiseError/&gt;\r\n        &lt;/wsp:OneOrMore&gt;\r\n        &lt;wsp:OneOrMore wsp:Usage=&quot;Required&quot;&gt;\r\n            &lt;wsp:All wsp:Usage=&quot;Required&quot;&gt;\r\n                &lt;L7p:ComparisonAssertion&gt;\r\n                    &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                    &lt;L7p:Expression1 stringValue=&quot;${request.http.parameter.user_info}&quot;/&gt;\r\n                    &lt;L7p:Expression2 stringValue=&quot;&quot;/&gt;\r\n                    &lt;L7p:Negate booleanValue=&quot;true&quot;/&gt;\r\n                    &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                    &lt;L7p:Predicates predicates=&quot;included&quot;&gt;\r\n                        &lt;L7p:item binary=&quot;included&quot;&gt;\r\n                            &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                            &lt;L7p:Negated booleanValue=&quot;true&quot;/&gt;\r\n                            &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                            &lt;L7p:RightValue stringValue=&quot;&quot;/&gt;\r\n                        &lt;/L7p:item&gt;\r\n                    &lt;/L7p:Predicates&gt;\r\n                &lt;/L7p:ComparisonAssertion&gt;\r\n                &lt;L7p:Encapsulated&gt;\r\n                    &lt;L7p:EncapsulatedAssertionConfigGuid stringValue=&quot;2905aa52-5637-4781-ab87-56e15f2aed41&quot;/&gt;\r\n                    &lt;L7p:EncapsulatedAssertionConfigName stringValue=&quot;OTK CIBA Update User Authentication Status&quot;/&gt;\r\n                    &lt;L7p:Parameters mapValue=&quot;included&quot;&gt;\r\n                        &lt;L7p:entry&gt;\r\n                            &lt;L7p:key stringValue=&quot;auth_time&quot;/&gt;\r\n                            &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_time}&quot;/&gt;\r\n                        &lt;/L7p:entry&gt;\r\n                        &lt;L7p:entry&gt;\r\n                            &lt;L7p:key stringValue=&quot;custom&quot;/&gt;\r\n                            &lt;L7p:value stringValue=&quot;&quot;/&gt;\r\n                        &lt;/L7p:entry&gt;\r\n                        &lt;L7p:entry&gt;\r\n                            &lt;L7p:key stringValue=&quot;status&quot;/&gt;\r\n                            &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_status}&quot;/&gt;\r\n                        &lt;/L7p:entry&gt;\r\n                        &lt;L7p:entry&gt;\r\n                            &lt;L7p:key stringValue=&quot;user_info&quot;/&gt;\r\n                            &lt;L7p:value stringValue=&quot;${request.http.parameter.user_info}&quot;/&gt;\r\n                        &lt;/L7p:entry&gt;\r\n                        &lt;L7p:entry&gt;\r\n                            &lt;L7p:key stringValue=&quot;user_req_id&quot;/&gt;\r\n                            &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_req_id}&quot;/&gt;\r\n                        &lt;/L7p:entry&gt;\r\n                    &lt;/L7p:Parameters&gt;\r\n                &lt;/L7p:Encapsulated&gt;\r\n            &lt;/wsp:All&gt;\r\n            &lt;L7p:Encapsulated&gt;\r\n                &lt;L7p:EncapsulatedAssertionConfigGuid stringValue=&quot;2905aa52-5637-4781-ab87-56e15f2aed41&quot;/&gt;\r\n                &lt;L7p:EncapsulatedAssertionConfigName stringValue=&quot;OTK CIBA Update User Authentication Status&quot;/&gt;\r\n                &lt;L7p:Parameters mapValue=&quot;included&quot;&gt;\r\n                    &lt;L7p:entry&gt;\r\n                        &lt;L7p:key stringValue=&quot;auth_time&quot;/&gt;\r\n                        &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_time}&quot;/&gt;\r\n                    &lt;/L7p:entry&gt;\r\n                    &lt;L7p:entry&gt;\r\n                        &lt;L7p:key stringValue=&quot;custom&quot;/&gt;\r\n                        &lt;L7p:value stringValue=&quot;&quot;/&gt;\r\n                    &lt;/L7p:entry&gt;\r\n                    &lt;L7p:entry&gt;\r\n                        &lt;L7p:key stringValue=&quot;status&quot;/&gt;\r\n                        &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_status}&quot;/&gt;\r\n                    &lt;/L7p:entry&gt;\r\n                    &lt;L7p:entry&gt;\r\n                        &lt;L7p:key stringValue=&quot;user_info&quot;/&gt;\r\n                        &lt;L7p:value stringValue=&quot;&quot;/&gt;\r\n                    &lt;/L7p:entry&gt;\r\n                    &lt;L7p:entry&gt;\r\n                        &lt;L7p:key stringValue=&quot;user_req_id&quot;/&gt;\r\n                        &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_req_id}&quot;/&gt;\r\n                    &lt;/L7p:entry&gt;\r\n                &lt;/L7p:Parameters&gt;\r\n            &lt;/L7p:Encapsulated&gt;\r\n        &lt;/wsp:OneOrMore&gt;\r\n    &lt;/wsp:All&gt;\r\n&lt;/wsp:Policy&gt;\r\n</l7:Resource>\r\n                        </l7:ResourceSet>\r\n                    </l7:Resources>\r\n                </l7:Service>\r\n            </l7:Resource>\r\n        </l7:Item>\r\n    </l7:References>\r\n    <l7:Mappings>\r\n        <l7:Mapping action=\"NewOrExisting\" srcId=\"0000000000000000ffffffffffffec76\" srcUri=\"https://otk-gateway-5c6f448d84-rp8mb:443/restman/1.0/folders/0000000000000000ffffffffffffec76\" type=\"FOLDER\">\r\n            <l7:Properties>\r\n                <l7:Property key=\"FailOnNew\">\r\n                    <l7:BooleanValue>true</l7:BooleanValue>\r\n                </l7:Property>\r\n            </l7:Properties>\r\n        </l7:Mapping>\r\n        <l7:Mapping action=\"NewOrExisting\" srcId=\"9d83bc29283ee3d0d9d8b5d8dcef11dc\" srcUri=\"https://{{otk.pm.host}}:{{otk.pm.port}}/restman/1.0/services/9d83bc29283ee3d0d9d8b5d8dcef11dc\" type=\"SERVICE\"/>\r\n    </l7:Mappings>\r\n</l7:Bundle>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{otk.pm.host}}:{{otk.pm.port}}/restman/1.0/bundle",
+					"protocol": "https",
+					"host": [
+						"{{otk.pm.host}}"
+					],
+					"port": "{{otk.pm.port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"bundle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login hint validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{otk.password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{otk.username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<l7:Bundle xmlns:l7=\"http://ns.l7tech.com/2010/04/gateway-management\">\r\n    <l7:References>\r\n        <l7:Item>\r\n            <l7:Name>#OTK CIBA login_hint Validation</l7:Name>\r\n            <l7:Id>758c91d75c19e23371bd54d8f0c40c51</l7:Id>\r\n            <l7:Type>POLICY</l7:Type>\r\n            <l7:TimeStamp>2023-07-27T13:15:24.528Z</l7:TimeStamp>\r\n            <l7:Resource>\r\n                <l7:Policy guid=\"b00cf205-ca61-4406-93b3-31965539ad52\" id=\"758c91d75c19e23371bd54d8f0c40c51\" version=\"56\">\r\n                    <l7:PolicyDetail folderId=\"24e6fd7c5b6fb3a96690246c8ac49170\" guid=\"b00cf205-ca61-4406-93b3-31965539ad52\" id=\"758c91d75c19e23371bd54d8f0c40c51\" version=\"56\">\r\n                        <l7:Name>#OTK CIBA login_hint Validation</l7:Name>\r\n                        <l7:PolicyType>Include</l7:PolicyType>\r\n                        <l7:Properties>\r\n                            <l7:Property key=\"hasRouting\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"revision\">\r\n                                <l7:LongValue>57</l7:LongValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"soap\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                        </l7:Properties>\r\n                    </l7:PolicyDetail>\r\n                    <l7:Resources>\r\n                        <l7:ResourceSet tag=\"policy\">\r\n                            <l7:Resource type=\"policy\">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;\r\n&lt;wsp:Policy xmlns:L7p=&quot;http://www.layer7tech.com/ws/policy&quot; xmlns:wsp=&quot;http://schemas.xmlsoap.org/ws/2002/12/policy&quot;&gt;\r\n    &lt;wsp:All wsp:Usage=&quot;Required&quot;&gt;\r\n        &lt;L7p:CommentAssertion&gt;\r\n            &lt;L7p:Comment stringValue=&quot;Policy Fragment: #OTK CIBA login_hint Validation&quot;/&gt;\r\n        &lt;/L7p:CommentAssertion&gt;\r\n        &lt;L7p:CommentAssertion&gt;\r\n            &lt;L7p:Comment stringValue=&quot;Customize this policy to add additional validations for login_hint&quot;/&gt;\r\n        &lt;/L7p:CommentAssertion&gt;\r\n        &lt;L7p:CommentAssertion&gt;\r\n            &lt;L7p:Comment stringValue=&quot;Ensure to set any new field including resource_owner within user_info&quot;/&gt;\r\n        &lt;/L7p:CommentAssertion&gt;\r\n        &lt;L7p:SetVariable&gt;\r\n            &lt;L7p:Base64Expression stringValue=&quot;ew0KCSAiYmluZGluZ19tZXNzYWdlIjogIiR7YmluZGluZ19tZXNzYWdlfSIsDQoJICJyZXNvdXJjZV9vd25lciI6ICAgImFkbWluIg0KfQ==&quot;/&gt;\r\n            &lt;L7p:ContentType stringValue=&quot;application/json; charset=utf-8&quot;/&gt;\r\n            &lt;L7p:DataType variableDataType=&quot;message&quot;/&gt;\r\n            &lt;L7p:VariableToSet stringValue=&quot;user_info&quot;/&gt;\r\n        &lt;/L7p:SetVariable&gt;\r\n    &lt;/wsp:All&gt;\r\n&lt;/wsp:Policy&gt;\r\n</l7:Resource>\r\n                        </l7:ResourceSet>\r\n                    </l7:Resources>\r\n                </l7:Policy>\r\n            </l7:Resource>\r\n        </l7:Item>\r\n    </l7:References>\r\n    <l7:Mappings>\r\n        <l7:Mapping action=\"NewOrExisting\" srcId=\"24e6fd7c5b6fb3a96690246c8ac49170\" srcUri=\"https://otk-gateway-5c6f448d84-rp8mb:443/restman/1.0/folders/24e6fd7c5b6fb3a96690246c8ac49170\" type=\"FOLDER\">\r\n            <l7:Properties>\r\n                <l7:Property key=\"FailOnNew\">\r\n                    <l7:BooleanValue>true</l7:BooleanValue>\r\n                </l7:Property>\r\n            </l7:Properties>\r\n        </l7:Mapping>\r\n        <l7:Mapping action=\"NewOrUpdate\" srcId=\"758c91d75c19e23371bd54d8f0c40c51\" srcUri=\"https://otk-gateway-5c6f448d84-rp8mb:443/restman/1.0/policies/758c91d75c19e23371bd54d8f0c40c51\" type=\"POLICY\"/>\r\n    </l7:Mappings>\r\n</l7:Bundle>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{otk.pm.host}}:{{otk.pm.port}}/restman/1.0/bundle",
+					"protocol": "https",
+					"host": [
+						"{{otk.pm.host}}"
+					],
+					"port": "{{otk.pm.port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"bundle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OpenID Connect Dynamic Registration endpoint",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(201);\r",
+							"  const responseJson = pm.response.json();\r",
+							"  pm.environment.set('otk.temp.client_id', responseJson.client_id)\r",
+							"  pm.environment.set('otk.temp.client_secret', responseJson.client_secret) \r",
+							" pm.environment.set('otk.temp.registration_access_token', responseJson.registration_access_token)  \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"redirect_uris\": [\n        \"{{otk.redirectUri}}\"\n    ],\n    \"post_logout_redirect_uris\" : [\"https://www.google.com\"],\n    \"response_types\": [\n        \"code\"\n    ],\n    \"grant_types\": [\n        \"urn:openid:params:grant-type:ciba\"\n    ],\n    \"application_type\": \"web\",\n    \"contacts\": [\n        \"user1@ca.com\",\n        \"user2@ca.com\"\n    ],\n    \"client_name\": \"OTKClient-{{$timestamp}}\",\n    \"subject_type\": \"pairwise\",\n    \"id_token_signed_response_alg\": \"PS256\",\n    \"token_endpoint_auth_method\": \"private_key_jwt\",\n    \"jwks\": {\n        \"keys\": [\n            {{otk.jwk.public}}\n        ]\n    },\n    \"authorization_signed_response_alg\": \"PS256\",\n    \"scope\": \"openid\",\n    \"environment\": \"ALL\",\n    \"master\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{otk.host}}:{{otk.port}}/openid/connect/register",
+					"protocol": "https",
+					"host": [
+						"{{otk.host}}"
+					],
+					"port": "{{otk.port}}",
+					"path": [
+						"openid",
+						"connect",
+						"register"
+					]
+				},
+				"description": "This endpoint follows the specification defined at http://openid.net/specs/openid-connect-registration-1_0.html. It enables a client to dynamically register itself as an OAuth 2.0 client."
+			},
+			"response": []
+		},
+		{
+			"name": "Back chanel authorize",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"  const responseJson = pm.response.json();\r",
+							"  pm.environment.set('otk.temp.auth_req_id', responseJson.auth_req_id)\r",
+							"  pm.environment.set('otk.temp.expires_in', responseJson.expires_in)\r",
+							"  pm.environment.set('otk.temp.interval', responseJson.interval)\r",
+							"  pm.environment.set('otk.temp.counter', 1)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Loading the library\r",
+							"eval(pm.globals.get('pmlib_code'))\r",
+							"clientId = pm.environment.get('otk.temp.client_id')\r",
+							"host = pm.environment.get('otk.host')\r",
+							"port = pm.environment.get('otk.port')\r",
+							"otklUrl = 'https://'+ host + ':' + port\r",
+							"state = pm.environment.get('otk.temp.state')\r",
+							"nonce = pm.environment.get('otk.temp.nonce')\r",
+							"jwk = JSON.parse(pm.environment.get('otk.jwk'))\r",
+							"redirectUri= pm.environment.get('otk.redirectUri')\r",
+							"\r",
+							"// Create a signed jwt (JWS)\r",
+							"const requestObj = pmlib.jwtSign(jwk, payload = { \r",
+							"              aud: [otklUrl,clientId],\r",
+							"              iss: clientId, \r",
+							"              binding_message: 'binding message',\r",
+							"              resource: otklUrl + '/oauth/v2/protectedapi',\r",
+							"              scope: 'openid',\r",
+							"              login_hint: 'admin',\r",
+							"              binding_message: 'Test Binding message'\r",
+							"             }, header = {}, exp = 600, alg = 'PS256')\r",
+							"\r",
+							"requestJwt = pmlib.clientAssertPrivateKey(jwk, clientId, otklUrl +'/auth/oauth/v2/token')\r",
+							"\r",
+							"privateKeyJwt = pmlib.clientAssertPrivateKey(jwk, clientId, otklUrl +'/auth/oauth/v2/token')\r",
+							"\r",
+							"pm.variables.set('otk.temp.client_assertion', privateKeyJwt)\r",
+							"pm.variables.set('otk.temp.requestObj', requestObj)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{otk.temp.client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_assertion_type",
+							"value": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+							"type": "text"
+						},
+						{
+							"key": "client_assertion",
+							"value": "{{otk.temp.client_assertion}}",
+							"type": "text"
+						},
+						{
+							"key": "request",
+							"value": "{{otk.temp.requestObj}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{otk.host}}:{{otk.port}}/auth/oauth/v2/bc-authorize",
+					"protocol": "https",
+					"host": [
+						"{{otk.host}}"
+					],
+					"port": "{{otk.port}}",
+					"path": [
+						"auth",
+						"oauth",
+						"v2",
+						"bc-authorize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Loading the library\r",
+							"eval(pm.globals.get('pmlib_code'))\r",
+							"clientId = pm.environment.get('otk.temp.client_id')\r",
+							"host = pm.environment.get('otk.host')\r",
+							"port = pm.environment.get('otk.port')\r",
+							"otklUrl = 'https://'+ host + ':' + port\r",
+							"jwk = JSON.parse(pm.environment.get('otk.jwk'))\r",
+							"\r",
+							"privateKeyJwt = pmlib.clientAssertPrivateKey(jwk, clientId, otklUrl +'/auth/oauth/v2/token')\r",
+							"pm.variables.set('otk.temp.client_assertion', privateKeyJwt)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"function pausecomp(millis)\r",
+							" {\r",
+							"  var date = new Date();\r",
+							"  var curDate = null;\r",
+							"  do { curDate = new Date(); }\r",
+							"  while(curDate-date < millis);\r",
+							"}\r",
+							"const respCode = pm.response.code;\r",
+							"\r",
+							"if(respCode == \"400\" ) {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    const error = responseJson.error;    \r",
+							"    const interval = pm.environment.get('otk.temp.interval')\r",
+							"    counter = pm.environment.get('otk.temp.counter')\r",
+							"    console.log('Error message: ' + error)\r",
+							"    if(error === 'slow_down' || error === 'authorization_pending') {\r",
+							"        if (counter <= interval) {\r",
+							"            setTimeout(function(){\r",
+							"            console.log('Sleeping for ' + counter +'seconds before next request.');\r",
+							"            }, counter * 1000);\r",
+							"            counter = counter + 1\r",
+							"            pm.environment.set('otk.temp.counter', counter)\r",
+							"            postman.setNextRequest('Token');\r",
+							"        }\r",
+							"    }\r",
+							"} else {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.access_token).is.not.oneOf([null, undefined]);\r",
+							"    pm.expect(responseJson.refresh_token).is.not.oneOf([null, undefined]);\r",
+							"    pm.expect(responseJson.id_token).is.not.oneOf([null, undefined]);\r",
+							"    pm.expect(responseJson.scope).to.eql('openid');\r",
+							"    pm.environment.set('otk.temp.id_token', responseJson.id_token)\r",
+							"    pm.environment.set('otk.temp.access_token', responseJson.access_token)\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "urn:openid:params:grant-type:ciba",
+							"type": "text"
+						},
+						{
+							"key": "auth_req_id",
+							"value": "{{otk.temp.auth_req_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "{{otk.temp.client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{{otk.redirectUri}}",
+							"type": "text"
+						},
+						{
+							"key": "client_assertion",
+							"value": "{{otk.temp.client_assertion}}",
+							"type": "text"
+						},
+						{
+							"key": "client_assertion_type",
+							"value": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{otk.host}}:{{otk.port}}/auth/oauth/v2/token",
+					"protocol": "https",
+					"host": [
+						"{{otk.host}}"
+					],
+					"port": "{{otk.port}}",
+					"path": [
+						"auth",
+						"oauth",
+						"v2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Status",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "auth_req_id",
+							"value": "{{otk.temp.auth_req_id}}",
+							"type": "text"
+						},
+						{
+							"key": "auth_status",
+							"value": "ACCEPTED",
+							"type": "text"
+						},
+						{
+							"key": "auth_time",
+							"value": "{{$timestamp}}",
+							"type": "text"
+						},
+						{
+							"key": "user_info",
+							"value": "{\"binding_message\":\"\", \"response_type\":\"token id_token\", \"salt\": \"12345\", \"nonce\": \"67890\", \"state\": \"24680\", \"resource_owner\":   \"admin\"}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{otk.host}}:{{otk.port}}/ciba/status",
+					"protocol": "https",
+					"host": [
+						"{{otk.host}}"
+					],
+					"port": "{{otk.port}}",
+					"path": [
+						"ciba",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token Success",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Loading the library\r",
+							"eval(pm.globals.get('pmlib_code'))\r",
+							"clientId = pm.environment.get('otk.temp.client_id')\r",
+							"host = pm.environment.get('otk.host')\r",
+							"port = pm.environment.get('otk.port')\r",
+							"otklUrl = 'https://'+ host + ':' + port\r",
+							"jwk = JSON.parse(pm.environment.get('otk.jwk'))\r",
+							"\r",
+							"privateKeyJwt = pmlib.clientAssertPrivateKey(jwk, clientId, otklUrl +'/auth/oauth/v2/token')\r",
+							"pm.variables.set('otk.temp.client_assertion', privateKeyJwt)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"  const responseJson = pm.response.json();\r",
+							"  pm.expect(responseJson.access_token).is.not.oneOf([null, undefined]);\r",
+							"  pm.expect(responseJson.refresh_token).is.not.oneOf([null, undefined]);\r",
+							"  pm.expect(responseJson.id_token).is.not.oneOf([null, undefined]);\r",
+							"  pm.expect(responseJson.scope).to.eql('openid');\r",
+							"  pm.environment.set('otk.temp.id_token', responseJson.id_token)\r",
+							"  pm.environment.set('otk.temp.access_token', responseJson.access_token)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "urn:openid:params:grant-type:ciba",
+							"type": "text"
+						},
+						{
+							"key": "auth_req_id",
+							"value": "{{otk.temp.auth_req_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "{{otk.temp.client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{{otk.redirectUri}}",
+							"type": "text"
+						},
+						{
+							"key": "client_assertion",
+							"value": "{{otk.temp.client_assertion}}",
+							"type": "text"
+						},
+						{
+							"key": "client_assertion_type",
+							"value": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{otk.host}}:{{otk.port}}/auth/oauth/v2/token",
+					"protocol": "https",
+					"host": [
+						"{{otk.host}}"
+					],
+					"port": "{{otk.port}}",
+					"path": [
+						"auth",
+						"oauth",
+						"v2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Protected Resource",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Loading the library\r",
+							"eval(pm.globals.get('pmlib_code'))\r",
+							"clientId = pm.environment.get('otk.client_id')\r",
+							"host = pm.environment.get('otk.host')\r",
+							"port = pm.environment.get('otk.port')\r",
+							"otklUrl = 'https://'+ host + ':' + port\r",
+							"client_secret = pm.environment.get('otk.client_secret')\r",
+							"privateKeyJwt = pmlib.clientAssertSecret(client_secret, clientId, otklUrl +'/auth/oauth/v2/token', 60000)\r",
+							"pm.variables.set('client_assertion', privateKeyJwt)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"  const responseJson = pm.response.json();\r",
+							"  pm.expect(responseJson.client_id).to.eql(pm.environment.get('otk.temp.client_id'));\r",
+							"  pm.expect(pm.response.text()).to.include(\"expires_at\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{otk.temp.access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "code",
+							"value": "{{otk.temp.authorizationCode}}",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "{{otk.client_id}}",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{{otk.redirectUri}}",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "client_assertion_type",
+							"value": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "client_assertion",
+							"value": "{{client_assertion}}",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "code_verifier",
+							"value": "{{otk.temp.code_verifier}}",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{otk.host}}:{{otk.port}}/oauth/v2/protectedapi",
+					"protocol": "https",
+					"host": [
+						"{{otk.host}}"
+					],
+					"port": "{{otk.port}}",
+					"path": [
+						"oauth",
+						"v2",
+						"protectedapi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Client",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"function clearVariables() {\r",
+							"    // Get all the names of our env variables and put them in an array\r",
+							"    const environmentVariables = pm.environment.values.map(function(variable) {\r",
+							"        return variable.key;\r",
+							"    });\r",
+							"    \r",
+							"    const binTheseVariablesOff = environmentVariables.filter(function(variable) {\r",
+							"        return variable.match(\"otk.temp\");\r",
+							"    });\r",
+							"\r",
+							"    // Now go through this new array and delete these env variables\r",
+							"    return binTheseVariablesOff.forEach(function(variableName) {\r",
+							"       pm.environment.unset(variableName);\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status code is 204\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(204);\r",
+							"  clearVariables();\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{otk.temp.registration_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://{{otk.host}}:{{otk.port}}/openid/connect/register/{{otk.temp.client_id}}",
+					"protocol": "https",
+					"host": [
+						"{{otk.host}}"
+					],
+					"port": "{{otk.port}}",
+					"path": [
+						"openid",
+						"connect",
+						"register",
+						"{{otk.temp.client_id}}"
+					]
+				},
+				"description": "This endpoint follows the specification defined at http://openid.net/specs/openid-connect-registration-1_0.html. It enables a client to dynamically register itself as an OAuth 2.0 client."
+			},
+			"response": []
+		},
+		{
+			"name": "CIBA Backchanel Service Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{otk.password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{otk.username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<l7:Bundle xmlns:l7=\"http://ns.l7tech.com/2010/04/gateway-management\">\r\n    <l7:References>\r\n        <l7:Item>\r\n            <l7:Name>ciba-update-status</l7:Name>\r\n            <l7:Id>9d83bc29283ee3d0d9d8b5d8dcef11dc</l7:Id>\r\n            <l7:Type>SERVICE</l7:Type>\r\n            <l7:TimeStamp>2023-07-27T12:54:18.394Z</l7:TimeStamp>\r\n            <l7:Resource>\r\n                <l7:Service id=\"9d83bc29283ee3d0d9d8b5d8dcef11dc\" version=\"72\">\r\n                    <l7:ServiceDetail folderId=\"0000000000000000ffffffffffffec76\" id=\"9d83bc29283ee3d0d9d8b5d8dcef11dc\" version=\"72\">\r\n                        <l7:Name>ciba-update-status</l7:Name>\r\n                        <l7:Enabled>true</l7:Enabled>\r\n                        <l7:ServiceMappings>\r\n                            <l7:HttpMapping>\r\n                                <l7:UrlPattern>/ciba/status</l7:UrlPattern>\r\n                                <l7:Verbs>\r\n                                    <l7:Verb>GET</l7:Verb>\r\n                                    <l7:Verb>POST</l7:Verb>\r\n                                    <l7:Verb>PUT</l7:Verb>\r\n                                    <l7:Verb>DELETE</l7:Verb>\r\n                                </l7:Verbs>\r\n                            </l7:HttpMapping>\r\n                        </l7:ServiceMappings>\r\n                        <l7:Properties>\r\n                            <l7:Property key=\"hasRouting\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"internal\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"policyRevision\">\r\n                                <l7:LongValue>1</l7:LongValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"soap\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"tracingEnabled\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                            <l7:Property key=\"wssProcessingEnabled\">\r\n                                <l7:BooleanValue>false</l7:BooleanValue>\r\n                            </l7:Property>\r\n                        </l7:Properties>\r\n                    </l7:ServiceDetail>\r\n                    <l7:Resources>\r\n                        <l7:ResourceSet tag=\"policy\">\r\n                            <l7:Resource type=\"policy\" version=\"1\">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;\r\n&lt;wsp:Policy xmlns:L7p=&quot;http://www.layer7tech.com/ws/policy&quot; xmlns:wsp=&quot;http://schemas.xmlsoap.org/ws/2002/12/policy&quot;&gt;\r\n    &lt;wsp:All wsp:Usage=&quot;Required&quot;&gt;\r\n        &lt;wsp:OneOrMore wsp:Usage=&quot;Required&quot;&gt;\r\n            &lt;L7p:ComparisonAssertion&gt;\r\n                &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                &lt;L7p:Expression1 stringValue=&quot;${request.http.parameter.auth_req_id}&quot;/&gt;\r\n                &lt;L7p:Expression2 stringValue=&quot;&quot;/&gt;\r\n                &lt;L7p:Negate booleanValue=&quot;true&quot;/&gt;\r\n                &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                &lt;L7p:Predicates predicates=&quot;included&quot;&gt;\r\n                    &lt;L7p:item binary=&quot;included&quot;&gt;\r\n                        &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                        &lt;L7p:Negated booleanValue=&quot;true&quot;/&gt;\r\n                        &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                        &lt;L7p:RightValue stringValue=&quot;&quot;/&gt;\r\n                    &lt;/L7p:item&gt;\r\n                &lt;/L7p:Predicates&gt;\r\n            &lt;/L7p:ComparisonAssertion&gt;\r\n            &lt;L7p:ComparisonAssertion&gt;\r\n                &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                &lt;L7p:Expression1 stringValue=&quot;${request.http.parameter.auth_status}&quot;/&gt;\r\n                &lt;L7p:Expression2 stringValue=&quot;&quot;/&gt;\r\n                &lt;L7p:Negate booleanValue=&quot;true&quot;/&gt;\r\n                &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                &lt;L7p:Predicates predicates=&quot;included&quot;&gt;\r\n                    &lt;L7p:item binary=&quot;included&quot;&gt;\r\n                        &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                        &lt;L7p:Negated booleanValue=&quot;true&quot;/&gt;\r\n                        &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                        &lt;L7p:RightValue stringValue=&quot;&quot;/&gt;\r\n                    &lt;/L7p:item&gt;\r\n                &lt;/L7p:Predicates&gt;\r\n            &lt;/L7p:ComparisonAssertion&gt;\r\n            &lt;L7p:ComparisonAssertion&gt;\r\n                &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                &lt;L7p:Expression1 stringValue=&quot;${request.http.parameter.auth_time}&quot;/&gt;\r\n                &lt;L7p:Expression2 stringValue=&quot;&quot;/&gt;\r\n                &lt;L7p:Negate booleanValue=&quot;true&quot;/&gt;\r\n                &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                &lt;L7p:Predicates predicates=&quot;included&quot;&gt;\r\n                    &lt;L7p:item binary=&quot;included&quot;&gt;\r\n                        &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                        &lt;L7p:Negated booleanValue=&quot;true&quot;/&gt;\r\n                        &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                        &lt;L7p:RightValue stringValue=&quot;&quot;/&gt;\r\n                    &lt;/L7p:item&gt;\r\n                &lt;/L7p:Predicates&gt;\r\n            &lt;/L7p:ComparisonAssertion&gt;\r\n            &lt;L7p:RaiseError/&gt;\r\n        &lt;/wsp:OneOrMore&gt;\r\n        &lt;wsp:OneOrMore wsp:Usage=&quot;Required&quot;&gt;\r\n            &lt;wsp:All wsp:Usage=&quot;Required&quot;&gt;\r\n                &lt;L7p:ComparisonAssertion&gt;\r\n                    &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                    &lt;L7p:Expression1 stringValue=&quot;${request.http.parameter.user_info}&quot;/&gt;\r\n                    &lt;L7p:Expression2 stringValue=&quot;&quot;/&gt;\r\n                    &lt;L7p:Negate booleanValue=&quot;true&quot;/&gt;\r\n                    &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                    &lt;L7p:Predicates predicates=&quot;included&quot;&gt;\r\n                        &lt;L7p:item binary=&quot;included&quot;&gt;\r\n                            &lt;L7p:CaseSensitive booleanValue=&quot;false&quot;/&gt;\r\n                            &lt;L7p:Negated booleanValue=&quot;true&quot;/&gt;\r\n                            &lt;L7p:Operator operator=&quot;EMPTY&quot;/&gt;\r\n                            &lt;L7p:RightValue stringValue=&quot;&quot;/&gt;\r\n                        &lt;/L7p:item&gt;\r\n                    &lt;/L7p:Predicates&gt;\r\n                &lt;/L7p:ComparisonAssertion&gt;\r\n                &lt;L7p:Encapsulated&gt;\r\n                    &lt;L7p:EncapsulatedAssertionConfigGuid stringValue=&quot;2905aa52-5637-4781-ab87-56e15f2aed41&quot;/&gt;\r\n                    &lt;L7p:EncapsulatedAssertionConfigName stringValue=&quot;OTK CIBA Update User Authentication Status&quot;/&gt;\r\n                    &lt;L7p:Parameters mapValue=&quot;included&quot;&gt;\r\n                        &lt;L7p:entry&gt;\r\n                            &lt;L7p:key stringValue=&quot;auth_time&quot;/&gt;\r\n                            &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_time}&quot;/&gt;\r\n                        &lt;/L7p:entry&gt;\r\n                        &lt;L7p:entry&gt;\r\n                            &lt;L7p:key stringValue=&quot;custom&quot;/&gt;\r\n                            &lt;L7p:value stringValue=&quot;&quot;/&gt;\r\n                        &lt;/L7p:entry&gt;\r\n                        &lt;L7p:entry&gt;\r\n                            &lt;L7p:key stringValue=&quot;status&quot;/&gt;\r\n                            &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_status}&quot;/&gt;\r\n                        &lt;/L7p:entry&gt;\r\n                        &lt;L7p:entry&gt;\r\n                            &lt;L7p:key stringValue=&quot;user_info&quot;/&gt;\r\n                            &lt;L7p:value stringValue=&quot;${request.http.parameter.user_info}&quot;/&gt;\r\n                        &lt;/L7p:entry&gt;\r\n                        &lt;L7p:entry&gt;\r\n                            &lt;L7p:key stringValue=&quot;user_req_id&quot;/&gt;\r\n                            &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_req_id}&quot;/&gt;\r\n                        &lt;/L7p:entry&gt;\r\n                    &lt;/L7p:Parameters&gt;\r\n                &lt;/L7p:Encapsulated&gt;\r\n            &lt;/wsp:All&gt;\r\n            &lt;L7p:Encapsulated&gt;\r\n                &lt;L7p:EncapsulatedAssertionConfigGuid stringValue=&quot;2905aa52-5637-4781-ab87-56e15f2aed41&quot;/&gt;\r\n                &lt;L7p:EncapsulatedAssertionConfigName stringValue=&quot;OTK CIBA Update User Authentication Status&quot;/&gt;\r\n                &lt;L7p:Parameters mapValue=&quot;included&quot;&gt;\r\n                    &lt;L7p:entry&gt;\r\n                        &lt;L7p:key stringValue=&quot;auth_time&quot;/&gt;\r\n                        &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_time}&quot;/&gt;\r\n                    &lt;/L7p:entry&gt;\r\n                    &lt;L7p:entry&gt;\r\n                        &lt;L7p:key stringValue=&quot;custom&quot;/&gt;\r\n                        &lt;L7p:value stringValue=&quot;&quot;/&gt;\r\n                    &lt;/L7p:entry&gt;\r\n                    &lt;L7p:entry&gt;\r\n                        &lt;L7p:key stringValue=&quot;status&quot;/&gt;\r\n                        &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_status}&quot;/&gt;\r\n                    &lt;/L7p:entry&gt;\r\n                    &lt;L7p:entry&gt;\r\n                        &lt;L7p:key stringValue=&quot;user_info&quot;/&gt;\r\n                        &lt;L7p:value stringValue=&quot;&quot;/&gt;\r\n                    &lt;/L7p:entry&gt;\r\n                    &lt;L7p:entry&gt;\r\n                        &lt;L7p:key stringValue=&quot;user_req_id&quot;/&gt;\r\n                        &lt;L7p:value stringValue=&quot;${request.http.parameter.auth_req_id}&quot;/&gt;\r\n                    &lt;/L7p:entry&gt;\r\n                &lt;/L7p:Parameters&gt;\r\n            &lt;/L7p:Encapsulated&gt;\r\n        &lt;/wsp:OneOrMore&gt;\r\n    &lt;/wsp:All&gt;\r\n&lt;/wsp:Policy&gt;\r\n</l7:Resource>\r\n                        </l7:ResourceSet>\r\n                    </l7:Resources>\r\n                </l7:Service>\r\n            </l7:Resource>\r\n        </l7:Item>\r\n    </l7:References>\r\n    <l7:Mappings>\r\n        <l7:Mapping action=\"NewOrExisting\" srcId=\"0000000000000000ffffffffffffec76\" srcUri=\"https://otk-gateway-5c6f448d84-rp8mb:443/restman/1.0/folders/0000000000000000ffffffffffffec76\" type=\"FOLDER\">\r\n            <l7:Properties>\r\n                <l7:Property key=\"FailOnNew\">\r\n                    <l7:BooleanValue>true</l7:BooleanValue>\r\n                </l7:Property>\r\n            </l7:Properties>\r\n        </l7:Mapping>\r\n        <l7:Mapping action=\"NewOrExisting\" srcId=\"9d83bc29283ee3d0d9d8b5d8dcef11dc\" srcUri=\"https://{{otk.pm.host}}:{{otk.pm.port}}/restman/1.0/services/9d83bc29283ee3d0d9d8b5d8dcef11dc\" type=\"SERVICE\"/>\r\n    </l7:Mappings>\r\n</l7:Bundle>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{otk.pm.host}}:{{otk.pm.port}}/restman/1.0/services/9d83bc29283ee3d0d9d8b5d8dcef11dc",
+					"protocol": "https",
+					"host": [
+						"{{otk.pm.host}}"
+					],
+					"port": "{{otk.pm.port}}",
+					"path": [
+						"restman",
+						"1.0",
+						"services",
+						"9d83bc29283ee3d0d9d8b5d8dcef11dc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
