@@ -7,8 +7,8 @@ This repository is for postman collections for OTK.
 
 ### Input Variables
 
-Name | Brief Description
------ | -----------------
+Name | Brief Description | Default
+----- | ----------------- | ------
 *otk.host* | *Gateway hostname or IP address*
 *otk.port* | *Gateway port*
 *otk.username* | *Gateway user name*
