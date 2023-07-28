@@ -1,7 +1,7 @@
 # OTK Postman collections
 This repository is for postman collections for OTK.
 
-:point_right: Note: These postman collections makes use of the [PMLIB](https://github.com/joolfe/postman-util-lib) Use self-signed certificates as instructed below.
+:point_right: Note: These postman collections makes use of the [PMLIB](https://github.com/joolfe/postman-util-lib) Use self-signed certificates.
 
 ## Environment Variables
 
