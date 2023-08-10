@@ -11,42 +11,46 @@ module.exports = {
         }
 
         const metadata = utils.readFile(metadataBaseFile);
-        metadata.schemaVersion = schemaVersion;
-
-        // start parsing the graphql schema files
-        const schemaDir = utils.schemaDir(schemaVersion);
-        utils.listDir(schemaDir).forEach(file => {
-            if (file.endsWith(".graphql")) {
-                parseSchemaFile(schemaDir + "/" + file, metadata);
-            }
-        });
-
-        Object.entries(metadata.types).forEach(([key, value]) => {
-            // to retrieve type using its plural method
-            metadata.pluralMethods[value.pluralMethod] = key;
-
-            // define summary fields
-            if (!value.summaryFields || !Array.isArray(value.summaryFields) || value.summaryFields.length === 0) {
-                const sFields = value.summaryFields = ["goid"];
-                if (value.fields.includes("guid")) sFields.push("guid");
-                if (value.idFields) value.idFields.forEach(item => sFields.push(item));
-                else if (value.idField) sFields.push(value.idField);
-                sFields.push("checksum");
-            }
-
-            // restore the enum type fields
-            value.fields.forEach((field, index) => {
-                const tokens = field.split(/[{}]/); // <field-name> { {{<field-type>}} }
-                if (tokens && metadata.enumTypes.includes(tokens[3])) {
-                    value.fields[index] = tokens[0];
-                }
-            });
-        });
-
+        build(metadata, schemaVersion);
         utils.writeFile(metadataFile, metadata);
+
         return metadata;
     },
 };
+
+function build(metadata, schemaVersion) {
+    metadata.schemaVersion = schemaVersion;
+
+    // start parsing the graphql schema files
+    const schemaDir = utils.schemaDir(schemaVersion);
+    utils.listDir(schemaDir).forEach(file => {
+        if (file.endsWith(".graphql")) {
+            parseSchemaFile(schemaDir + "/" + file, metadata);
+        }
+    });
+
+    Object.entries(metadata.types).forEach(([key, value]) => {
+        // to retrieve type using its plural method
+        metadata.pluralMethods[value.pluralMethod] = key;
+
+        // define summary fields
+        if (!value.summaryFields || !Array.isArray(value.summaryFields) || value.summaryFields.length === 0) {
+            const sFields = value.summaryFields = ["goid"];
+            if (value.fields.includes("guid")) sFields.push("guid");
+            if (value.idFields) value.idFields.forEach(item => sFields.push(item));
+            else if (value.idField) sFields.push(value.idField);
+            sFields.push("checksum");
+        }
+
+        // restore the enum type fields
+        value.fields.forEach((field, index) => {
+            const tokens = field.split(/[{}]/); // <field-name> { {{<field-type>}} }
+            if (tokens && metadata.enumTypes.includes(tokens[3])) {
+                value.fields[index] = tokens[0];
+            }
+        });
+    });
+}
 
 function parseSchemaFile(file, metadata) {
     const lines = utils.readFile(file).split(/\r?\n/);
