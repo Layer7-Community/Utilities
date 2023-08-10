@@ -5,7 +5,7 @@ const graphman = require("./graphman");
 module.exports = {
     run: function (params, supportedOperations) {
         const config = graphman.configuration();
-        console.log("graphman " + config.version + (config.version !== config.schemaVersion ? ` [schemaVersion=${config.schemaVersion}]`: ""));
+        console.log("graphman " + config.version + (` [schemaVersion=${config.schemaVersion}]`));
         console.log("usage:");
         if (params.operation && supportedOperations.includes(params.operation)) {
             require(GRAPHMAN_OPERATION_MODULE_PREFIX + params.operation).usage();

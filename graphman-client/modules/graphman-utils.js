@@ -46,11 +46,6 @@ module.exports = {
     },
 
     schemaDir: function (schemaVersion) {
-        if (schemaVersion) {
-            const path = this.path(SCHEMA_DIR, schemaVersion);
-            return this.existsFile(path) ? path : SCHEMA_DIR;
-        }
-
         return SCHEMA_DIR;
     },
 
