@@ -1,10 +1,11 @@
 
 const GRAPHMAN_OPERATION_MODULE_PREFIX = "./graphman-operation-";
-const SCHEMA_METADATA = require("./graphql-schema").metadata();
+const graphman = require("./graphman");
 
 module.exports = {
     run: function (params, supportedOperations) {
-        console.log("graphman v1.0");
+        const config = graphman.configuration();
+        console.log("graphman " + config.version + (config.version !== config.schemaVersion ? ` [schemaVersion=${config.schemaVersion}]`: ""));
         console.log("usage:");
         if (params.operation && supportedOperations.includes(params.operation)) {
             require(GRAPHMAN_OPERATION_MODULE_PREFIX + params.operation).usage();
@@ -33,8 +34,9 @@ module.exports = {
 
         console.log();
         console.log("    NOTE: Often, entity types are referred in their plural form. Choose one from the below table for <entity-type-plural-tag>. And, the list goes as below:");
-        Object.keys(SCHEMA_METADATA.types).sort().forEach(key => {
-            let value = SCHEMA_METADATA.types[key];
+        const schemaMetadata = graphman.schemaMetadata();
+        Object.keys(schemaMetadata.types).sort().forEach(key => {
+            let value = schemaMetadata.types[key];
             if (value && value.pluralMethod) console.log(`        # ${key} - ${value.pluralMethod}`);
         });
     }

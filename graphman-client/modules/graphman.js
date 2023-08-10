@@ -1,7 +1,9 @@
 
 const utils = require("./graphman-utils");
 const hutils = require("./http-utils");
-const CONFIG = JSON.parse(utils.readFile(utils.home() + "/graphman.configuration"));
+const gqlschema = require("./graphql-schema");
+const VERSION = "v1.0";
+const SCHEMA_VERSION = VERSION;
 
 const PRE_REQUEST_EXTN = utils.extension("graphman-pre-request");
 const PRE_RESPONSE_EXTN = utils.extension("graphman-pre-response");
@@ -9,20 +11,36 @@ const http = require("http");
 const https = require("https");
 
 module.exports = {
-    configuration: function (params) {
-        let config = Object.assign({}, CONFIG);
+    loadedConfig: null,
+    metadata: null,
 
-        if (params) {
-            if (params.sourceGateway) {
-                Object.assign(config.sourceGateway, params.sourceGateway);
-            }
+    init: function (params) {
+        let config = JSON.parse(utils.readFile(utils.home() + "/graphman.configuration"));
 
-            if (params.targetGateway) {
-                Object.assign(config.targetGateway, params.targetGateway);
-            }
+        if (params.sourceGateway) {
+            Object.assign(config.sourceGateway, params.sourceGateway);
         }
 
-        return config;
+        if (params.targetGateway) {
+            Object.assign(config.targetGateway, params.targetGateway);
+        }
+
+        config.version = VERSION;
+        config.schemaVersion = params.schemaVersion || SCHEMA_VERSION;
+        this.metadata = gqlschema.build(config.schemaVersion, false);
+        this.loadedConfig = config;
+    },
+
+    configuration: function () {
+        return this.loadedConfig;
+    },
+
+    schemaMetadata: function () {
+        return this.metadata;
+    },
+
+    refreshSchemaMetadata: function () {
+        this.metadata = gqlschema.build(this.loadedConfig.schemaVersion, true);
     },
 
     request: function (gateway, body) {

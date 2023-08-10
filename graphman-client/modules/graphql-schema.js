@@ -1,62 +1,52 @@
 
 const utils = require("./graphman-utils");
-const SCHEMA_DIR = utils.home() + "/schema";
-const SCHEMA_METADATA_BASE_FILE = SCHEMA_DIR + "/metadata-base.json";
-const SCHEMA_METADATA_FILE = SCHEMA_DIR + "/metadata.json";
-let SCHEMA_METADATA = null;
 
 module.exports = {
-    metadata: function () {
-      if (!SCHEMA_METADATA) {
-          SCHEMA_METADATA = utils.existsFile(SCHEMA_METADATA_FILE) ?
-              utils.readFile(SCHEMA_METADATA_FILE) : build();
-      }
+    build: function (schemaVersion, refresh) {
+        const metadataBaseFile = utils.schemaMetadataBaseFile(schemaVersion);
+        const metadataFile = utils.schemaMetadataFile(schemaVersion);
 
-      return SCHEMA_METADATA;
-    },
-
-    refresh: function () {
-        build();
-        utils.info("pre-compiled schema is refreshed");
-    }
-};
-
-function build() {
-    const metadata = utils.readFile(SCHEMA_METADATA_BASE_FILE);
-
-    // start parsing the graphql schema files
-    utils.listDir(SCHEMA_DIR).forEach(file => {
-        if (file.endsWith(".graphql")) {
-            parseSchemaFile(SCHEMA_DIR + "/" + file, metadata);
-        }
-    });
-
-
-    Object.entries(metadata.types).forEach(([key, value]) => {
-        // to retrieve type using its plural method
-        metadata.pluralMethods[value.pluralMethod] = key;
-
-        // define summary fields
-        if (!value.summaryFields || !Array.isArray(value.summaryFields) || value.summaryFields.length === 0) {
-            const sFields = value.summaryFields = ["goid"];
-            if (value.fields.includes("guid")) sFields.push("guid");
-            if (value.idFields) value.idFields.forEach(item => sFields.push(item));
-            else if (value.idField) sFields.push(value.idField);
-            sFields.push("checksum");
+        if (!refresh && utils.existsFile(metadataFile)) {
+            return utils.readFile(metadataFile);
         }
 
-        // restore the enum type fields
-        value.fields.forEach((field, index) => {
-            const tokens = field.split(/[{}]/); // <field-name> { {{<field-type>}} }
-            if (tokens && metadata.enumTypes.includes(tokens[3])) {
-                value.fields[index] = tokens[0];
+        const metadata = utils.readFile(metadataBaseFile);
+        metadata.schemaVersion = schemaVersion;
+
+        // start parsing the graphql schema files
+        const schemaDir = utils.schemaDir(schemaVersion);
+        utils.listDir(schemaDir).forEach(file => {
+            if (file.endsWith(".graphql")) {
+                parseSchemaFile(schemaDir + "/" + file, metadata);
             }
         });
-    });
 
-    utils.writeFile(SCHEMA_METADATA_FILE, metadata);
-    return metadata;
-}
+        Object.entries(metadata.types).forEach(([key, value]) => {
+            // to retrieve type using its plural method
+            metadata.pluralMethods[value.pluralMethod] = key;
+
+            // define summary fields
+            if (!value.summaryFields || !Array.isArray(value.summaryFields) || value.summaryFields.length === 0) {
+                const sFields = value.summaryFields = ["goid"];
+                if (value.fields.includes("guid")) sFields.push("guid");
+                if (value.idFields) value.idFields.forEach(item => sFields.push(item));
+                else if (value.idField) sFields.push(value.idField);
+                sFields.push("checksum");
+            }
+
+            // restore the enum type fields
+            value.fields.forEach((field, index) => {
+                const tokens = field.split(/[{}]/); // <field-name> { {{<field-type>}} }
+                if (tokens && metadata.enumTypes.includes(tokens[3])) {
+                    value.fields[index] = tokens[0];
+                }
+            });
+        });
+
+        utils.writeFile(metadataFile, metadata);
+        return metadata;
+    },
+};
 
 function parseSchemaFile(file, metadata) {
     const lines = utils.readFile(file).split(/\r?\n/);

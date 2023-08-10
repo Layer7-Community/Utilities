@@ -19,8 +19,8 @@ If <suffix> is not used, type reference will be expanded to the fields.
 NOTE: type reference can refer other type references. But, ensure it doesn't end up recursive infinite loop.
  */
 const utils = require("./graphman-utils");
-const QUERIES_DIR = utils.home() + "/queries";
-const SCHEMA_METADATA = require("./graphql-schema").metadata();
+const SCHEMA_METADATA = require("./graphman").schemaMetadata();
+const QUERIES_DIR = utils.queriesDir(SCHEMA_METADATA.schemaVersion);
 
 module.exports = {
     build: function (queryId, variables) {

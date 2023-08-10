@@ -4,7 +4,7 @@ const butils = require("./graphman-bundle");
 const queryBuilder = require("./graphql-query-builder");
 const opExport = require("./graphman-operation-export");
 const graphman = require("./graphman");
-const SCHEMA_METADATA = require("./graphql-schema").metadata();
+const SCHEMA_METADATA = graphman.schemaMetadata();
 
 module.exports = {
     run: function (params) {
