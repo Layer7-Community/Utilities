@@ -9,6 +9,7 @@ module.exports = {
         console.log("usage:");
         if (params.operation && supportedOperations.includes(params.operation)) {
             require(GRAPHMAN_OPERATION_MODULE_PREFIX + params.operation).usage();
+            return;
         } else {
             supportedOperations.forEach(item => {
                 require(GRAPHMAN_OPERATION_MODULE_PREFIX + item).usage();

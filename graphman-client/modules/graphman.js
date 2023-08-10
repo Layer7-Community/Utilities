@@ -1,9 +1,10 @@
 
+const VERSION = "v1.0";
+const SCHEMA_VERSION = "v10.1.CR03";
+
 const utils = require("./graphman-utils");
 const hutils = require("./http-utils");
 const gqlschema = require("./graphql-schema");
-const VERSION = "v1.0";
-const SCHEMA_VERSION = VERSION;
 
 const PRE_REQUEST_EXTN = utils.extension("graphman-pre-request");
 const PRE_RESPONSE_EXTN = utils.extension("graphman-pre-response");
