@@ -2,7 +2,6 @@ mutation applyBundle (
     $clusterProperties: [ClusterPropertyInput!]!=[],
     $webApiServices: [WebApiServiceInput!]!=[],
     $encassConfigs:[EncassConfigInput!]!=[],
-    $revocationCheckPolicies:[RevocationCheckPolicyInput]!=[],
     $trustedCerts:[TrustedCertInput!]!=[],
     $dtds:[DtdInput!]!=[],
     $schemas:[SchemaInput!]!=[],
@@ -31,7 +30,6 @@ mutation applyBundle (
     $serverModuleFiles:[ServerModuleFileInput!]!=[]) {
         setServerModuleFiles(input: $serverModuleFiles){serverModuleFiles{goid} detailedStatus {status description}}
         setClusterProperties (input: $clusterProperties){clusterProperties {goid} detailedStatus {status description}}
-        setRevocationCheckPolicies (input: $revocationCheckPolicies){revocationCheckPolicies {goid} detailedStatus {status description}}
         setTrustedCerts (input: $trustedCerts){trustedCerts {goid} detailedStatus {status description}}
         setSecrets (input: $secrets){secrets{name} detailedStatus {status description}}
         setSchemas (input: $schemas){schemas {goid} detailedStatus {status description}}
