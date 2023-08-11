@@ -7,4 +7,5 @@ target.properties
 ./*.xml
 ./*.zip
 schema/metadata.json
+schema/**/metadata.json
 output/*

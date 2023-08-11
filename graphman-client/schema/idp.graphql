@@ -49,11 +49,17 @@ extend type Mutation {
     "Deletes one or more existing internal groups"
     deleteInternalGroups(names: [String!]!) : InternalGroupsPayload
 
-    "Creates or updates one or more fip users"
+    """
+    Creates or updates one or more fip users.
+    NOTE: Existing user will be found by either login or subjectDn or name.
+    """
     setFipUsers(input: [FipUserInput!]!) : FipUsersPayload
     "Creates or updates one or more fip groups"
     setFipGroups(input: [FipGroupInput!]!) : FipGroupsPayload
-    "Deletes one or more existing fip users"
+    """
+    Deletes one or more existing fip users.
+    NOTE: Here, name can be either login or subjectDn or name.
+    """
     deleteFipUsers(providerName: String!, names: [String!]!) : FipUsersPayload
     "Deletes one or more existing fip groups"
     deleteFipGroups(providerName: String!, names: [String!]!) : FipGroupsPayload

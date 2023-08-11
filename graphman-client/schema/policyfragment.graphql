@@ -127,6 +127,8 @@ type GlobalPolicy {
     listenPorts: [ListenPort]
     "Policy Fragments"
     policyFragments : [PolicyFragment]
+    "Revocation Check Polices"
+    revocationCheckPolicies: [RevocationCheckPolicy]
     "Schemas in global resources"
     schemas: [Schema]
     secrets : [Secret]
@@ -150,7 +152,7 @@ type GlobalPolicy {
    folderPath: String!
    "The name of the policy. Policies are unique by name."
    name: String!
-   "The guid for this service, if none provided, assigned at creation"
+   "The guid for this policy, if none provided, assigned at creation"
    guid : ID
    "The policy"
    policy: PolicyInput!

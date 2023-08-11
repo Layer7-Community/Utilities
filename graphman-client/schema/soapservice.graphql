@@ -40,6 +40,8 @@ enum SoapVersion {
 type SoapService implements PublishedService {
     "The goid for this service"
     goid : ID!
+    "The guid for this service"
+    guid : ID
     "The name of the service"
     name: String!
     "The resolution path to the service"
@@ -73,6 +75,8 @@ type SoapService implements PublishedService {
 type InternalSoapService implements PublishedService {
     "The goid for this service"
     goid : ID!
+    "The guid for this service"
+    guid : ID
     "The name of the service"
     name: String!
     "The resolution path to the service"
@@ -125,6 +129,8 @@ input SoapServiceResolverInput {
 input SoapServiceInput {
     "The internal entity unique identifier"
     goid: ID
+    "The guid for this service, if none provided, assigned at creation"
+    guid: ID
    "The folder path where to create this service.  If the path does not exist, it will be created"
    folderPath: String!
    "The name of the service"
