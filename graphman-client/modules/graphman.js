@@ -29,13 +29,8 @@ module.exports = {
         config.version = VERSION;
         config.defaultSchemaVersion = SCHEMA_VERSION;
         config.schemaVersion = params.schemaVersion || config.schemaVersion || SCHEMA_VERSION;
-        if (config.schemaVersion !== SCHEMA_VERSION) {
-            if (utils.schemaDir(config.schemaVersion) === utils.schemaDir()) {
-                utils.warn(`specified schema (${config.schemaVersion}) is missing, falling back to the default`);
-            }
-            if (utils.queriesDir(config.schemaVersion) === utils.queriesDir()) {
-                utils.warn(`specified schema (${config.schemaVersion}) queries are missing, falling back to the default`);
-            }
+        if (config.schemaVersion !== SCHEMA_VERSION && utils.schemaDir(config.schemaVersion) === utils.schemaDir()) {
+            utils.warn(`specified schema (${config.schemaVersion}) is missing, falling back to the default`);
         }
 
         this.metadata = gqlschema.build(config.schemaVersion, false);

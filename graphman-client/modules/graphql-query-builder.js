@@ -20,8 +20,13 @@ NOTE: type reference can refer other type references. But, ensure it doesn't end
  */
 const utils = require("./graphman-utils");
 const graphman = require("./graphman");
+const CONFIG = graphman.configuration();
 const SCHEMA_METADATA = graphman.schemaMetadata();
-const QUERIES_DIR = utils.queriesDir(graphman.configuration().schemaVersion);
+const QUERIES_DIR = utils.queriesDir(CONFIG.schemaVersion);
+
+if (CONFIG.defaultSchemaVersion !== CONFIG.schemaVersion && QUERIES_DIR === utils.queriesDir()) {
+    utils.warn(`specified schema (${CONFIG.schemaVersion}) queries are missing, falling back to the default`);
+}
 
 module.exports = {
     build: function (queryId, variables) {
