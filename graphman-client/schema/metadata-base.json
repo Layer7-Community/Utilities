@@ -1,5 +1,24 @@
 {
   "types": {
+    "AdministrativeUserAccountProperty": {
+      "pluralMethod": "administrativeUserAccountProperties",
+      "singularMethod": "administrativeUserAccountProperties",
+      "idField": "name",
+      "prefix": "administrativeUserAccountProperties"
+    },
+    "PasswordPolicy": {
+      "pluralMethod": "passwordPolicies",
+      "singularMethod": "passwordPolicies",
+      "idField": "goid",
+      "prefix": "passwordPolicies"
+    },
+    "ServiceResolutionConfig": {
+      "pluralMethod": "serviceResolutionConfigs",
+      "singularMethod": "serviceResolutionConfigs",
+      "idField": "goid",
+      "prefix": "serviceResolutionConfigs"
+    },
+
     "ActiveConnector": {
       "pluralMethod": "activeConnectors",
       "singularMethod": "activeConnectorByName",

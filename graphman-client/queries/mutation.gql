@@ -2,7 +2,7 @@ mutation applyBundle (
     $clusterProperties: [ClusterPropertyInput!]!=[],
     $webApiServices: [WebApiServiceInput!]!=[],
     $encassConfigs:[EncassConfigInput!]!=[],
-    $revocationCheckPolicies:[RevocationCheckPolicyInput]!=[],
+    $revocationCheckPolicies:[RevocationCheckPolicyInput!]!=[],
     $trustedCerts:[TrustedCertInput!]!=[],
     $dtds:[DtdInput!]!=[],
     $schemas:[SchemaInput!]!=[],

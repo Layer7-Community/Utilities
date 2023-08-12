@@ -311,6 +311,11 @@ let importSanitizer = function () {
                 entity.revocationCheckPolicyName = entity.revocationCheckPolicy.name;
                 delete entity.revocationCheckPolicy;
             }
+        } else if (pluralMethod ==="passwordPolicies" || pluralMethod === "serviceResolutionConfigs") {
+            if (entity.checksum) {
+                utils.info(`removing checksum field`);
+                delete entity.checksum;
+            }
         }
     }
 }();
