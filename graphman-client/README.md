@@ -40,7 +40,7 @@ example:
 ```
 {
   "sourceGateway": {
-    "address": "https://fl683674-dev-02.apim.broadcom.net:8443/graphman",
+    "address": "https://some-source-gateway:8443/graphman",
     "username": "admin",
     "password": "7layer",
     "rejectUnauthorized": false,
@@ -48,7 +48,7 @@ example:
   },
 
   "targetGateway": {
-    "address": "https://fl683674-dev-02.apim.broadcom.net:6443/graphman",
+    "address": "https://some-target-gateway:8443/graphman",
     "username": "admin",
     "password": "7layer",
     "rejectUnauthorized": false,
@@ -61,7 +61,7 @@ If you wish to authenticate using a certificate provide the following values in 
 ```
 {
   "sourceGateway": {
-    "address": "https://fl683674-dev-02.apim.broadcom.net:8443/graphman",
+    "address": "https://some-source-gateway:8443/graphman",
     "certFilename": "authentication-certificate.pem",
     "keyFilename": "authentication-certificate.key",
     "rejectUnauthorized": false,
@@ -69,7 +69,7 @@ If you wish to authenticate using a certificate provide the following values in 
   },
 
   "targetGateway": {
-    "address": "https://fl683674-dev-02.apim.broadcom.net:6443/graphman",
+    "address": "https://some-target-gateway:6443/graphman",
     "certFilename": "authentication-certificate.pem",
     "keyFilename": "authentication-certificate.key",
     "rejectUnauthorized": false,
@@ -92,12 +92,27 @@ You can apply this configuration bundle as-is to the target gateway.
 Congratulations, you just packaged all the configuration from the source gateway, and applied it to the
 target gateway.
 
-```
-NOTE: Use platform specific entrypoint to interact with the GRAPHMAN. 
-Windows - graphman.bat
-Linux - graphman.sh
-```
+> **Note**
+> Use platform specific entrypoint to interact with the GRAPHMAN. 
+> 
+> - Windows - graphman.bat
+> 
+> - Linux - graphman.sh
 
+> **Note**
+> Running GRAPHMAN with no arguments shows the description about the supported operations. Try it out.
+
+> **Warning**
+> Graphman is still under continuous development to extend its support to the gateway entities. 
+> As GraphQL schema is subjected frequent modifications, new or modified queries may not be compatible with the older gateways. 
+> Because of which, CLI is improved to work with multiple schemas. Use configuration file or CLI argument to decide the schema to work with.
+> - "schemaVersion": <schema-version>
+> - --schemaVersion <schema-version>
+> 
+> Supported schemas are:
+> - 11.0-CR01 (default) 
+> - 10.1-CR03
+> 
 ## Graphman configuration bundles <a name="bundles"></a>
 
 Graphman bundles are collections of 0 or more Layer7 Gateway configuration entities. You can combine any
