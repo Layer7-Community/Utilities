@@ -104,7 +104,7 @@ target gateway.
 
 > **Warning**
 > Graphman is still under continuous development to extend its support to the gateway entities. 
-> As GraphQL schema is subjected frequent modifications, new or modified queries may not be compatible with the older gateways. 
+> As GraphQL schema is subjected to the frequent modifications, new or modified queries may not be compatible with the older gateways. 
 > Because of which, CLI is improved to work with multiple schemas. Use configuration file or CLI argument to decide the schema to work with.
 > - "schemaVersion": <schema-version>
 > - --schemaVersion <schema-version>
