@@ -1,6 +1,6 @@
 
 const utils = require("./graphman-utils");
-const SCHEMA_METADATA = require("./graphql-schema").metadata();
+const SCHEMA_METADATA = require("./graphman").schemaMetadata();
 const GOID_PLURAL_METHODS = ["fipUsers", "internalUsers", "fipGroups", "internalGroups", "ldaps", "fips", "trustedCerts"];
 module.exports = {
     EXPORT_USE: 'export',

@@ -5,11 +5,16 @@ const GRAPHMAN_OPERATION_MODULE_PREFIX = "./graphman-operation-";
 const args = process.argv.slice(2);
 const op = args[0];
 const utils = require("./graphman-utils");
+const graphman = require("./graphman");
+
 try {
     init();
 
     const params = parse(args);
     utils.logAt(params.log);
+
+    // initialize configuration and schema metadata
+    graphman.init(params);
 
     if (!op || op === "help") {
         require("./help").run(params, SUPPORTED_OPERATIONS);

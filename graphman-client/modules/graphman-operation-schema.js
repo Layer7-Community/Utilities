@@ -1,8 +1,12 @@
 
+const utils = require("./graphman-utils");
+const graphman = require("./graphman");
+
 module.exports = {
     run: function (params) {
         if (params.refresh) {
-            require("./graphql-schema").refresh();
+            graphman.refreshSchemaMetadata();
+            utils.info("pre-compiled schema is refreshed");
         }
     },
 

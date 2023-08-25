@@ -1,7 +1,10 @@
 
+const VERSION = "v1.0";
+const SCHEMA_VERSION = "v10.1-CR03";
+
 const utils = require("./graphman-utils");
 const hutils = require("./http-utils");
-const CONFIG = JSON.parse(utils.readFile(utils.home() + "/graphman.configuration"));
+const gqlschema = require("./graphql-schema");
 
 const PRE_REQUEST_EXTN = utils.extension("graphman-pre-request");
 const PRE_RESPONSE_EXTN = utils.extension("graphman-pre-response");
@@ -9,20 +12,46 @@ const http = require("http");
 const https = require("https");
 
 module.exports = {
-    configuration: function (params) {
-        let config = Object.assign({}, CONFIG);
+    loadedConfig: null,
+    metadata: null,
 
-        if (params) {
-            if (params.sourceGateway) {
-                Object.assign(config.sourceGateway, params.sourceGateway);
+    init: function (params) {
+        let config = JSON.parse(utils.readFile(utils.home() + "/graphman.configuration"));
+
+        if (params.sourceGateway) {
+            Object.assign(config.sourceGateway, params.sourceGateway);
+        }
+
+        if (params.targetGateway) {
+            Object.assign(config.targetGateway, params.targetGateway);
+        }
+
+        config.version = VERSION;
+        config.defaultSchemaVersion = SCHEMA_VERSION;
+        config.schemaVersion = params.schemaVersion || config.schemaVersion || SCHEMA_VERSION;
+        if (config.schemaVersion !== SCHEMA_VERSION) {
+            if (utils.schemaDir(config.schemaVersion) === utils.schemaDir()) {
+                utils.warn(`specified schema (${config.schemaVersion}) is missing, falling back to the default`);
             }
-
-            if (params.targetGateway) {
-                Object.assign(config.targetGateway, params.targetGateway);
+            if (utils.queriesDir(config.schemaVersion) === utils.queriesDir()) {
+                utils.warn(`specified schema (${config.schemaVersion}) queries are missing, falling back to the default`);
             }
         }
 
-        return config;
+        this.metadata = gqlschema.build(config.schemaVersion, false);
+        this.loadedConfig = config;
+    },
+
+    configuration: function () {
+        return this.loadedConfig;
+    },
+
+    schemaMetadata: function () {
+        return this.metadata;
+    },
+
+    refreshSchemaMetadata: function () {
+        this.metadata = gqlschema.build(this.loadedConfig.schemaVersion, true);
     },
 
     request: function (gateway, body) {

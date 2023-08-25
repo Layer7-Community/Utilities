@@ -3,6 +3,11 @@ const fs = require("fs");
 const putil = require("path");
 const HOME_DIR = process.env.GRAPHMAN_HOME;
 const MODULES_DIR = HOME_DIR + "/modules";
+const QUERIES_DIR = HOME_DIR + "/queries";
+const SCHEMA_DIR = HOME_DIR + "/schema";
+const SCHEMA_METADATA_BASE_FILE = "metadata-base.json";
+const SCHEMA_METADATA_FILE = "metadata.json";
+
 const NONE_LEVEL = 0;
 const WARN_LEVEL = 1;
 const INFO_LEVEL = 2;
@@ -34,6 +39,36 @@ module.exports = {
 
     home: function () {
         return HOME_DIR;
+    },
+
+    modulesDir: function () {
+        return MODULES_DIR;
+    },
+
+    schemaDir: function (schemaVersion) {
+        if (schemaVersion) {
+            const path = this.path(SCHEMA_DIR, schemaVersion);
+            return this.existsFile(path) ? path : SCHEMA_DIR;
+        }
+
+        return SCHEMA_DIR;
+    },
+
+    schemaMetadataBaseFile: function (schemaVersion) {
+        return this.path(this.schemaDir(schemaVersion), SCHEMA_METADATA_BASE_FILE);
+    },
+
+    schemaMetadataFile: function (schemaVersion) {
+        return this.path(this.schemaDir(schemaVersion), SCHEMA_METADATA_FILE);
+    },
+
+    queriesDir: function (schemaVersion) {
+        if (schemaVersion) {
+            const path = this.path(QUERIES_DIR, schemaVersion);
+            return this.existsFile(path) ? path : QUERIES_DIR;
+        }
+
+        return QUERIES_DIR;
     },
 
     isDirectory: function (fd) {

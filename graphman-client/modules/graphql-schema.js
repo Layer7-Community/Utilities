@@ -1,36 +1,33 @@
 
 const utils = require("./graphman-utils");
-const SCHEMA_DIR = utils.home() + "/schema";
-const SCHEMA_METADATA_BASE_FILE = SCHEMA_DIR + "/metadata-base.json";
-const SCHEMA_METADATA_FILE = SCHEMA_DIR + "/metadata.json";
-let SCHEMA_METADATA = null;
 
 module.exports = {
-    metadata: function () {
-      if (!SCHEMA_METADATA) {
-          SCHEMA_METADATA = utils.existsFile(SCHEMA_METADATA_FILE) ?
-              utils.readFile(SCHEMA_METADATA_FILE) : build();
-      }
+    build: function (schemaVersion, refresh) {
+        const metadataBaseFile = utils.schemaMetadataBaseFile(schemaVersion);
+        const metadataFile = utils.schemaMetadataFile(schemaVersion);
 
-      return SCHEMA_METADATA;
+        if (!refresh && utils.existsFile(metadataFile)) {
+            return utils.readFile(metadataFile);
+        }
+
+        const metadata = utils.readFile(metadataBaseFile);
+        build(metadata, schemaVersion);
+        utils.writeFile(metadataFile, metadata);
+
+        return metadata;
     },
-
-    refresh: function () {
-        build();
-        utils.info("pre-compiled schema is refreshed");
-    }
 };
 
-function build() {
-    const metadata = utils.readFile(SCHEMA_METADATA_BASE_FILE);
+function build(metadata, schemaVersion) {
+    metadata.schemaVersion = schemaVersion;
 
     // start parsing the graphql schema files
-    utils.listDir(SCHEMA_DIR).forEach(file => {
+    const schemaDir = utils.schemaDir(schemaVersion);
+    utils.listDir(schemaDir).forEach(file => {
         if (file.endsWith(".graphql")) {
-            parseSchemaFile(SCHEMA_DIR + "/" + file, metadata);
+            parseSchemaFile(schemaDir + "/" + file, metadata);
         }
     });
-
 
     Object.entries(metadata.types).forEach(([key, value]) => {
         // to retrieve type using its plural method
@@ -53,9 +50,6 @@ function build() {
             }
         });
     });
-
-    utils.writeFile(SCHEMA_METADATA_FILE, metadata);
-    return metadata;
 }
 
 function parseSchemaFile(file, metadata) {
