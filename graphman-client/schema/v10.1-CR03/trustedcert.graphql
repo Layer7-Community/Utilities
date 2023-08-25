@@ -69,16 +69,23 @@ type Certificate {
     trustedFor : [TrustedForType!]!
     "The revocation check policy type"
     revocationCheckPolicyType : PolicyUsageType!
-    "The name of revocation policy.  Required if revocationCheckPolicyType is PolicyUsageType.SPECIFIED"
-    revocationCheckPolicyName : String
     "The specified revocation policy"
     revocationCheckPolicy : RevocationCheckPolicy
+
     "The start date of the validity period"
     notBefore : DateTime!
     "the end date of the validity period"
     notAfter : DateTime!
     "The base 64 encoded string of this certificate"
     certBase64 : String!
+}
+
+"A revocation check policy for certificates"
+type RevocationCheckPolicy {
+    "The goid for this revocation check policy"
+    goid : ID!
+    "The name for this revocation check policy"
+    name : String!
 }
 
 enum PolicyUsageType {

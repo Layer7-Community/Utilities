@@ -49,6 +49,8 @@
 									"    });\r",
 									"});\r",
 									"if (bundle.internalSoapServices) bundle.internalSoapServices.forEach(item => delete item.resolvers);\r",
+									"if (bundle.serviceResolutionConfigs) bundle.serviceResolutionConfigs.forEach(item => delete item.checksum);\r",
+									"if (bundle.passwordPolicies) bundle.passwordPolicies.forEach(item => delete item.checksum);\r",
 									"\r",
 									"pm.environment.set(\"source_bundle\", JSON.stringify(bundle, null, 2));"
 								],
@@ -62,7 +64,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation applyBundle (\n    $clusterProperties: [ClusterPropertyInput!]!=[],\n    $webApiServices: [WebApiServiceInput!]!=[],\n    $encassConfigs:[EncassConfigInput!]!=[],\n    $trustedCerts:[TrustedCertInput!]!=[],\n    $dtds:[DtdInput!]!=[],\n    $schemas:[SchemaInput!]!=[],\n    $jdbcConnections:[JdbcConnectionInput!]!=[],\n    $soapServices:[SoapServiceInput!]!=[],\n    $policyFragments: [PolicyFragmentInput!]!=[],\n    $fips:[FipInput!]!=[],\n    $ldaps:[LdapInput!]!=[],\n    $fipGroups:[FipGroupInput!]!=[],\n    $internalGroups:[InternalGroupInput!]!=[],\n    $fipUsers:[FipUserInput!]!=[],\n    $internalUsers:[InternalUserInput!]!=[],\n    $keys: [KeyInput!]!=[],\n    $secrets: [SecretInput!]!=[],\n    $cassandraConnections:[CassandraConnectionInput!]!=[],\n    $jmsDestinations:[JmsDestinationInput!]!=[],\n    $internalWebApiServices: [WebApiServiceInput!]!=[],\n    $internalSoapServices:[SoapServiceInput!]!=[],\n    $emailListeners: [EmailListenerInput!]!=[],\n    $listenPorts: [ListenPortInput!]!=[],\n    $activeConnectors: [ActiveConnectorInput!]!=[],\n    $smConfigs: [SMConfigInput!]!=[],\n    $globalPolicies:[GlobalPolicyInput!]!=[],\n    $backgroundTaskPolicies:[BackgroundTaskPolicyInput!]!=[],\n    $scheduledTasks:[ScheduledTaskInput!]!=[],\n    $serverModuleFiles:[ServerModuleFileInput!]!=[]) {\n        setServerModuleFiles(input: $serverModuleFiles){serverModuleFiles{goid} detailedStatus {status description}}\n        setClusterProperties (input: $clusterProperties){clusterProperties {goid} detailedStatus {status description}}\n        setTrustedCerts (input: $trustedCerts){trustedCerts {goid} detailedStatus {status description}}\n        setSecrets (input: $secrets){secrets{name} detailedStatus {status description}}\n        setSchemas (input: $schemas){schemas {goid} detailedStatus {status description}}\n        setDtds (input: $dtds){dtds {goid} detailedStatus {status description}}\n        setJdbcConnections (input: $jdbcConnections){jdbcConnections {goid} detailedStatus {status description}}\n        setFips (input: $fips){fips{goid} detailedStatus {status description}}\n        setLdaps (input: $ldaps){ldaps{goid} detailedStatus {status description}}\n        setFipGroups (input: $fipGroups){fipGroups{goid} detailedStatus {status description}}\n        setInternalGroups (input: $internalGroups){internalGroups{goid} detailedStatus {status description}}\n        setFipUsers (input: $fipUsers){fipUsers{goid} detailedStatus {status description}}\n        setInternalUsers (input: $internalUsers){internalUsers{goid} detailedStatus {status description}}\n        setCassandraConnections (input: $cassandraConnections){cassandraConnections {goid} detailedStatus {status description}}\n        setJmsDestinations (input: $jmsDestinations){jmsDestinations {goid} detailedStatus {status description}}\n        setSMConfigs (input: $smConfigs){smConfigs {goid} detailedStatus {status description}}\n        setPolicyFragments (input: $policyFragments){policyFragments {goid} detailedStatus {status description}}\n        setEncassConfigs (input: $encassConfigs){encassConfigs {goid} detailedStatus {status description}}\n        setGlobalPolicies (input: $globalPolicies){globalPolicies {goid} detailedStatus {status description}}\n        setBackgroundTaskPolicies (input: $backgroundTaskPolicies){backgroundTaskPolicies {goid} detailedStatus {status description}}\n        setWebApiServices (input: $webApiServices){webApiServices {goid} detailedStatus {status description}}\n        setSoapServices (input: $soapServices){soapServices {goid} detailedStatus {status description}}\n        setInternalWebApiServices (input: $internalWebApiServices){internalWebApiServices {goid} detailedStatus {status description}}\n        setInternalSoapServices (input: $internalSoapServices){internalSoapServices {goid} detailedStatus {status description}}\n        setEmailListeners (input: $emailListeners){emailListeners {goid} detailedStatus {status description}}\n        setListenPorts (input: $listenPorts){listenPorts {goid} detailedStatus {status description}}\n        setActiveConnectors (input: $activeConnectors){activeConnectors {goid} detailedStatus {status description}}\n        setScheduledTasks (input: $scheduledTasks){scheduledTasks {goid} detailedStatus {status description}}\n\n        # Keys must be mutated at the end\n        setKeys (input: $keys) {keys {alias} detailedStatus {status description}}\n}\n",
+								"query": "mutation applyBundle (\n    $clusterProperties: [ClusterPropertyInput!]!=[],\n    $webApiServices: [WebApiServiceInput!]!=[],\n    $encassConfigs:[EncassConfigInput!]!=[],\n    $revocationCheckPolicies:[RevocationCheckPolicyInput!]!=[],\n    $trustedCerts:[TrustedCertInput!]!=[],\n    $dtds:[DtdInput!]!=[],\n    $schemas:[SchemaInput!]!=[],\n    $jdbcConnections:[JdbcConnectionInput!]!=[],\n    $soapServices:[SoapServiceInput!]!=[],\n    $policyFragments: [PolicyFragmentInput!]!=[],\n    $fips:[FipInput!]!=[],\n    $ldaps:[LdapInput!]!=[],\n    $fipGroups:[FipGroupInput!]!=[],\n    $internalGroups:[InternalGroupInput!]!=[],\n    $fipUsers:[FipUserInput!]!=[],\n    $internalUsers:[InternalUserInput!]!=[],\n    $keys: [KeyInput!]!=[],\n    $secrets: [SecretInput!]!=[],\n    $cassandraConnections:[CassandraConnectionInput!]!=[],\n    $jmsDestinations:[JmsDestinationInput!]!=[],\n    $emailListeners: [EmailListenerInput!]!=[],\n    $listenPorts: [ListenPortInput!]!=[],\n    $activeConnectors: [ActiveConnectorInput!]!=[],\n    $smConfigs: [SMConfigInput!]!=[],\n    $globalPolicies:[GlobalPolicyInput!]!=[],\n    $backgroundTaskPolicies:[BackgroundTaskPolicyInput!]!=[],\n    $scheduledTasks:[ScheduledTaskInput!]!=[],\n    $internalWebApiServices: [WebApiServiceInput!]!=[],\n    $internalSoapServices:[SoapServiceInput!]!=[],\n    $serverModuleFiles:[ServerModuleFileInput!]!=[],\n    $passwordPolicies:[PasswordPolicyInput!]!=[],\n    $serviceResolutionConfigs:[ServiceResolutionConfigInput!]!=[],\n    $administrativeUserAccountProperties: [AdministrativeUserAccountPropertyInput!]!=[]) {\n    setServerModuleFiles(input: $serverModuleFiles){serverModuleFiles{goid} status}\n    setClusterProperties (input: $clusterProperties){clusterProperties {goid} status}\n    setServiceResolutionConfigs (input: $serviceResolutionConfigs){serviceResolutionConfigs {goid} status}\n    setPasswordPolicies (input: $passwordPolicies){passwordPolicies {goid} status}\n    setAdministrativeUserAccountProperties (input: $administrativeUserAccountProperties){administrativeUserAccountProperties {goid} status}\n    \n    setRevocationCheckPolicies (input: $revocationCheckPolicies){revocationCheckPolicies {goid} status}\n    setTrustedCerts (input: $trustedCerts){trustedCerts {goid} status}\n    setSecrets (input: $secrets){secrets{name} status}\n    setSchemas (input: $schemas){schemas {goid} status}\n    setDtds (input: $dtds){dtds {goid} status}\n    setJdbcConnections (input: $jdbcConnections){jdbcConnections {goid} status}\n    setFips (input: $fips){fips{goid} status}\n    setLdaps (input: $ldaps){ldaps{goid} status}\n    setFipGroups (input: $fipGroups){fipGroups{goid} status}\n    setInternalGroups (input: $internalGroups){internalGroups{goid} status}\n    setFipUsers (input: $fipUsers){fipUsers{goid} status}\n    setInternalUsers (input: $internalUsers){internalUsers{goid} status}\n    setCassandraConnections (input: $cassandraConnections){cassandraConnections {goid} status}\n    setJmsDestinations (input: $jmsDestinations){jmsDestinations {goid} status}\n    setSMConfigs (input: $smConfigs){smConfigs {goid} status}\n    setPolicyFragments (input: $policyFragments){policyFragments {goid} status}\n    setEncassConfigs (input: $encassConfigs){encassConfigs {goid} status}\n    setGlobalPolicies (input: $globalPolicies){globalPolicies {goid} status}\n    setBackgroundTaskPolicies (input: $backgroundTaskPolicies){backgroundTaskPolicies {goid} status}\n    setWebApiServices (input: $webApiServices){webApiServices {goid} status}\n    setSoapServices (input: $soapServices){soapServices {goid} status}\n    setInternalWebApiServices (input: $internalWebApiServices){internalWebApiServices {goid} status}\n    setInternalSoapServices (input: $internalSoapServices){internalSoapServices {goid} status}\n    setEmailListeners (input: $emailListeners){emailListeners {goid} status}\n    setListenPorts (input: $listenPorts){listenPorts {goid} status}\n    setActiveConnectors (input: $activeConnectors){activeConnectors {goid} status}\n    setScheduledTasks (input: $scheduledTasks){scheduledTasks {goid} status}\n\n    # Keys must be mutated at the end\n    setKeys (input: $keys) {keys {alias} status}\n}\n",
 								"variables": "{{source_bundle}}"
 							}
 						},
@@ -101,7 +103,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query policyFragmentByName ($name: String!) {\n    policyFragmentByName (name: $name) {\n        goid\n        guid\n        name\n        checksum\n\n        folderPath\n        soap\n        policy {\n            xml\n            allDependencies {\n                encassConfigs {\n                    goid guid name checksum \n                    description policyName \n                    encassArgs { name type ordinal guiPrompt guiLabel } \n                    encassResults{ name type } \n                    properties { name value }\n                }\n                policyFragments {\n                    goid guid name checksum \n                    folderPath soap \n                    policy { xml }\n                }\n\n                activeConnectors {\n                    goid name checksum \n                    enabled connectorType hardwiredServiceName \n                    properties { name value } \n                    advancedProperties { name value }\n                }\n                dtds {\n                    goid systemId checksum \n                    publicId description content\n                }\n                cassandraConnections {\n                    goid name checksum \n                    enabled keyspace contactPoints port compression username securePasswordName sslEnabled cipherSuites \n                    properties { name value }\n                }\n                clusterProperties {\n                    goid name checksum \n                    description hiddenProperty value\n                }\n                emailListeners {\n                    goid name checksum \n                    enabled serverType hostname port folder deleteOnReceive username password hardwiredServiceName sslEnabled pollInterval sizeLimit \n                    properties { name value }\n                }\n                fips {\n                    goid name checksum \n                    enableCredentialTypeSaml enableCredentialTypeX509 certificateValidation \n                    certificateReferences { \n                        goid name subjectDn thumbprintSha1 checksum \n                        verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n                        revocationCheckPolicy { goid name } \n                        notBefore notAfter certBase64 \n                    }\n                }\n                fipGroups {\n                    goid name providerName checksum \n                    description \n                    members { \n                        goid name login providerName checksum \n                        subjectDn certBase64 firstName lastName email \n                    }\n                }\n                fipUsers {\n                    goid name login providerName checksum \n                    subjectDn certBase64 firstName lastName email \n                    memberOf { \n                        goid name providerName checksum \n                        description \n                    }\n                }\n                internalGroups {\n                    goid name checksum \n                    description \n                    members { \n                        goid name login checksum \n                        enabled password certBase64 firstName lastName email \n                    }\n                }\n                internalUsers {\n                    goid name login checksum \n                    enabled password certBase64 firstName lastName email \n                    memberOf { goid name checksum description }\n                }\n                jdbcConnections {\n                    goid name checksum \n                    enabled driverClass jdbcUrl username password minPoolSize maxPoolSize \n                    properties { name value }\n                }\n                jmsDestinations {\n                    goid connectionGoid name direction providerType checksum \n                    enabled template initialContextFactoryClassname connectionFactoryName jndiUrl jndiUsername jndiPassword \n                    jndiSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n                    destinationType destinationName destinationUsername destinationPassword \n                    destinationSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n                    properties { name value }\n                }\n                keys {\n                    goid keystoreId alias checksum \n                    keyType subjectDn p12 certChain\n                }\n                ldaps {\n                    goid name checksum \n                    ldapUrls ldapsClientAuthEnabled ldapsClientKeystoreId ldapsClientKeyAlias searchBase writable bindDn bindPassword \n                    userMappings { objClass nameAttrName loginAttrName passwdAttrName firstNameAttrName lastNameAttrName emailNameAttrName kerberosAttrName kerberosEnterpriseAttrName userCertAttrName passwdType { val } } \n                    groupMappings { objClass nameAttrName memberAttrName memberStrategy { val } }\n                }\n                listenPorts {\n                    goid name checksum \n                    enabled protocol port hardwiredServiceName enabledFeatures \n                    tlsSettings { clientAuthentication keystoreId keyAlias tlsVersions cipherSuites useCipherSuitesOrder } \n                    properties { name value }\n                }\n                schemas {\n                    goid systemId checksum \n                    targetNs description content\n                }\n                secrets {\n                    goid name checksum \n                    description secret secretType variableReferencable\n                }\n                serverModuleFiles {\n                    goid name checksum \n                    moduleType moduleSha256 signature signerCertBase64 \n                    properties { name value } \n                    moduleStates { nodeId nodeName state description } \n                    moduleStateSummary { state description }\n                }\n                smConfigs {\n                    goid name checksum \n                    enabled agentHost agentIP agentHostConfig agentSecret cryptoMode ipCheckEnabled updateSSOToken clusterFailoverThreshold nonClusterFailover username securePasswordName \n                    properties { name value }\n                }\n                trustedCerts {\n                    goid name subjectDn thumbprintSha1 checksum \n                    verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n                    revocationCheckPolicy { goid name } \n                    notBefore notAfter certBase64\n                }\n            }\n        }\n    }\n}",
+								"query": "query policyFragmentByName ($name: String!) {\n    policyFragmentByName (name: $name) {\n        goid\n        guid\n        name\n        checksum\n\n        folderPath\n        soap\n        policy {\n            xml\n            allDependencies {\n                encassConfigs {\n                    goid guid name checksum \n                    description policyName \n                    encassArgs { name type ordinal guiPrompt guiLabel } \n                    encassResults{ name type } \n                    properties { name value }\n                }\n                policyFragments {\n                    goid guid name checksum \n                    folderPath soap \n                    policy { xml }\n                }\n\n                activeConnectors {\n                    goid name checksum \n                    enabled connectorType hardwiredServiceName \n                    properties { name value } \n                    advancedProperties { name value }\n                }\n                dtds {\n                    goid systemId checksum \n                    publicId description content\n                }\n                cassandraConnections {\n                    goid name checksum \n                    enabled keyspace contactPoints port compression username securePasswordName sslEnabled cipherSuites \n                    properties { name value }\n                }\n                clusterProperties {\n                    goid name checksum \n                    description hiddenProperty value\n                }\n                emailListeners {\n                    goid name checksum \n                    enabled serverType hostname port folder deleteOnReceive username password hardwiredServiceName sslEnabled pollInterval sizeLimit \n                    properties { name value }\n                }\n                fips {\n                    goid name checksum \n                    enableCredentialTypeSaml enableCredentialTypeX509 certificateValidation \n                    certificateReferences { \n                        goid name subjectDn thumbprintSha1 checksum \n                        verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n                        revocationCheckPolicy { goid name } \n                        notBefore notAfter certBase64 \n                    }\n                }\n                fipGroups {\n                    goid name providerName checksum \n                    description \n                    members { \n                        goid name login providerName checksum \n                        subjectDn certBase64 firstName lastName email \n                    }\n                }\n                fipUsers {\n                    goid name login providerName checksum \n                    subjectDn certBase64 firstName lastName email \n                    memberOf { \n                        goid name providerName checksum \n                        description \n                    }\n                }\n                internalGroups {\n                    goid name checksum \n                    description \n                    members { \n                        goid name login checksum \n                        enabled password certBase64 firstName lastName email \n                    }\n                }\n                internalUsers {\n                    goid name login checksum \n                    enabled password certBase64 firstName lastName email \n                    memberOf { goid name checksum description }\n                }\n                jdbcConnections {\n                    goid name checksum \n                    enabled driverClass jdbcUrl username password minPoolSize maxPoolSize \n                    properties { name value }\n                }\n                jmsDestinations {\n                    goid connectionGoid name direction providerType checksum \n                    enabled template initialContextFactoryClassname connectionFactoryName jndiUrl jndiUsername jndiPassword \n                    jndiSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n                    destinationType destinationName destinationUsername destinationPassword \n                    destinationSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n                    properties { name value }\n                }\n                keys {\n                    goid keystoreId alias checksum \n                    keyType subjectDn p12 certChain\n                }\n                ldaps {\n                    goid name checksum \n                    ldapUrls ldapsClientAuthEnabled ldapsClientKeystoreId ldapsClientKeyAlias searchBase writable bindDn bindPassword \n                    userMappings { objClass nameAttrName loginAttrName passwdAttrName firstNameAttrName lastNameAttrName emailNameAttrName kerberosAttrName kerberosEnterpriseAttrName userCertAttrName passwdType { val } } \n                    groupMappings { objClass nameAttrName memberAttrName memberStrategy { val } }\n                }\n                listenPorts {\n                    goid name checksum \n                    enabled protocol port hardwiredServiceName enabledFeatures \n                    tlsSettings { clientAuthentication keystoreId keyAlias tlsVersions cipherSuites useCipherSuitesOrder } \n                    properties { name value }\n                }\n                schemas {\n                    goid systemId checksum \n                    targetNs description content\n                }\n                secrets {\n                    goid name checksum \n                    description secret secretType variableReferencable\n                }\n                serverModuleFiles {\n                    goid name checksum \n                    moduleType moduleSha256 signature signerCertBase64 \n                    properties { name value } \n                    moduleStates { nodeId nodeName state description } \n                    moduleStateSummary { state description }\n                }\n                smConfigs {\n                    goid name checksum \n                    enabled agentHost agentIP agentHostConfig agentSecret cryptoMode ipCheckEnabled updateSSOToken clusterFailoverThreshold nonClusterFailover username securePasswordName \n                    properties { name value }\n                }\n                revocationCheckPolicies {\n                goid name checksum defaultPolicy defaultSuccess\n                continueOnServerUnavailable\n                    revocationCheckPolicyItems {\n                        ... on RevocationCheckPolicyItem {\n                        type url allowIssuerSignature\n                        nonceUsage signerThumbprintSha1s\n                        }\n                    }\n                }\n                trustedCerts {\n                    goid name subjectDn thumbprintSha1 checksum \n                    verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n                    revocationCheckPolicy { goid name } \n                    notBefore notAfter certBase64\n                }\n            }\n        }\n    }\n}",
 								"variables": "{\n    \"name\": \"some-policy\"\n}"
 							}
 						},
@@ -141,7 +143,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query serviceWithDependencies ($resolutionPath: String!) {\n    webApiServiceByResolutionPath (resolutionPath: $resolutionPath) {\n        goid\n        guid\n        name\n        resolutionPath\n        checksum\n\n        enabled\n        folderPath\n        methodsAllowed\n        properties {name value}\n        tracingEnabled\n        wssProcessingEnabled\n        policy {\n            xml\n            allDependencies {\n                encassConfigs {\n                    goid guid name checksum \n                    description policyName \n                    encassArgs { name type ordinal guiPrompt guiLabel } \n                    encassResults{ name type } \n                    properties { name value }\n                }\n                policyFragments {\n                    goid guid name checksum \n                    folderPath soap \n                    policy { xml }\n                }\n\n                activeConnectors {\n                    goid name checksum \n                    enabled connectorType hardwiredServiceName \n                    properties { name value } \n                    advancedProperties { name value }\n                }\n                dtds {\n                    goid systemId checksum \n                    publicId description content\n                }\n                cassandraConnections {\n                    goid name checksum \n                    enabled keyspace contactPoints port compression username securePasswordName sslEnabled cipherSuites \n                    properties { name value }\n                }\n                clusterProperties {\n                    goid name checksum \n                    description hiddenProperty value\n                }\n                emailListeners {\n                    goid name checksum \n                    enabled serverType hostname port folder deleteOnReceive username password hardwiredServiceName sslEnabled pollInterval sizeLimit \n                    properties { name value }\n                }\n                fips {\n                    goid name checksum \n                    enableCredentialTypeSaml enableCredentialTypeX509 certificateValidation \n                    certificateReferences { \n                        goid name subjectDn thumbprintSha1 checksum \n                        verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n                        revocationCheckPolicy { goid name } \n                        notBefore notAfter certBase64 \n                    }\n                }\n                fipGroups {\n                    goid name providerName checksum \n                    description \n                    members { \n                        goid name login providerName checksum \n                        subjectDn certBase64 firstName lastName email \n                    }\n                }\n                fipUsers {\n                    goid name login providerName checksum \n                    subjectDn certBase64 firstName lastName email \n                    memberOf { \n                        goid name providerName checksum \n                        description \n                    }\n                }\n                internalGroups {\n                    goid name checksum \n                    description \n                    members { \n                        goid name login checksum \n                        enabled password certBase64 firstName lastName email \n                    }\n                }\n                internalUsers {\n                    goid name login checksum \n                    enabled password certBase64 firstName lastName email \n                    memberOf { goid name checksum description }\n                }\n                jdbcConnections {\n                    goid name checksum \n                    enabled driverClass jdbcUrl username password minPoolSize maxPoolSize \n                    properties { name value }\n                }\n                jmsDestinations {\n                    goid connectionGoid name direction providerType checksum \n                    enabled template initialContextFactoryClassname connectionFactoryName jndiUrl jndiUsername jndiPassword \n                    jndiSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n                    destinationType destinationName destinationUsername destinationPassword \n                    destinationSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n                    properties { name value }\n                }\n                keys {\n                    goid keystoreId alias checksum \n                    keyType subjectDn p12 certChain\n                }\n                ldaps {\n                    goid name checksum \n                    ldapUrls ldapsClientAuthEnabled ldapsClientKeystoreId ldapsClientKeyAlias searchBase writable bindDn bindPassword \n                    userMappings { objClass nameAttrName loginAttrName passwdAttrName firstNameAttrName lastNameAttrName emailNameAttrName kerberosAttrName kerberosEnterpriseAttrName userCertAttrName passwdType { val } } \n                    groupMappings { objClass nameAttrName memberAttrName memberStrategy { val } }\n                }\n                listenPorts {\n                    goid name checksum \n                    enabled protocol port hardwiredServiceName enabledFeatures \n                    tlsSettings { clientAuthentication keystoreId keyAlias tlsVersions cipherSuites useCipherSuitesOrder } \n                    properties { name value }\n                }\n                schemas {\n                    goid systemId checksum \n                    targetNs description content\n                }\n                secrets {\n                    goid name checksum \n                    description secret secretType variableReferencable\n                }\n                serverModuleFiles {\n                    goid name checksum \n                    moduleType moduleSha256 signature signerCertBase64 \n                    properties { name value } \n                    moduleStates { nodeId nodeName state description } \n                    moduleStateSummary { state description }\n                }\n                smConfigs {\n                    goid name checksum \n                    enabled agentHost agentIP agentHostConfig agentSecret cryptoMode ipCheckEnabled updateSSOToken clusterFailoverThreshold nonClusterFailover username securePasswordName \n                    properties { name value }\n                }\n                trustedCerts {\n                    goid name subjectDn thumbprintSha1 checksum \n                    verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n                    revocationCheckPolicy { goid name } \n                    notBefore notAfter certBase64\n                }\n            }\n        }\n    }\n}",
+								"query": "query serviceWithDependencies ($resolutionPath: String!) {\n    webApiServiceByResolutionPath (resolutionPath: $resolutionPath) {\n        goid\n        guid\n        name\n        resolutionPath\n        checksum\n\n        enabled\n        folderPath\n        methodsAllowed\n        properties {name value}\n        tracingEnabled\n        wssProcessingEnabled\n        policy {\n            xml\n            allDependencies {\n                encassConfigs {\n                    goid guid name checksum \n                    description policyName \n                    encassArgs { name type ordinal guiPrompt guiLabel } \n                    encassResults{ name type } \n                    properties { name value }\n                }\n                policyFragments {\n                    goid guid name checksum \n                    folderPath soap \n                    policy { xml }\n                }\n\n                activeConnectors {\n                    goid name checksum \n                    enabled connectorType hardwiredServiceName \n                    properties { name value } \n                    advancedProperties { name value }\n                }\n                dtds {\n                    goid systemId checksum \n                    publicId description content\n                }\n                cassandraConnections {\n                    goid name checksum \n                    enabled keyspace contactPoints port compression username securePasswordName sslEnabled cipherSuites \n                    properties { name value }\n                }\n                clusterProperties {\n                    goid name checksum \n                    description hiddenProperty value\n                }\n                emailListeners {\n                    goid name checksum \n                    enabled serverType hostname port folder deleteOnReceive username password hardwiredServiceName sslEnabled pollInterval sizeLimit \n                    properties { name value }\n                }\n                fips {\n                    goid name checksum \n                    enableCredentialTypeSaml enableCredentialTypeX509 certificateValidation \n                    certificateReferences { \n                        goid name subjectDn thumbprintSha1 checksum \n                        verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n                        revocationCheckPolicy { goid name } \n                        notBefore notAfter certBase64 \n                    }\n                }\n                fipGroups {\n                    goid name providerName checksum \n                    description \n                    members { \n                        goid name login providerName checksum \n                        subjectDn certBase64 firstName lastName email \n                    }\n                }\n                fipUsers {\n                    goid name login providerName checksum \n                    subjectDn certBase64 firstName lastName email \n                    memberOf { \n                        goid name providerName checksum \n                        description \n                    }\n                }\n                internalGroups {\n                    goid name checksum \n                    description \n                    members { \n                        goid name login checksum \n                        enabled password certBase64 firstName lastName email \n                    }\n                }\n                internalUsers {\n                    goid name login checksum \n                    enabled password certBase64 firstName lastName email \n                    memberOf { goid name checksum description }\n                }\n                jdbcConnections {\n                    goid name checksum \n                    enabled driverClass jdbcUrl username password minPoolSize maxPoolSize \n                    properties { name value }\n                }\n                jmsDestinations {\n                    goid connectionGoid name direction providerType checksum \n                    enabled template initialContextFactoryClassname connectionFactoryName jndiUrl jndiUsername jndiPassword \n                    jndiSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n                    destinationType destinationName destinationUsername destinationPassword \n                    destinationSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n                    properties { name value }\n                }\n                keys {\n                    goid keystoreId alias checksum \n                    keyType subjectDn p12 certChain\n                }\n                ldaps {\n                    goid name checksum \n                    ldapUrls ldapsClientAuthEnabled ldapsClientKeystoreId ldapsClientKeyAlias searchBase writable bindDn bindPassword \n                    userMappings { objClass nameAttrName loginAttrName passwdAttrName firstNameAttrName lastNameAttrName emailNameAttrName kerberosAttrName kerberosEnterpriseAttrName userCertAttrName passwdType { val } } \n                    groupMappings { objClass nameAttrName memberAttrName memberStrategy { val } }\n                }\n                listenPorts {\n                    goid name checksum \n                    enabled protocol port hardwiredServiceName enabledFeatures \n                    tlsSettings { clientAuthentication keystoreId keyAlias tlsVersions cipherSuites useCipherSuitesOrder } \n                    properties { name value }\n                }\n                schemas {\n                    goid systemId checksum \n                    targetNs description content\n                }\n                secrets {\n                    goid name checksum \n                    description secret secretType variableReferencable\n                }\n                serverModuleFiles {\n                    goid name checksum \n                    moduleType moduleSha256 signature signerCertBase64 \n                    properties { name value } \n                    moduleStates { nodeId nodeName state description } \n                    moduleStateSummary { state description }\n                }\n                smConfigs {\n                    goid name checksum \n                    enabled agentHost agentIP agentHostConfig agentSecret cryptoMode ipCheckEnabled updateSSOToken clusterFailoverThreshold nonClusterFailover username securePasswordName \n                    properties { name value }\n                }\n                revocationCheckPolicies {\n                goid name checksum defaultPolicy defaultSuccess\n                continueOnServerUnavailable\n                    revocationCheckPolicyItems {\n                        ... on RevocationCheckPolicyItem {\n                        type url allowIssuerSignature\n                        nonceUsage signerThumbprintSha1s\n                        }\n                    }\n                }\n                trustedCerts {\n                    goid name subjectDn thumbprintSha1 checksum \n                    verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n                    revocationCheckPolicy { goid name } \n                    notBefore notAfter certBase64\n                }\n            }\n        }\n    }\n}",
 								"variables": "{\n    \"resolutionPath\" : \"/some-webapi\"\n}"
 							}
 						},
@@ -219,7 +221,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query everything {\n    webApiServices {\n        goid name resolutionPath checksum \n        enabled folderPath methodsAllowed tracingEnabled wssProcessingEnabled \n        properties { name value }\n        policy { xml }\n    }\n    soapServices {\n        goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum \n        enabled folderPath soapVersion methodsAllowed tracingEnabled wssProcessingEnabled laxResolution \n        properties { name value }\n        wsdl \n        policy { xml }\n    }\n    internalWebApiServices {\n        goid name resolutionPath checksum \n        enabled folderPath methodsAllowed tracingEnabled wssProcessingEnabled \n        properties { name value } \n        policy { xml }\n    }\n    internalSoapServices {\n        goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum \n        enabled folderPath soapVersion methodsAllowed tracingEnabled wssProcessingEnabled laxResolution \n        properties { name value } \n        wsdl \n        policy { xml }\n    }\n    encassConfigs {\n        goid guid name checksum \n        description policyName \n        encassArgs { name type ordinal guiPrompt guiLabel } \n        encassResults{ name type } \n        properties { name value }\n    }\n    globalPolicies {\n        goid guid name tag checksum \n        folderPath \n        policy { xml }\n    }\n    backgroundTaskPolicies {\n        goid guid name checksum \n        folderPath soap \n        policy { xml }\n    }\n    policyFragments {\n        goid guid name checksum \n        folderPath soap \n        policy { xml }\n    }\n\n    activeConnectors {\n        goid name checksum \n        enabled connectorType hardwiredServiceName \n        properties { name value } \n        advancedProperties { name value }\n    }\n    dtds {\n        goid systemId checksum \n        publicId description content\n    }\n    cassandraConnections {\n        goid name checksum \n        enabled keyspace contactPoints port compression username securePasswordName sslEnabled cipherSuites \n        properties { name value }\n    }\n    clusterProperties {\n        goid name checksum \n        description hiddenProperty value\n    }\n    emailListeners {\n        goid name checksum \n        enabled serverType hostname port folder deleteOnReceive username password hardwiredServiceName sslEnabled pollInterval sizeLimit \n        properties { name value }\n    }\n    fips {\n        goid name checksum \n        enableCredentialTypeSaml enableCredentialTypeX509 certificateValidation \n        certificateReferences { \n             goid name subjectDn thumbprintSha1 checksum \n             verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n             revocationCheckPolicy { goid name } \n             notBefore notAfter certBase64 \n        }\n    }\n    fipGroups {\n        goid name providerName checksum \n        description \n        members { \n            goid name login providerName checksum \n            subjectDn certBase64 firstName lastName email \n        }\n    }\n    fipUsers {\n        goid name login providerName checksum \n        subjectDn certBase64 firstName lastName email \n        memberOf { \n            goid name providerName checksum \n            description \n        }\n    }\n    internalDtds {\n        goid systemId checksum \n        publicId description content\n    }\n    internalGroups {\n        goid name checksum \n        description \n        members { \n            goid name login checksum \n            enabled password certBase64 firstName lastName email \n        }\n    }\n    internalSchemas {\n        goid systemId checksum \n        targetNs description content\n    }\n    internalUsers {\n         goid name login checksum \n         enabled password certBase64 firstName lastName email \n         memberOf { goid name checksum description }\n    }\n    jdbcConnections {\n         goid name checksum \n         enabled driverClass jdbcUrl username password minPoolSize maxPoolSize \n         properties { name value }\n    }\n    jmsDestinations {\n         goid connectionGoid name direction providerType checksum \n         enabled template initialContextFactoryClassname connectionFactoryName jndiUrl jndiUsername jndiPassword \n         jndiSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n         destinationType destinationName destinationUsername destinationPassword \n         destinationSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n         properties { name value }\n    }\n    keys {\n         goid keystoreId alias checksum \n         keyType subjectDn p12 certChain\n    }\n    ldaps {\n        goid name checksum \n        ldapUrls ldapsClientAuthEnabled ldapsClientKeystoreId ldapsClientKeyAlias searchBase writable bindDn bindPassword \n        userMappings { objClass nameAttrName loginAttrName passwdAttrName firstNameAttrName lastNameAttrName emailNameAttrName kerberosAttrName kerberosEnterpriseAttrName userCertAttrName passwdType { val } } \n        groupMappings { objClass nameAttrName memberAttrName memberStrategy { val } }\n    }\n    listenPorts {\n         goid name checksum \n         enabled protocol port hardwiredServiceName enabledFeatures \n         tlsSettings { clientAuthentication keystoreId keyAlias tlsVersions cipherSuites useCipherSuitesOrder } \n         properties { name value }\n    }\n    scheduledTasks {\n         goid name checksum \n         policyName jobType cronExpression executeOnSingleNode executeOnCreation executionDate status runAsUser runAsUserProviderName\n    }\n    schemas {\n         goid systemId checksum \n         targetNs description content\n    }\n    secrets {\n         goid name checksum \n         description secret secretType variableReferencable\n    }\n    serverModuleFiles {\n        goid name checksum \n        moduleType moduleSha256 signature signerCertBase64 \n        properties { name value } \n        moduleStates { nodeId nodeName state description } \n        moduleStateSummary { state description }\n    }\n    smConfigs {\n        goid name checksum \n        enabled agentHost agentIP agentHostConfig agentSecret cryptoMode ipCheckEnabled updateSSOToken clusterFailoverThreshold nonClusterFailover username securePasswordName \n        properties { name value }\n    }\n    trustedCerts {\n         goid name subjectDn thumbprintSha1 checksum \n         verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n         revocationCheckPolicy { goid name } \n         notBefore notAfter certBase64\n    }\n}",
+								"query": "query everything {\n    webApiServices {\n        goid name resolutionPath checksum \n        enabled folderPath methodsAllowed tracingEnabled wssProcessingEnabled \n        properties { name value }\n        policy { xml }\n    }\n    soapServices {\n        goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum \n        enabled folderPath soapVersion methodsAllowed tracingEnabled wssProcessingEnabled laxResolution \n        properties { name value }\n        wsdl \n        policy { xml }\n    }\n    internalWebApiServices {\n        goid name resolutionPath checksum \n        enabled folderPath methodsAllowed tracingEnabled wssProcessingEnabled \n        properties { name value } \n        policy { xml }\n    }\n    internalSoapServices {\n        goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum \n        enabled folderPath soapVersion methodsAllowed tracingEnabled wssProcessingEnabled laxResolution \n        properties { name value } \n        wsdl \n        policy { xml }\n    }\n    encassConfigs {\n        goid guid name checksum \n        description policyName \n        encassArgs { name type ordinal guiPrompt guiLabel } \n        encassResults{ name type } \n        properties { name value }\n    }\n    globalPolicies {\n        goid guid name tag checksum \n        folderPath \n        policy { xml }\n    }\n    backgroundTaskPolicies {\n        goid guid name checksum \n        folderPath soap \n        policy { xml }\n    }\n    policyFragments {\n        goid guid name checksum \n        folderPath soap \n        policy { xml }\n    }\n\n    activeConnectors {\n        goid name checksum \n        enabled connectorType hardwiredServiceName \n        properties { name value } \n        advancedProperties { name value }\n    }\n    dtds {\n        goid systemId checksum \n        publicId description content\n    }\n    cassandraConnections {\n        goid name checksum \n        enabled keyspace contactPoints port compression username securePasswordName sslEnabled cipherSuites \n        properties { name value }\n    }\n    clusterProperties {\n        goid name checksum \n        description hiddenProperty value\n    }\n    emailListeners {\n        goid name checksum \n        enabled serverType hostname port folder deleteOnReceive username password hardwiredServiceName sslEnabled pollInterval sizeLimit \n        properties { name value }\n    }\n    fips {\n        goid name checksum \n        enableCredentialTypeSaml enableCredentialTypeX509 certificateValidation \n        certificateReferences { \n             goid name subjectDn thumbprintSha1 checksum \n             verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n             revocationCheckPolicy { goid name } \n             notBefore notAfter certBase64 \n        }\n    }\n    fipGroups {\n        goid name providerName checksum \n        description \n        members { \n            goid name login providerName checksum \n            subjectDn certBase64 firstName lastName email \n        }\n    }\n    fipUsers {\n        goid name login providerName checksum \n        subjectDn certBase64 firstName lastName email \n        memberOf { \n            goid name providerName checksum \n            description \n        }\n    }\n    internalDtds {\n        goid systemId checksum \n        publicId description content\n    }\n    internalGroups {\n        goid name checksum \n        description \n        members { \n            goid name login checksum \n            enabled password certBase64 firstName lastName email \n        }\n    }\n    internalSchemas {\n        goid systemId checksum \n        targetNs description content\n    }\n    internalUsers {\n         goid name login checksum \n         enabled password certBase64 firstName lastName email \n         memberOf { goid name checksum description }\n    }\n    jdbcConnections {\n         goid name checksum \n         enabled driverClass jdbcUrl username password minPoolSize maxPoolSize \n         properties { name value }\n    }\n    jmsDestinations {\n         goid connectionGoid name direction providerType checksum \n         enabled template initialContextFactoryClassname connectionFactoryName jndiUrl jndiUsername jndiPassword \n         jndiSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n         destinationType destinationName destinationUsername destinationPassword \n         destinationSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n         properties { name value }\n    }\n    keys {\n         goid keystoreId alias checksum \n         keyType subjectDn p12 certChain\n    }\n    ldaps {\n        goid name checksum \n        ldapUrls ldapsClientAuthEnabled ldapsClientKeystoreId ldapsClientKeyAlias searchBase writable bindDn bindPassword \n        userMappings { objClass nameAttrName loginAttrName passwdAttrName firstNameAttrName lastNameAttrName emailNameAttrName kerberosAttrName kerberosEnterpriseAttrName userCertAttrName passwdType { val } } \n        groupMappings { objClass nameAttrName memberAttrName memberStrategy { val } }\n    }\n    listenPorts {\n         goid name checksum \n         enabled protocol port hardwiredServiceName enabledFeatures \n         tlsSettings { clientAuthentication keystoreId keyAlias tlsVersions cipherSuites useCipherSuitesOrder } \n         properties { name value }\n    }\n    scheduledTasks {\n         goid name checksum \n         policyName jobType cronExpression executeOnSingleNode executeOnCreation executionDate status runAsUser runAsUserProviderName\n    }\n    schemas {\n         goid systemId checksum \n         targetNs description content\n    }\n    secrets {\n         goid name checksum \n         description secret secretType variableReferencable\n    }\n    serverModuleFiles {\n        goid name checksum \n        moduleType moduleSha256 signature signerCertBase64 \n        properties { name value } \n        moduleStates { nodeId nodeName state description } \n        moduleStateSummary { state description }\n    }\n    smConfigs {\n        goid name checksum \n        enabled agentHost agentIP agentHostConfig agentSecret cryptoMode ipCheckEnabled updateSSOToken clusterFailoverThreshold nonClusterFailover username securePasswordName \n        properties { name value }\n    }\n    revocationCheckPolicies {\n        goid name checksum\n        defaultPolicy defaultSuccess continueOnServerUnavailable\n        revocationCheckPolicyItems  {\n            ... on RevocationCheckPolicyItem {\n                type url allowIssuerSignature nonceUsage signerThumbprintSha1s\n            }\n        }    \n    }\n    trustedCerts {\n         goid name subjectDn thumbprintSha1 checksum \n         verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n         revocationCheckPolicy { goid name } \n         notBefore notAfter certBase64\n    }\n    clusterInfo {\n        name\n        nodes { name nodeId address uptime }\n    }\n    passwordPolicies {\n        goid checksum \n        forcePasswordChangeNewUser noRepeatingCharacters\n        minPasswordLength maxPasswordLength \n        upperMinimum  lowerMinimum numberMinimum symbolMinimum\n        nonNumericMinimum charDiffMinimum repeatFrequency\n        passwordExpiry allowableChangesPerDay        \n    }\n    administrativeUserAccountProperties {\n        goid name value checksum\n    }\n    serviceResolutionConfigs {\n        goid checksum\n        resolutionPathRequired resolutionPathCaseSensitive\n        useL7OriginalUrl useServiceGoid\n        useSoapAction useSoapBodyChildNamespace        \n    }\n}",
 								"variables": "{}"
 							}
 						},
@@ -253,7 +255,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query summary {\n    webApiServices {\n         goid name resolutionPath checksum\n    }\n    soapServices {\n         goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum\n    }\n    internalWebApiServices {\n         goid name resolutionPath checksum\n    }\n    internalSoapServices {\n         goid resolutionPath checksum\n    }\n    encassConfigs {\n         goid guid name checksum\n    }\n    globalPolicies {\n         goid guid name tag checksum\n    }\n    backgroundTaskPolicies {\n         goid guid name checksum\n    }\n    policyFragments {\n         goid guid name checksum\n    }\n\n    activeConnectors {\n         goid name checksum\n    }\n    cassandraConnections {\n         goid name checksum\n    }\n    clusterProperties {\n         goid name checksum\n    }\n    dtds {\n         goid systemId checksum\n    }\n    emailListeners {\n         goid name checksum\n    }\n    fips {\n         goid name checksum\n    }\n    fipGroups {\n         goid name providerName checksum\n    }\n    fipUsers {\n         goid name providerName checksum\n    }\n    internalDtds {\n         goid systemId checksum\n    }\n    internalGroups {\n         goid name checksum\n    }\n    internalSchemas {\n         goid systemId checksum\n    }\n    internalUsers {\n         goid name login checksum\n    }\n    jdbcConnections {\n         goid name checksum\n    }\n    jmsDestinations {\n         goid connectionGoid name direction providerType checksum\n    }\n    keys {\n         goid keystoreId alias checksum\n    }\n    ldaps {\n         goid name checksum\n    }\n    listenPorts {\n         goid name checksum\n    }\n    scheduledTasks {\n         goid name checksum\n    }\n    schemas {\n         goid systemId checksum\n    }\n    secrets {\n         goid name checksum\n    }\n    serverModuleFiles {\n         goid name checksum\n    }\n    smConfigs {\n         goid name checksum\n    }\n    trustedCerts {\n         goid name subjectDn thumbprintSha1 checksum\n    }\n}",
+								"query": "query summary {\n    webApiServices {\n         goid name resolutionPath checksum\n    }\n    soapServices {\n         goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum\n    }\n    internalWebApiServices {\n         goid name resolutionPath checksum\n    }\n    internalSoapServices {\n         goid resolutionPath checksum\n    }\n    encassConfigs {\n         goid guid name checksum\n    }\n    globalPolicies {\n         goid guid name tag checksum\n    }\n    backgroundTaskPolicies {\n         goid guid name checksum\n    }\n    policyFragments {\n         goid guid name checksum\n    }\n\n    activeConnectors {\n         goid name checksum\n    }\n    cassandraConnections {\n         goid name checksum\n    }\n    clusterProperties {\n         goid name checksum\n    }\n    dtds {\n         goid systemId checksum\n    }\n    emailListeners {\n         goid name checksum\n    }\n    fips {\n         goid name checksum\n    }\n    fipGroups {\n         goid name providerName checksum\n    }\n    fipUsers {\n         goid name providerName checksum\n    }\n    internalDtds {\n         goid systemId checksum\n    }\n    internalGroups {\n         goid name checksum\n    }\n    internalSchemas {\n         goid systemId checksum\n    }\n    internalUsers {\n         goid name login checksum\n    }\n    jdbcConnections {\n         goid name checksum\n    }\n    jmsDestinations {\n         goid connectionGoid name direction providerType checksum\n    }\n    keys {\n         goid keystoreId alias checksum\n    }\n    ldaps {\n         goid name checksum\n    }\n    listenPorts {\n         goid name checksum\n    }\n    scheduledTasks {\n         goid name checksum\n    }\n    schemas {\n         goid systemId checksum\n    }\n    secrets {\n         goid name checksum\n    }\n    serverModuleFiles {\n         goid name checksum\n    }\n    smConfigs {\n         goid name checksum\n    }\n    revocationCheckPolicies {\n        goid name checksum\n    }\n    trustedCerts {\n         goid name subjectDn thumbprintSha1 checksum\n    }\n    passwordPolicies {\n        goid checksum    \n    }\n    administrativeUserAccountProperties {\n        goid name checksum\n    }\n    serviceResolutionConfigs {\n        goid checksum\n    }\n    clusterInfo {\n        name\n    }\n}",
 								"variables": "{}"
 							}
 						},
@@ -287,7 +289,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query summary {\n    webApiServices {\n         goid name resolutionPath checksum\n    }\n    soapServices {\n         goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum\n    }\n    internalWebApiServices {\n         goid name resolutionPath checksum\n    }\n    internalSoapServices {\n         goid resolutionPath checksum\n    }\n    encassConfigs {\n         goid guid name checksum\n    }\n    globalPolicies {\n         goid guid name tag checksum\n    }\n    backgroundTaskPolicies {\n         goid guid name checksum\n    }\n    policyFragments {\n         goid guid name checksum\n    }\n\n    activeConnectors {\n         goid name checksum\n    }\n    cassandraConnections {\n         goid name checksum\n    }\n    clusterProperties {\n         goid name checksum\n    }\n    dtds {\n         goid systemId checksum\n    }\n    emailListeners {\n         goid name checksum\n    }\n    fips {\n         goid name checksum\n    }\n    fipGroups {\n         goid name providerName checksum\n    }\n    fipUsers {\n         goid name providerName checksum\n    }\n    internalDtds {\n         goid systemId checksum\n    }\n    internalGroups {\n         goid name checksum\n    }\n    internalSchemas {\n         goid systemId checksum\n    }\n    internalUsers {\n         goid name login checksum\n    }\n    jdbcConnections {\n         goid name checksum\n    }\n    jmsDestinations {\n         goid connectionGoid name direction providerType checksum\n    }\n    keys {\n         goid keystoreId alias checksum\n    }\n    ldaps {\n         goid name checksum\n    }\n    listenPorts {\n         goid name checksum\n    }\n    scheduledTasks {\n         goid name checksum\n    }\n    schemas {\n         goid systemId checksum\n    }\n    secrets {\n         goid name checksum\n    }\n    serverModuleFiles {\n         goid name checksum\n    }\n    smConfigs {\n         goid name checksum\n    }\n    trustedCerts {\n         goid name subjectDn thumbprintSha1 checksum\n    }\n}",
+								"query": "query summary {\n    webApiServices {\n         goid name resolutionPath checksum\n    }\n    soapServices {\n         goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum\n    }\n    internalWebApiServices {\n         goid name resolutionPath checksum\n    }\n    internalSoapServices {\n         goid resolutionPath checksum\n    }\n    encassConfigs {\n         goid guid name checksum\n    }\n    globalPolicies {\n         goid guid name tag checksum\n    }\n    backgroundTaskPolicies {\n         goid guid name checksum\n    }\n    policyFragments {\n         goid guid name checksum\n    }\n\n    activeConnectors {\n         goid name checksum\n    }\n    cassandraConnections {\n         goid name checksum\n    }\n    clusterProperties {\n         goid name checksum\n    }\n    dtds {\n         goid systemId checksum\n    }\n    emailListeners {\n         goid name checksum\n    }\n    fips {\n         goid name checksum\n    }\n    fipGroups {\n         goid name providerName checksum\n    }\n    fipUsers {\n         goid name providerName checksum\n    }\n    internalDtds {\n         goid systemId checksum\n    }\n    internalGroups {\n         goid name checksum\n    }\n    internalSchemas {\n         goid systemId checksum\n    }\n    internalUsers {\n         goid name login checksum\n    }\n    jdbcConnections {\n         goid name checksum\n    }\n    jmsDestinations {\n         goid connectionGoid name direction providerType checksum\n    }\n    keys {\n         goid keystoreId alias checksum\n    }\n    ldaps {\n         goid name checksum\n    }\n    listenPorts {\n         goid name checksum\n    }\n    scheduledTasks {\n         goid name checksum\n    }\n    schemas {\n         goid systemId checksum\n    }\n    secrets {\n         goid name checksum\n    }\n    serverModuleFiles {\n         goid name checksum\n    }\n    smConfigs {\n         goid name checksum\n    }\n    revocationCheckPolicies {\n        goid name checksum\n    }\n    trustedCerts {\n         goid name subjectDn thumbprintSha1 checksum\n    }\n    passwordPolicies {\n        goid checksum    \n    }\n    administrativeUserAccountProperties {\n        goid name checksum\n    }\n    serviceResolutionConfigs {\n        goid checksum\n    }\n    clusterInfo {\n        name\n    }\n}",
 								"variables": "{}"
 							}
 						},
@@ -335,7 +337,7 @@
 								"body": {
 									"mode": "graphql",
 									"graphql": {
-										"query": "query everything {\n    webApiServices {\n        goid name resolutionPath checksum \n        enabled folderPath methodsAllowed tracingEnabled wssProcessingEnabled \n        properties { name value }\n        policy { xml }\n    }\n    soapServices {\n        goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum \n        enabled folderPath soapVersion methodsAllowed tracingEnabled wssProcessingEnabled laxResolution \n        properties { name value }\n        wsdl \n        policy { xml }\n    }\n    internalWebApiServices {\n        goid name resolutionPath checksum \n        enabled folderPath methodsAllowed tracingEnabled wssProcessingEnabled \n        properties { name value } \n        policy { xml }\n    }\n    internalSoapServices {\n        goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum \n        enabled folderPath soapVersion methodsAllowed tracingEnabled wssProcessingEnabled laxResolution \n        properties { name value } \n        wsdl \n        policy { xml }\n    }\n    encassConfigs {\n        goid guid name checksum \n        description policyName \n        encassArgs { name type ordinal guiPrompt guiLabel } \n        encassResults{ name type } \n        properties { name value }\n    }\n    globalPolicies {\n        goid guid name tag checksum \n        folderPath \n        policy { xml }\n    }\n    backgroundTaskPolicies {\n        goid guid name checksum \n        folderPath soap \n        policy { xml }\n    }\n    policyFragments {\n        goid guid name checksum \n        folderPath soap \n        policy { xml }\n    }\n\n    activeConnectors {\n        goid name checksum \n        enabled connectorType hardwiredServiceName \n        properties { name value } \n        advancedProperties { name value }\n    }\n    cassandraConnections {\n        goid name checksum \n        enabled keyspace contactPoints port compression username securePasswordName sslEnabled cipherSuites \n        properties { name value }\n    }\n    clusterProperties {\n        goid name checksum \n        description hiddenProperty value\n    }\n    dtds {\n        goid systemId checksum \n        publicId description content\n    }\n    emailListeners {\n        goid name checksum \n        enabled serverType hostname port folder deleteOnReceive username password hardwiredServiceName sslEnabled pollInterval sizeLimit \n        properties { name value }\n    }\n    fips {\n        goid name checksum \n        enableCredentialTypeSaml enableCredentialTypeX509 certificateValidation \n        certificateReferences { \n             goid name subjectDn thumbprintSha1 checksum \n             verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n             revocationCheckPolicy { goid name } \n             notBefore notAfter certBase64 \n        }\n    }\n    fipGroups {\n        goid name providerName checksum \n        description \n        members { \n            goid name login providerName checksum \n            subjectDn certBase64 firstName lastName email \n        }\n    }\n    fipUsers {\n        goid name login providerName checksum \n        subjectDn certBase64 firstName lastName email \n        memberOf { \n            goid name providerName checksum \n            description \n        }\n    }\n    internalDtds {\n        goid systemId checksum \n        publicId description content\n    }\n    internalGroups {\n        goid name checksum \n        description \n        members { \n            goid name login checksum \n            enabled password certBase64 firstName lastName email \n        }\n    }\n    internalSchemas {\n        goid systemId checksum \n        targetNs description content\n    }\n    internalUsers {\n         goid name login checksum \n         enabled password certBase64 firstName lastName email \n         memberOf { goid name checksum description }\n    }\n    jdbcConnections {\n         goid name checksum \n         enabled driverClass jdbcUrl username password minPoolSize maxPoolSize \n         properties { name value }\n    }\n    jmsDestinations {\n         goid connectionGoid name direction providerType checksum \n         enabled template initialContextFactoryClassname connectionFactoryName jndiUrl jndiUsername jndiPassword \n         jndiSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n         destinationType destinationName destinationUsername destinationPassword \n         destinationSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n         properties { name value }\n    }\n    keys {\n         goid keystoreId alias checksum \n         keyType subjectDn p12 certChain\n    }\n    ldaps {\n        goid name checksum \n        ldapUrls ldapsClientAuthEnabled ldapsClientKeystoreId ldapsClientKeyAlias searchBase writable bindDn bindPassword \n        userMappings { objClass nameAttrName loginAttrName passwdAttrName firstNameAttrName lastNameAttrName emailNameAttrName kerberosAttrName kerberosEnterpriseAttrName userCertAttrName passwdType { val } } \n        groupMappings { objClass nameAttrName memberAttrName memberStrategy { val } }\n    }\n    listenPorts {\n         goid name checksum \n         enabled protocol port hardwiredServiceName enabledFeatures \n         tlsSettings { clientAuthentication keystoreId keyAlias tlsVersions cipherSuites useCipherSuitesOrder } \n         properties { name value }\n    }\n    scheduledTasks {\n         goid name checksum \n         policyName jobType cronExpression executeOnSingleNode executeOnCreation executionDate status runAsUser runAsUserProviderName\n    }\n    schemas {\n         goid systemId checksum \n         targetNs description content\n    }\n    secrets {\n         goid name checksum \n         description secret secretType variableReferencable\n    }\n    serverModuleFiles {\n        goid name checksum \n        moduleType moduleSha256 signature signerCertBase64 \n        properties { name value } \n        moduleStates { nodeId nodeName state description } \n        moduleStateSummary { state description }\n    }\n    smConfigs {\n        goid name checksum \n        enabled agentHost agentIP agentHostConfig agentSecret cryptoMode ipCheckEnabled updateSSOToken clusterFailoverThreshold nonClusterFailover username securePasswordName \n        properties { name value }\n    }\n    trustedCerts {\n         goid name subjectDn thumbprintSha1 checksum \n         verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n         revocationCheckPolicy { goid name } \n         notBefore notAfter certBase64\n    }\n}",
+										"query": "query everything {\n    webApiServices {\n        goid name resolutionPath checksum \n        enabled folderPath methodsAllowed tracingEnabled wssProcessingEnabled \n        properties { name value }\n        policy { xml }\n    }\n    soapServices {\n        goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum \n        enabled folderPath soapVersion methodsAllowed tracingEnabled wssProcessingEnabled laxResolution \n        properties { name value }\n        wsdl \n        policy { xml }\n    }\n    internalWebApiServices {\n        goid name resolutionPath checksum \n        enabled folderPath methodsAllowed tracingEnabled wssProcessingEnabled \n        properties { name value } \n        policy { xml }\n    }\n    internalSoapServices {\n        goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum \n        enabled folderPath soapVersion methodsAllowed tracingEnabled wssProcessingEnabled laxResolution \n        properties { name value } \n        wsdl \n        policy { xml }\n    }\n    encassConfigs {\n        goid guid name checksum \n        description policyName \n        encassArgs { name type ordinal guiPrompt guiLabel } \n        encassResults{ name type } \n        properties { name value }\n    }\n    globalPolicies {\n        goid guid name tag checksum \n        folderPath \n        policy { xml }\n    }\n    backgroundTaskPolicies {\n        goid guid name checksum \n        folderPath soap \n        policy { xml }\n    }\n    policyFragments {\n        goid guid name checksum \n        folderPath soap \n        policy { xml }\n    }\n\n    activeConnectors {\n        goid name checksum \n        enabled connectorType hardwiredServiceName \n        properties { name value } \n        advancedProperties { name value }\n    }\n    cassandraConnections {\n        goid name checksum \n        enabled keyspace contactPoints port compression username securePasswordName sslEnabled cipherSuites \n        properties { name value }\n    }\n    clusterProperties {\n        goid name checksum \n        description hiddenProperty value\n    }\n    dtds {\n        goid systemId checksum \n        publicId description content\n    }\n    emailListeners {\n        goid name checksum \n        enabled serverType hostname port folder deleteOnReceive username password hardwiredServiceName sslEnabled pollInterval sizeLimit \n        properties { name value }\n    }\n    fips {\n        goid name checksum \n        enableCredentialTypeSaml enableCredentialTypeX509 certificateValidation \n        certificateReferences { \n             goid name subjectDn thumbprintSha1 checksum \n             verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n             revocationCheckPolicy { goid name } \n             notBefore notAfter certBase64 \n        }\n    }\n    fipGroups {\n        goid name providerName checksum \n        description \n        members { \n            goid name login providerName checksum \n            subjectDn certBase64 firstName lastName email \n        }\n    }\n    fipUsers {\n        goid name login providerName checksum \n        subjectDn certBase64 firstName lastName email \n        memberOf { \n            goid name providerName checksum \n            description \n        }\n    }\n    internalDtds {\n        goid systemId checksum \n        publicId description content\n    }\n    internalGroups {\n        goid name checksum \n        description \n        members { \n            goid name login checksum \n            enabled password certBase64 firstName lastName email \n        }\n    }\n    internalSchemas {\n        goid systemId checksum \n        targetNs description content\n    }\n    internalUsers {\n         goid name login checksum \n         enabled password certBase64 firstName lastName email \n         memberOf { goid name checksum description }\n    }\n    jdbcConnections {\n         goid name checksum \n         enabled driverClass jdbcUrl username password minPoolSize maxPoolSize \n         properties { name value }\n    }\n    jmsDestinations {\n         goid connectionGoid name direction providerType checksum \n         enabled template initialContextFactoryClassname connectionFactoryName jndiUrl jndiUsername jndiPassword \n         jndiSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n         destinationType destinationName destinationUsername destinationPassword \n         destinationSslDetails { sslEnabled sslForAuthenticationOnly sslVerifyServerCertificate sslVerifyServerHostname sslClientKeyAlias } \n         properties { name value }\n    }\n    keys {\n         goid keystoreId alias checksum \n         keyType subjectDn p12 certChain\n    }\n    ldaps {\n        goid name checksum \n        ldapUrls ldapsClientAuthEnabled ldapsClientKeystoreId ldapsClientKeyAlias searchBase writable bindDn bindPassword \n        userMappings { objClass nameAttrName loginAttrName passwdAttrName firstNameAttrName lastNameAttrName emailNameAttrName kerberosAttrName kerberosEnterpriseAttrName userCertAttrName passwdType { val } } \n        groupMappings { objClass nameAttrName memberAttrName memberStrategy { val } }\n    }\n    listenPorts {\n         goid name checksum \n         enabled protocol port hardwiredServiceName enabledFeatures \n         tlsSettings { clientAuthentication keystoreId keyAlias tlsVersions cipherSuites useCipherSuitesOrder } \n         properties { name value }\n    }\n    scheduledTasks {\n         goid name checksum \n         policyName jobType cronExpression executeOnSingleNode executeOnCreation executionDate status runAsUser runAsUserProviderName\n    }\n    schemas {\n         goid systemId checksum \n         targetNs description content\n    }\n    secrets {\n         goid name checksum \n         description secret secretType variableReferencable\n    }\n    serverModuleFiles {\n        goid name checksum \n        moduleType moduleSha256 signature signerCertBase64 \n        properties { name value } \n        moduleStates { nodeId nodeName state description } \n        moduleStateSummary { state description }\n    }\n    smConfigs {\n        goid name checksum \n        enabled agentHost agentIP agentHostConfig agentSecret cryptoMode ipCheckEnabled updateSSOToken clusterFailoverThreshold nonClusterFailover username securePasswordName \n        properties { name value }\n    }\n    trustedCerts {\n         goid name subjectDn thumbprintSha1 checksum \n         verifyHostname trustAnchor trustedFor revocationCheckPolicyType \n         revocationCheckPolicy { goid name } \n         notBefore notAfter certBase64\n    }\n    revocationCheckPolicies {\n        goid\n        name\n        defaultPolicy\n        defaultSuccess\n        continueOnServerUnavailable\n        checksum         \n        revocationCheckPolicyItems  {\n            ... on RevocationCheckPolicyItem {                \n                type\n                url\n                allowIssuerSignature\n                nonceUsage\n                signerThumbprintSha1s\n            }\n        }    \n    }\n    clusterInfo {\n        name\n        nodes\n        {\n            name\n            nodeId\n            address\n            uptime\n        }\n    }\n    passwordPolicies {\n        goid\n        forcePasswordChangeNewUser\n        noRepeatingCharacters\n        minPasswordLength\n        maxPasswordLength\n        upperMinimum\n        lowerMinimum\n        numberMinimum\n        symbolMinimum\n        nonNumericMinimum\n        charDiffMinimum\n        repeatFrequency\n        passwordExpiry\n        allowableChangesPerDay\n        checksum\n    }\n    administrativeUserAccountProperties {\n        goid\n        name\n        value\n        checksum\n    }\n    serviceResolutionConfigs {\n        goid\n        resolutionPathRequired\n        resolutionPathCaseSensitive\n        useL7OriginalUrl\n        useServiceGoid\n        useSoapAction\n        useSoapBodyChildNamespace\n        checksum\n    }    \n}",
 										"variables": "{}"
 									}
 								},
@@ -370,7 +372,7 @@
 								"body": {
 									"mode": "graphql",
 									"graphql": {
-										"query": "query summary {\n    webApiServices {\n         goid name resolutionPath checksum\n    }\n    soapServices {\n         goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum\n    }\n    internalWebApiServices {\n         goid name resolutionPath checksum\n    }\n    internalSoapServices {\n         goid resolutionPath checksum\n    }\n    encassConfigs {\n         goid guid name checksum\n    }\n    globalPolicies {\n         goid guid name tag checksum\n    }\n    backgroundTaskPolicies {\n         goid guid name checksum\n    }\n    policyFragments {\n         goid guid name checksum\n    }\n\n    activeConnectors {\n         goid name checksum\n    }\n    cassandraConnections {\n         goid name checksum\n    }\n    clusterProperties {\n         goid name checksum\n    }\n    dtds {\n         goid systemId checksum\n    }\n    emailListeners {\n         goid name checksum\n    }\n    fips {\n         goid name checksum\n    }\n    fipGroups {\n         goid name providerName checksum\n    }\n    fipUsers {\n         goid name providerName checksum\n    }\n    internalDtds {\n         goid systemId checksum\n    }\n    internalGroups {\n         goid name checksum\n    }\n    internalSchemas {\n         goid systemId checksum\n    }\n    internalUsers {\n         goid name login checksum\n    }\n    jdbcConnections {\n         goid name checksum\n    }\n    jmsDestinations {\n         goid connectionGoid name direction providerType checksum\n    }\n    keys {\n         goid keystoreId alias checksum\n    }\n    ldaps {\n         goid name checksum\n    }\n    listenPorts {\n         goid name checksum\n    }\n    scheduledTasks {\n         goid name checksum\n    }\n    schemas {\n         goid systemId checksum\n    }\n    secrets {\n         goid name checksum\n    }\n    serverModuleFiles {\n         goid name checksum\n    }\n    smConfigs {\n         goid name checksum\n    }\n    trustedCerts {\n         goid name subjectDn thumbprintSha1 checksum\n    }\n}",
+										"query": "query summary {\n    webApiServices {\n         goid name resolutionPath checksum\n    }\n    soapServices {\n         goid name resolutionPath resolvers { soapActions baseUri resolutionPath } checksum\n    }\n    internalWebApiServices {\n         goid name resolutionPath checksum\n    }\n    internalSoapServices {\n         goid resolutionPath checksum\n    }\n    encassConfigs {\n         goid guid name checksum\n    }\n    globalPolicies {\n         goid guid name tag checksum\n    }\n    backgroundTaskPolicies {\n         goid guid name checksum\n    }\n    policyFragments {\n         goid guid name checksum\n    }\n\n    activeConnectors {\n         goid name checksum\n    }\n    cassandraConnections {\n         goid name checksum\n    }\n    clusterProperties {\n         goid name checksum\n    }\n    dtds {\n         goid systemId checksum\n    }\n    emailListeners {\n         goid name checksum\n    }\n    fips {\n         goid name checksum\n    }\n    fipGroups {\n         goid name providerName checksum\n    }\n    fipUsers {\n         goid name providerName checksum\n    }\n    internalDtds {\n         goid systemId checksum\n    }\n    internalGroups {\n         goid name checksum\n    }\n    internalSchemas {\n         goid systemId checksum\n    }\n    internalUsers {\n         goid name login checksum\n    }\n    jdbcConnections {\n         goid name checksum\n    }\n    jmsDestinations {\n         goid connectionGoid name direction providerType checksum\n    }\n    keys {\n         goid keystoreId alias checksum\n    }\n    ldaps {\n         goid name checksum\n    }\n    listenPorts {\n         goid name checksum\n    }\n    scheduledTasks {\n         goid name checksum\n    }\n    schemas {\n         goid systemId checksum\n    }\n    secrets {\n         goid name checksum\n    }\n    serverModuleFiles {\n         goid name checksum\n    }\n    smConfigs {\n         goid name checksum\n    }\n    trustedCerts {\n         goid name subjectDn thumbprintSha1 checksum\n    }\n    revocationCheckPolicies {\n        goid name checksum\n    }\n    passwordPolicies {\n        goid checksum    \n    }\n    administrativeUserAccountProperties {\n        goid name checksum\n    }\n    serviceResolutionConfigs {\n        goid checksum\n    }\n    clusterInfo {\n        name\n    }\n}",
 										"variables": "{}"
 									}
 								},
@@ -482,6 +484,66 @@
 											]
 										},
 										"description": "# Cluster Property by Name\n\nGet the cluster property with the given name\n\nInput: name"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Administrative User Account Properties",
+					"item": [
+						{
+							"name": "Mutation",
+							"item": [
+								{
+									"name": "Set Administrative User Account Properties",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation setAdministrativeUserAccountProperties ($input: [AdministrativeUserAccountPropertyInput!]!) {\n    setAdministrativeUserAccountProperties (input: $input) {\n        detailedStatus {\n            status\n            description\n        }\n        administrativeUserAccountProperties {\n            goid\n            checksum\n            name\n            value\n        }\n    }\n}",
+												"variables": "{\r\n  \"input\": [{\r\n    \"name\": \"logonMaxAllowableAttempts\",\r\n    \"value\": \"17\"\r\n  },\r\n  {\r\n    \"name\": \"logonLockoutTime\",\r\n    \"value\": \"1300\"\r\n  },{\r\n    \"name\": \"logonInactivityPeriod\",\r\n    \"value\": \"20\"\r\n  },\r\n  {\r\n    \"name\": \"logonSessionExpiry\",\r\n    \"value\": \"25\"\r\n  }]\r\n}"
+											}
+										},
+										"url": {
+											"raw": "{{target_gw}}",
+											"host": [
+												"{{target_gw}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Query",
+							"item": [
+								{
+									"name": "Get Administrative User Account Properties",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query administrativeUserAccountProperties {\n        administrativeUserAccountProperties {\n            goid\n            checksum\n            name\n            value\n        }\n}",
+												"variables": ""
+											}
+										},
+										"url": {
+											"raw": "{{source_gw}}",
+											"host": [
+												"{{source_gw}}"
+											]
+										}
 									},
 									"response": []
 								}
@@ -669,6 +731,52 @@
 						}
 					],
 					"description": "# Cassandra Connections"
+				},
+				{
+					"name": "Cluster Info",
+					"item": [
+						{
+							"name": "Query",
+							"item": [
+								{
+									"name": "Get Cluster Info",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query clusterInfo {\n    clusterInfo {\n        name\n        nodes\n        {\n            name\n            nodeId\n            address\n            uptime\n        }\n    }\n}",
+												"variables": ""
+											}
+										},
+										"url": {
+											"raw": "{{source_gw}}",
+											"host": [
+												"{{source_gw}}"
+											]
+										},
+										"description": "# Retrieves the gateway cluster information"
+									},
+									"response": []
+								}
+							]
+						}
+					]
 				},
 				{
 					"name": "Cluster Properties",
@@ -2304,6 +2412,74 @@
 					"name": "Listen Ports",
 					"item": [
 						{
+							"name": "Query",
+							"item": [
+								{
+									"name": "All Listen Ports",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query listenPorts {\n    listenPorts {\n        goid \n        name \n        checksum \n        \n        enabled \n        protocol \n        port \n        hardwiredServiceName \n        enabledFeatures \n        tlsSettings { \n            clientAuthentication \n            keystoreId \n            keyAlias \n            tlsVersions \n            cipherSuites \n            useCipherSuitesOrder \n        } \n        properties { name value }\n\n        hardwiredService {\n            ... on PublishedService {\n                name \n                resolutionPath \n                folderPath \n                methodsAllowed \n                enabled\n            }\n        }\n    }\n}",
+												"variables": ""
+											}
+										},
+										"url": {
+											"raw": "{{source_gw}}",
+											"host": [
+												"{{source_gw}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Listen Ports by Name",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query listenPortByName ($name : String!) {\n    listenPortByName (name : $name) {\n        goid \n        name \n        checksum \n        \n        enabled \n        protocol \n        port \n        hardwiredServiceName \n        enabledFeatures \n        tlsSettings { \n            clientAuthentication \n            keystoreId \n            keyAlias \n            tlsVersions \n            cipherSuites \n            useCipherSuitesOrder \n        } \n        properties { name value }\n\n        hardwiredService {\n            ... on PublishedService {\n                name \n                resolutionPath \n                folderPath \n                methodsAllowed \n                enabled\n            }\n        }\n    }\n}",
+												"variables": "{\n    \"name\" : \"some-listen-port\"\n}"
+											}
+										},
+										"url": {
+											"raw": "{{source_gw}}",
+											"host": [
+												"{{source_gw}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Listen Ports by Protocol",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query listenPortsByProtocol ($protocol : String!) {\n    listenPortsByProtocol (protocol : $protocol) {\n        goid \n        name \n        checksum \n        \n        enabled \n        protocol \n        port \n        hardwiredServiceName \n        enabledFeatures \n        tlsSettings { \n            clientAuthentication \n            keystoreId \n            keyAlias \n            tlsVersions \n            cipherSuites \n            useCipherSuitesOrder \n        } \n        properties { name value }\n\n        hardwiredService {\n            ... on PublishedService {\n                name \n                resolutionPath \n                folderPath \n                methodsAllowed \n                enabled\n            }\n        }\n    }\n}",
+												"variables": "{\n    \"protocol\" : \"HTTPS\"\n}"
+											}
+										},
+										"url": {
+											"raw": "{{source_gw}}",
+											"host": [
+												"{{source_gw}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "Mutation",
 							"item": [
 								{
@@ -2371,19 +2547,75 @@
 									"response": []
 								}
 							]
-						},
+						}
+					]
+				},
+				{
+					"name": "Password Policy",
+					"item": [
 						{
-							"name": "Query",
+							"name": "Mutation",
 							"item": [
 								{
-									"name": "All Listen Ports",
+									"name": "Set Password Policies",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "POST",
 										"header": [],
 										"body": {
 											"mode": "graphql",
 											"graphql": {
-												"query": "query listenPorts {\n    listenPorts {\n        goid \n        name \n        checksum \n        \n        enabled \n        protocol \n        port \n        hardwiredServiceName \n        enabledFeatures \n        tlsSettings { \n            clientAuthentication \n            keystoreId \n            keyAlias \n            tlsVersions \n            cipherSuites \n            useCipherSuitesOrder \n        } \n        properties { name value }\n\n        hardwiredService {\n            ... on PublishedService {\n                name \n                resolutionPath \n                folderPath \n                methodsAllowed \n                enabled\n            }\n        }\n    }\n}",
+												"query": "mutation setPasswordPolicy ($input:[PasswordPolicyInput!]!) {\n    setPasswordPolicies (input: $input) {\n        detailedStatus {\n            status\n            description\n        }\n        passwordPolicies {\n                goid\n                forcePasswordChangeNewUser\n                noRepeatingCharacters\n                minPasswordLength\n                maxPasswordLength\n                upperMinimum\n                lowerMinimum\n                numberMinimum\n                symbolMinimum\n                nonNumericMinimum\n                charDiffMinimum\n                repeatFrequency\n                passwordExpiry\n                allowableChangesPerDay\n                checksum\n        }\n    }\n}",
+												"variables": "{\n  \"input\": [{\n    \"forcePasswordChangeNewUser\" : true,\n    \"noRepeatingCharacters\" : true,\n    \"minPasswordLength\" : 4,\n    \"maxPasswordLength\" : 4,\n    \"upperMinimum\" : 4,\n    \"lowerMinimum\" : 2,\n    \"numberMinimum\" : 2,\n    \"symbolMinimum\" : 2,\n    \"nonNumericMinimum\" : 1,\n    \"charDiffMinimum\" : 5,\n    \"repeatFrequency\" : 3,\n    \"passwordExpiry\": 2,\n    \"allowableChangesPerDay\" : true\n  }]\n}"
+											}
+										},
+										"url": {
+											"raw": "{{target_gw}}",
+											"host": [
+												"{{target_gw}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Query",
+							"item": [
+								{
+									"name": "Get Password Policies",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query passwordPolicies {\n    passwordPolicies {\n        goid\n        forcePasswordChangeNewUser\n        noRepeatingCharacters\n        minPasswordLength\n        maxPasswordLength\n        upperMinimum\n        lowerMinimum\n        numberMinimum\n        symbolMinimum\n        nonNumericMinimum\n        charDiffMinimum\n        repeatFrequency\n        passwordExpiry\n        allowableChangesPerDay\n        checksum\n    }\n}",
 												"variables": ""
 											}
 										},
@@ -2392,49 +2624,8 @@
 											"host": [
 												"{{source_gw}}"
 											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Listen Ports by Name",
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "graphql",
-											"graphql": {
-												"query": "query listenPortByName ($name : String!) {\n    listenPortByName (name : $name) {\n        goid \n        name \n        checksum \n        \n        enabled \n        protocol \n        port \n        hardwiredServiceName \n        enabledFeatures \n        tlsSettings { \n            clientAuthentication \n            keystoreId \n            keyAlias \n            tlsVersions \n            cipherSuites \n            useCipherSuitesOrder \n        } \n        properties { name value }\n\n        hardwiredService {\n            ... on PublishedService {\n                name \n                resolutionPath \n                folderPath \n                methodsAllowed \n                enabled\n            }\n        }\n    }\n}",
-												"variables": "{\n    \"name\" : \"some-listen-port\"\n}"
-											}
 										},
-										"url": {
-											"raw": "{{source_gw}}",
-											"host": [
-												"{{source_gw}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Listen Ports by Protocol",
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "graphql",
-											"graphql": {
-												"query": "query listenPortsByProtocol ($protocol : String!) {\n    listenPortsByProtocol (protocol : $protocol) {\n        goid \n        name \n        checksum \n        \n        enabled \n        protocol \n        port \n        hardwiredServiceName \n        enabledFeatures \n        tlsSettings { \n            clientAuthentication \n            keystoreId \n            keyAlias \n            tlsVersions \n            cipherSuites \n            useCipherSuitesOrder \n        } \n        properties { name value }\n\n        hardwiredService {\n            ... on PublishedService {\n                name \n                resolutionPath \n                folderPath \n                methodsAllowed \n                enabled\n            }\n        }\n    }\n}",
-												"variables": "{\n    \"protocol\" : \"HTTPS\"\n}"
-											}
-										},
-										"url": {
-											"raw": "{{source_gw}}",
-											"host": [
-												"{{source_gw}}"
-											]
-										}
+										"description": "# List all Web Api Services\n\nList all of the services\n\nInput: no input"
 									},
 									"response": []
 								}
@@ -2626,6 +2817,158 @@
 											]
 										},
 										"description": "# Policy fragment by guid\n\nGet a policy fragment given its guid (if there is such a policy).\n\nInput: guid"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Revocation Check Policy",
+					"item": [
+						{
+							"name": "Mutation",
+							"item": [
+								{
+									"name": "Set Revocation Check Policies",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation setRevocationCheckPolicies($input: [RevocationCheckPolicyInput!] !) {\n    setRevocationCheckPolicies(input: $input) {\n        detailedStatus { status description }\n        revocationCheckPolicies {\n            goid\n            name\n            defaultPolicy\n            defaultSuccess\n            continueOnServerUnavailable\n            checksum\n            revocationCheckPolicyItems  {\n                ... on RevocationCheckPolicyItem {\n                    type\n                    url\n                    allowIssuerSignature\n                    nonceUsage\n                    signerThumbprintSha1s\n                    url\n                }\n            }\n        }\n    }\n}",
+												"variables": "{\r\n    \"input\": [{\r\n        \"name\": \"SampleRevocPolicy\",\r\n        \"defaultPolicy\": true,\r\n        \"defaultSuccess\": false,\r\n        \"continueOnServerUnavailable\": false,\r\n        \"revocationCheckPolicyItems\": [{\r\n            \"type\": \"CRL_FROM_URL\",\r\n            \"url\": \"https://test.com\",\r\n            \"allowIssuerSignature\": true,\r\n            \"nonceUsage\": \"EXCLUDE_NONCE\"\r\n        },\r\n        {\r\n            \"type\": \"CRL_FROM_CERTIFICATE\",\r\n            \"url\": \".*\",\r\n            \"allowIssuerSignature\": false,\r\n            \"nonceUsage\": \"INCLUDE_NONCE\"\r\n        },\r\n        {\r\n          \"type\": \"OCSP_FROM_URL\",\r\n          \"url\": \"https://ocspfromurl.com/\",\r\n          \"allowIssuerSignature\": true,\r\n          \"nonceUsage\": \"USE_NONCE_CONDITIONALLY\"\r\n        }]\r\n    }]\r\n}"
+											}
+										},
+										"url": {
+											"raw": "{{target_gw}}",
+											"host": [
+												"{{target_gw}}"
+											]
+										},
+										"description": "# List all Web Api Services\n\nList all of the services\n\nInput: no input"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Revocation policies",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation deleteRevocationCheckPolicies($input: [String!]!) {\n  deleteRevocationCheckPolicies(names: $input) {\n        detailedStatus { status description } \n\t    revocationCheckPolicies {\n            goid\n            name\n            defaultPolicy\n            defaultSuccess\n            continueOnServerUnavailable\n            checksum         \n            revocationCheckPolicyItems  {\n                ... on RevocationCheckPolicyItem {                    \n                    type\n                    url\n                    allowIssuerSignature\n                    nonceUsage\n                    signerThumbprintSha1s\n                    url\n                }\n            }    \n        }\n    }\n}",
+												"variables": "{\n    \"input\": [\n        \"SampleRevocPolicy\"\n    ]\n}"
+											}
+										},
+										"url": {
+											"raw": "{{target_gw}}",
+											"host": [
+												"{{target_gw}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Query",
+							"item": [
+								{
+									"name": "All Revocation Check Policies",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query revocationPolicies {\n    revocationCheckPolicies {\n        goid\n        name\n        defaultPolicy\n        defaultSuccess\n        continueOnServerUnavailable\n        checksum         \n        revocationCheckPolicyItems  {\n            ... on RevocationCheckPolicyItem {                \n                type\n                url\n                allowIssuerSignature\n                nonceUsage\n                signerThumbprintSha1s\n            }\n        }    \n    }\n}",
+												"variables": ""
+											}
+										},
+										"url": {
+											"raw": "{{source_gw}}",
+											"host": [
+												"{{source_gw}}"
+											]
+										},
+										"description": "# List all Web Api Services\n\nList all of the services\n\nInput: no input"
+									},
+									"response": []
+								},
+								{
+									"name": "Revocation Policies By Name",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query revocationCheckPolicyByName($name: String!) {\n  revocationCheckPolicyByName(name: $name) {\n        goid\n        name\n        defaultPolicy\n        defaultSuccess\n        continueOnServerUnavailable\n        checksum         \n        revocationCheckPolicyItems  {\n            ... on RevocationCheckPolicyItem {\n                type\n                url\n                allowIssuerSignature\n                nonceUsage\n                signerThumbprintSha1s\n            }\n        }    \n    }\n}",
+												"variables": "{\r\n  \"name\": \"SampleRevocPolicy\"\r\n}"
+											}
+										},
+										"url": {
+											"raw": "{{source_gw}}",
+											"host": [
+												"{{source_gw}}"
+											]
+										},
+										"description": "# Cluster Properties\n\nGet all the cluster properties\n\nInput: none"
 									},
 									"response": []
 								}
@@ -3110,6 +3453,90 @@
 											]
 										},
 										"description": "# Get key by alias\n\nGet key by alias.\n\nThis is an entry in the gateway keystore. These entries combine a private key and associated certificate and are used for example by listener ports.\n\nThese represent the gateway's own certificates as opposed to the Certificate type which represent a cert trusted by the gateway.\n\nBase64 encoded PKCS12 keystore containing the private key and cert chain for the key entry.  \nThe keystore is password-protected using the transaction encryption passphrase provided."
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Service Resolution Config",
+					"item": [
+						{
+							"name": "Mutation",
+							"item": [
+								{
+									"name": "Set Service Resolution Config",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation setServiceResolutionConfigs ($input:[ServiceResolutionConfigInput!]!) {\n    setServiceResolutionConfigs (input: $input) {\n        detailedStatus {\n            status\n            description\n        }\n        serviceResolutionConfigs {\n            goid\n            resolutionPathRequired\n            resolutionPathCaseSensitive\n            useL7OriginalUrl\n            useServiceGoid\n            useSoapAction\n            useSoapBodyChildNamespace\n            checksum\n        }\n    }\n}",
+												"variables": "{\r\n  \"input\": [{\r\n      \"resolutionPathRequired\" : true,\r\n      \"resolutionPathCaseSensitive\" : true,\r\n      \"useL7OriginalUrl\" : true,\r\n      \"useServiceGoid\" : true,\r\n      \"useSoapAction\" : false,\r\n      \"useSoapBodyChildNamespace\" : true\r\n  }]\r\n}"
+											}
+										},
+										"url": {
+											"raw": "{{target_gw}}",
+											"host": [
+												"{{target_gw}}"
+											]
+										},
+										"description": "# Sets the Service Resolution Configuration"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Query",
+							"item": [
+								{
+									"name": "Get Service Resolution Configs",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query serviceResolutionConfigs {\n    serviceResolutionConfigs {\n        goid\n        resolutionPathRequired\n        resolutionPathCaseSensitive\n        useL7OriginalUrl\n        useServiceGoid\n        useSoapAction\n        useSoapBodyChildNamespace\n        checksum\n    }\n}",
+												"variables": ""
+											}
+										},
+										"url": {
+											"raw": "{{source_gw}}",
+											"host": [
+												"{{source_gw}}"
+											]
+										},
+										"description": "# Retrieves Service Resolution Configuration details\n\nInput: no input"
 									},
 									"response": []
 								}
@@ -3743,7 +4170,7 @@
 				"type": "text/javascript",
 				"exec": [
 					"const passphrase = pm.collectionVariables.get(\"passphrase\");",
-					"pm.request.headers.add({key: \"passphrase\", value: passphrase });"
+					"pm.request.headers.add({key: \"l7-passphrase\", value: passphrase });"
 				]
 			}
 		},
