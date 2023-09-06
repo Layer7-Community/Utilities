@@ -70,7 +70,7 @@ module.exports = {
             path: url.pathname || '/graphman',
             protocol: url.protocol,
             method: 'POST',
-            rejectUnauthorized: gateway.rejectUnauthorized,
+            rejectUnauthorized: (gateway.rejectUnauthorized || true).toString() === 'true',
             headers: headers,
             body: body || {}
         };
