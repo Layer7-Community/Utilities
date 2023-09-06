@@ -64,13 +64,17 @@ module.exports = {
             headers['l7-passphrase'] = gateway.passphrase;
         }
 
+        if (gateway.rejectUnauthorized === undefined) {
+            gateway.rejectUnauthorized = true;
+        }
+
         const req = {
             host: url.hostname,
             port: url.port || 443,
             path: url.pathname || '/graphman',
             protocol: url.protocol,
             method: 'POST',
-            rejectUnauthorized: (gateway.rejectUnauthorized || true).toString() === 'true',
+            rejectUnauthorized: gateway.rejectUnauthorized.toString() === 'true',
             headers: headers,
             body: body || {}
         };
