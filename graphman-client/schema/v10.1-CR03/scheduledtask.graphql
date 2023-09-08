@@ -115,7 +115,7 @@ input BackgroundTaskPolicyInput {
   folderPath: String!
   "The background task policy"
   policy: PolicyInput!
-  soap: Boolean = false
+  soap: Boolean
   "The configuration checksum"
   checksum: String
 }

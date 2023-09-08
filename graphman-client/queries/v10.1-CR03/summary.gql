@@ -90,9 +90,6 @@ query summary {
     smConfigs {
         {{SMConfig:summary}}
     }
-    revocationCheckPolicies {
-        {{RevocationCheckPolicy}}
-    }
     trustedCerts {
         {{Certificate:summary}}
     }
