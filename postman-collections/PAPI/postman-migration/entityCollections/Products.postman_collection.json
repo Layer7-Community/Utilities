@@ -1,0 +1,746 @@
+{
+	"info": {
+		"_postman_id": "1fed1ed1-5e60-428f-8f22-20bf563c0af3",
+		"name": "Products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21138964"
+	},
+	"item": [
+		{
+			"name": "Get Source Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"var products = pm.variables.get(\"products\");",
+							"var productUuids = pm.variables.get(\"productUuids\");",
+							"",
+							"if (products == null) {",
+							"    products = [];",
+							"}",
+							"",
+							"if (productUuids == null) {",
+							"    productUuids = [];",
+							"}",
+							"",
+							"if (response != null) {",
+							"    products = products.concat(response.results);",
+							"    pm.variables.set(\"products\", products);",
+							"",
+							"    productUuids = productUuids.concat(response.results.map(response => response.uuid));",
+							"    pm.variables.set(\"productUuids\", productUuids);",
+							"}",
+							"",
+							"if (response != null && response.currentPage + 1 < response.totalPages) {",
+							"    postman.setNextRequest(\"Get Source Products\");",
+							"} else {",
+							"    pm.variables.set(\"tempProductUuids\", productUuids);",
+							"    postman.setNextRequest(\"Post All Products\");",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var page = pm.variables.get(\"productPage\");",
+							"",
+							"if (page == null) {",
+							"    pm.variables.set(\"productPage\", 0);",
+							"} else {",
+							"    pm.variables.set(\"productPage\", page + 1);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{sourceApimTenantUrl}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/products?page={{productPage}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"0.1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "$format",
+							"value": "json",
+							"disabled": true
+						},
+						{
+							"key": "$inlinecount",
+							"value": "allpages",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "{{productPage}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post All Products",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const products = pm.variables.get(\"products\");",
+							"if (products == null) {",
+							"    throw new Error(\"products value is null\");",
+							"}",
+							"",
+							"var product = products.shift();",
+							"pm.variables.set(\"product\", JSON.stringify(product));",
+							"if (Array.isArray(products) && products.length > 0){",
+							"    postman.setNextRequest(\"Post All Products\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{destTenantUrl}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{product}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/products",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"0.1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product Tiers",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let productUuids = pm.variables.get(\"tempProductUuids\");",
+							"",
+							"if (productUuids == null) {",
+							"    throw new Error(\"productUuids value is null\");",
+							"}",
+							"",
+							"let productUuid = productUuids.shift();",
+							"",
+							"pm.variables.set(\"productUuid\", productUuid);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"var productTiers = [];",
+							"",
+							"let productUuids = pm.variables.get(\"tempProductUuids\");",
+							"",
+							"if (Array.isArray(response) && response.length > 0) {",
+							"    for (let i = 0; i < response.length; i++) {",
+							"        let productTier = response[i];",
+							"        productTiers.push({",
+							"            tierUuid: productTier.tierUuid,",
+							"            rateQuotaUuid: productTier.rateQuota.uuid,",
+							"            isDefaultTier: productTier.isDefaultTier",
+							"        })",
+							"    }",
+							"    pm.variables.set(\"productTiers\", productTiers);",
+							"    postman.setNextRequest(\"Patch Product Tiers\");",
+							"} else if (Array.isArray(productUuids) && productUuids.length > 0) {",
+							"    postman.setNextRequest(\"Get Product Tiers\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/access/tiers-product/{{productUuid}}?productTierAccessStatus=ASSIGNED",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"0.1",
+						"access",
+						"tiers-product",
+						"{{productUuid}}"
+					],
+					"query": [
+						{
+							"key": "productTierAccessStatus",
+							"value": "ASSIGNED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Product Tiers",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let productTiers = pm.variables.get(\"productTiers\");",
+							"",
+							"if (productTiers != null) {",
+							"",
+							"    pm.variables.set(\"productTiersJson\", JSON.stringify(productTiers));",
+							"",
+							"    let productUuids = pm.variables.get(\"tempProductUuids\");",
+							"",
+							"    if (Array.isArray(productUuids) && productUuids.length > 0) {",
+							"        postman.setNextRequest(\"Get Product Tiers\");",
+							"    } else {",
+							"        let productUuids = pm.variables.get(\"productUuids\");",
+							"        pm.variables.set(\"tempProductUuids\", productUuids);",
+							"    }",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{destTenantUrl}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{productTiersJson}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/products/{{productUuid}}/tiers",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"0.1",
+						"products",
+						"{{productUuid}}",
+						"tiers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product Apis",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var page = pm.variables.get(\"productApiPage\");",
+							"",
+							"if (page == null) {",
+							"    page = 0;",
+							"    pm.variables.set(\"productApiPage\", page);",
+							"} else {",
+							"    page += 1;",
+							"    pm.variables.set(\"productApiPage\", page);",
+							"}",
+							"",
+							"if (page == 0) {",
+							"    let productUuids = pm.variables.get(\"tempProductUuids\");",
+							"",
+							"    if (productUuids == null) {",
+							"        throw new Error(\"productUuids value is null\");",
+							"    }",
+							"",
+							"    let productUuid = productUuids.shift();",
+							"",
+							"    pm.variables.set(\"productUuid\", productUuid);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"let productApis = pm.variables.get(\"productApis\");",
+							"",
+							"if (productApis == null) {",
+							"    productApis = [];",
+							"}",
+							"",
+							"let tempProductUuids = pm.variables.get(\"tempProductUuids\");",
+							"",
+							"if (response != null && response.results.length > 0) {",
+							"    for (let i = 0; i < response.results.length; i++) {",
+							"        let productApi = response.results[i];",
+							"        productApis.push({",
+							"            apiUuid: productApi.apiUuid",
+							"        });",
+							"    }",
+							"    pm.variables.set(\"productApis\", productApis);",
+							"",
+							"    if (response.currentPage + 1 < response.totalPages) {",
+							"        postman.setNextRequest(\"Get Product Apis\");",
+							"    } else {",
+							"        pm.variables.unset(\"productApiPage\");",
+							"        postman.setNextRequest(\"Patch Product Apis\");",
+							"    }",
+							"} else if (Array.isArray(productUuids) && productUuids.length > 0) {",
+							"    pm.variables.unset(\"productApiPage\");",
+							"    postman.setNextRequest(\"Get Product Apis\");",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/access/apis-product/{{productUuid}}?productApiAccessStatus=ASSIGNED&page={{productApiPage}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"0.1",
+						"access",
+						"apis-product",
+						"{{productUuid}}"
+					],
+					"query": [
+						{
+							"key": "productApiAccessStatus",
+							"value": "ASSIGNED"
+						},
+						{
+							"key": "page",
+							"value": "{{productApiPage}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Product Apis",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let productApis = pm.variables.get(\"productApis\");",
+							"",
+							"if (productApis != null) {",
+							"",
+							"    pm.variables.set(\"productApisJson\", JSON.stringify(productApis));",
+							"",
+							"    let productUuids = pm.variables.get(\"tempProductUuids\");",
+							"",
+							"    if (Array.isArray(productUuids) && productUuids.length > 0) {",
+							"        pm.variables.unset(\"productApis\");",
+							"        postman.setNextRequest(\"Get Product Apis\");",
+							"    } else {",
+							"        let productUuids = pm.variables.get(\"productUuids\");",
+							"        pm.variables.set(\"tempProductUuids\", productUuids);",
+							"    }",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{destTenantUrl}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{productApisJson}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/products/{{productUuid}}/apis",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"0.1",
+						"products",
+						"{{productUuid}}",
+						"apis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product Organizations",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var page = pm.variables.get(\"productOrgPage\");",
+							"",
+							"if (page == null) {",
+							"    page = 0;",
+							"    pm.variables.set(\"productOrgPage\", page);",
+							"} else {",
+							"    page += 1;",
+							"    pm.variables.set(\"productOrgPage\", page);",
+							"}",
+							"",
+							"if (page == 0) {",
+							"    let productUuids = pm.variables.get(\"tempProductUuids\");",
+							"",
+							"    if (productUuids == null) {",
+							"        throw new Error(\"productUuids value is null\");",
+							"    }",
+							"",
+							"    let productUuid = productUuids.shift();",
+							"",
+							"    pm.variables.set(\"productUuid\", productUuid);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"let productOrgs = pm.variables.get(\"productOrgs\");",
+							"",
+							"if (productOrgs == null) {",
+							"    productOrgs = [];",
+							"}",
+							"",
+							"let tempProductUuids = pm.variables.get(\"tempProductUuids\");",
+							"",
+							"if (response != null && response.results.length > 0) {",
+							"    for (let i = 0; i < response.results.length; i++) {",
+							"        let productOrg = response.results[i];",
+							"        productOrgs.push({",
+							"            organizationUuid: productOrg.organizationUuid,",
+							"            tierUuid: productOrg.tierUuid",
+							"        });",
+							"    }",
+							"    pm.variables.set(\"productOrgs\", productOrgs);",
+							"",
+							"    if (response.currentPage + 1 < response.totalPages) {",
+							"        postman.setNextRequest(\"Get Product Organizations\");",
+							"    } else {",
+							"        pm.variables.unset(\"productOrgPage\");",
+							"        postman.setNextRequest(\"Patch Product Organizations\");",
+							"    }",
+							"} else if (Array.isArray(productUuids) && productUuids.length > 0) {",
+							"    pm.variables.unset(\"productOrgPage\");",
+							"    postman.setNextRequest(\"Get Product Organizations\");",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/access/organizations-product/{{productUuid}}?productOrgAccessStatus=ASSIGNED&page={{productOrgPage}}",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"api-management",
+						"0.1",
+						"access",
+						"organizations-product",
+						"{{productUuid}}"
+					],
+					"query": [
+						{
+							"key": "productOrgAccessStatus",
+							"value": "ASSIGNED"
+						},
+						{
+							"key": "page",
+							"value": "{{productOrgPage}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Product Organizations",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let productOrgs = pm.variables.get(\"productOrgs\");",
+							"",
+							"if (productOrgs != null) {",
+							"",
+							"    pm.variables.set(\"productOrgsJson\", JSON.stringify(productOrgs));",
+							"",
+							"    let productUuids = pm.variables.get(\"tempProductUuids\");",
+							"",
+							"    if (Array.isArray(productUuids) && productUuids.length > 0) {",
+							"        pm.variables.unset(\"productOrgs\");",
+							"        postman.setNextRequest(\"Get Product Organizations\");",
+							"    }",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{destToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{destTenantUrl}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{productOrgsJson}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/products/{{productUuid}}/organizations",
+					"protocol": "https",
+					"host": [
+						"{{destSsgUrl}}"
+					],
+					"port": "{{destSsgPort}}",
+					"path": [
+						"{{destTenantId}}",
+						"api-management",
+						"0.1",
+						"products",
+						"{{productUuid}}",
+						"organizations"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

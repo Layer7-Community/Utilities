@@ -477,7 +477,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"postman.setNextRequest(\"Get custom fields of API\");"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -486,8 +486,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"var policyEntities = pm.variables.get(\"policyEntities\");",
-							"console.log(\"policies=\" + policyEntities)"
+							"var policyEntities = pm.variables.get(\"policyEntities\");"
 						],
 						"type": "text/javascript"
 					}
@@ -563,12 +562,15 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"result = pm.response.json();",
-							"",
-							"pm.variables.set(\"customFields\", JSON.stringify(result));",
-							"console.log(result)",
-							"",
-							"postman.setNextRequest(\"Save an API's custom fields\");"
+							"let apiCustomFields = pm.response.json();\r",
+							"\r",
+							"if (apiCustomFields.length > 0){\r",
+							"    pm.variables.set(\"apiCustomFields\", JSON.stringify(apiCustomFields));\r",
+							"    postman.setNextRequest(\"Put custom-fields\");\r",
+							"} else {\r",
+							"    postman.setNextRequest(\"Get Api Organizations\");\r",
+							"}\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -607,7 +609,7 @@
 			"response": []
 		},
 		{
-			"name": "Save an API's custom fields",
+			"name": "Put custom-fields",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -622,7 +624,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"postman.setNextRequest(\"Get all Organization and Rate Quota(Api per Org) associated with an API\");"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -643,7 +645,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{{customFields}}",
+					"raw": "{{apiCustomFields}}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -726,7 +728,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"postman.setNextRequest(\"publish an API\");"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -774,7 +776,7 @@
 			"response": []
 		},
 		{
-			"name": "publish an API",
+			"name": "Publish an API",
 			"event": [
 				{
 					"listen": "test",
@@ -784,9 +786,16 @@
 							"",
 							"if (apisApiUuids.length > 0) {",
 							"    postman.setNextRequest(\"Get Api Detail From Source\");",
-							"} else {",
-							"    postman.setNextRequest(\"Get All API Tags\");",
 							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -819,332 +828,28 @@
 						"apis",
 						"{{apisApiUuid}}",
 						"publish"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All API Tags",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let apiTags = pm.response.json().results;",
-							"",
-							"pm.collectionVariables.set(\"apiTags\", apiTags);",
-							"pm.collectionVariables.set(\"apiTagsBody\", JSON.stringify(apiTags));"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{sourceToken}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/tags",
-					"protocol": "https",
-					"host": [
-						"{{sourceSsgUrl}}"
 					],
-					"port": "{{sourceSsgPort}}",
-					"path": [
-						"{{sourceTenantId}}",
-						"api-management",
-						"1.0",
-						"tags"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST API Tags",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"console.log(pm.collectionVariables.get(\"apiTags\")[0]);"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let apiTagsCreated = pm.response.json();",
-							"pm.collectionVariables.set(\"apiTagsCreated\",apiTagsCreated);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"query": [
 						{
-							"key": "token",
-							"value": "{{destToken}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{{apiTagsBody}}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/tags",
-					"protocol": "https",
-					"host": [
-						"{{destSsgUrl}}"
-					],
-					"port": "{{destSsgPort}}",
-					"path": [
-						"{{destTenantId}}",
-						"api-management",
-						"1.0",
-						"tags"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get all apis",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let allApis = pm.response.json().results;",
-							"",
-							"if (allApis && allApis.length > 0) {",
-							"    pm.collectionVariables.set(\"allApis\",allApis);  ",
-							"} else {",
-							"    postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
-							"}"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+							"key": "size",
+							"value": "5",
+							"disabled": true
+						},
 						{
-							"key": "token",
-							"value": "{{sourceToken}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis",
-					"protocol": "https",
-					"host": [
-						"{{sourceSsgUrl}}"
-					],
-					"port": "{{sourceSsgPort}}",
-					"path": [
-						"{{sourceTenantId}}",
-						"api-management",
-						"1.0",
-						"apis"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get all tags associated with an API",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"",
-							"let allApis = pm.collectionVariables.get(\"allApis\");",
-							"let currentApiUuid = allApis.shift().uuid;",
-							"pm.collectionVariables.set(\"currentApiUuid\",currentApiUuid);",
-							"pm.collectionVariables.set(\"allApis\",allApis);",
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let associatedTags = pm.response.json();",
-							"let allApis = pm.collectionVariables.get(\"allApis\");",
-							"",
-							"let apiTagsCreated = pm.collectionVariables.get(\"apiTagsCreated\");",
-							"let apiTags = pm.collectionVariables.get(\"apiTags\");",
-							"const apiTagMap = new Map();",
-							"for (let i = 0; i <apiTagsCreated.length; i++) {",
-							"    apiTagMap.set(apiTags[i].uuid,apiTagsCreated[i]);",
-							"}",
-							"",
-							"if (associatedTags && associatedTags.length > 0) {",
-							"    for (let i = 0; i < associatedTags.length; i++) {",
-							"        associatedTags[i]=apiTagMap.get(associatedTags[i].uuid).name;",
-							"    }",
-							"    console.log(associatedTags);",
-							"    pm.collectionVariables.set(\"associatedTags\",JSON.stringify(associatedTags));",
-							"} else {",
-							"    if (allApis && allApis.length > 0) {",
-							"        postman.setNextRequest(\"Get all tags associated with an API\");",
-							"    } else {",
-							"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
-							"    }",
-							"}"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+							"key": "sort",
+							"value": "name,ASC",
+							"disabled": true
+						},
 						{
-							"key": "token",
-							"value": "{{sourceToken}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis/{{currentApiUuid}}/tags",
-					"protocol": "https",
-					"host": [
-						"{{sourceSsgUrl}}"
-					],
-					"port": "{{sourceSsgPort}}",
-					"path": [
-						"{{sourceTenantId}}",
-						"api-management",
-						"1.0",
-						"apis",
-						"{{currentApiUuid}}",
-						"tags"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Associate Tag entities to API",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"",
-							"                        "
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let allApis = pm.collectionVariables.get(\"allApis\");",
-							"",
-							"if (allApis && allApis.length > 0) {",
-							"        postman.setNextRequest(\"Get all tags associated with an API\");",
-							"    } else {",
-							"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
-							"    }"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+							"key": "name",
+							"value": "pssg",
+							"disabled": true
+						},
 						{
-							"key": "token",
-							"value": "{{destToken}}",
-							"type": "string"
+							"key": "subjectDn",
+							"value": "google",
+							"disabled": true
 						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{{associatedTags}}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{currentApiUuid}}/tags",
-					"protocol": "https",
-					"host": [
-						"{{destSsgUrl}}"
-					],
-					"port": "{{destSsgPort}}",
-					"path": [
-						"{{destTenantId}}",
-						"api-management",
-						"1.0",
-						"apis",
-						"{{currentApiUuid}}",
-						"tags"
 					]
 				}
 			},

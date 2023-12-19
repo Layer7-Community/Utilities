@@ -177,6 +177,7 @@
 							"        \"EXT_USER_DASHBOARD_URI\",",
 							"        \"EXT_USER_MY_PROFILE_URI\",",
 							"        \"FEATURE_FLAG_API_PLANS\",",
+							"        \"FEATURE_FLAG_PRODUCT\",",
 							"        \"FEATURE_FLAG_ENABLE_DEPRECATED_API\",",
 							"        \"HOME_URI\",",
 							"        \"LOGIN_URI\",",
@@ -222,6 +223,7 @@
 							"",
 							"",
 							"let currentSetting = settings.shift();",
+							"",
 							"pm.collectionVariables.set(\"setting\", currentSetting);",
 							"pm.collectionVariables.set(\"settings\", settings);",
 							""
@@ -233,10 +235,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
 							"let responseJson = pm.response.json();",
 							"let settingValue = responseJson.Value;",
 							"",
@@ -352,7 +350,11 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							""
+							"var destSettingUuid = pm.collectionVariables.get('destSettingUuid');",
+							"",
+							"if (destSettingUuid === \"00000000-0000-0000-0000-000000000000\") {",
+							"   pm.collectionVariables.set('destSettingUuid', \"{{GENERATE_UUID}}\");",
+							"}"
 						],
 						"type": "text/javascript"
 					}

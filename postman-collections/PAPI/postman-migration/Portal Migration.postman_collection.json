@@ -153,6 +153,275 @@
 			]
 		},
 		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Initialize",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"destSettingUuid\", null);",
+									"pm.collectionVariables.set(\"destSettingValue\", null);",
+									"pm.collectionVariables.set(\"sourceSettingValue\", null);",
+									"pm.collectionVariables.set(\"setting\", null);",
+									"pm.collectionVariables.set(",
+									"    \"settings\", ",
+									"    settings = [",
+									"        \"ACTIVATE_MSSO\",",
+									"        \"API_DESCRIPTOR_HOST_OVERRIDE\", ",
+									"        \"APIM_PLATFORM\",",
+									"        \"APP_EDIT_WF_EXCLUDE_PROPS\",",
+									"        \"APPLICATION_EMAIL_NOTIFICATION_REQUEST_WORKFLOW\",",
+									"        \"APPLICATION_REQUEST_WORKFLOW\",",
+									"        \"DELETE_APPLICATION_REQUEST_WORKFLOW\",",
+									"        \"DESKTOP_CSS_URI\",",
+									"        \"EDIT_APPLICATION_REQUEST_WORKFLOW\",",
+									"        \"EXT_USER_DASHBOARD_URI\",",
+									"        \"EXT_USER_MY_PROFILE_URI\",",
+									"        \"FEATURE_FLAG_API_PLANS\",",
+									"        \"FEATURE_FLAG_PRODUCT\",",
+									"        \"FEATURE_FLAG_ENABLE_DEPRECATED_API\",",
+									"        \"HOME_URI\",",
+									"        \"LOGIN_URI\",",
+									"        \"LOGOUT_DEFAULT_TARGET_URI\",",
+									"        \"MOBILE_CSS_URI\",",
+									"        \"REGISTRATION_REQUEST_WORKFLOW\",",
+									"        \"REGISTRATION_STATUS\",",
+									"        \"REGISTRATION_TERMS_OF_USE\",",
+									"        \"TENANT_I18N_URI\"",
+									"    ]",
+									");     "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://postman-echo.com/get",
+							"protocol": "http",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Setting From Source",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let settings = pm.collectionVariables.get(\"settings\");",
+									"console.log(settings);",
+									"",
+									"",
+									"let currentSetting = settings.shift();",
+									"",
+									"pm.collectionVariables.set(\"setting\", currentSetting);",
+									"pm.collectionVariables.set(\"settings\", settings);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseJson = pm.response.json();",
+									"let settingValue = responseJson.Value;",
+									"",
+									"pm.collectionVariables.set('sourceSettingValue', JSON.stringify(settingValue));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/Settings('{{setting}}')",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"Settings('{{setting}}')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Setting UUID From Destination",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseJson = pm.response.json();",
+									"let destSettingUuid = responseJson.Uuid;",
+									"let destSettingValue = JSON.stringify(responseJson.Value);",
+									"",
+									"pm.collectionVariables.set('destSettingUuid', destSettingUuid);",
+									"pm.collectionVariables.set('destSettingValue', destSettingValue);",
+									"",
+									"let sourceSettingValue = pm.collectionVariables.get('sourceSettingValue');",
+									"let settingName = pm.collectionVariables.get('setting');",
+									"",
+									"// For FEATURE_FLAG_API_PLANS setting:",
+									"//      This setting is one way only, which means you can't turn it off, and if it's already on you can't overwrite it with on again because it will throw an error.",
+									"if (settingName == \"FEATURE_FLAG_API_PLANS\" && (sourceSettingValue == destSettingValue || sourceSettingValue == \"false\")) {",
+									"    const settings = pm.collectionVariables.get(\"settings\");",
+									"",
+									"    if (settings && settings.length > 0) {",
+									"        postman.setNextRequest(\"Get Setting From Source\");",
+									"    } else {",
+									"        postman.setNextRequest(null);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/Settings('{{setting}}')",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"Settings('{{setting}}')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Destination Setting",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var destSettingUuid = pm.collectionVariables.get('destSettingUuid');",
+									"",
+									"if (destSettingUuid === \"00000000-0000-0000-0000-000000000000\") {",
+									"   pm.collectionVariables.set('destSettingUuid', \"{{GENERATE_UUID}}\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const setting = pm.collectionVariables.get(\"setting\");",
+									"const settings = pm.collectionVariables.get(\"settings\");",
+									"",
+									"if (settings && settings.length > 0) {",
+									"    postman.setNextRequest(\"Get Setting From Source\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Uuid\": \"{{destSettingUuid}}\",\n    \"Name\": \"{{setting}}\",\n    \"Value\": {{sourceSettingValue}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/Settings('{{setting}}')",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"Settings('{{setting}}')"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Rate Quota",
 			"item": [
 				{
@@ -163,6 +432,10 @@
 							"script": {
 								"exec": [
 									"const response = pm.response.json();",
+									"",
+									"if (response == null) {",
+									"    response = [];",
+									"}",
 									"",
 									"response.results.forEach((rateQuota) => {",
 									"    if (rateQuota.name == \"Bronze Account Plan\") {",
@@ -185,6 +458,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -204,6 +480,10 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/rate-quotas?assignmentLevel=ORGANIZATION&size=1000",
 							"protocol": "https",
@@ -247,7 +527,6 @@
 									"",
 									"if (response != null) {",
 									"    rateQuotas = rateQuotas.concat(response.results);",
-									"    console.log(rateQuotas);",
 									"    pm.variables.set(\"rateQuotas\", rateQuotas);",
 									"}",
 									"",
@@ -1262,16 +1541,14 @@
 								"exec": [
 									"let proxyOrgs = pm.variables.get(\"proxyOrgs\");",
 									"",
-									"if (proxyOrgs == null) {",
-									"    throw new Error(\"proxyOrgs value is null\");",
-									"}",
+									"if (proxyOrgs != null) {",
+									"    pm.variables.set(\"proxyOrgsJson\", JSON.stringify(proxyOrgs));",
 									"",
-									"pm.variables.set(\"proxyOrgsJson\", JSON.stringify(proxyOrgs));",
+									"    let proxyUuids = pm.variables.get(\"proxyUuids\");",
 									"",
-									"let proxyUuids = pm.variables.get(\"proxyUuids\");",
-									"",
-									"if (Array.isArray(proxyUuids) && proxyUuids.length > 0) {",
-									"    postman.setNextRequest(\"Get Proxy Orgs\");",
+									"    if (Array.isArray(proxyUuids) && proxyUuids.length > 0) {",
+									"        postman.setNextRequest(\"Get Proxy Orgs\");",
+									"    }",
 									"}",
 									""
 								],
@@ -1561,797 +1838,6 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Settings",
-			"item": [
-				{
-					"name": "Initialize",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.collectionVariables.set(\"destSettingUuid\", null);",
-									"pm.collectionVariables.set(\"destSettingValue\", null);",
-									"pm.collectionVariables.set(\"sourceSettingValue\", null);",
-									"pm.collectionVariables.set(\"setting\", null);",
-									"pm.collectionVariables.set(",
-									"    \"settings\", ",
-									"    settings = [",
-									"        \"ACTIVATE_MSSO\",",
-									"        \"API_DESCRIPTOR_HOST_OVERRIDE\", ",
-									"        \"APIM_PLATFORM\",",
-									"        \"APP_EDIT_WF_EXCLUDE_PROPS\",",
-									"        \"APPLICATION_EMAIL_NOTIFICATION_REQUEST_WORKFLOW\",",
-									"        \"APPLICATION_REQUEST_WORKFLOW\",",
-									"        \"DELETE_APPLICATION_REQUEST_WORKFLOW\",",
-									"        \"DESKTOP_CSS_URI\",",
-									"        \"EDIT_APPLICATION_REQUEST_WORKFLOW\",",
-									"        \"EXT_USER_DASHBOARD_URI\",",
-									"        \"EXT_USER_MY_PROFILE_URI\",",
-									"        \"FEATURE_FLAG_API_PLANS\",",
-									"        \"FEATURE_FLAG_ENABLE_DEPRECATED_API\",",
-									"        \"HOME_URI\",",
-									"        \"LOGIN_URI\",",
-									"        \"LOGOUT_DEFAULT_TARGET_URI\",",
-									"        \"MOBILE_CSS_URI\",",
-									"        \"REGISTRATION_REQUEST_WORKFLOW\",",
-									"        \"REGISTRATION_STATUS\",",
-									"        \"REGISTRATION_TERMS_OF_USE\",",
-									"        \"TENANT_I18N_URI\"",
-									"    ]",
-									");     "
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://postman-echo.com/get",
-							"protocol": "http",
-							"host": [
-								"postman-echo",
-								"com"
-							],
-							"path": [
-								"get"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Setting From Source",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"let settings = pm.collectionVariables.get(\"settings\");",
-									"console.log(settings);",
-									"",
-									"",
-									"let currentSetting = settings.shift();",
-									"pm.collectionVariables.set(\"setting\", currentSetting);",
-									"pm.collectionVariables.set(\"settings\", settings);",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"let responseJson = pm.response.json();",
-									"let settingValue = responseJson.Value;",
-									"",
-									"pm.collectionVariables.set('sourceSettingValue', JSON.stringify(settingValue));",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{sourceToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/Settings('{{setting}}')",
-							"protocol": "https",
-							"host": [
-								"{{sourceSsgUrl}}"
-							],
-							"port": "{{sourceSsgPort}}",
-							"path": [
-								"{{sourceTenantId}}",
-								"Settings('{{setting}}')"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Setting UUID From Destination",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"let responseJson = pm.response.json();",
-									"let destSettingUuid = responseJson.Uuid;",
-									"let destSettingValue = JSON.stringify(responseJson.Value);",
-									"",
-									"pm.collectionVariables.set('destSettingUuid', destSettingUuid);",
-									"pm.collectionVariables.set('destSettingValue', destSettingValue);",
-									"",
-									"let sourceSettingValue = pm.collectionVariables.get('sourceSettingValue');",
-									"let settingName = pm.collectionVariables.get('setting');",
-									"",
-									"// For FEATURE_FLAG_API_PLANS setting:",
-									"//      This setting is one way only, which means you can't turn it off, and if it's already on you can't overwrite it with on again because it will throw an error.",
-									"if (settingName == \"FEATURE_FLAG_API_PLANS\" && (sourceSettingValue == destSettingValue || sourceSettingValue == \"false\")) {",
-									"    const settings = pm.collectionVariables.get(\"settings\");",
-									"",
-									"    if (settings && settings.length > 0) {",
-									"        postman.setNextRequest(\"Get Setting From Source\");",
-									"    } else {",
-									"        postman.setNextRequest(null);",
-									"    }",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{destToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/Settings('{{setting}}')",
-							"protocol": "https",
-							"host": [
-								"{{destSsgUrl}}"
-							],
-							"port": "{{destSsgPort}}",
-							"path": [
-								"{{destTenantId}}",
-								"Settings('{{setting}}')"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Destination Setting",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"const setting = pm.collectionVariables.get(\"setting\");",
-									"const settings = pm.collectionVariables.get(\"settings\");",
-									"",
-									"if (settings && settings.length > 0) {",
-									"    postman.setNextRequest(\"Get Setting From Source\");",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{destToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"Uuid\": \"{{destSettingUuid}}\",\n    \"Name\": \"{{setting}}\",\n    \"Value\": {{sourceSettingValue}}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/Settings('{{setting}}')",
-							"protocol": "https",
-							"host": [
-								"{{destSsgUrl}}"
-							],
-							"port": "{{destSsgPort}}",
-							"path": [
-								"{{destTenantId}}",
-								"Settings('{{setting}}')"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Tags",
-			"item": [
-				{
-					"name": "migrate API Tags",
-					"item": [
-						{
-							"name": "Get All API Tags",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.request.headers.add({\"key\":\"Authorization\",",
-											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"let apiTags = pm.response.json().results;",
-											"",
-											"pm.collectionVariables.set(\"apiTags\", apiTags);",
-											"pm.collectionVariables.set(\"apiTagsBody\", JSON.stringify(apiTags));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/tags",
-									"protocol": "https",
-									"host": [
-										"{{sourceSsgUrl}}"
-									],
-									"port": "{{sourceSsgPort}}",
-									"path": [
-										"{{sourceTenantId}}",
-										"api-management",
-										"1.0",
-										"tags"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "POST API Tags",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.request.headers.add({\"key\":\"Authorization\",",
-											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});",
-											"console.log(pm.collectionVariables.get(\"apiTags\")[0]);"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"let apiTagsCreated = pm.response.json();",
-											"let apiTags = pm.collectionVariables.get(\"apiTags\");",
-											"pm.collectionVariables.set(\"apiTagsCreated\",apiTagsCreated);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{{apiTagsBody}}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/tags",
-									"protocol": "https",
-									"host": [
-										"{{destSsgUrl}}"
-									],
-									"port": "{{destSsgPort}}",
-									"path": [
-										"{{destTenantId}}",
-										"api-management",
-										"1.0",
-										"tags"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get all apis",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.request.headers.add({\"key\":\"Authorization\",",
-											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"let allApis = pm.response.json().results;",
-											"",
-											"if (allApis && allApis.length > 0) {",
-											"    pm.collectionVariables.set(\"allApis\",allApis);  ",
-											"} else {",
-											"    postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis",
-									"protocol": "https",
-									"host": [
-										"{{sourceSsgUrl}}"
-									],
-									"port": "{{sourceSsgPort}}",
-									"path": [
-										"{{sourceTenantId}}",
-										"api-management",
-										"1.0",
-										"apis"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get all tags associated with an API",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.request.headers.add({\"key\":\"Authorization\",",
-											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});",
-											"",
-											"let allApis = pm.collectionVariables.get(\"allApis\");",
-											"let currentApiUuid = allApis.shift().uuid;",
-											"pm.collectionVariables.set(\"currentApiUuid\",currentApiUuid);",
-											"pm.collectionVariables.set(\"allApis\",allApis);",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"let associatedTags = pm.response.json();",
-											"let allApis = pm.collectionVariables.get(\"allApis\");",
-											"",
-											"let apiTagsCreated = pm.collectionVariables.get(\"apiTagsCreated\");",
-											"let apiTags = pm.collectionVariables.get(\"apiTags\");",
-											"const apiTagMap = new Map();",
-											"for (let i = 0; i <apiTagsCreated.length; i++) {",
-											"    apiTagMap.set(apiTags[i].uuid,apiTagsCreated[i]);",
-											"}",
-											"",
-											"if (associatedTags && associatedTags.length > 0) {",
-											"    for (let i = 0; i < associatedTags.length; i++) {",
-											"        associatedTags[i]=apiTagMap.get(associatedTags[i].uuid).name;",
-											"    }",
-											"    console.log(associatedTags);",
-											"    pm.collectionVariables.set(\"associatedTags\",JSON.stringify(associatedTags));",
-											"} else {",
-											"    if (allApis && allApis.length > 0) {",
-											"        postman.setNextRequest(\"Get all tags associated with an API\");",
-											"    } else {",
-											"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
-											"    }",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis/{{currentApiUuid}}/tags",
-									"protocol": "https",
-									"host": [
-										"{{sourceSsgUrl}}"
-									],
-									"port": "{{sourceSsgPort}}",
-									"path": [
-										"{{sourceTenantId}}",
-										"api-management",
-										"1.0",
-										"apis",
-										"{{currentApiUuid}}",
-										"tags"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Associate Tag entities to API",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.request.headers.add({\"key\":\"Authorization\",",
-											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});",
-											"                        "
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"let allApis = pm.collectionVariables.get(\"allApis\");",
-											"",
-											"if (allApis && allApis.length > 0) {",
-											"        postman.setNextRequest(\"Get all tags associated with an API\");",
-											"    } else {",
-											"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
-											"    }"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{{associatedTags}}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{currentApiUuid}}/tags",
-									"protocol": "https",
-									"host": [
-										"{{destSsgUrl}}"
-									],
-									"port": "{{destSsgPort}}",
-									"path": [
-										"{{destTenantId}}",
-										"api-management",
-										"1.0",
-										"apis",
-										"{{currentApiUuid}}",
-										"tags"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "migrate organization tags",
-					"item": [
-						{
-							"name": "Get All Organization Tags",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.request.headers.add({\"key\":\"Authorization\",",
-											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"let orgTags = pm.response.json().results;",
-											"",
-											"pm.collectionVariables.set(\"orgTags\",orgTags);",
-											"pm.collectionVariables.set(\"orgTagsBody\",JSON.stringify(orgTags));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/tenant-admin/1.0/tags",
-									"protocol": "https",
-									"host": [
-										"{{sourceSsgUrl}}"
-									],
-									"port": "{{sourceSsgPort}}",
-									"path": [
-										"{{sourceTenantId}}",
-										"tenant-admin",
-										"1.0",
-										"tags"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Post Organization Tags",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.request.headers.add({\"key\":\"Authorization\",",
-											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.collectionVariables.set(\"orgTagsCreated\",pm.response.json())",
-											"",
-											"let orgTagsCreated = pm.response.json();",
-											"pm.collectionVariables.set(\"orgTagsCreated\",orgTagsCreated);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{{orgTagsBody}}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/tenant-admin/1.0/tags",
-									"protocol": "https",
-									"host": [
-										"{{destSsgUrl}}"
-									],
-									"port": "{{destSsgPort}}",
-									"path": [
-										"{{destTenantId}}",
-										"tenant-admin",
-										"1.0",
-										"tags"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get all Organizaitons Uuid that are associated with the Tag",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"let tagOrgs = pm.response.json(); // organizations that are associated with the tag",
-											"",
-											"let orgTags = pm.collectionVariables.get(\"orgTags\"); // remaining tags",
-											"",
-											"if (tagOrgs && tagOrgs.length > 0) {",
-											"    pm.collectionVariables.set(\"tagOrgs\",JSON.stringify(tagOrgs));",
-											"} else {",
-											"    if (orgTags && orgTags.length > 0) {",
-											"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
-											"    }",
-											"    ",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.request.headers.add({\"key\":\"Authorization\",",
-											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});",
-											"let orgTags = pm.collectionVariables.get(\"orgTags\");",
-											"let currentTagUuid = orgTags.shift().uuid;",
-											"pm.collectionVariables.set(\"currentTagUuid\",currentTagUuid);",
-											"pm.collectionVariables.set(\"orgTags\",orgTags);",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/tenant-admin/1.0/tags/{{currentTagUuid}}/organizations",
-									"protocol": "https",
-									"host": [
-										"{{sourceSsgUrl}}"
-									],
-									"port": "{{sourceSsgPort}}",
-									"path": [
-										"{{sourceTenantId}}",
-										"tenant-admin",
-										"1.0",
-										"tags",
-										"{{currentTagUuid}}",
-										"organizations"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update tag-organization association",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.request.headers.add({\"key\":\"Authorization\",",
-											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});",
-											"",
-											"let orgTagsCreated = pm.collectionVariables.get(\"orgTagsCreated\");",
-											"let currentTagUuid = orgTagsCreated.shift().uuid;",
-											"pm.collectionVariables.set(\"orgTagsCreated\",orgTagsCreated);",
-											"pm.collectionVariables.set(\"currentTagUuid\",currentTagUuid);"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"let orgTags = pm.collectionVariables.get(\"orgTags\");",
-											"if (orgTags && orgTags.length > 0) {",
-											"    postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\")",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{{tagOrgs}}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/tenant-admin/1.0/tags/{{currentTagUuid}}/organizations",
-									"protocol": "https",
-									"host": [
-										"{{destSsgUrl}}"
-									],
-									"port": "{{destSsgPort}}",
-									"path": [
-										"{{destTenantId}}",
-										"tenant-admin",
-										"1.0",
-										"tags",
-										"{{currentTagUuid}}",
-										"organizations"
-									]
-								}
-							},
-							"response": []
-						}
-					]
 				}
 			]
 		},
@@ -3443,11 +2929,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var apisApiUuids = pm.variables.get(\"apisApiUuids\");",
-									"",
-									"if (apisApiUuids.length > 0) {",
-									"    postman.setNextRequest(\"Get Api Detail From Source\");",
-									"}",
 									""
 								],
 								"type": "text/javascript"
@@ -3457,8 +2938,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"var policyEntities = pm.variables.get(\"policyEntities\");",
-									"console.log(\"ploicies=\" + policyEntities)"
+									"var policyEntities = pm.variables.get(\"policyEntities\");"
 								],
 								"type": "text/javascript"
 							}
@@ -3500,6 +2980,306 @@
 								"apis",
 								"{{apisApiUuid}}",
 								"policy-entities"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "name,ASC",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "pssg",
+									"disabled": true
+								},
+								{
+									"key": "subjectDn",
+									"value": "google",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get custom fields of API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let apiCustomFields = pm.response.json();\r",
+									"\r",
+									"if (apiCustomFields.length > 0){\r",
+									"    pm.variables.set(\"apiCustomFields\", JSON.stringify(apiCustomFields));\r",
+									"    postman.setNextRequest(\"Put custom-fields\");\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"Get Api Organizations\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/custom-fields",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"apis",
+								"{{apisApiUuid}}",
+								"custom-fields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put custom-fields",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{apiCustomFields}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/custom-fields",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"apis",
+								"{{apisApiUuid}}",
+								"custom-fields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Organization and Rate Quota(Api per Org) associated with an API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"result = pm.response.json();",
+									"",
+									"pm.variables.set(\"orgRateQuota\", JSON.stringify(result));",
+									"console.log(result);",
+									"",
+									"postman.setNextRequest(\"Associate Organization and Rate Quota(Api per Org) entities to API\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/org-rate-quotas",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"apis",
+								"{{apisApiUuid}}",
+								"org-rate-quotas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Associate Organization and Rate Quota(Api per Org) entities to API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{orgRateQuota}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/org-rate-quotas",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"apis",
+								"{{apisApiUuid}}",
+								"org-rate-quotas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish an API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var apisApiUuids = pm.variables.get(\"apisApiUuids\");",
+									"",
+									"if (apisApiUuids.length > 0) {",
+									"    postman.setNextRequest(\"Get Api Detail From Source\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{apisApiUuid}}/publish",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"apis",
+								"{{apisApiUuid}}",
+								"publish"
 							],
 							"query": [
 								{
@@ -3815,6 +3595,1814 @@
 			]
 		},
 		{
+			"name": "Tiers",
+			"item": [
+				{
+					"name": "Get All Tiers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const tiers = pm.response.json();",
+									"",
+									"pm.variables.set(\"tiers\", JSON.stringify(tiers));",
+									"",
+									"postman.setNextRequest(\"Put All Tiers\");",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/tiers",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"0.1",
+								"tiers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put All Tiers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destApimTenantUrl}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{tiers}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/tiers",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"tiers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get Source Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"var products = pm.variables.get(\"products\");",
+									"var productUuids = pm.variables.get(\"productUuids\");",
+									"",
+									"if (products == null) {",
+									"    products = [];",
+									"}",
+									"",
+									"if (productUuids == null) {",
+									"    productUuids = [];",
+									"}",
+									"",
+									"if (response != null) {",
+									"    products = products.concat(response.results);",
+									"    pm.variables.set(\"products\", products);",
+									"",
+									"    productUuids = productUuids.concat(response.results.map(response => response.uuid));",
+									"    pm.variables.set(\"productUuids\", productUuids);",
+									"}",
+									"",
+									"if (response != null && response.currentPage + 1 < response.totalPages) {",
+									"    postman.setNextRequest(\"Get Source Products\");",
+									"} else {",
+									"    pm.variables.set(\"tempProductUuids\", productUuids);",
+									"    postman.setNextRequest(\"Post All Products\");",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var page = pm.variables.get(\"productPage\");",
+									"",
+									"if (page == null) {",
+									"    pm.variables.set(\"productPage\", 0);",
+									"} else {",
+									"    pm.variables.set(\"productPage\", page + 1);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/products?page={{productPage}}",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"0.1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "$format",
+									"value": "json",
+									"disabled": true
+								},
+								{
+									"key": "$inlinecount",
+									"value": "allpages",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "{{productPage}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post All Products",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const products = pm.variables.get(\"products\");",
+									"if (products == null) {",
+									"    throw new Error(\"products value is null\");",
+									"}",
+									"",
+									"var product = products.shift();",
+									"pm.variables.set(\"product\", JSON.stringify(product));",
+									"if (Array.isArray(products) && products.length > 0){",
+									"    postman.setNextRequest(\"Post All Products\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destTenantUrl}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{product}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/products",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Tiers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let productUuids = pm.variables.get(\"tempProductUuids\");",
+									"",
+									"if (productUuids == null) {",
+									"    throw new Error(\"productUuids value is null\");",
+									"}",
+									"",
+									"let productUuid = productUuids.shift();",
+									"",
+									"pm.variables.set(\"productUuid\", productUuid);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"var productTiers = [];",
+									"",
+									"let productUuids = pm.variables.get(\"tempProductUuids\");",
+									"",
+									"if (Array.isArray(response) && response.length > 0) {",
+									"    for (let i = 0; i < response.length; i++) {",
+									"        let productTier = response[i];",
+									"        productTiers.push({",
+									"            tierUuid: productTier.tierUuid,",
+									"            rateQuotaUuid: productTier.rateQuota.uuid,",
+									"            isDefaultTier: productTier.isDefaultTier",
+									"        })",
+									"    }",
+									"    pm.variables.set(\"productTiers\", productTiers);",
+									"    postman.setNextRequest(\"Patch Product Tiers\");",
+									"} else if (Array.isArray(productUuids) && productUuids.length > 0) {",
+									"    postman.setNextRequest(\"Get Product Tiers\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/access/tiers-product/{{productUuid}}?productTierAccessStatus=ASSIGNED",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"0.1",
+								"access",
+								"tiers-product",
+								"{{productUuid}}"
+							],
+							"query": [
+								{
+									"key": "productTierAccessStatus",
+									"value": "ASSIGNED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Product Tiers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let productTiers = pm.variables.get(\"productTiers\");",
+									"",
+									"if (productTiers != null) {",
+									"",
+									"    pm.variables.set(\"productTiersJson\", JSON.stringify(productTiers));",
+									"",
+									"    let productUuids = pm.variables.get(\"tempProductUuids\");",
+									"",
+									"    if (Array.isArray(productUuids) && productUuids.length > 0) {",
+									"        postman.setNextRequest(\"Get Product Tiers\");",
+									"    } else {",
+									"        let productUuids = pm.variables.get(\"productUuids\");",
+									"        pm.variables.set(\"tempProductUuids\", productUuids);",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destTenantUrl}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{productTiersJson}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/products/{{productUuid}}/tiers",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"products",
+								"{{productUuid}}",
+								"tiers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Apis",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var page = pm.variables.get(\"productApiPage\");",
+									"",
+									"if (page == null) {",
+									"    page = 0;",
+									"    pm.variables.set(\"productApiPage\", page);",
+									"} else {",
+									"    page += 1;",
+									"    pm.variables.set(\"productApiPage\", page);",
+									"}",
+									"",
+									"if (page == 0) {",
+									"    let productUuids = pm.variables.get(\"tempProductUuids\");",
+									"",
+									"    if (productUuids == null) {",
+									"        throw new Error(\"productUuids value is null\");",
+									"    }",
+									"",
+									"    let productUuid = productUuids.shift();",
+									"",
+									"    pm.variables.set(\"productUuid\", productUuid);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"let productApis = pm.variables.get(\"productApis\");",
+									"",
+									"if (productApis == null) {",
+									"    productApis = [];",
+									"}",
+									"",
+									"let tempProductUuids = pm.variables.get(\"tempProductUuids\");",
+									"",
+									"if (response != null && response.results.length > 0) {",
+									"    for (let i = 0; i < response.results.length; i++) {",
+									"        let productApi = response.results[i];",
+									"        productApis.push({",
+									"            apiUuid: productApi.apiUuid",
+									"        });",
+									"    }",
+									"    pm.variables.set(\"productApis\", productApis);",
+									"",
+									"    if (response.currentPage + 1 < response.totalPages) {",
+									"        postman.setNextRequest(\"Get Product Apis\");",
+									"    } else {",
+									"        pm.variables.unset(\"productApiPage\");",
+									"        postman.setNextRequest(\"Patch Product Apis\");",
+									"    }",
+									"} else if (Array.isArray(productUuids) && productUuids.length > 0) {",
+									"    pm.variables.unset(\"productApiPage\");",
+									"    postman.setNextRequest(\"Get Product Apis\");",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/access/apis-product/{{productUuid}}?productApiAccessStatus=ASSIGNED&page={{productApiPage}}",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"0.1",
+								"access",
+								"apis-product",
+								"{{productUuid}}"
+							],
+							"query": [
+								{
+									"key": "productApiAccessStatus",
+									"value": "ASSIGNED"
+								},
+								{
+									"key": "page",
+									"value": "{{productApiPage}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Product Apis",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let productApis = pm.variables.get(\"productApis\");",
+									"",
+									"if (productApis != null) {",
+									"",
+									"    pm.variables.set(\"productApisJson\", JSON.stringify(productApis));",
+									"",
+									"    let productUuids = pm.variables.get(\"tempProductUuids\");",
+									"",
+									"    if (Array.isArray(productUuids) && productUuids.length > 0) {",
+									"        pm.variables.unset(\"productApis\");",
+									"        postman.setNextRequest(\"Get Product Apis\");",
+									"    } else {",
+									"        let productUuids = pm.variables.get(\"productUuids\");",
+									"        pm.variables.set(\"tempProductUuids\", productUuids);",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destTenantUrl}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{productApisJson}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/products/{{productUuid}}/apis",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"products",
+								"{{productUuid}}",
+								"apis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Organizations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var page = pm.variables.get(\"productOrgPage\");",
+									"",
+									"if (page == null) {",
+									"    page = 0;",
+									"    pm.variables.set(\"productOrgPage\", page);",
+									"} else {",
+									"    page += 1;",
+									"    pm.variables.set(\"productOrgPage\", page);",
+									"}",
+									"",
+									"if (page == 0) {",
+									"    let productUuids = pm.variables.get(\"tempProductUuids\");",
+									"",
+									"    if (productUuids == null) {",
+									"        throw new Error(\"productUuids value is null\");",
+									"    }",
+									"",
+									"    let productUuid = productUuids.shift();",
+									"",
+									"    pm.variables.set(\"productUuid\", productUuid);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"let productOrgs = pm.variables.get(\"productOrgs\");",
+									"",
+									"if (productOrgs == null) {",
+									"    productOrgs = [];",
+									"}",
+									"",
+									"let tempProductUuids = pm.variables.get(\"tempProductUuids\");",
+									"",
+									"if (response != null && response.results.length > 0) {",
+									"    for (let i = 0; i < response.results.length; i++) {",
+									"        let productOrg = response.results[i];",
+									"        productOrgs.push({",
+									"            organizationUuid: productOrg.organizationUuid,",
+									"            tierUuid: productOrg.tierUuid",
+									"        });",
+									"    }",
+									"    pm.variables.set(\"productOrgs\", productOrgs);",
+									"",
+									"    if (response.currentPage + 1 < response.totalPages) {",
+									"        postman.setNextRequest(\"Get Product Organizations\");",
+									"    } else {",
+									"        pm.variables.unset(\"productOrgPage\");",
+									"        postman.setNextRequest(\"Patch Product Organizations\");",
+									"    }",
+									"} else if (Array.isArray(productUuids) && productUuids.length > 0) {",
+									"    pm.variables.unset(\"productOrgPage\");",
+									"    postman.setNextRequest(\"Get Product Organizations\");",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/access/organizations-product/{{productUuid}}?productOrgAccessStatus=ASSIGNED&page={{productOrgPage}}",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"0.1",
+								"access",
+								"organizations-product",
+								"{{productUuid}}"
+							],
+							"query": [
+								{
+									"key": "productOrgAccessStatus",
+									"value": "ASSIGNED"
+								},
+								{
+									"key": "page",
+									"value": "{{productOrgPage}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Product Organizations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let productOrgs = pm.variables.get(\"productOrgs\");",
+									"",
+									"if (productOrgs != null) {",
+									"",
+									"    pm.variables.set(\"productOrgsJson\", JSON.stringify(productOrgs));",
+									"",
+									"    let productUuids = pm.variables.get(\"tempProductUuids\");",
+									"",
+									"    if (Array.isArray(productUuids) && productUuids.length > 0) {",
+									"        pm.variables.unset(\"productOrgs\");",
+									"        postman.setNextRequest(\"Get Product Organizations\");",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{destTenantUrl}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{productOrgsJson}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/products/{{productUuid}}/organizations",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"products",
+								"{{productUuid}}",
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Api Plans",
+			"item": [
+				{
+					"name": "Check Source APIPlan Feature",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"let value = response.Value;",
+									"",
+									"if(value == null || value === false){",
+									"    console.log('Source tenant ApiPlan feature is disabled')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}",
+									"console.log('Source tenant ApiPlan feature is enabled')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/Settings('FEATURE_FLAG_API_PLANS')",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"Settings('FEATURE_FLAG_API_PLANS')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Destination APIPlan Feature",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"let value = response.Value;",
+									"",
+									"if(value == null || value === false){",
+									"    console.log('Destination tenant ApiPlan feature is disabled')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}",
+									"console.log('Destination tenant ApiPlan feature is enabled')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/Settings('FEATURE_FLAG_API_PLANS')",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"Settings('FEATURE_FLAG_API_PLANS')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source All APIPlans",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const response = pm.response.json();",
+									"var apiPlansJson = pm.collectionVariables.get(\"apiPlans\");",
+									"var apiPlans = [];",
+									"if (apiPlansJson != null) {",
+									"    apiPlans = JSON.parse(apiPlansJson);",
+									"}",
+									"",
+									"if (response != null) {",
+									"    apiPlans = apiPlans.concat(response.results);",
+									"    pm.collectionVariables.set(\"apiPlans\", JSON.stringify(apiPlans));",
+									"}",
+									"",
+									"if (response != null && response.currentPage + 1 < response.totalPages) {",
+									"    postman.setNextRequest(\"Get Source APIPlans\");",
+									"} else {",
+									"    pm.collectionVariables.unset(\"apiPlansPage\");",
+									"    // console.log(apiPlans);",
+									"    pm.collectionVariables.set(\"apiPlansIndex\", 0)",
+									"    postman.setNextRequest(\"Get Source APIPlans APIs\");",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"var page = pm.collectionVariables.get(\"apiPlansPage\");",
+									"",
+									"if (page == null) {",
+									"    pm.collectionVariables.set(\"apiPlansPage\", 0);",
+									"    // reset gatewayBundles if page is null",
+									"    pm.collectionVariables.unset(\"apiPlans\")",
+									"} else {",
+									"    pm.collectionVariables.set(\"aapiPlaapiPlansPagensPage\", page + 1);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/api-plans?page={{apiPlansPage}}&size=10&sort=name",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"api-plans"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{apiPlansPage}}"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source APIPlans APIs",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"if(collections == null || index == null || index >= collections.length) {",
+									"    console,log('ERROR: missing apiPlans or apiPlansIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"    console.log('Get ApiPlans[' + index + '] apis...')",
+									"    var collection = collections[index]",
+									"",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"uuid\", collection.uuid)",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"// console.log(index)",
+									"var collection = collections[index];",
+									"// console.log(JSON.stringify(collection))",
+									"collection[\"apiPlanApis\"] = pm.response.json();",
+									"",
+									"// save the apis back to collectionVariables.",
+									"collections[index] = collection;",
+									"pm.collectionVariables.set('apiPlans', JSON.stringify(collections))",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/api-plans/{{uuid}}/apis",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"api-plans",
+								"{{uuid}}",
+								"apis"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source APIPlans Organizations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"if(collections == null || index == null || index >= collections.length) {",
+									"    console,log('ERROR: missing apiPlans or apiPlansIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"    console.log('Get ApiPlans[' + index + '] Organizations...')",
+									"    var collection = collections[index]",
+									"",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"uuid\", collection.uuid)",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"// console.log(index)",
+									"var collection = collections[index];",
+									"// console.log(JSON.stringify(collection))",
+									"collection[\"apiPlanOrganizations\"] = pm.response.json();",
+									"",
+									"// save the organizations back to collectionVariables.",
+									"collections[index] = collection;",
+									"pm.collectionVariables.set('apiPlans', JSON.stringify(collections))",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/api-plans/{{uuid}}/organizations",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"0.1",
+								"api-plans",
+								"{{uuid}}",
+								"organizations"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Destination APIPlan",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"// console.log(collections)",
+									"// console.log(index)",
+									"if(collections == null || index == null || index >= collections.length) {",
+									"    console,log('ERROR: missing apiPlans or apiPlansIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"    console.log('Creating ApiPlans[' + index + ']...')",
+									"    var collection = collections[index]",
+									"",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"apiPlan\", JSON.stringify(collection))",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{destToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{apiPlan}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/api-plans",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"api-plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setup Destination APIPlans Api Associaion",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"// console.log(index)",
+									"if(collections == null || index == null || index >= collections.length) {",
+									"    console.log('ERROR: missing ApiPlans or apiPlansIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"",
+									"    var collection = collections[index];",
+									"    // console.log(collection)",
+									"    if(collection == null || collection.apiPlanApis == null || collection.apiPlanApis.length == 0){",
+									"    console.log('No Apis found in ApiPlans[' + index + ']')",
+									"        postman.setNextRequest('Setup Destination APIPlans Org Associaion')",
+									"    }else{",
+									"        var apiPlanApis = collection.apiPlanApis;",
+									"        // console.log('apiPlanApis:'+ JSON.stringify(apiPlanApis))",
+									"        pm.collectionVariables.set('apiPlanApiIndex', 0);",
+									"        pm.collectionVariables.set('apiPlanApis', apiPlanApis);",
+									"        pm.collectionVariables.set('planUuid', collection.uuid);",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Destination APIPlan Api Association",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var collections = pm.collectionVariables.get('apiPlanApis')",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlanApiIndex'))",
+									"",
+									"if(collections == null || index == null){",
+									"    console,log('ERROR: missing apiPlanApis or apiPlanApiIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}",
+									"",
+									"var planUuid = pm.collectionVariables.get('planUuid')",
+									"// console.log(index)",
+									"",
+									"if(index >= collections.length){",
+									"    console.log('ERROR: index {' + index + '} out of boundary: ' + collections.length)",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"    console.log('Associating ApiPlans{' + planUuid + '} with Apis['+ index + ']...')",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"apiUuid\", collections[index].uuid);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"collections = pm.collectionVariables.get('apiPlanApis')",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlanApiIndex'))",
+									"var planUuid = pm.collectionVariables.get('planUuid')",
+									"",
+									"index = index + 1;",
+									"if(index >= collections.length){",
+									"    console.log('Finished apiPlan{' + planUuid + '} ' + collections.length + ' Api associations.')",
+									"    postman.setNextRequest('Setup Destination APIPlans Org Associaion')",
+									"}else{",
+									"    // iterate to the next api",
+									"    pm.collectionVariables.set(\"apiPlanApiIndex\", index);",
+									"    postman.setNextRequest('Put Destination APIPlan Api Association')",
+									"}",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{destToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{apiPlan}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/api-plans/{{planUuid}}/api/{{apiUuid}}",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"api-plans",
+								"{{planUuid}}",
+								"api",
+								"{{apiUuid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setup Destination APIPlans Org Associaion",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"// console.log(index)",
+									"if(collections == null || index == null || index >= collections.length) {",
+									"    console.log('ERROR: missing ApiPlans or apiPlansIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"",
+									"    var collection = collections[index];",
+									"    // console.log(collection)",
+									"    if(collection == null || collection.apiPlanOrganizations == null || collection.apiPlanOrganizations.length == 0){",
+									"    console.log('No Org found in ApiPlans[' + index + ']')",
+									"        postman.setNextRequest('End Loop APIPlans')",
+									"    }else{",
+									"        var apiPlanOrganizations = collection.apiPlanOrganizations;",
+									"        // console.log('apiPlanOrganizations:'+ JSON.stringify(apiPlanOrganizations))",
+									"        pm.collectionVariables.set('apiPlanOrgIndex', 0);",
+									"        pm.collectionVariables.set('apiPlanOrgs', apiPlanOrganizations);",
+									"        pm.collectionVariables.set('planUuid', collection.uuid);",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Destination APIPlan Org Accoication",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var collections = pm.collectionVariables.get('apiPlanOrgs')",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlanOrgIndex'))",
+									"",
+									"if(collections == null || index == null){",
+									"    console,log('ERROR: missing apiPlanOrgs or apiPlanOrgIndex collectionVariables')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}",
+									"",
+									"var planUuid = pm.collectionVariables.get('planUuid')",
+									"// console.log(index)",
+									"",
+									"console.log('Associating ApiPlans{' + planUuid + '} with Orgs['+ index + ']...')",
+									"// set path variable for uuid",
+									"pm.variables.set(\"orgUuid\", collections[index].uuid);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"collections = pm.collectionVariables.get('apiPlanOrgs')",
+									"// console.log(collections)",
+									"var index = parseInt(pm.collectionVariables.get('apiPlanOrgIndex'))",
+									"var planUuid = pm.collectionVariables.get('planUuid')",
+									"",
+									"index = index + 1;",
+									"// console.log(index)",
+									"if(index >= collections.length){",
+									"    console.log('Finished apiPlan{' + planUuid + '} ' + collections.length + ' Org associations.')",
+									"    postman.setNextRequest('End Loop APIPlans')",
+									"}else{",
+									"    // iterate to the next org",
+									"    // console.log('save org index: ' + index)",
+									"    pm.collectionVariables.set(\"apiPlanOrgIndex\", index);",
+									"    postman.setNextRequest('Put Destination APIPlan Org Accoication')",
+									"}",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{destToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{apiPlan}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/api-plans/{{planUuid}}/organization/{{orgUuid}}",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"api-plans",
+								"{{planUuid}}",
+								"organization",
+								"{{orgUuid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "End Loop APIPlans",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"if(collections == null || index == null) {",
+									"    // TODO: set next request in collection instead of null.",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"    index = index + 1;",
+									"    if(index >= collections.length){",
+									"        console.log('Finished all ' + collections.length + ' ApiPlans migration.')",
+									"        postman.setNextRequest(null)",
+									"    }else{",
+									"        console.log('Loop to ApiPlans[' + index + '] migration...')",
+									"",
+									"        // set ApiPlan next iteration",
+									"        pm.collectionVariables.set(\"apiPlansIndex\", index)",
+									"        // next loop starts from \"Get Source APIPlans APIs\" request",
+									"        postman.setNextRequest('Get Source APIPlans APIs')",
+									"    }",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Application",
 			"item": [
 				{
@@ -3825,9 +5413,8 @@
 							"script": {
 								"exec": [
 									"var AllApplicationsResponse = pm.response.json().results;\r",
-									"pm.collectionVariables.set('AllApplicationsResponse', AllApplicationsResponse );\r",
+									"pm.variables.set('AllApplicationsResponse', AllApplicationsResponse );\r",
 									"if (AllApplicationsResponse.length == 0){\r",
-									"    console.log(\"No applications to migrate\");\r",
 									"    postman.setNextRequest(null);\r",
 									"} else {\r",
 									"    postman.setNextRequest(\"Get Application\");\r",
@@ -3891,12 +5478,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"let AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
-									"//console.log(AllApplicationsResponse);\r",
+									"let AllApplicationsResponse = pm.variables.get(\"AllApplicationsResponse\");\r",
 									"let curentAppUuid = AllApplicationsResponse.shift().uuid;\r",
-									"//console.log(curentAppUuid);\r",
-									"pm.collectionVariables.set(\"curentAppUuid\", curentAppUuid);\r",
-									"pm.collectionVariables.set(\"AllApplicationsResponse\", AllApplicationsResponse);\r",
+									"pm.variables.set(\"curentAppUuid\", curentAppUuid);\r",
+									"pm.variables.set(\"AllApplicationsResponse\", AllApplicationsResponse);\r",
 									"\r",
 									""
 								],
@@ -3907,7 +5492,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"const AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
+									"const AllApplicationsResponse = pm.variables.get(\"AllApplicationsResponse\");\r",
 									"//console.log(AllApplicationsResponse);\r",
 									"let appPayload = pm.response.json();\r",
 									"let appUuid = appPayload.uuid;\r",
@@ -3918,12 +5503,12 @@
 									"let appDisabledByType = appPayload.disabledByType;\r",
 									"//console.log(appPayload);\r",
 									"\r",
-									"pm.collectionVariables.set(\"appUuid\", appUuid);\r",
-									"pm.collectionVariables.set(\"appName\", appName);\r",
-									"pm.collectionVariables.set(\"appDescr\", appDescr);\r",
-									"pm.collectionVariables.set(\"appOrgUuid\", appOrgUuid);\r",
-									"pm.collectionVariables.set(\"appStatus\", appStatus);\r",
-									"pm.collectionVariables.set(\"appDisabledByType\", appDisabledByType);\r",
+									"pm.variables.set(\"appUuid\", appUuid);\r",
+									"pm.variables.set(\"appName\", appName);\r",
+									"pm.variables.set(\"appDescr\", appDescr);\r",
+									"pm.variables.set(\"appOrgUuid\", appOrgUuid);\r",
+									"pm.variables.set(\"appStatus\", appStatus);\r",
+									"pm.variables.set(\"appDisabledByType\", appDisabledByType);\r",
 									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -3974,7 +5559,7 @@
 								"exec": [
 									"let response = pm.response.json();\r",
 									"let curentAppUuidT2 = response.uuid;\r",
-									"pm.collectionVariables.set(\"curentAppUuidT2\", curentAppUuidT2);\r",
+									"pm.variables.set(\"curentAppUuidT2\", curentAppUuidT2);\r",
 									"\r",
 									"pm.test(\"Status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
@@ -4010,7 +5595,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n \"uuid\": \"{{appUuid}}\",\r\n  \"name\": \"{{appName}}\",\r\n  \"description\": \"{{appDescr}}\",\r\n  \"organizationUuid\": \"{{appOrgUuid}}\",\r\n  \"status\": \"{{appStatus}}\"\r\n}",
+							"raw": "{\r\n  \"uuid\": \"{{appUuid}}\",\r\n  \"name\": \"{{appName}}\",\r\n  \"description\": \"{{appDescr}}\",\r\n  \"organizationUuid\": \"{{appOrgUuid}}\",\r\n  \"status\": \"{{appStatus}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4049,7 +5634,7 @@
 									"    postman.setNextRequest(\"Put API's for application on tenant2\");\r",
 									"}\r",
 									"apiUUIDs = JSON.stringify(appApiResponse);\r",
-									"pm.collectionVariables.set(\"apiUUIDs\", apiUUIDs);\r",
+									"pm.variables.set(\"apiUUIDs\", apiUUIDs);\r",
 									"//console.log(apiUUIDs);\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -4167,7 +5752,7 @@
 									"let appApiGroupResponse = pm.response.json();\r",
 									"let apiGroupUUIDs;\r",
 									"apiGroupUUIDs = JSON.stringify(appApiGroupResponse);\r",
-									"pm.collectionVariables.set(\"apiGroupUUIDs\", apiGroupUUIDs);\r",
+									"pm.variables.set(\"apiGroupUUIDs\", apiGroupUUIDs);\r",
 									"//console.log(apiGroupUUIDs);\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -4276,6 +5861,119 @@
 					"response": []
 				},
 				{
+					"name": "Get products for application",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    let appProducts = pm.response.json();\r",
+									"    pm.variables.set(\"appProducts\", JSON.stringify(appProducts));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/applications/{{curentAppUuid}}/products",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"0.1",
+								"applications",
+								"{{curentAppUuid}}",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put products for application",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{appProducts}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/applications/{{curentAppUuidT2}}/products",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get custom-fields for application tenant1",
 					"event": [
 						{
@@ -4283,19 +5981,12 @@
 							"script": {
 								"exec": [
 									"\r",
-									"const AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
 									"let appCustomFieldsResponse = pm.response.json();\r",
 									"let customFieldUUIDs;\r",
 									"customFieldUUIDs = JSON.stringify(appCustomFieldsResponse);\r",
-									"pm.collectionVariables.set(\"customFieldUUIDs\", customFieldUUIDs);\r",
+									"pm.variables.set(\"customFieldUUIDs\", customFieldUUIDs);\r",
 									"//console.log(customFieldUUIDs);\r",
-									"if (appCustomFieldsResponse.length == 0){\r",
-									"    if (AllApplicationsResponse && AllApplicationsResponse.length > 0){\r",
-									"        postman.setNextRequest(\"Get Application\");\r",
-									"    } else {\r",
-									"        postman.setNextRequest(null);\r",
-									"    }\r",
-									"} else {\r",
+									"if (appCustomFieldsResponse.length > 0) {\r",
 									"    postman.setNextRequest(\"Put custom-fields for application on tenant2\");\r",
 									"}    \r",
 									"\r",
@@ -4356,10 +6047,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"const AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
-									"if (AllApplicationsResponse && AllApplicationsResponse.length > 0){\r",
-									"    postman.setNextRequest(\"Get Application\");\r",
-									"}\r",
+									"\r",
 									"\r",
 									"pm.test(\"Status code is 204\", function () {\r",
 									"    pm.response.to.have.status(204);\r",
@@ -4409,6 +6097,844 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Api Keys for application tenant1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let appApiKeysResponse = pm.response.json();\r",
+									"let apiKeyDefault = {};\r",
+									"var apiKeysNonDefault= [];\r",
+									"\r",
+									"if (appApiKeysResponse != null && appApiKeysResponse.results.length > 0) {\r",
+									"    appApiKeysResponse.results.forEach(function(apiKey) {\r",
+									"        if (apiKey.defaultKey == true) {\r",
+									"            apiKeyDefault = apiKey;\r",
+									"        }else{\r",
+									"            apiKeysNonDefault.push(apiKey); \r",
+									"        }\r",
+									"    });\r",
+									"    pm.variables.set(\"apiKeyDefault\", apiKeyDefault);\r",
+									"    pm.variables.set(\"apiKeysNonDefault\", apiKeysNonDefault);\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/applications/{{curentAppUuid}}/api-keys?size=1000",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuid}}",
+								"api-keys"
+							],
+							"query": [
+								{
+									"key": "apiKeys",
+									"value": ",l7c3f5df01857a400baf2dee6a82c17abe,l723913d473c294bed83e30baac894850e",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post default Api Key for application on tenant2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let apiKeyDefault = pm.variables.get(\"apiKeyDefault\");",
+									"let curentAppUuidT2 = pm.variables.get(\"curentAppUuidT2\");",
+									"",
+									"if (apiKeyDefault == null) {",
+									"    throw new Error(\"apiKeyDefault value is null\");",
+									"}",
+									"",
+									"apiKeyDefault.applicationUuid = curentAppUuidT2;",
+									"pm.variables.set(\"appApiKeyJson\", JSON.stringify(apiKeyDefault));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{appApiKeyJson}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/applications/{{curentAppUuidT2}}/api-keys",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"api-keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Publish application on tenant2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"let apiKeysNonDefault = pm.variables.get(\"apiKeysNonDefault\");\r",
+									"let AllApplicationsResponse = pm.variables.get(\"AllApplicationsResponse\");\r",
+									"\r",
+									"if (Array.isArray(apiKeysNonDefault) && apiKeysNonDefault.length > 0) {\r",
+									"    postman.setNextRequest(\"Post non-default Api Key for application on tenant2\");\r",
+									"} if (AllApplicationsResponse && AllApplicationsResponse.length > 0){\r",
+									"    postman.setNextRequest(\"Get Application\");\r",
+									"} else {\r",
+									"    postman.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/applications/{{curentAppUuidT2}}/publish",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post non-default Api Key for application on tenant2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let apiKeysNonDefault = pm.variables.get(\"apiKeysNonDefault\");",
+									"let curentAppUuidT2 = pm.variables.get(\"curentAppUuidT2\");",
+									"",
+									"if (apiKeysNonDefault == null) {",
+									"    throw new Error(\"apiKeysNonDefault value is null\");",
+									"}",
+									"",
+									"if (Array.isArray(apiKeysNonDefault) && apiKeysNonDefault.length > 0) {",
+									"    let appApiKeyJson = apiKeysNonDefault.shift();",
+									"    appApiKeyJson.applicationUuid = curentAppUuidT2;",
+									"    pm.variables.set(\"appApiKeyJson\", JSON.stringify(appApiKeyJson));",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"let AllApplicationsResponse = pm.variables.get(\"AllApplicationsResponse\");\r",
+									"let apiKeysNonDefault = pm.variables.get(\"apiKeysNonDefault\");\r",
+									"\r",
+									"if (Array.isArray(apiKeysNonDefault) && apiKeysNonDefault.length > 0) {\r",
+									"    postman.setNextRequest(\"Post non-default Api Key for application on tenant2\");\r",
+									"} else if (AllApplicationsResponse && AllApplicationsResponse.length > 0){\r",
+									"    postman.setNextRequest(\"Get Application\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{appApiKeyJson}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/applications/{{curentAppUuidT2}}/api-keys",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"api-keys"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "migrate API Tags",
+					"item": [
+						{
+							"name": "Get All API Tags",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.request.headers.add({\"key\":\"Authorization\",",
+											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let apiTags = pm.response.json().results;",
+											"",
+											"pm.collectionVariables.set(\"apiTags\", apiTags);",
+											"pm.collectionVariables.set(\"apiTagsBody\", JSON.stringify(apiTags));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/tags",
+									"protocol": "https",
+									"host": [
+										"{{sourceSsgUrl}}"
+									],
+									"port": "{{sourceSsgPort}}",
+									"path": [
+										"{{sourceTenantId}}",
+										"api-management",
+										"1.0",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST API Tags",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.request.headers.add({\"key\":\"Authorization\",",
+											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});",
+											"console.log(pm.collectionVariables.get(\"apiTags\")[0]);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let apiTagsCreated = pm.response.json();",
+											"let apiTags = pm.collectionVariables.get(\"apiTags\");",
+											"pm.collectionVariables.set(\"apiTagsCreated\",apiTagsCreated);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{apiTagsBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/tags",
+									"protocol": "https",
+									"host": [
+										"{{destSsgUrl}}"
+									],
+									"port": "{{destSsgPort}}",
+									"path": [
+										"{{destTenantId}}",
+										"api-management",
+										"1.0",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all apis",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.request.headers.add({\"key\":\"Authorization\",",
+											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let allApis = pm.response.json().results;",
+											"",
+											"if (allApis && allApis.length > 0) {",
+											"    pm.collectionVariables.set(\"allApis\",allApis);  ",
+											"} else {",
+											"    postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis",
+									"protocol": "https",
+									"host": [
+										"{{sourceSsgUrl}}"
+									],
+									"port": "{{sourceSsgPort}}",
+									"path": [
+										"{{sourceTenantId}}",
+										"api-management",
+										"1.0",
+										"apis"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all tags associated with an API",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.request.headers.add({\"key\":\"Authorization\",",
+											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});",
+											"",
+											"let allApis = pm.collectionVariables.get(\"allApis\");",
+											"let currentApiUuid = allApis.shift().uuid;",
+											"pm.collectionVariables.set(\"currentApiUuid\",currentApiUuid);",
+											"pm.collectionVariables.set(\"allApis\",allApis);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let associatedTags = pm.response.json();",
+											"let allApis = pm.collectionVariables.get(\"allApis\");",
+											"",
+											"let apiTagsCreated = pm.collectionVariables.get(\"apiTagsCreated\");",
+											"let apiTags = pm.collectionVariables.get(\"apiTags\");",
+											"const apiTagMap = new Map();",
+											"for (let i = 0; i <apiTagsCreated.length; i++) {",
+											"    apiTagMap.set(apiTags[i].uuid,apiTagsCreated[i]);",
+											"}",
+											"",
+											"if (associatedTags && associatedTags.length > 0) {",
+											"    for (let i = 0; i < associatedTags.length; i++) {",
+											"        associatedTags[i]=apiTagMap.get(associatedTags[i].uuid).name;",
+											"    }",
+											"    console.log(associatedTags);",
+											"    pm.collectionVariables.set(\"associatedTags\",JSON.stringify(associatedTags));",
+											"} else {",
+											"    if (allApis && allApis.length > 0) {",
+											"        postman.setNextRequest(\"Get all tags associated with an API\");",
+											"    } else {",
+											"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/apis/{{currentApiUuid}}/tags",
+									"protocol": "https",
+									"host": [
+										"{{sourceSsgUrl}}"
+									],
+									"port": "{{sourceSsgPort}}",
+									"path": [
+										"{{sourceTenantId}}",
+										"api-management",
+										"1.0",
+										"apis",
+										"{{currentApiUuid}}",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Associate Tag entities to API",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.request.headers.add({\"key\":\"Authorization\",",
+											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});",
+											"                        "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let allApis = pm.collectionVariables.get(\"allApis\");",
+											"",
+											"if (allApis && allApis.length > 0) {",
+											"        postman.setNextRequest(\"Get all tags associated with an API\");",
+											"    } else {",
+											"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
+											"    }"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{associatedTags}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/apis/{{currentApiUuid}}/tags",
+									"protocol": "https",
+									"host": [
+										"{{destSsgUrl}}"
+									],
+									"port": "{{destSsgPort}}",
+									"path": [
+										"{{destTenantId}}",
+										"api-management",
+										"1.0",
+										"apis",
+										"{{currentApiUuid}}",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "migrate organization tags",
+					"item": [
+						{
+							"name": "Get All Organization Tags",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.request.headers.add({\"key\":\"Authorization\",",
+											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let orgTags = pm.response.json().results;",
+											"",
+											"pm.collectionVariables.set(\"orgTags\",orgTags);",
+											"pm.collectionVariables.set(\"orgTagsBody\",JSON.stringify(orgTags));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/tenant-admin/1.0/tags",
+									"protocol": "https",
+									"host": [
+										"{{sourceSsgUrl}}"
+									],
+									"port": "{{sourceSsgPort}}",
+									"path": [
+										"{{sourceTenantId}}",
+										"tenant-admin",
+										"1.0",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post Organization Tags",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.request.headers.add({\"key\":\"Authorization\",",
+											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"orgTagsCreated\",pm.response.json())",
+											"",
+											"let orgTagsCreated = pm.response.json();",
+											"pm.collectionVariables.set(\"orgTagsCreated\",orgTagsCreated);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{orgTagsBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/tenant-admin/1.0/tags",
+									"protocol": "https",
+									"host": [
+										"{{destSsgUrl}}"
+									],
+									"port": "{{destSsgPort}}",
+									"path": [
+										"{{destTenantId}}",
+										"tenant-admin",
+										"1.0",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Organizaitons Uuid that are associated with the Tag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let tagOrgs = pm.response.json(); // organizations that are associated with the tag",
+											"",
+											"let orgTags = pm.collectionVariables.get(\"orgTags\"); // remaining tags",
+											"",
+											"if (Array.isArray(tagOrgs) && tagOrgs.length > 0) {",
+											"    pm.collectionVariables.set(\"tagOrgs\",JSON.stringify(tagOrgs));",
+											"} else if (Array.isArray(orgTags) && orgTags.length > 0) {",
+											"    postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.request.headers.add({\"key\":\"Authorization\",",
+											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"sourceToken\")});",
+											"let orgTags = pm.collectionVariables.get(\"orgTags\");",
+											"let currentTagUuid = orgTags.shift().uuid;",
+											"pm.collectionVariables.set(\"currentTagUuid\",currentTagUuid);",
+											"pm.collectionVariables.set(\"orgTags\",orgTags);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/tenant-admin/1.0/tags/{{currentTagUuid}}/organizations",
+									"protocol": "https",
+									"host": [
+										"{{sourceSsgUrl}}"
+									],
+									"port": "{{sourceSsgPort}}",
+									"path": [
+										"{{sourceTenantId}}",
+										"tenant-admin",
+										"1.0",
+										"tags",
+										"{{currentTagUuid}}",
+										"organizations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update tag-organization association",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.request.headers.add({\"key\":\"Authorization\",",
+											"                        \"value\":\"Bearer \" + pm.collectionVariables.get(\"destToken\")});",
+											"",
+											"let orgTagsCreated = pm.collectionVariables.get(\"orgTagsCreated\");",
+											"let currentTagUuid = orgTagsCreated.shift().uuid;",
+											"pm.collectionVariables.set(\"orgTagsCreated\",orgTagsCreated);",
+											"pm.collectionVariables.set(\"currentTagUuid\",currentTagUuid);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let orgTags = pm.collectionVariables.get(\"orgTags\");",
+											"if (orgTags && orgTags.length > 0) {",
+											"    postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\")",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{tagOrgs}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/tenant-admin/1.0/tags/{{currentTagUuid}}/organizations",
+									"protocol": "https",
+									"host": [
+										"{{destSsgUrl}}"
+									],
+									"port": "{{destSsgPort}}",
+									"path": [
+										"{{destTenantId}}",
+										"tenant-admin",
+										"1.0",
+										"tags",
+										"{{currentTagUuid}}",
+										"organizations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},

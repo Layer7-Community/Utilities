@@ -17,9 +17,8 @@
 							"script": {
 								"exec": [
 									"var AllApplicationsResponse = pm.response.json().results;\r",
-									"pm.collectionVariables.set('AllApplicationsResponse', AllApplicationsResponse );\r",
+									"pm.variables.set('AllApplicationsResponse', AllApplicationsResponse );\r",
 									"if (AllApplicationsResponse.length == 0){\r",
-									"    console.log(\"No applications to migrate\");\r",
 									"    postman.setNextRequest(null);\r",
 									"} else {\r",
 									"    postman.setNextRequest(\"Get Application\");\r",
@@ -83,12 +82,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"let AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
-									"//console.log(AllApplicationsResponse);\r",
+									"let AllApplicationsResponse = pm.variables.get(\"AllApplicationsResponse\");\r",
 									"let curentAppUuid = AllApplicationsResponse.shift().uuid;\r",
-									"//console.log(curentAppUuid);\r",
-									"pm.collectionVariables.set(\"curentAppUuid\", curentAppUuid);\r",
-									"pm.collectionVariables.set(\"AllApplicationsResponse\", AllApplicationsResponse);\r",
+									"pm.variables.set(\"curentAppUuid\", curentAppUuid);\r",
+									"pm.variables.set(\"AllApplicationsResponse\", AllApplicationsResponse);\r",
 									"\r",
 									""
 								],
@@ -99,25 +96,23 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"const AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
+									"const AllApplicationsResponse = pm.variables.get(\"AllApplicationsResponse\");\r",
 									"//console.log(AllApplicationsResponse);\r",
 									"let appPayload = pm.response.json();\r",
 									"let appUuid = appPayload.uuid;\r",
 									"let appName = appPayload.name;\r",
 									"let appDescr = appPayload.description;\r",
 									"let appOrgUuid = appPayload.organizationUuid;\r",
-									"let appOrgName = appPayload.organizationName;\r",
 									"let appStatus = appPayload.status;\r",
 									"let appDisabledByType = appPayload.disabledByType;\r",
 									"//console.log(appPayload);\r",
 									"\r",
-									"pm.collectionVariables.set(\"appUuid\", appUuid);\r",
-									"pm.collectionVariables.set(\"appName\", appName);\r",
-									"pm.collectionVariables.set(\"appDescr\", appDescr);\r",
-									"pm.collectionVariables.set(\"appOrgUuid\", appOrgUuid);\r",
-									"pm.collectionVariables.set(\"appOrgName\", appOrgName);\r",
-									"pm.collectionVariables.set(\"appStatus\", appStatus);\r",
-									"pm.collectionVariables.set(\"appDisabledByType\", appDisabledByType);\r",
+									"pm.variables.set(\"appUuid\", appUuid);\r",
+									"pm.variables.set(\"appName\", appName);\r",
+									"pm.variables.set(\"appDescr\", appDescr);\r",
+									"pm.variables.set(\"appOrgUuid\", appOrgUuid);\r",
+									"pm.variables.set(\"appStatus\", appStatus);\r",
+									"pm.variables.set(\"appDisabledByType\", appDisabledByType);\r",
 									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -160,76 +155,6 @@
 					"response": []
 				},
 				{
-					"name": "Get Organization by name",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"let response = pm.response.json();",
-									"let currentOrgUuid;",
-									"",
-									"response.results.forEach(function(orgs) {",
-									"    if (orgs.name==(pm.collectionVariables.get(\"appOrgName\"))) {",
-									"        currentOrgUuid = orgs.uuid;",
-									"    }",
-									"});",
-									"",
-									"pm.collectionVariables.set(\"currentOrgUuid\", currentOrgUuid);",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"strictSSL": false,
-						"followOriginalHttpMethod": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{destToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Origin",
-								"value": "https://apim",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "Referer",
-								"value": "https://{{tenantId}}.{{portalUrl}}/",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/tenant-admin/1.0/organizations",
-							"protocol": "https",
-							"host": [
-								"{{destSsgUrl}}"
-							],
-							"port": "{{destSsgPort}}",
-							"path": [
-								"{{destTenantId}}",
-								"tenant-admin",
-								"1.0",
-								"organizations"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Post application on tenent2",
 					"event": [
 						{
@@ -238,7 +163,7 @@
 								"exec": [
 									"let response = pm.response.json();\r",
 									"let curentAppUuidT2 = response.uuid;\r",
-									"pm.collectionVariables.set(\"curentAppUuidT2\", curentAppUuidT2);\r",
+									"pm.variables.set(\"curentAppUuidT2\", curentAppUuidT2);\r",
 									"\r",
 									"pm.test(\"Status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
@@ -274,7 +199,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n \"uuid\": \"{{appUuid}}\",\r\n  \"name\": \"{{appName}}\",\r\n  \"description\": \"{{appDescr}}\",\r\n  \"organizationUuid\": \"{{currentOrgUuid}}\",\r\n  \"status\": \"{{appStatus}}\"\r\n}",
+							"raw": "{\r\n  \"uuid\": \"{{appUuid}}\",\r\n  \"name\": \"{{appName}}\",\r\n  \"description\": \"{{appDescr}}\",\r\n  \"organizationUuid\": \"{{appOrgUuid}}\",\r\n  \"status\": \"{{appStatus}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -313,7 +238,7 @@
 									"    postman.setNextRequest(\"Put API's for application on tenant2\");\r",
 									"}\r",
 									"apiUUIDs = JSON.stringify(appApiResponse);\r",
-									"pm.collectionVariables.set(\"apiUUIDs\", apiUUIDs);\r",
+									"pm.variables.set(\"apiUUIDs\", apiUUIDs);\r",
 									"//console.log(apiUUIDs);\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -431,7 +356,7 @@
 									"let appApiGroupResponse = pm.response.json();\r",
 									"let apiGroupUUIDs;\r",
 									"apiGroupUUIDs = JSON.stringify(appApiGroupResponse);\r",
-									"pm.collectionVariables.set(\"apiGroupUUIDs\", apiGroupUUIDs);\r",
+									"pm.variables.set(\"apiGroupUUIDs\", apiGroupUUIDs);\r",
 									"//console.log(apiGroupUUIDs);\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -540,6 +465,119 @@
 					"response": []
 				},
 				{
+					"name": "Get products for application",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    let appProducts = pm.response.json();\r",
+									"    pm.variables.set(\"appProducts\", JSON.stringify(appProducts));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/0.1/applications/{{curentAppUuid}}/products",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"0.1",
+								"applications",
+								"{{curentAppUuid}}",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put products for application",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{appProducts}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/0.1/applications/{{curentAppUuidT2}}/products",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"0.1",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get custom-fields for application tenant1",
 					"event": [
 						{
@@ -547,19 +585,12 @@
 							"script": {
 								"exec": [
 									"\r",
-									"const AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
 									"let appCustomFieldsResponse = pm.response.json();\r",
 									"let customFieldUUIDs;\r",
 									"customFieldUUIDs = JSON.stringify(appCustomFieldsResponse);\r",
-									"pm.collectionVariables.set(\"customFieldUUIDs\", customFieldUUIDs);\r",
+									"pm.variables.set(\"customFieldUUIDs\", customFieldUUIDs);\r",
 									"//console.log(customFieldUUIDs);\r",
-									"if (appCustomFieldsResponse.length == 0){\r",
-									"    if (AllApplicationsResponse && AllApplicationsResponse.length > 0){\r",
-									"        postman.setNextRequest(\"Get Application\");\r",
-									"    } else {\r",
-									"        postman.setNextRequest(null);\r",
-									"    }\r",
-									"} else {\r",
+									"if (appCustomFieldsResponse.length > 0) {\r",
 									"    postman.setNextRequest(\"Put custom-fields for application on tenant2\");\r",
 									"}    \r",
 									"\r",
@@ -620,12 +651,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"const AllApplicationsResponse = pm.collectionVariables.get(\"AllApplicationsResponse\");\r",
-									"if (AllApplicationsResponse && AllApplicationsResponse.length > 0){\r",
-									"    postman.setNextRequest(\"Get Application\");\r",
-									"} else {\r",
-									"    postman.setNextRequest(null);\r",
-									"}\r",
+									"\r",
 									"\r",
 									"pm.test(\"Status code is 204\", function () {\r",
 									"    pm.response.to.have.status(204);\r",
@@ -671,6 +697,323 @@
 								"applications",
 								"{{curentAppUuidT2}}",
 								"custom-fields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Api Keys for application tenant1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let appApiKeysResponse = pm.response.json();\r",
+									"let apiKeyDefault = {};\r",
+									"var apiKeysNonDefault= [];\r",
+									"\r",
+									"if (appApiKeysResponse != null && appApiKeysResponse.results.length > 0) {\r",
+									"    appApiKeysResponse.results.forEach(function(apiKey) {\r",
+									"        if (apiKey.defaultKey == true) {\r",
+									"            apiKeyDefault = apiKey;\r",
+									"        }else{\r",
+									"            apiKeysNonDefault.push(apiKey); \r",
+									"        }\r",
+									"    });\r",
+									"    pm.variables.set(\"apiKeyDefault\", apiKeyDefault);\r",
+									"    pm.variables.set(\"apiKeysNonDefault\", apiKeysNonDefault);\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/api-management/1.0/applications/{{curentAppUuid}}/api-keys?size=1000",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuid}}",
+								"api-keys"
+							],
+							"query": [
+								{
+									"key": "apiKeys",
+									"value": ",l7c3f5df01857a400baf2dee6a82c17abe,l723913d473c294bed83e30baac894850e",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post default Api Key for application on tenant2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let apiKeyDefault = pm.variables.get(\"apiKeyDefault\");",
+									"let curentAppUuidT2 = pm.variables.get(\"curentAppUuidT2\");",
+									"",
+									"if (apiKeyDefault == null) {",
+									"    throw new Error(\"apiKeyDefault value is null\");",
+									"}",
+									"",
+									"apiKeyDefault.applicationUuid = curentAppUuidT2;",
+									"pm.variables.set(\"appApiKeyJson\", JSON.stringify(apiKeyDefault));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{appApiKeyJson}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/applications/{{curentAppUuidT2}}/api-keys",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"api-keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Publish application on tenant2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"let apiKeysNonDefault = pm.variables.get(\"apiKeysNonDefault\");\r",
+									"let AllApplicationsResponse = pm.variables.get(\"AllApplicationsResponse\");\r",
+									"\r",
+									"if (Array.isArray(apiKeysNonDefault) && apiKeysNonDefault.length > 0) {\r",
+									"    postman.setNextRequest(\"Post non-default Api Key for application on tenant2\");\r",
+									"} if (AllApplicationsResponse && AllApplicationsResponse.length > 0){\r",
+									"    postman.setNextRequest(\"Get Application\");\r",
+									"} else {\r",
+									"    postman.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/applications/{{curentAppUuidT2}}/publish",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post non-default Api Key for application on tenant2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let apiKeysNonDefault = pm.variables.get(\"apiKeysNonDefault\");",
+									"let curentAppUuidT2 = pm.variables.get(\"curentAppUuidT2\");",
+									"",
+									"if (apiKeysNonDefault == null) {",
+									"    throw new Error(\"apiKeysNonDefault value is null\");",
+									"}",
+									"",
+									"if (Array.isArray(apiKeysNonDefault) && apiKeysNonDefault.length > 0) {",
+									"    let appApiKeyJson = apiKeysNonDefault.shift();",
+									"    appApiKeyJson.applicationUuid = curentAppUuidT2;",
+									"    pm.variables.set(\"appApiKeyJson\", JSON.stringify(appApiKeyJson));",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"let AllApplicationsResponse = pm.variables.get(\"AllApplicationsResponse\");\r",
+									"let apiKeysNonDefault = pm.variables.get(\"apiKeysNonDefault\");\r",
+									"\r",
+									"if (Array.isArray(apiKeysNonDefault) && apiKeysNonDefault.length > 0) {\r",
+									"    postman.setNextRequest(\"Post non-default Api Key for application on tenant2\");\r",
+									"} else if (AllApplicationsResponse && AllApplicationsResponse.length > 0){\r",
+									"    postman.setNextRequest(\"Get Application\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{destToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{appApiKeyJson}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/api-management/1.0/applications/{{curentAppUuidT2}}/api-keys",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"api-management",
+								"1.0",
+								"applications",
+								"{{curentAppUuidT2}}",
+								"api-keys"
 							]
 						}
 					},
