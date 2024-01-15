@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "45c76ab4-1cbe-4b74-baaf-c1872ab8a24a",
+		"_postman_id": "716e4c42-b1eb-4917-bbde-f7beb5ba16cf",
 		"name": "Portal Migration",
 		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21139065"
+		"_exporter_id": "24570368"
 	},
 	"item": [
 		{
@@ -616,7 +616,7 @@
 									"var containsDefaultRq = false;",
 									"",
 									"do {",
-									"    if (rateQuota != null && (rateQuota.name == \"Internal Plan\" || rateQuota.name == \"Bronze Account Plan\")) {",
+									"    if (rateQuota != null && (rateQuota.name == \"Internal Plan\" || rateQuota.name == \"Bronze Account Plan\" || rateQuota.name == \"Default API per Organization Plan\" || rateQuota.name == \"Default Product per Application Plan\")) {",
 									"        if (rateQuota.name == \"Bronze Account Plan\") {",
 									"            pm.collectionVariables.set(\"sourceDefaultAccountPlanId\", rateQuota.uuid);",
 									"        }",
@@ -3020,7 +3020,7 @@
 									"    pm.variables.set(\"apiCustomFields\", JSON.stringify(apiCustomFields));\r",
 									"    postman.setNextRequest(\"Put custom-fields\");\r",
 									"} else {\r",
-									"    postman.setNextRequest(\"Get Api Organizations\");\r",
+									"    postman.setNextRequest(\"Get all Organization and Rate Quota(Api per Org) associated with an API\");\r",
 									"}\r",
 									""
 								],
@@ -3598,6 +3598,63 @@
 			"name": "Tiers",
 			"item": [
 				{
+					"name": "Check Source Products Feature",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"let value = response.Value;",
+									"",
+									"if(value == null || value === \"false\"){",
+									"    console.log('Source tenant Products feature is disabled')",
+									"    postman.setNextRequest('End Loop Product Tiers')",
+									"}",
+									"console.log('Source tenant Products feature is enabled')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/Settings('FEATURE_FLAG_PRODUCT')",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"Settings('FEATURE_FLAG_PRODUCT')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get All Tiers",
 					"event": [
 						{
@@ -3718,12 +3775,154 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "End Loop Product Tiers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"collections = JSON.parse(pm.collectionVariables.get('apiPlans'))",
+									"var index = parseInt(pm.collectionVariables.get('apiPlansIndex'))",
+									"if(collections == null || index == null) {",
+									"    // TODO: set next request in collection instead of null.",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"    index = index + 1;",
+									"    if(index >= collections.length){",
+									"        console.log('Finished all ' + collections.length + ' ApiPlans migration.')",
+									"        //postman.setNextRequest(null)",
+									"    }else{",
+									"        console.log('Loop to ApiPlans[' + index + '] migration...')",
+									"",
+									"        // set ApiPlan next iteration",
+									"        pm.collectionVariables.set(\"apiPlansIndex\", index)",
+									"        // next loop starts from \"Get Source APIPlans APIs\" request",
+									"        postman.setNextRequest('Get Source APIPlans APIs')",
+									"    }",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "Products",
 			"item": [
+				{
+					"name": "Check Source Products Feature",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"let value = response.Value;",
+									"",
+									"if(value == null || value === \"false\"){",
+									"    console.log('Source tenant Products feature is disabled')",
+									"    postman.setNextRequest('End Loop Products')",
+									"}",
+									"console.log('Source tenant Products feature is enabled')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sourceToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/Settings('FEATURE_FLAG_PRODUCT')",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"Settings('FEATURE_FLAG_PRODUCT')"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Get Source Products",
 					"event": [
@@ -4439,6 +4638,70 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "End Loop Products",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -4464,7 +4727,7 @@
 									"let response = pm.response.json();",
 									"let value = response.Value;",
 									"",
-									"if(value == null || value === false){",
+									"if(value == null || value === \"false\"){",
 									"    console.log('Source tenant ApiPlan feature is disabled')",
 									"    postman.setNextRequest('End Loop APIPlans')",
 									"}",
@@ -4521,7 +4784,7 @@
 									"let response = pm.response.json();",
 									"let value = response.Value;",
 									"",
-									"if(value == null || value === false){",
+									"if(value == null || value === \"false\"){",
 									"    console.log('Destination tenant ApiPlan feature is disabled')",
 									"    postman.setNextRequest('End Loop APIPlans')",
 									"}",
@@ -5332,7 +5595,7 @@
 									"    index = index + 1;",
 									"    if(index >= collections.length){",
 									"        console.log('Finished all ' + collections.length + ' ApiPlans migration.')",
-									"        postman.setNextRequest(null)",
+									"        //postman.setNextRequest(null)",
 									"    }else{",
 									"        console.log('Loop to ApiPlans[' + index + '] migration...')",
 									"",
@@ -6616,7 +6879,7 @@
 											"    if (allApis && allApis.length > 0) {",
 											"        postman.setNextRequest(\"Get all tags associated with an API\");",
 											"    } else {",
-											"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
+											"        postman.setNextRequest(\"Get All Organization Tags\");",
 											"    }",
 											"}"
 										],
@@ -6669,7 +6932,7 @@
 											"if (allApis && allApis.length > 0) {",
 											"        postman.setNextRequest(\"Get all tags associated with an API\");",
 											"    } else {",
-											"        postman.setNextRequest(\"Get all Organizaitons Uuid that are associated with the Tag\");",
+											"        postman.setNextRequest(\"Get All Organization Tags\");",
 											"    }"
 										],
 										"type": "text/javascript"
@@ -8164,6 +8427,104 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "sourceToken",
+			"value": ""
+		},
+		{
+			"key": "destToken",
+			"value": ""
+		},
+		{
+			"key": "sourceStandardEulaUuid",
+			"value": ""
+		},
+		{
+			"key": "destSettingUuid",
+			"value": ""
+		},
+		{
+			"key": "destSettingValue",
+			"value": ""
+		},
+		{
+			"key": "sourceSettingValue",
+			"value": ""
+		},
+		{
+			"key": "setting",
+			"value": ""
+		},
+		{
+			"key": "settings",
+			"value": ""
+		},
+		{
+			"key": "destDefaultAccountPlanId",
+			"value": ""
+		},
+		{
+			"key": "sourceDefaultAccountPlanId",
+			"value": ""
+		},
+		{
+			"key": "destOrgs",
+			"value": ""
+		},
+		{
+			"key": "gatewayBundles",
+			"value": ""
+		},
+		{
+			"key": "gatewayBundleIndex",
+			"value": ""
+		},
+		{
+			"key": "apiPlans",
+			"value": ""
+		},
+		{
+			"key": "apiPlansIndex",
+			"value": ""
+		},
+		{
+			"key": "apiTags",
+			"value": ""
+		},
+		{
+			"key": "apiTagsBody",
+			"value": ""
+		},
+		{
+			"key": "apiTagsCreated",
+			"value": ""
+		},
+		{
+			"key": "allApis",
+			"value": ""
+		},
+		{
+			"key": "currentApiUuid",
+			"value": ""
+		},
+		{
+			"key": "associatedTags",
+			"value": ""
+		},
+		{
+			"key": "orgTags",
+			"value": ""
+		},
+		{
+			"key": "orgTagsBody",
+			"value": ""
+		},
+		{
+			"key": "orgTagsCreated",
+			"value": ""
 		}
 	]
 }

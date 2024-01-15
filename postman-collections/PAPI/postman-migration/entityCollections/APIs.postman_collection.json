@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "fa1102f9-6e26-489f-8289-964cfc3cfeb0",
+		"_postman_id": "f984e0b6-cca6-49ac-82bc-1149207faa64",
 		"name": "APIs",
 		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21138964"
+		"_exporter_id": "24570368"
 	},
 	"item": [
 		{
@@ -568,7 +568,7 @@
 							"    pm.variables.set(\"apiCustomFields\", JSON.stringify(apiCustomFields));\r",
 							"    postman.setNextRequest(\"Put custom-fields\");\r",
 							"} else {\r",
-							"    postman.setNextRequest(\"Get Api Organizations\");\r",
+							"    postman.setNextRequest(\"Get all Organization and Rate Quota(Api per Org) associated with an API\");\r",
 							"}\r",
 							""
 						],
@@ -624,7 +624,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							""
+							"postman.setNextRequest(\"Get all Organization and Rate Quota(Api per Org) associated with an API\");"
 						],
 						"type": "text/javascript"
 					}
