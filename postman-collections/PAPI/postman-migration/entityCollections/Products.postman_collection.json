@@ -1,11 +1,68 @@
 {
 	"info": {
-		"_postman_id": "1fed1ed1-5e60-428f-8f22-20bf563c0af3",
+		"_postman_id": "4bc256d5-ab58-4db5-9f83-7d684c1e9a68",
 		"name": "Products",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21138964"
+		"_exporter_id": "24570368"
 	},
 	"item": [
+		{
+			"name": "Check Source Products Feature",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"let value = response.Value;",
+							"",
+							"if(value == null || value === \"false\"){",
+							"    console.log('Source tenant Products feature is disabled')",
+							"    postman.setNextRequest('End Loop Products')",
+							"}",
+							"console.log('Source tenant Products feature is enabled')"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{sourceToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/Settings('FEATURE_FLAG_PRODUCT')",
+					"protocol": "https",
+					"host": [
+						"{{sourceSsgUrl}}"
+					],
+					"port": "{{sourceSsgPort}}",
+					"path": [
+						"{{sourceTenantId}}",
+						"Settings('FEATURE_FLAG_PRODUCT')"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "Get Source Products",
 			"event": [
@@ -717,6 +774,70 @@
 						"products",
 						"{{productUuid}}",
 						"organizations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "End Loop Products",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://{{sourceApimTenantUrl}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{sourceToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://postman-echo.com/get",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "createTs,DESC",
+							"disabled": true
+						}
 					]
 				}
 			},
