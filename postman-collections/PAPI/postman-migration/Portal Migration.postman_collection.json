@@ -1,10 +1,11 @@
 {
 	"info": {
-		"_postman_id": "716e4c42-b1eb-4917-bbde-f7beb5ba16cf",
+		"_postman_id": "1b3a5241-63c0-4df9-b3eb-caff53248999",
 		"name": "Portal Migration",
 		"description": "Requests under this folder are for creating and enabling an REST API in target Portal tenant.\n\nGet access token for the target tenant before running requests under this folder.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "24570368"
+		"_exporter_id": "11333670",
+		"_collection_link": "https://l7portalvan.postman.co/workspace/My-Workspace~329ef921-0169-4ced-8256-cdbbd5d099cf/collection/11333670-1b3a5241-63c0-4df9-b3eb-caff53248999?action=share&source=collection_link&creator=11333670"
 	},
 	"item": [
 		{
@@ -1842,7 +1843,7 @@
 			]
 		},
 		{
-			"name": "GatewayBundle",
+			"name": "RestmanGatewayBundle",
 			"item": [
 				{
 					"name": "Get Source GatewayBundles",
@@ -1924,7 +1925,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/policy-management/0.1/gateway-bundles?page={{gatewayBundlesPage}}",
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/policy-management/0.1/gateway-bundles?page={{gatewayBundlesPage}}&bundleFormat=PolicyPlugin",
 							"protocol": "https",
 							"host": [
 								"{{sourceSsgUrl}}"
@@ -1945,6 +1946,10 @@
 									"key": "sort",
 									"value": "createTs,DESC",
 									"disabled": true
+								},
+								{
+									"key": "bundleFormat",
+									"value": "PolicyPlugin"
 								}
 							]
 						}
@@ -2434,6 +2439,345 @@
 									"key": "files",
 									"type": "file",
 									"src": "{{deleteBundleFileName}}"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{destSsgUrl}}:{{destSsgPort}}/{{destTenantId}}/policy-management/0.1/gateway-bundles",
+							"protocol": "https",
+							"host": [
+								"{{destSsgUrl}}"
+							],
+							"port": "{{destSsgPort}}",
+							"path": [
+								"{{destTenantId}}",
+								"policy-management",
+								"0.1",
+								"gateway-bundles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GraphmanGatewayBundle",
+			"item": [
+				{
+					"name": "Get Source GatewayBundles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"const response = pm.response.json();",
+									"var jsonData = response.results;",
+									"",
+									"// get existing gatewayBundles from collection variables",
+									"var gatewayBundlesJson = pm.collectionVariables.get(\"gatewayBundles\")",
+									"var gatewayBundles = []",
+									"if(gatewayBundlesJson != null){",
+									"    gatewayBundles =  JSON.parse(gatewayBundlesJson)",
+									"}",
+									"",
+									"// save the bundles in response into collection variables except the system reserved one.",
+									"for (var index in jsonData){",
+									"    var gatewayBundle = jsonData[index]",
+									"    // do not save the system reserved bundle",
+									"    if (gatewayBundle.name !== \"Rate & Quota Policy Template\" &&",
+									"    gatewayBundle.groupName !== \"l7.apim.system\" ){",
+									"        gatewayBundles.push(gatewayBundle)",
+									"        console.log(gatewayBundle)",
+									"    }",
+									"}",
+									"",
+									"pm.collectionVariables.set(\"gatewayBundles\", JSON.stringify(gatewayBundles))",
+									"",
+									"if (response != null && response.currentPage + 1 < response.totalPages) {",
+									"    postman.setNextRequest(\"Get Source GatewayBundles\");",
+									"} else {",
+									"    pm.collectionVariables.unset(\"gatewayBundlesPage\");",
+									"    pm.collectionVariables.set(\"gatewayBundleIndex\", 0)",
+									"    postman.setNextRequest('Download Source GatewayBundle Metadata')",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var page = pm.collectionVariables.get(\"gatewayBundlesPage\");",
+									"",
+									"if (page == null) {",
+									"    pm.collectionVariables.set(\"gatewayBundlesPage\", 0);",
+									"    // reset gatewayBundles if page is null",
+									"    pm.collectionVariables.unset(\"gatewayBundles\")",
+									"} else {",
+									"    pm.collectionVariables.set(\"gatewayBundlesPage\", page + 1);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/policy-management/0.1/gateway-bundles?page={{gatewayBundlesPage}}&bundleFormat=Graphman",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"policy-management",
+								"0.1",
+								"gateway-bundles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{gatewayBundlesPage}}"
+								},
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								},
+								{
+									"key": "bundleFormat",
+									"value": "Graphman"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download Source GatewayBundle Metadata",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"if(gatewayBundles === null || index === null) {",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"        console.log('Downloading GatewayBundle ' + index + ' Install Bundle...')",
+									"    var gatewaybundle = gatewayBundles[index]",
+									"",
+									"    // set path variable for uuid",
+									"    pm.variables.set(\"uuid\", gatewaybundle.uuid)",
+									"    pm.variables.set(\"bundleVersion\", gatewaybundle.version)",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"var gatewaybundle = gatewayBundles[index]",
+									"",
+									"// The opts for the server, also includes the data to be written to file",
+									"let opts = {",
+									"    requestName: gatewaybundle.name + '-' + gatewaybundle.version,",
+									"    fileExtension: 'json',",
+									"    mode: 'writeFile', // Change this to any function of the fs library of node to use it.",
+									"    uniqueIdentifier: false,",
+									"    responseData: pm.response.text()",
+									"};",
+									"// send the downloaded file content to local server running on port 3000.",
+									"pm.sendRequest({",
+									"    url: 'http://localhost:3000/write',",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(opts)",
+									"    }",
+									"}, function (err, res) {",
+									"    console.log(res);",
+									"});",
+									"",
+									"",
+									"console.log('sending Gateway Bunlde ' + index + ' Delete Bundle to localserver to save it to Postman Wokring Folder')",
+									"",
+									"// If we are *not* on the last item in the list,",
+									"// increment the index and set the next request to ",
+									"// this one. Otherwise end the loop.",
+									"",
+									"if (index + 1 < gatewayBundles.length){",
+									"    pm.collectionVariables.set('gatewayBundleIndex', index + 1)",
+									"    postman.setNextRequest('Download Source GatewayBundle Metadata')",
+									"}else{",
+									"    // reset the index for the next request",
+									"    pm.collectionVariables.set('gatewayBundleIndex', 0)",
+									"    postman.setNextRequest('Post Destination GatewayBundle')",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://{{sourceApimTenantUrl}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sourceToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{sourceSsgUrl}}:{{sourceSsgPort}}/{{sourceTenantId}}/policy-management/0.1/gateway-bundles/{{uuid}}/metadata",
+							"protocol": "https",
+							"host": [
+								"{{sourceSsgUrl}}"
+							],
+							"port": "{{sourceSsgPort}}",
+							"path": [
+								"{{sourceTenantId}}",
+								"policy-management",
+								"0.1",
+								"gateway-bundles",
+								"{{uuid}}",
+								"metadata"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTs,DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Destination GatewayBundle",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"if(gatewayBundles === null || index === null) {",
+									"    postman.setNextRequest(null)",
+									"}else{",
+									"    console.log('gatewaybundle ' + index)",
+									"    var gatewaybundle = gatewayBundles[index]",
+									"",
+									"",
+									"    // // set file names that are saved in the Postman working folder",
+									"    pm.variables.set(\"metadataFileName\", gatewaybundle.name + '-' + gatewaybundle.version + '.json')",
+									"    //pm.variables.set(\"installBundleFileName\", gatewaybundle.name + '-' + gatewaybundle.version + '.install.bundle')",
+									"    ",
+									"    //pm.variables.set(\"deleteBundleFileName\", gatewaybundle.name + '-' + gatewaybundle.version + '.json')",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Fetch the variables set in \"Get_Gateway_Bundles\" ",
+									"// and get the next Gateway Bundle in the list",
+									"gatewayBundles = JSON.parse(pm.collectionVariables.get('gatewayBundles'))",
+									"var index = parseInt(pm.collectionVariables.get('gatewayBundleIndex'))",
+									"",
+									"",
+									"console.log('created GatewayBundle ' + index + ' out of ' + gatewayBundles.length)",
+									"// If we are *not* on the last item in the list,",
+									"// increment the index and set the next request to ",
+									"// this one. Otherwise end the loop.",
+									"",
+									"if (index + 1 < gatewayBundles.length){",
+									"    pm.collectionVariables.set('gatewayBundleIndex', index + 1)",
+									"    postman.setNextRequest('Post Destination GatewayBundle')",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{destToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"contentType": "application/json",
+									"type": "file",
+									"src": "{{metadataFileName}}"
 								}
 							]
 						},
@@ -8525,6 +8869,10 @@
 		{
 			"key": "orgTagsCreated",
 			"value": ""
+		},
+		{
+			"key": "BundleFileName",
+			"value": "{{BundleFileName}}"
 		}
 	]
 }
