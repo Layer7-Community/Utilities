@@ -616,7 +616,7 @@
 	"variable": [
 		{
 			"key": "otk_hostname",
-			"value": "cb61qv2.dhcp.broadcom.net"
+			"value": ""
 		},
 		{
 			"key": "otk_port",
@@ -624,11 +624,11 @@
 		},
 		{
 			"key": "username",
-			"value": "admin"
+			"value": ""
 		},
 		{
 			"key": "password",
-			"value": "7layer"
+			"value": ""
 		},
 		{
 			"key": "client_name",
