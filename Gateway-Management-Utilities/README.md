@@ -16,7 +16,7 @@ Finally, you can deploy the bundle using the bootstrap bundle provisioning featu
     copy the bundle file to /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle
     # chmod -R 775 /opt/SecureSpan/Gateway/node/default/etc/bootstrap
     # systemctl restart ssg
-### Note:
+#### Note:
 ## Accessing the Utility Assertions Tester service
 Point your browser to https://&lt;gateway&gt;:8443/apigw/utilityTester and provide Policy Manager admin credentials. 
 
