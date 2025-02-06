@@ -2,6 +2,11 @@
 A suite of encapsulated assertions useful for calling RestMan directly from policy with a service to test the assertions (Utility Assertions Tester), plus the Gateway Dependency Analyzer utility that uses the assertions to query the Gateway and determine internal dependencies, a Certificate Report utility, a License Report utility, and the Cluster Wide Property Manager.
 
 ## Installation
+Since the release of the utilities, Graphman tool has been developed, which provides a simpler and faster alternative to the GMU. The Dependency Analyzer can be installed with Graphman as follows:
+* Check that that CWP "io.xmlPartMaxBytes" is set to 0 (this can be temporary and the value can be reverted back afterwards).
+* Import the bundle in the target gateway, with the command:
+       # ./graphman.sh import --input dependencyAnalyzer.json
+
 Deploy using the GMU (assumes connection details are in &lt;gateway&gt;.properties):
 
     # ./GatewayMigrationUtility.sh migrateIn -z <gateway>.properties -b Gateway-Management-Utilities.bundle -r Gateway-Management-Utilities.result
@@ -16,7 +21,7 @@ Finally, you can deploy the bundle using the bootstrap bundle provisioning featu
     copy the bundle file to /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle
     # chmod -R 775 /opt/SecureSpan/Gateway/node/default/etc/bootstrap
     # systemctl restart ssg
-#### Note:
+    
 ## Accessing the Utility Assertions Tester service
 Point your browser to https://&lt;gateway&gt;:8443/apigw/utilityTester and provide Policy Manager admin credentials. 
 
