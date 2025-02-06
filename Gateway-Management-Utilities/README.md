@@ -6,9 +6,10 @@ Since the release of the the Gateway Management Utilities, the Graphman tool has
 * Check that that CWP "io.xmlPartMaxBytes" is set to 0 (this can be temporary and the value can be reverted back afterwards).
 * Import the bundle in the target gateway, with the command:
 
-  # ./graphman.sh import --input dependencyAnalyzer.json
+```./graphman.sh import --input dependencyAnalyzer.json```
 
 For the installation of all the utilities with the GMU, proceed as follows.
+
 Deploy using the GMU (assumes connection details are in &lt;gateway&gt;.properties):
 
     # ./GatewayMigrationUtility.sh migrateIn -z <gateway>.properties -b Gateway-Management-Utilities.bundle -r Gateway-Management-Utilities.result
