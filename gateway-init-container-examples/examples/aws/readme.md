@@ -4,8 +4,11 @@ covert it into a shared volume /opt/docker/custom/custom-properties as multi-lin
 The Gateway Helm Chart is then configured to use bootstrap script to copy this node.properties to /opt/SecureSpan/Gateway/node/default/etc/conf/node.properties.
 
 ## Running this example
-https://github.com/aws/secrets-store-csi-driver-provider-aws/tree/main?tab=readme-ov-file
-#### Set up an AWS secret with all key values in node.properties. 
+https://github.com/aws/secrets-store-csi-driver-provider-aws/tree/main?tab=readme-ov-file#usage
+Set the region name and name of your cluster to use in the bash commands that follow:
+REGION=<REGION>
+CLUSTERNAME=<CLUSTERNAME>
+#### Set up an AWS secret with all key values in node.properties.
 For example
 Node.properties for derby database, store as a secret "gateway.node.properties" in AWS secret Manager
 ```
@@ -19,6 +22,8 @@ aws --region "$REGION" secretsmanager  create-secret --name gateway.node.propert
 ```
 
 #### Create an access policy for the pod to access AWS secrets manager secret gateway.node.properties for read and write
+
+
 ```
 POLICY_ARN=$(aws --region "$REGION" --query Policy.Arn --output text iam create-policy --policy-name nginx-deployment-policy --policy-document '{
     "Version": "2012-10-17",
@@ -38,4 +43,7 @@ eksctl create iamserviceaccount --name gw-sa --region="$REGION" --cluster "$CLUS
 ```
 
 This example works with resources in the [gateway](../../gateway/) check out the [readme](../../readme.md) for more details.
-use gateway helm chart aws-secret-gateway-values.yaml
+use gateway helm chart gateway/helm/aws-secret-gateway-values.yaml as example.
+Update the serviceAccount.name, service-id and AWS_REGION with yours. 
+
+
