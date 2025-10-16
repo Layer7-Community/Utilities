@@ -5,7 +5,9 @@ The Gateway deployment mounts shared volume "shared-secret" at /opt/SecureSpan/G
 
 ## Running this example
 Steps was copied from https://github.com/aws/secrets-store-csi-driver-provider-aws/tree/main?tab=readme-ov-file#usage
-Prerequisite: install awscli and eksctl 
+
+Prerequisite: install awscli and eksctl
+
 Set the region name, name of your cluster to use in the bash commands that follow:
 REGION=<REGION>
 CLUSTERNAME=<CLUSTERNAME>
