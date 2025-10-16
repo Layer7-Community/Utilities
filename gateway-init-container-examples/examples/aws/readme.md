@@ -31,7 +31,7 @@ aws --region "$REGION" secretsmanager  create-secret --name gateway.node.propert
 
 
 ```
-POLICY_ARN=$(aws --region "$REGION" --query Policy.Arn --output text iam create-policy --policy-name nginx-deployment-policy --policy-document '{
+POLICY_ARN=$(aws --region "$REGION" --query Policy.Arn --output text iam create-policy --policy-name aws-secret-access-policy --policy-document '{
     "Version": "2012-10-17",
     "Statement": [ {
         "Effect": "Allow",
