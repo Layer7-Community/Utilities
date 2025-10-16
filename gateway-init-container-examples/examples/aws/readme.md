@@ -1,16 +1,23 @@
 ﻿## AWS  Example
-This example simply uses a Kubernetes initContainer(amazon/aws-cli:2.15.0) to fetch an AWS secret (store node.properties as key values) from AWS Secrets Manager as singleline json and then 
-covert it into a shared volume /opt/docker/custom/custom-properties as multi-line node.properties. 
-The Gateway Helm Chart is then configured to use bootstrap script to copy this node.properties to /opt/SecureSpan/Gateway/node/default/etc/conf/node.properties.
+This example simply uses a Kubernetes initContainer(amazon/aws-cli:latest) to fetch an AWS secret (store node.properties as key values) from AWS Secrets Manager as singleline json and then 
+covert it into a multi-line node.properties before mounting to shared volume "shared-secret" at /opt/docker/conf
+The Gateway deployment mounts shared volume "shared-secret" at /opt/SecureSpan/Gateway/node/default/etc/conf/node.properties subpath node.properties.
 
 ## Running this example
-https://github.com/aws/secrets-store-csi-driver-provider-aws/tree/main?tab=readme-ov-file#usage
-Set the region name and name of your cluster to use in the bash commands that follow:
+Steps was copied from https://github.com/aws/secrets-store-csi-driver-provider-aws/tree/main?tab=readme-ov-file#usage
+
+Prerequisite: install awscli and eksctl
+
+Set the region name, name of your cluster to use in the bash commands that follow:
+```
 REGION=<REGION>
 CLUSTERNAME=<CLUSTERNAME>
+```
+
 #### Set up an AWS secret with all key values in node.properties.
 For example
-Node.properties for derby database, store as a secret "gateway.node.properties" in AWS secret Manager
+Node.properties for derby database, store as a secret "gateway.node.properties" in AWS secret Manager.
+To update secret can replace create-secret with update-secret.
 ```
 node.cluster.pass=7layer
 admin.user=admin
@@ -25,7 +32,7 @@ aws --region "$REGION" secretsmanager  create-secret --name gateway.node.propert
 
 
 ```
-POLICY_ARN=$(aws --region "$REGION" --query Policy.Arn --output text iam create-policy --policy-name nginx-deployment-policy --policy-document '{
+POLICY_ARN=$(aws --region "$REGION" --query Policy.Arn --output text iam create-policy --policy-name aws-secret-access-policy --policy-document '{
     "Version": "2012-10-17",
     "Statement": [ {
         "Effect": "Allow",
