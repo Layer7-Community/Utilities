@@ -9,8 +9,11 @@ Steps was copied from https://github.com/aws/secrets-store-csi-driver-provider-a
 Prerequisite: install awscli and eksctl
 
 Set the region name, name of your cluster to use in the bash commands that follow:
+```
 REGION=<REGION>
 CLUSTERNAME=<CLUSTERNAME>
+```
+
 #### Set up an AWS secret with all key values in node.properties.
 For example
 Node.properties for derby database, store as a secret "gateway.node.properties" in AWS secret Manager
