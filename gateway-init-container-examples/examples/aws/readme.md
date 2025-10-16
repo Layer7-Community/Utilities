@@ -17,6 +17,7 @@ CLUSTERNAME=<CLUSTERNAME>
 #### Set up an AWS secret with all key values in node.properties.
 For example
 Node.properties for derby database, store as a secret "gateway.node.properties" in AWS secret Manager
+to update secret can replace create-secret with update-secret
 ```
 node.cluster.pass=7layer
 admin.user=admin
