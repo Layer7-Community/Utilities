@@ -15,6 +15,15 @@ CLUSTERNAME=<CLUSTERNAME>
 ```
 
 #### Set up an AWS secret with all key values in node.properties.
+Convert multiple line node.properties into single line json format as secret-string.
+Unlike interactive password changes in Policy Manager, the container startup scripts validate the following username and password against a restricted character set (for parsing/scripting safety):
+```
+admin.user, admin.pass, node.db.config.main.user, node.db.config.main.pass
+```
+They may contain alphanumeric ASCII characters and any of the following symbols:
+
+! @ . = - _ ^ + ; : # , %. Do NOT use space characters.
+
 For example
 Node.properties for derby database, store as a secret "gateway.node.properties" in AWS secret Manager.
 To update secret can replace create-secret with update-secret.
