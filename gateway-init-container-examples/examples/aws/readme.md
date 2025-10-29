@@ -5,6 +5,7 @@ covert it into a multi-line node.properties before mounting to shared volume "sh
 The Gateway deployment mounts shared volume "shared-secret" at /opt/SecureSpan/Gateway/node/default/etc/conf/node.properties subpath node.properties.
 
 ## Running this example
+This example works with helm chart version 3.0.39 or appVersion 11.2.0 in https://github.com/CAAPIM/apim-charts/blob/stable/charts/gateway/Chart.yaml
 Steps was copied from https://github.com/aws/secrets-store-csi-driver-provider-aws/tree/main?tab=readme-ov-file#usage
 
 Prerequisite: install awscli and eksctl
