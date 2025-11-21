@@ -1,0 +1,26 @@
+{
+    "services": [
+      {
+        "goid": "ebe7d44e251ec900403186f00eb9e278",
+        "guid": "cf4c248a-5d46-4a34-9cd7-65b11074f97d",
+        "name": "Secure Hello World",
+        "resolutionPath": "/helloworld",
+        "serviceType": "WEB_API",
+        "checksum": "3ab424b727986e8736ce6ec65ea6b15979ac8855",
+        "enabled": true,
+        "folderPath": "/",
+        "methodsAllowed": [
+          "GET",
+          "POST",
+          "PUT",
+          "DELETE"
+        ],
+        "tracingEnabled": false,
+        "wssProcessingEnabled": false,
+        "laxResolution": false,
+        "policy": {
+          "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<wsp:Policy xmlns:L7p=\"http://www.layer7tech.com/ws/policy\" xmlns:wsp=\"http://schemas.xmlsoap.org/ws/2002/12/policy\">\n    <wsp:All wsp:Usage=\"Required\">\n        <L7p:HardcodedResponse>\n            <L7p:Base64ResponseBody stringValue=\"SGVsbG8h\"/>\n            <L7p:ResponseContentType stringValue=\"text/plain; charset=UTF-8\"/>\n        </L7p:HardcodedResponse>\n    </wsp:All>\n</wsp:Policy>\n"
+        }
+      }
+    ]
+  }

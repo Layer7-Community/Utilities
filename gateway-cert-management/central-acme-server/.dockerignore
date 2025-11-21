@@ -1,0 +1,50 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+!README-Docker.md
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# AWS credentials
+.aws/
+aws-credentials
+
+# Logs
+logs/
+*.log
+
+# Lego certificates (will be in volume)
+.lego/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+

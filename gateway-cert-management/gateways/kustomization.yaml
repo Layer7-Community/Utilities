@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+generatorOptions:
+ disableNameSuffixHash: true
+secretGenerator:
+- name: ssg-license
+  files:
+  - license=./license/license.xml
+- name: hello-world-bundle
+  files:
+    - ./helloworld-bundle.json
+- name: cacerts
+  files:
+    - ./trusted-certs/cacerts.der
+
+
+

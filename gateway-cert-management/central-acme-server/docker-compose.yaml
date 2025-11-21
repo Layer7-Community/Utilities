@@ -1,0 +1,54 @@
+services:
+  central-acme-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: central-acme-server
+    restart: unless-stopped
+    env_file:
+      - .env
+    
+    environment:
+      # ACME Configuration
+      - ACME_EMAIL=${ACME_EMAIL:-admin@example.com}
+      - ACME_DNS_PROVIDER=${ACME_DNS_PROVIDER:-gcloud}
+      - ACME_CA_SERVER=${ACME_CA_SERVER:-https://acme-v02.api.letsencrypt.org/directory}
+      
+      # Google Cloud Credentials (for Google Cloud DNS)
+      - GCE_SERVICE_ACCOUNT_FILE=/app/gcp-service-account.json
+      
+      # Check interval (in seconds)
+      - CHECK_INTERVAL=${CHECK_INTERVAL:-86400}
+      
+      # Certificate renewal threshold (days before expiry)
+      - RENEWAL_THRESHOLD_DAYS=${RENEWAL_THRESHOLD_DAYS:-15}
+      
+      # Logging
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    
+    volumes:
+      # Persistent certificate storage
+      - acme-certificates:/app/.lego
+      
+      # Google Cloud service account credentials
+      - ./.gcp/gcp-service-account.json:/app/gcp-service-account.json
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import os; exit(0 if os.path.exists('/app/.lego') else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    
+    networks:
+      - acme-network
+
+volumes:
+  acme-certificates:
+    driver: local
+
+networks:
+  acme-network:
+    driver: bridge
+

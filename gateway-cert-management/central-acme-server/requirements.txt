@@ -1,0 +1,9 @@
+# Central ACME Server Python Dependencies
+
+# HTTP client for GraphQL requests
+requests>=2.31.0
+
+# YAML configuration parsing
+PyYAML>=6.0.1
+
+

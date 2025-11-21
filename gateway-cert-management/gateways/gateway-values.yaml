@@ -1,0 +1,204 @@
+nameOverride: ""
+fullnameOverride: ""
+global:
+  schedulerName:
+  security:
+    allowInsecureImages: true
+
+# Use set file to place a Gateway license here
+license:
+  value:
+  accept: true
+  existingSecretName: ssg-license
+
+image:
+  registry: docker.io
+  repository: caapim/gateway
+  tag: 11.1.3
+  pullPolicy: IfNotPresent
+
+customConfig:
+  enabled: true
+  mounts:
+  - name: cacerts
+    mountPath: /usr/lib/jvm/default-jvm/lib/security/cacerts
+    subPath: cacerts
+    secret:
+      name: cacerts
+      item:
+        key: cacerts.der
+        path: cacerts
+# Set this if you would like to add an image pull secret directly to the Gateway deployment
+# Alternatively, leave this disabled and reference a service account that has the image pull secret associated with it.
+imagePullSecret:
+  enabled: false
+  # existingSecretName: private-registry-secret
+  username:
+  password:
+
+# Number of Gateways to deploy
+replicas: 1
+# Update strategy
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+existingBundle:
+  enabled: true
+  secrets:
+  - name: hello-world-bundle
+
+pmtagger:
+  enabled: false
+
+config:
+  heapSize: "4g"
+  javaArgs:
+    - -Dcom.l7tech.bootstrap.autoTrustSslKey=trustAnchor,TrustedFor.SSL,TrustedFor.SAML_ISSUER
+    - -Dcom.l7tech.server.audit.message.saveToInternal=false
+    - -Dcom.l7tech.server.audit.admin.saveToInternal=false
+    - -Dcom.l7tech.server.audit.system.saveToInternal=false
+    - -Dcom.l7tech.server.audit.log.format=json
+    - -Djava.util.logging.config.file=/opt/SecureSpan/Gateway/node/default/etc/conf/log-override.properties
+    - -Dcom.l7tech.server.pkix.useDefaultTrustAnchors=true
+    - -Dcom.l7tech.security.ssl.hostAllowWildcard=true
+  log:
+    override: true
+    properties: |-
+      com.l7tech.server.log.GatewayRootLoggingHandler.formatter = com.l7tech.util.JsonLogFormatter
+      java.util.logging.SimpleFormatter.format=
+      com.l7tech.server.log.ConsoleMessageSink$L7ConsoleHandler.formatter = com.l7tech.util.JsonLogFormatter
+      com.l7tech.server.log.ConsoleMessageSink$L7ConsoleHandler.level = CONFIG
+  cwp:
+    enabled: true
+    properties:
+      - name: io.httpsHostAllowWildcard
+        value: true
+      - name: log.levels
+        value: |
+          com.l7tech.level = CONFIG
+          com.l7tech.server.policy.variable.ServerVariables.level = SEVERE
+          com.l7tech.external.assertions.odata.server.producer.jdbc.GenerateSqlQuery.level = SEVERE
+          com.l7tech.server.policy.assertion.ServerSetVariableAssertion.level = SEVERE
+          com.l7tech.external.assertions.comparison.server.ServerComparisonAssertion.level = SEVERE
+      - name: audit.setDetailLevel.FINE
+        value: 152 7101 7103 9648 9645 7026 7027 4155 150 4716 4114 6306 4100 9655 150 151 11000 4104
+ # If enabled this will override the default listen ports and their configuration in the API Gateway
+  
+  listenPorts:
+    custom:
+      enabled: true
+    ports:
+      - name: Default HTTPS (8443)
+        port: 8443
+        enabled: true
+        protocol: HTTPS
+        managementFeatures:
+        - Published service message input
+        - Administrative access
+        - Browser-based administration
+        - Built-in services
+        properties: 
+        - name: refreshOnKeyChanges
+          value: true
+        tls:
+          enabled: true
+          clientAuthentication: Optional
+          versions:
+          - TLSv1.2
+          - TLSv1.3
+          useCipherSuitesOrder: true
+          cipherSuites:
+          - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+          - TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+          - TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_AES_256_GCM_SHA384
+          - TLS_AES_128_GCM_SHA256
+      - name: Default HTTPS (9443)
+        port: 9443
+        enabled: true
+        protocol: HTTPS
+        managementFeatures:
+        - Published service message input
+        - Administrative access
+        - Browser-based administration
+        - Built-in services
+        properties: 
+        - name: refreshOnKeyChanges
+          value: true
+        tls:
+          enabled: true
+          clientAuthentication: Optional
+          versions:
+          - TLSv1.2
+          - TLSv1.3
+          useCipherSuitesOrder: true
+          cipherSuites:
+          - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+          - TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+          - TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_AES_256_GCM_SHA384
+          - TLS_AES_128_GCM_SHA256
+
+clusterHostname: ${CLUSTER_HOSTNAME}
+
+database:
+  enabled: false
+  create: false
+  username: gateway
+  password: mypassword
+  liquibaseLogLevel: "off"
+  name: ssg
+
+# Cluster Password
+clusterPassword: 7layer
+
+management:
+  enabled: true
+  restman:
+    enabled: false
+  graphman:
+    enabled: true
+  username: admin
+  password: 7layer
+  kubernetes:
+    loadServiceAccountToken: true
+  service:
+    enabled: false
+    ipFamilies: []
+    type: ClusterIP
+    annotations: {}
+    ports:
+      - name: management
+        internal: 9443
+        external: 9443
+        protocol: TCP
+
+service:
+  type: LoadBalancer
+  ipFamilies: []
+  ports:
+    - name: https
+      internal: 8443
+      external: 443
+      protocol: TCP
+  annotations: {}
+
+ingress:
+  enabled: false
