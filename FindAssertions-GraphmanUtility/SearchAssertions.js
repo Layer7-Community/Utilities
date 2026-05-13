@@ -39,50 +39,44 @@ try {
     throw new Error('Invalid JSON structure: services or policies array not found');
   }
 
-  // Helper function to search for assertion in a policies array
-  function searchInPoliciesArray(policiesArray, assertionName) {
-    if (!policiesArray || !Array.isArray(policiesArray)) {
-      return null;
+  // Recursively search any object/array for a property matching assertionName.
+  // Returns the assertion value if found, or null otherwise.
+  function deepSearchAssertion(obj, assertionName) {
+    if (!obj || typeof obj !== 'object') return null;
+    if (Array.isArray(obj)) {
+      for (const item of obj) {
+        const found = deepSearchAssertion(item, assertionName);
+        if (found !== null) return found;
+      }
+    } else {
+      if (Object.prototype.hasOwnProperty.call(obj, assertionName)) {
+        return obj[assertionName];
+      }
+      for (const key of Object.keys(obj)) {
+        if (typeof obj[key] === 'object' && obj[key] !== null) {
+          const found = deepSearchAssertion(obj[key], assertionName);
+          if (found !== null) return found;
+        }
+      }
     }
+    return null;
+  }
 
-    for (const policyItem of policiesArray) {
-      if (policyItem && typeof policyItem === 'object') {
-        // Check if this item has the assertion directly
-        if (policyItem.hasOwnProperty(assertionName)) {
-          return policyItem[assertionName];
-        }
-
-        // Check inside OneOrMore.All if it exists
-        // OneOrMore can be an array or an object, handle both cases
-        const oneOrMore = policyItem.OneOrMore || policyItem.OneorMore || policyItem.oneOrMore || policyItem.oneormore || null;
-
-        if (oneOrMore) {
-          // If OneOrMore is an array, iterate through it
-          if (Array.isArray(oneOrMore)) {
-            for (const oneOrMoreItem of oneOrMore) {
-              if (oneOrMoreItem && typeof oneOrMoreItem === 'object') {
-                // Check if this item has an All property
-                const oneOrMoreAll = oneOrMoreItem.All || oneOrMoreItem.all || null;
-                if (oneOrMoreAll && Array.isArray(oneOrMoreAll)) {
-                  const found = searchInPoliciesArray(oneOrMoreAll, assertionName);
-                  if (found) {
-                    return found;
-                  }
-                }
-              }
-            }
-          }
-          // If OneOrMore is an object, check for All property directly
-          else if (typeof oneOrMore === 'object') {
-            const oneOrMoreAll = oneOrMore.All || oneOrMore.all || null;
-            if (oneOrMoreAll && Array.isArray(oneOrMoreAll)) {
-              const found = searchInPoliciesArray(oneOrMoreAll, assertionName);
-              if (found) {
-                return found;
-              }
-            }
-          }
-        }
+  // Resolve the policy code object from a service/policy entry.
+  // Graphman may return it as a parsed object under 'policy.code' or as a
+  // JSON string under 'policy.json' depending on the policyCodeFormat setting.
+  function getPolicyCode(entry) {
+    if (!entry || !entry.policy) return null;
+    if (entry.policy.code && typeof entry.policy.code === 'object') {
+      return entry.policy.code;
+    }
+    if (entry.policy.json) {
+      try {
+        return typeof entry.policy.json === 'string'
+          ? JSON.parse(entry.policy.json)
+          : entry.policy.json;
+      } catch (e) {
+        return null;
       }
     }
     return null;
@@ -99,18 +93,11 @@ try {
       let foundPolicy = null;
       let exists = false;
 
-      // Check if policy.code exists
-      if (service.policy && service.policy.code) {
-        const policyCode = service.policy.code;
-
-        // Search in policy.code.All (case-insensitive)
-        // This will also recursively search in policy.code.All.OneorMore.All
-        const allPolicies = policyCode.All || policyCode.all || null;
-        if (allPolicies && Array.isArray(allPolicies)) {
-          foundPolicy = searchInPoliciesArray(allPolicies, searchAssertion);
-          if (foundPolicy) {
-            exists = true;
-          }
+      const policyCode = getPolicyCode(service);
+      if (policyCode) {
+        foundPolicy = deepSearchAssertion(policyCode, searchAssertion);
+        if (foundPolicy !== null) {
+          exists = true;
         }
       }
 
@@ -144,18 +131,11 @@ try {
       let foundPolicy = null;
       let exists = false;
 
-      // Check if policy.code exists
-      if (policy.policy && policy.policy.code) {
-        const policyCode = policy.policy.code;
-
-        // Search in policy.code.All (case-insensitive)
-        // This will also recursively search in policy.code.All.OneorMore.All
-        const allPolicies = policyCode.All || policyCode.all || null;
-        if (allPolicies && Array.isArray(allPolicies)) {
-          foundPolicy = searchInPoliciesArray(allPolicies, searchAssertion);
-          if (foundPolicy) {
-            exists = true;
-          }
+      const policyCode = getPolicyCode(policy);
+      if (policyCode) {
+        foundPolicy = deepSearchAssertion(policyCode, searchAssertion);
+        if (foundPolicy !== null) {
+          exists = true;
         }
       }
 
