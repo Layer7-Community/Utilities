@@ -18,6 +18,9 @@ This is the Windows-compatible version of `searchAssertions.sh` for users runnin
 2. **Layer7 API Gateway Graphman client**
    - Should be installed at `../../graphman-client-main/` (relative to script location)
    - Or provide the path as an argument
+   - **`policyCodeFormat` configuration**: Both `"Code"` and `"json"` values are supported in the `graphman.configuration` options. The scripts detect the format automatically — no configuration change is required:
+     - `"Code"` — policy code returned as a parsed object under `policy.code`
+     - `"json"` — policy code returned as a JSON string under `policy.json`
 
 3. **Access to the gateway** for exporting services and policies
 
@@ -298,6 +301,7 @@ If you have Git Bash installed, you can use the original bash script:
 - The replace server runs in the background and persists after the script completes
 - Server PID is not easily accessible in batch files, so use Task Manager to stop the server
 - Paths with spaces should be enclosed in quotes
+- `SearchAssertions.js` supports both Graphman `policyCodeFormat` values (`"Code"` and `"json"`) and detects the format automatically at runtime — no changes to `graphman.configuration` are needed to switch between them
 
 ## Support
 
