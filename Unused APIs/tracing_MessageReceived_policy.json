@@ -1,0 +1,36 @@
+{
+  "policies": [
+    {
+      "goid": "9f3b24d05898cf4d5d129b38e71903d0",
+      "guid": "6aeb26d5-5961-4f44-b265-22b1feedc6f8",
+      "name": "tracing",
+      "policyType": "GLOBAL",
+      "tag": "message-received",
+      "checksum": "7e887cd2a6ca14f16c30804b680475f617ec9273",
+      "folderPath": "/",
+      "soap": false,
+      "policy": {
+        "code": {
+          "All": [
+            {
+              "AuditDetail": {
+                "detail": "Service called: ${request.http.uri}",
+                "loggingOnly": true
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "properties": {
+    "defaultAction": "NEW_OR_UPDATE",
+    "meta": {
+      "id": "eb265a70-60c6-40a4-be39-06bd5d8b085f",
+      "name": "Gateway Graphman Bundle - 2026-05-26T12:52:17.134Z",
+      "hostname": "ssg-pm.brcmlabs.com",
+      "timestamp": "2026-05-26T12:52:17.134Z",
+      "schema": "11.2.1"
+    }
+  }
+}
