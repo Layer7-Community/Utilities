@@ -9,7 +9,7 @@ The purpose of this script is to cross correlate information coming from the gat
     
 The result of the output is in a file "service.json"
 
-2/ This example assumes a global message received policy such as the "tracing_MessageReceived_policy.json" (Graphman bundle), which writes a message like "Service called: ${request.http.uri}" in the gateway logs, is defined in the gateway. The result of the output is in a file "service_traces.logs". Whenever a service is called, a trace is generated. This trace includes the service URI
+2/ This example assumes a global message received policy such as the "tracing_MessageReceived_policy.json" (Graphman bundle), which writes a message like "Service called: ${request.http.uri}" in the gateway audit/logs, is defined in the gateway. The result of the output is in a file "service_traces.logs". Whenever a service is called, a trace is generated. This trace includes the service URI.
 
 3/ To find the list of used and unused services based on these two files, the python script "find_unused_services.py" is used as follows: 
 
