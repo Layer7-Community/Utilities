@@ -287,16 +287,5 @@
       "serviceType": "WEB_API",
       "checksum": "ad2680211075e01669a52fdd4e53446a95a09cda"
     }
-  ],
-  "properties": {
-    "meta": {
-      "id": "0a107806-f020-4066-baff-4d7e01fb5538",
-      "name": "Gateway Graphman Bundle - 2026-03-27T13:26:28.854Z",
-      "author": "admin",
-      "hostname": "ssg-pm.brcmlabs.com",
-      "timestamp": "2026-03-27T13:26:28.854Z",
-      "schema": "11.2.1"
-    },
-    "defaultAction": "NEW_OR_UPDATE"
-  }
+  ]
 }

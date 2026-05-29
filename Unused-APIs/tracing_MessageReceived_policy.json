@@ -22,15 +22,5 @@
         }
       }
     }
-  ],
-  "properties": {
-    "defaultAction": "NEW_OR_UPDATE",
-    "meta": {
-      "id": "eb265a70-60c6-40a4-be39-06bd5d8b085f",
-      "name": "Gateway Graphman Bundle - 2026-05-26T12:52:17.134Z",
-      "hostname": "ssg-pm.brcmlabs.com",
-      "timestamp": "2026-05-26T12:52:17.134Z",
-      "schema": "11.2.1"
-    }
-  }
+  ]
 }
