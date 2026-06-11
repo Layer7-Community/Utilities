@@ -1,0 +1,8 @@
+{
+  "graphmanHome": "../../graphman-client-main",
+  "sourceGateway": "target",
+  "targetGateway": "source",
+  "assertionType": "EvaluateJsonPathExpression",
+  "exportSchema": "v11.1.1",
+  "importSchema": "v11.1.1"
+}

@@ -1,11 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 
+// Load centralized config (config.json), fall back to built-in defaults if not present
+function loadConfig() {
+  try {
+    return require(path.join(__dirname, 'config.json'));
+  } catch (e) {
+    return {};
+  }
+}
+const config = loadConfig();
+
 // Parse command line arguments
 // Usage: node SearchAssertions.js [assertionType] [--replace-enabled true|false]
 // Example: node SearchAssertions.js EvaluateJsonPathExpressionV2
 // Example: node SearchAssertions.js SetVariable --replace-enabled true
-let searchAssertion = 'EvaluateJsonPathExpressionV2';
+// Default assertionType is loaded from config.json (assertionType key)
+let searchAssertion = config.assertionType || 'EvaluateJsonPathExpressionV2';
 let replaceEnabled = false;
 
 // Parse arguments
@@ -548,7 +559,7 @@ function generateHTML(data, assertionName, replaceEnabled = false) {
             ` : `
             <div class="replace-section" style="opacity: 0.5;">
                 <label for="assertionsToReplace" style="color: #999;">Assertions To Replace (Disabled)</label>
-                <input type="text" id="assertionsToReplace" name="assertionsToReplace" placeholder="Run searchAssertions.sh with 'Yes' to enable" disabled>
+                <input type="text" id="assertionsToReplace" name="assertionsToReplace" placeholder="Re-run the search script and answer 'Yes' to enable" disabled>
                 <button type="button" id="replaceButton" disabled style="opacity: 0.5; cursor: not-allowed;">Replace Assertions</button>
                 <button type="button" id="importButton" disabled style="opacity: 0.5; cursor: not-allowed;">Import Bundles</button>
             </div>

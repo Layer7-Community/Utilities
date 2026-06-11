@@ -21,82 +21,98 @@ function sanitizeFileName(name) {
   return name.replace(/[^a-zA-Z0-9-_]/g, '_');
 }
 
-// Helper function to replace assertion in a policies array (similar to searchInPoliciesArray)
-function replaceInPoliciesArray(policiesArray, searchAssertion, replaceAssertion) {
-  if (!policiesArray || !Array.isArray(policiesArray)) {
-    return false;
-  }
+// Recursively walk any object/array and replace every occurrence of searchAssertion
+// key with replaceAssertion key, preserving the value. Mirrors deepSearchAssertion
+// in SearchAssertions.js so that any depth of nesting is handled.
+function deepReplaceAssertion(obj, searchAssertion, replaceAssertion) {
+  if (!obj || typeof obj !== 'object') return false;
 
   let replaced = false;
 
-  for (const policyItem of policiesArray) {
-    if (policyItem && typeof policyItem === 'object') {
-      // Check if this item has the assertion directly
-      if (policyItem.hasOwnProperty(searchAssertion)) {
-        // Replace: copy value, delete old key, add new key
-        const assertionValue = policyItem[searchAssertion];
-        delete policyItem[searchAssertion];
-        policyItem[replaceAssertion] = assertionValue;
-        replaced = true;
-      }
-      
-      // Check inside OneOrMore.All if it exists (same logic as search)
-      const oneOrMore = policyItem.OneOrMore || policyItem.OneorMore || policyItem.oneOrMore || policyItem.oneormore || null;
-      
-      if (oneOrMore) {
-        if (Array.isArray(oneOrMore)) {
-          for (const oneOrMoreItem of oneOrMore) {
-            if (oneOrMoreItem && typeof oneOrMoreItem === 'object') {
-              const oneOrMoreAll = oneOrMoreItem.All || oneOrMoreItem.all || null;
-              if (oneOrMoreAll && Array.isArray(oneOrMoreAll)) {
-                const result = replaceInPoliciesArray(oneOrMoreAll, searchAssertion, replaceAssertion);
-                if (result) replaced = true;
-              }
-            }
-          }
-        } else if (typeof oneOrMore === 'object') {
-          const oneOrMoreAll = oneOrMore.All || oneOrMore.all || null;
-          if (oneOrMoreAll && Array.isArray(oneOrMoreAll)) {
-            const result = replaceInPoliciesArray(oneOrMoreAll, searchAssertion, replaceAssertion);
-            if (result) replaced = true;
-          }
-        }
+  if (Array.isArray(obj)) {
+    for (const item of obj) {
+      if (deepReplaceAssertion(item, searchAssertion, replaceAssertion)) replaced = true;
+    }
+  } else {
+    if (Object.prototype.hasOwnProperty.call(obj, searchAssertion)) {
+      const value = obj[searchAssertion];
+      delete obj[searchAssertion];
+      obj[replaceAssertion] = value;
+      replaced = true;
+    }
+    for (const key of Object.keys(obj)) {
+      // Skip the key we just wrote to avoid an unnecessary re-visit
+      if (key === replaceAssertion) continue;
+      if (typeof obj[key] === 'object' && obj[key] !== null) {
+        if (deepReplaceAssertion(obj[key], searchAssertion, replaceAssertion)) replaced = true;
       }
     }
   }
+
   return replaced;
 }
 
-// Helper function to replace assertion in a bundle file (service or policy bundle)
+// Resolve the policy code object from an entry, handling both formats:
+//   - entry.policy.code  → already a parsed object (policyCodeFormat: code)
+//   - entry.policy.json  → a JSON string that must be parsed  (policyCodeFormat: json)
+// Returns { policyCode, writeBack } where writeBack(updated) persists changes when
+// the policy was stored as a JSON string.
+function getPolicyCodeForReplace(entry) {
+  if (!entry || !entry.policy) return null;
+
+  if (entry.policy.code && typeof entry.policy.code === 'object') {
+    return {
+      policyCode: entry.policy.code,
+      writeBack: null   // mutations on the object are reflected in-place
+    };
+  }
+
+  if (entry.policy.json) {
+    try {
+      const parsed = typeof entry.policy.json === 'string'
+        ? JSON.parse(entry.policy.json)
+        : entry.policy.json;
+      return {
+        policyCode: parsed,
+        writeBack: (updated) => { entry.policy.json = JSON.stringify(updated); }
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  return null;
+}
+
+// Replace assertion in a bundle file (service or policy bundle).
+// Handles both policy.code (parsed object) and policy.json (JSON string) formats.
 function replaceInBundle(bundleData, itemType, searchAssertion, replaceAssertion) {
   let replaced = false;
 
+  const processEntry = (entry) => {
+    const result = getPolicyCodeForReplace(entry);
+    if (!result) return false;
+
+    const { policyCode, writeBack } = result;
+    const didReplace = deepReplaceAssertion(policyCode, searchAssertion, replaceAssertion);
+
+    if (didReplace && writeBack) {
+      writeBack(policyCode);
+    }
+
+    return didReplace;
+  };
+
   if (itemType === 'Service') {
-    // For service bundles, check services array
     if (bundleData.services && Array.isArray(bundleData.services)) {
       for (const service of bundleData.services) {
-        if (service.policy && service.policy.code) {
-          const policyCode = service.policy.code;
-          const allPolicies = policyCode.All || policyCode.all || null;
-          if (allPolicies && Array.isArray(allPolicies)) {
-            const result = replaceInPoliciesArray(allPolicies, searchAssertion, replaceAssertion);
-            if (result) replaced = true;
-          }
-        }
+        if (processEntry(service)) replaced = true;
       }
     }
   } else if (itemType === 'Policy') {
-    // For policy bundles, check policies array
     if (bundleData.policies && Array.isArray(bundleData.policies)) {
       for (const policy of bundleData.policies) {
-        if (policy.policy && policy.policy.code) {
-          const policyCode = policy.policy.code;
-          const allPolicies = policyCode.All || policyCode.all || null;
-          if (allPolicies && Array.isArray(allPolicies)) {
-            const result = replaceInPoliciesArray(allPolicies, searchAssertion, replaceAssertion);
-            if (result) replaced = true;
-          }
-        }
+        if (processEntry(policy)) replaced = true;
       }
     }
   }

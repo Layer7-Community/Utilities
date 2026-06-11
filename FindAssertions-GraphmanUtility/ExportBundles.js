@@ -2,21 +2,36 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// Load centralized config (config.json), fall back to built-in defaults if not present
+function loadConfig() {
+  try {
+    return require(path.join(__dirname, 'config.json'));
+  } catch (e) {
+    return {};
+  }
+}
+const config = loadConfig();
+
 // Parse command-line arguments
-// Usage: node ExportBundles.js [GRAPHMAN_HOME] [--gateway <gateway>]
-// Example: node ExportBundles.js ../../graphman-client-main --gateway aws
-// Example: node ExportBundles.js --gateway source
+// Usage: node ExportBundles.js [GRAPHMAN_HOME] [--gateway <gateway>] [--schema <schema>]
+// Example: node ExportBundles.js ../../graphman-client-main --gateway aws --schema v11.1.3
+// Example: node ExportBundles.js --gateway source --schema v11.1.0
 // Example: node ExportBundles.js /path/to/graphman-client-main
+// Defaults are loaded from config.json (sourceGateway, graphmanHome, exportSchema)
 
-let graphmanHome = path.join(__dirname, '..', '..', 'graphman-client-main'); // default
-let gateway = 'aws'; // default
+let graphmanHome = config.graphmanHome || path.join(__dirname, '..', '..', 'graphman-client-main');
+let gateway = config.sourceGateway || 'aws';
+let schema = config.exportSchema || 'v11.1.3';
 
-// Parse arguments
+// Parse arguments (CLI args override config.json values)
 let i = 2;
 while (i < process.argv.length) {
   if (process.argv[i] === '--gateway' && process.argv[i + 1]) {
     gateway = process.argv[i + 1];
-    i += 2; // Skip --gateway and its value
+    i += 2;
+  } else if (process.argv[i] === '--schema' && process.argv[i + 1]) {
+    schema = process.argv[i + 1];
+    i += 2;
   } else if (process.argv[i] && !process.argv[i].startsWith('--')) {
     // First non-flag argument is GRAPHMAN_HOME
     graphmanHome = process.argv[i];
@@ -30,7 +45,8 @@ while (i < process.argv.length) {
 const resultsDir = path.join(__dirname, 'response');
 const generatedDir = path.join(__dirname, 'generated');
 const responseDir = path.join(__dirname, 'response');
-const graphmanPath = path.join(graphmanHome, 'graphman.sh');
+const graphmanExe = process.platform === 'win32' ? 'graphman.bat' : 'graphman.sh';
+const graphmanPath = path.join(graphmanHome, graphmanExe);
 
 // Create generated directory if it doesn't exist
 if (!fs.existsSync(generatedDir)) {
@@ -93,7 +109,7 @@ function exportService(serviceName, resolutionPath) {
   // Use --using service with resolutionPath to export individual service
   // Quote resolutionPath to handle special characters and wildcards
   const quotedResolutionPath = `"${resolutionPath}"`;
-  const command = `${graphmanPath} export --gateway ${gateway} --using service --variables.resolutionPath ${quotedResolutionPath} --output "${absoluteOutputPath}"`;
+  const command = `${graphmanPath} export --gateway ${gateway} --using service --variables.resolutionPath ${quotedResolutionPath} --output "${absoluteOutputPath}" --options.schema ${schema}`;
 
   try {
     console.log(`Exporting service: ${serviceName} (${resolutionPath})...`);
@@ -169,7 +185,7 @@ function exportPolicy(policyName) {
   // Use --using policy with name and includeAllDependencies
   // Quote policy name to handle special characters
   const quotedPolicyName = `"${policyName}"`;
-  const command = `${graphmanPath} export --gateway ${gateway} --using policy --variables.name ${quotedPolicyName} --variables.includeAllDependencies --output "${absoluteOutputPath}"`;
+  const command = `${graphmanPath} export --gateway ${gateway} --using policy --variables.name ${quotedPolicyName} --variables.includeAllDependencies --output "${absoluteOutputPath}" --options.schema ${schema}`;
 
   try {
     console.log(`Exporting policy: ${policyName}...`);
@@ -362,6 +378,7 @@ try {
   console.log('Starting service and policy export process...');
   console.log(`  GRAPHMAN_HOME: ${graphmanHome}`);
   console.log(`  Gateway: ${gateway}`);
+  console.log(`  Schema: ${schema}`);
   console.log(`  Graphman path: ${graphmanPath}\n`);
   
   processResultsFiles();
