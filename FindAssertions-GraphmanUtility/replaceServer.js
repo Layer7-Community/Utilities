@@ -5,6 +5,16 @@ const { execSync } = require('child_process');
 
 const PORT = 3001; // Different port from the previous server to avoid conflicts
 
+// Load centralized config (config.json), fall back to built-in defaults if not present
+function loadConfig() {
+  try {
+    return require(path.join(__dirname, 'config.json'));
+  } catch (e) {
+    return {};
+  }
+}
+const config = loadConfig();
+
 /**
  * Handle import bundles request
  */
@@ -20,9 +30,9 @@ async function handleImportBundles(req, res) {
       const params = JSON.parse(body);
       const { graphmanHome, gateway } = params;
 
-      // Use defaults if not provided
-      const graphmanHomePath = graphmanHome || path.join(path.dirname(require.main ? require.main.filename : process.cwd()), '..', '..', 'graphman-client-main');
-      const gatewayName = gateway || 'aws';
+      // Use config.json values as defaults, then fall back to built-in defaults
+      const graphmanHomePath = graphmanHome || config.graphmanHome || path.join(path.dirname(require.main ? require.main.filename : process.cwd()), '..', '..', 'graphman-client-main');
+      const gatewayName = gateway || config.targetGateway || 'aws';
 
       console.log(`\n[${new Date().toISOString()}] Import request received:`);
       console.log(`  GRAPHMAN_HOME: ${graphmanHomePath}`);

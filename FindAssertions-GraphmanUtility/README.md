@@ -16,6 +16,8 @@ The scripts help you:
 - Layer7 API Gateway Graphman client installed at `../../graphman-client-main/`
 - Access to the gateway for exporting services and policies
 - JSON file containing service and/or policy data at `response/spFolderSVCFull.json` (can contain both `services` and `policies` arrays)
+- **`config.json`**: A centralized configuration file in the script directory. All scripts load their defaults from this file automatically. See the [Configuration File](#configuration-file-configjson) section for full details.
+
 - **Graphman Configuration**: The `graphman.configuration` file `options` section supports two values for `policyCodeFormat`:
   - `"Code"` — policy code is returned as a parsed JSON object under `policy.code`
   - `"json"` — policy code is returned as a JSON string under `policy.json`
@@ -43,7 +45,7 @@ node SearchAssertions.js [assertionType]
 #### Arguments
 
 - `assertionType` (optional): The name of the assertion to search for
-  - Default: `EvaluateJsonPathExpressionV2`
+  - Default: value of `assertionType` in `config.json`, or `EvaluateJsonPathExpressionV2` if not set
   - Examples: `SetVariable`, `HttpRouting`, `DistributedRateLimit`, `EvaluateJsonPathExpressionV2`
 
 #### What it does
@@ -153,17 +155,20 @@ Exports individual service and policy bundles for services and policies that con
 #### Usage
 
 ```bash
-node ExportBundles.js [GRAPHMAN_HOME] [--gateway GATEWAY]
+node ExportBundles.js [GRAPHMAN_HOME] [--gateway GATEWAY] [--schema SCHEMA]
 ```
 
 #### Arguments
 
 - `GRAPHMAN_HOME` (optional): Path to the graphman client directory
-  - Default: `../../graphman-client-main`
+  - Default: value of `graphmanHome` in `config.json`, or `../../graphman-client-main`
   - Example: `/path/to/graphman-client-main` or `../../graphman-client-main`
-- `--gateway GATEWAY` (optional): Gateway name to use for exports
-  - Default: `aws`
+- `--gateway GATEWAY` (optional): Source gateway name to use for exports
+  - Default: value of `sourceGateway` in `config.json`, or `aws`
   - Examples: `aws`, `source`, `target`
+- `--schema SCHEMA` (optional): Schema version passed as `--options.schema` to graphman export
+  - Default: value of `exportSchema` in `config.json`, or `v11.1.3`
+  - Examples: `v11.1.0`, `v11.1.3`, `v11.2.1`
 
 #### What it does
 
@@ -202,7 +207,7 @@ graphman.sh export --gateway aws --using policy --variables.name <policyName> --
 #### Examples
 
 ```bash
-# Export all services and policies with assertions found in results files (use defaults)
+# Export using all defaults from config.json
 node ExportBundles.js
 
 # Specify only GRAPHMAN_HOME
@@ -211,11 +216,14 @@ node ExportBundles.js /path/to/graphman-client-main
 # Specify only gateway
 node ExportBundles.js --gateway source
 
-# Specify both GRAPHMAN_HOME and gateway
-node ExportBundles.js ../../graphman-client-main --gateway aws
+# Specify gateway and schema (override config.json values)
+node ExportBundles.js --gateway source --schema v11.1.0
 
-# Different order (gateway flag can be anywhere)
-node ExportBundles.js --gateway source ../../graphman-client-main
+# Specify all parameters
+node ExportBundles.js ../../graphman-client-main --gateway aws --schema v11.1.3
+
+# Different order (flags can be anywhere)
+node ExportBundles.js --schema v11.1.0 --gateway source ../../graphman-client-main
 ```
 
 #### Features
@@ -320,6 +328,8 @@ The script provides detailed console output showing:
 - **No duplicate search**: Uses existing search results instead of re-searching
 - **Selective replacement**: Only processes items where `exists: true` from search results
 - **Automatic backups**: Creates timestamped backups for each bundle file
+- **Dual policy format support**: Automatically handles both Graphman `policyCodeFormat` settings — `"Code"` (parsed object under `policy.code`) and `"json"` (JSON string under `policy.json`) — matching the format detection used by `SearchAssertions.js`
+- **Deep recursive replacement**: Traverses the full policy structure at any nesting depth, identical to the search strategy in `SearchAssertions.js`, so no assertions are missed regardless of where they appear in the policy tree
 - **Type-aware**: Handles both Service and Policy bundle structures correctly
 - **Safe operation**: Verifies files exist before processing
 - **Detailed reporting**: Shows exactly what was replaced and what failed
@@ -344,17 +354,20 @@ Imports all bundle files from the `generated/` directory into the specified gate
 #### Usage
 
 ```bash
-node ImportBundles.js [GRAPHMAN_HOME] [--gateway GATEWAY]
+node ImportBundles.js [GRAPHMAN_HOME] [--gateway GATEWAY] [--schema SCHEMA]
 ```
 
 #### Arguments
 
 - `GRAPHMAN_HOME` (optional): Path to the graphman client directory
-  - Default: `../../graphman-client-main`
+  - Default: value of `graphmanHome` in `config.json`, or `../../graphman-client-main`
   - Example: `/path/to/graphman-client-main` or `../../graphman-client-main`
-- `--gateway GATEWAY` (optional): Gateway name to use for imports
-  - Default: `aws`
-  - Examples: `aws`, `source`, `target`
+- `--gateway GATEWAY` (optional): Target gateway name to use for imports
+  - Default: value of `targetGateway` in `config.json`, or `aws`
+  - Examples: `aws`, `prod`, `target`
+- `--schema SCHEMA` (optional): Schema version passed as `--options.schema` to graphman import
+  - Default: value of `importSchema` in `config.json`, or `v11.1.3`
+  - Examples: `v11.1.3`, `v11.2.1`
 
 #### What it does
 
@@ -370,7 +383,7 @@ node ImportBundles.js [GRAPHMAN_HOME] [--gateway GATEWAY]
 The script uses the following graphman command format for each bundle:
 
 ```bash
-graphman.sh import --gateway <gateway> --input <absolute-path-to-bundle-file>
+graphman.sh import --gateway <gateway> --input <absolute-path-to-bundle-file> --options.schema <schema>
 ```
 
 #### Input Files
@@ -383,20 +396,23 @@ graphman.sh import --gateway <gateway> --input <absolute-path-to-bundle-file>
 #### Examples
 
 ```bash
-# Import all bundles from generated/ directory (use defaults)
+# Import using all defaults from config.json
 node ImportBundles.js
 
 # Specify only GRAPHMAN_HOME
 node ImportBundles.js /path/to/graphman-client-main
 
 # Specify only gateway
-node ImportBundles.js --gateway source
+node ImportBundles.js --gateway prod
 
-# Specify both GRAPHMAN_HOME and gateway
-node ImportBundles.js ../../graphman-client-main --gateway aws
+# Specify target gateway and schema (override config.json values)
+node ImportBundles.js --gateway prod --schema v11.2.1
 
-# Different order (gateway flag can be anywhere)
-node ImportBundles.js --gateway source ../../graphman-client-main
+# Specify all parameters
+node ImportBundles.js ../../graphman-client-main --gateway aws --schema v11.1.3
+
+# Different order (flags can be anywhere)
+node ImportBundles.js --schema v11.2.1 --gateway prod ../../graphman-client-main
 ```
 
 #### Features
@@ -466,19 +482,22 @@ Bash script that orchestrates the complete workflow: exports service and policy 
 #### Usage
 
 ```bash
-./searchAssertions.sh [ASSERTION_TYPE] [GRAPHMAN_HOME] [--gateway GATEWAY]
+./searchAssertions.sh [ASSERTION_TYPE] [GRAPHMAN_HOME] [--gateway GATEWAY] [--schema SCHEMA]
 ```
 
 #### Arguments
 
 - `ASSERTION_TYPE` (optional): The name of the assertion to search for
-  - Default: `EvaluateJsonPathExpressionV2`
+  - Default: value of `assertionType` in `config.json`, or `EvaluateJsonPathExpressionV2`
   - Examples: `SetVariable`, `HttpRouting`, `DistributedRateLimit`
 - `GRAPHMAN_HOME` (optional): Path to the graphman client directory
-  - Default: `../../graphman-client-main`
-- `--gateway GATEWAY` (optional): Gateway name to use
-  - Default: `aws`
+  - Default: value of `graphmanHome` in `config.json`, or `../../graphman-client-main`
+- `--gateway GATEWAY` (optional): Source gateway name to use for data export
+  - Default: value of `sourceGateway` in `config.json`, or `aws`
   - Examples: `aws`, `source`, `target`
+- `--schema SCHEMA` (optional): Schema version for the graphman export (`--options.schema`)
+  - Default: value of `exportSchema` in `config.json`, or `v11.1.3`
+  - Examples: `v11.1.0`, `v11.1.3`, `v11.2.1`
 
 #### What it does
 
@@ -518,7 +537,7 @@ Bash script that orchestrates the complete workflow: exports service and policy 
 #### Examples
 
 ```bash
-# Use all defaults
+# Use all defaults from config.json
 ./searchAssertions.sh
 
 # Specify only assertion type
@@ -527,11 +546,14 @@ Bash script that orchestrates the complete workflow: exports service and policy 
 # Specify assertion type and gateway
 ./searchAssertions.sh SetVariable --gateway source
 
-# Specify all parameters
-./searchAssertions.sh EvaluateJsonPathExpressionV2 ../../graphman-client-main --gateway aws
+# Specify assertion type, gateway, and export schema
+./searchAssertions.sh SetVariable --gateway source --schema v11.1.0
 
-# Different order (gateway flag can be anywhere)
-./searchAssertions.sh --gateway source SetVariable
+# Specify all parameters
+./searchAssertions.sh EvaluateJsonPathExpressionV2 ../../graphman-client-main --gateway aws --schema v11.1.3
+
+# Different order (flags can be anywhere)
+./searchAssertions.sh --schema v11.1.0 --gateway source SetVariable
 ```
 
 #### Features
@@ -862,39 +884,78 @@ This single command will:
 
 ```
 Find-Assertions/
-├── SearchAssertions.js          # Main search script
-├── ExportBundles.js              # Service and policy export script
-├── ImportBundles.js              # Service and policy import script
-├── ReplaceAssertions.js          # Assertion replacement script
-├── replaceServer.js              # HTTP server for HTML replace functionality
-├── searchAssertions.sh          # Bash script for complete workflow
-├── cleanup.sh                   # Cleanup script for removing old results
-├── README.md                    # This file
-├── broadcom.png                 # Logo for HTML reports
-├── response/                    # Input/Output directory
-│   ├── spFolderSVCFull.json    # Input: Service data (preserved by cleanup)
-│   ├── *-results.json          # Output: Search results (JSON)
-│   └── *-results.html          # Output: Search results (HTML)
-└── generated/                   # Output: Exported service and policy bundles
-    ├── <name>.json              # Individual service or policy exports
-    └── <name>.backup.*.json    # Backup files created by ReplaceAssertions.js
+├── config.json                    # Centralized configuration (gateways, schemas, defaults)
+├── SearchAssertions.js            # Main search script
+├── ExportBundles.js               # Service and policy export script
+├── ImportBundles.js               # Service and policy import script
+├── ReplaceAssertions.js           # Assertion replacement script
+├── replaceServer.js               # HTTP server for HTML replace/import functionality
+├── searchAssertions.sh            # Bash orchestrator (Mac/Linux)
+├── searchAssertionsWindows.bat    # Windows orchestrator (Command Prompt)
+├── cleanup.sh                     # Cleanup script (Mac/Linux)
+├── cleanup.bat                    # Cleanup script (Windows)
+├── README.md                      # This file
+├── README-Windows.md              # Windows-specific documentation
+├── broadcom.png                   # Logo for HTML reports
+├── response/                      # Input/Output directory
+│   ├── spFolderSVCFull.json      # Input: Service data (preserved by cleanup)
+│   ├── *-results.json            # Output: Search results (JSON)
+│   └── *-results.html            # Output: Search results (HTML)
+└── generated/                     # Output: Exported service and policy bundles
+    ├── <name>.json                # Individual service or policy exports
+    └── <name>.backup.*.json      # Backup files created by ReplaceAssertions.js
 ```
 
 ---
 
 ## Configuration
 
+### Configuration File (`config.json`)
+
+All scripts load their defaults from `config.json` in the script directory. This is the recommended way to configure the toolchain — set values once and all scripts pick them up automatically. CLI arguments always override `config.json` values for one-off runs.
+
+```json
+{
+  "graphmanHome": "../../graphman-client-main",
+  "sourceGateway": "aws",
+  "targetGateway": "aws",
+  "assertionType": "EvaluateJsonPathExpressionV2",
+  "exportSchema": "v11.1.3",
+  "importSchema": "v11.1.3"
+}
+```
+
+| Key | Used by | Description |
+|---|---|---|
+| `graphmanHome` | All scripts | Path to the graphman client directory |
+| `sourceGateway` | `ExportBundles.js`, `searchAssertions.sh` | Gateway to export bundles **from** |
+| `targetGateway` | `ImportBundles.js`, `replaceServer.js` | Gateway to import bundles **into** |
+| `assertionType` | `SearchAssertions.js` | Default assertion type to search for |
+| `exportSchema` | `ExportBundles.js`, `searchAssertions.sh` | `--options.schema` value for graphman **export** |
+| `importSchema` | `ImportBundles.js` | `--options.schema` value for graphman **import** |
+
+**Same gateway scenario** — set `sourceGateway` and `targetGateway` to the same value and use matching schema versions.
+
+**Different gateway scenario** — set `sourceGateway`/`exportSchema` for the source environment and `targetGateway`/`importSchema` for the target environment independently.
+
+If `config.json` is not present, all scripts fall back to their built-in defaults.
+
 ### Graphman Path
 
-The scripts can accept GRAPHMAN_HOME as a parameter:
-- **Default**: `../../graphman-client-main` (relative to script location)
-- **Can be overridden**: Pass as argument to `ExportBundles.js` or `searchAssertions.sh`
+- **Default**: value of `graphmanHome` in `config.json`, or `../../graphman-client-main`
+- **Can be overridden**: Pass as positional argument to `ExportBundles.js`, `ImportBundles.js`, or `searchAssertions.sh`
 
 ### Gateway
 
-Default gateway is set to `aws`. Can be changed using:
-- **Command-line argument**: `--gateway <gateway-name>` for `ExportBundles.js`, `ImportBundles.js`, and `searchAssertions.sh`
-- **Examples**: `aws`, `source`, `target`
+- **Source gateway default**: value of `sourceGateway` in `config.json`, or `aws`
+- **Target gateway default**: value of `targetGateway` in `config.json`, or `aws`
+- **Can be overridden**: `--gateway <gateway-name>` for `ExportBundles.js`, `ImportBundles.js`, and `searchAssertions.sh`
+
+### Schema Version
+
+- **Export schema default**: value of `exportSchema` in `config.json`, or `v11.1.3`
+- **Import schema default**: value of `importSchema` in `config.json`, or `v11.1.3`
+- **Can be overridden**: `--schema <version>` for `ExportBundles.js`, `ImportBundles.js`, and `searchAssertions.sh`
 
 ### Input File
 
@@ -942,6 +1003,7 @@ This file is typically generated by running the graphman export command or using
 - **Missing results file**: Validates that the results file exists before processing
 - **Missing bundle files**: Reports which bundle files are missing (suggests running ExportBundles.js first)
 - **Invalid JSON**: Handles JSON parsing errors gracefully
+- **Dual format handling**: Automatically resolves policy code from `policy.code` (object) or `policy.json` (string), matching the behavior of `SearchAssertions.js`; JSON strings are parsed before replacement and serialized back after
 - **Backup creation**: Creates backups before modifying files
 - **Type validation**: Verifies bundle structure before processing
 
@@ -965,8 +1027,10 @@ This file is typically generated by running the graphman export command or using
 - All outputs are saved in the `response/` directory for search results and `generated/` for exports
 - Both `ExportBundles.js` and `ImportBundles.js` accept GRAPHMAN_HOME and `--gateway` parameters for flexibility
 - Use `ImportBundles.js` to import all bundle files from `generated/` directory back to the gateway after modifications
-- Use `cleanup.sh` to remove old result files and generated exports when needed
-- Cleanup script preserves input data (`spFolderSVCFull.json`) and can be integrated into `searchAssertions.sh`
+- Use `cleanup.sh` (Mac/Linux) or `cleanup.bat` (Windows) to remove old result files and generated exports when needed
+- Both cleanup scripts preserve the input data (`spFolderSVCFull.json`) and stop any running `replaceServer.js` instance
+- `cleanup.bat` runs automatically at the start of `searchAssertionsWindows.bat`; `cleanup.sh` can be optionally enabled in `searchAssertions.sh`
+- `ExportBundles.js` and `ImportBundles.js` automatically select `graphman.bat` on Windows and `graphman.sh` on Mac/Linux
 - Policies don't have resolution paths, so they show "N/A" in the Resolution Path column
 
 ---
@@ -1022,9 +1086,14 @@ This file is typically generated by running the graphman export command or using
 - **Solution**: Verify the search results file contains items with `exists: true`
 - Check that you're using the correct results file for the assertion you searched
 
+**Issue**: "No assertion found to replace" even though Search found the assertion
+- **Root cause (now fixed)**: This occurred when the gateway was configured with `policyCodeFormat: "json"`, storing the policy as a JSON string under `policy.json` instead of a parsed object under `policy.code`. The replacement script previously only handled `policy.code`.
+- **Resolution**: Upgrade to the current version of `ReplaceAssertions.js`, which handles both `policy.code` and `policy.json` automatically — no Graphman configuration change is needed.
+
 **Issue**: Replacement not working
-- **Solution**: Verify the searchAssertion parameter matches exactly what was searched
+- **Solution**: Verify the `searchAssertion` parameter matches exactly what was searched (case-sensitive)
 - Check that bundle files contain the assertion (may need to re-export if source changed)
+- Ensure you are running the current version of `ReplaceAssertions.js` (v2.0+) which supports both policy code formats
 
 ### replaceServer.js
 
@@ -1049,7 +1118,37 @@ For issues or questions, please check:
 
 ## Version History
 
-- **v1.7**: Latest updates
+- **v2.0**: Bug fixes in `ReplaceAssertions.js`
+  - **Fixed `policy.json` format not handled in `ReplaceAssertions.js`**: When the Graphman client is configured with `policyCodeFormat: "json"`, exported bundle files store the policy as a JSON string under `policy.json` rather than a parsed object under `policy.code`. The replacement script previously only checked for `policy.code`, causing all replacements to silently fail ("No assertion found to replace") despite `SearchAssertions.js` correctly finding the assertion. Both formats are now handled automatically — the JSON string is parsed before replacement and serialized back after, mirroring the `getPolicyCode()` logic already present in `SearchAssertions.js`.
+  - **Fixed shallow recursion in replacement logic**: The previous `replaceInPoliciesArray` function only navigated one level of `OneOrMore → All` nesting. Assertions embedded deeper in the policy tree (e.g. inside nested `All`, `ForEach`, or multiple layers of `OneOrMore`) would be found by the deep recursive search in `SearchAssertions.js` but silently skipped during replacement. Replaced with `deepReplaceAssertion`, a fully recursive traversal that mirrors `deepSearchAssertion` in `SearchAssertions.js` and handles any nesting depth.
+
+- **v1.9**: Latest updates
+  - **Added `cleanup.bat`**: Native Windows cleanup script — mirrors `cleanup.sh` for Mac/Linux
+    - Stops any running `replaceServer.js` process (via `wmic` + `taskkill`)
+    - Removes all `*.json` files from `generated\`
+    - Removes `*-results.json` and `*-results.html` from `response\` while preserving `spFolderSVCFull.json`
+    - Runs automatically at the start of `searchAssertionsWindows.bat`
+  - **Cross-platform graphman executable selection in `ExportBundles.js` and `ImportBundles.js`**:
+    - Both scripts now automatically use `graphman.bat` on Windows and `graphman.sh` on Mac/Linux
+    - No manual configuration or argument changes needed
+  - **Aligned `searchAssertions.sh` prompts with Windows**: prompt and messages now consistently mention both replacement and import functionality
+  - **Platform-neutral HTML placeholder**: disabled replace/import input box no longer references `.sh` specifically
+  - **Updated `README-Windows.md`**: cleanup section, differences table, troubleshooting, integration table, and notes fully refreshed
+
+- **v1.8**: Latest updates
+  - **Centralized `config.json`**: New configuration file as single source of truth for all parameters
+    - `graphmanHome`, `sourceGateway`, `targetGateway`, `assertionType`, `exportSchema`, `importSchema`
+    - All scripts load defaults from `config.json`; CLI arguments still override for one-off runs
+    - Supports same-gateway and different-gateway (source/target) scenarios
+  - **Dynamic `--options.schema` for `ExportBundles.js`**: Replaces hardcoded schema version
+    - Reads default from `config.json` (`exportSchema`), overridable via `--schema` CLI flag
+  - **`--options.schema` added to `ImportBundles.js`**: Import gateway schema now configurable
+    - Reads default from `config.json` (`importSchema`), overridable via `--schema` CLI flag
+  - **`SearchAssertions.js`**: Default assertion type now loaded from `config.json`
+  - **`replaceServer.js`**: `graphmanHome` and `targetGateway` defaults now loaded from `config.json`
+  - **`searchAssertions.sh` and `searchAssertionsWindows.bat`**: Read all defaults from `config.json` at startup; added `--schema` flag pass-through to `ExportBundles.js`
+
+- **v1.7**: Previous updates
   - **Dual `policyCodeFormat` support in `SearchAssertions.js`**: Policy code is now resolved automatically from either format returned by Graphman:
     - `"Code"` format — reads from `policy.code` (parsed JSON object)
     - `"json"` format — reads from `policy.json` (JSON string, parsed at runtime)

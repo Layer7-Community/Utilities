@@ -22,7 +22,23 @@ This is the Windows-compatible version of `searchAssertions.sh` for users runnin
      - `"Code"` — policy code returned as a parsed object under `policy.code`
      - `"json"` — policy code returned as a JSON string under `policy.json`
 
-3. **Access to the gateway** for exporting services and policies
+3. **`config.json`** (recommended): Create a `config.json` file in the script directory to centralize all parameters. The batch file reads it automatically at startup using `node.exe`:
+   ```json
+   {
+     "graphmanHome": "..\\..\\graphman-client-main",
+     "sourceGateway": "aws",
+     "targetGateway": "aws",
+     "assertionType": "EvaluateJsonPathExpressionV2",
+     "exportSchema": "v11.1.3",
+     "importSchema": "v11.1.3"
+   }
+   ```
+   - `sourceGateway` / `exportSchema` — used when exporting bundles from the source gateway
+   - `targetGateway` / `importSchema` — used when importing bundles into the target gateway
+   - Set `sourceGateway` and `targetGateway` to the same value when source and target are the same gateway
+   - If `config.json` is absent, built-in defaults are used
+
+4. **Access to the gateway** for exporting services and policies
 
 ### Optional Software
 
@@ -51,14 +67,14 @@ Uses all default values:
 ### With Arguments
 
 ```cmd
-searchAssertionsWindows.bat [ASSERTION_TYPE] [GRAPHMAN_HOME] [--gateway GATEWAY]
+searchAssertionsWindows.bat [ASSERTION_TYPE] [GRAPHMAN_HOME] [--gateway GATEWAY] [--schema SCHEMA]
 ```
 
 #### Examples
 
 ```cmd
-REM Use default assertion type but specify gateway
-searchAssertionsWindows.bat --gateway source
+REM Use all defaults from config.json
+searchAssertionsWindows.bat
 
 REM Specify assertion type only
 searchAssertionsWindows.bat SetVariable
@@ -66,36 +82,44 @@ searchAssertionsWindows.bat SetVariable
 REM Specify assertion type and gateway
 searchAssertionsWindows.bat SetVariable --gateway target
 
-REM Specify all parameters
-searchAssertionsWindows.bat EvaluateJsonPathExpressionV2 ..\..\graphman-client-main --gateway aws
+REM Specify assertion type, gateway, and export schema
+searchAssertionsWindows.bat SetVariable --gateway source --schema v11.1.0
 
-REM Different order (gateway flag can be anywhere)
-searchAssertionsWindows.bat --gateway source EvaluateJsonPathExpressionV2
+REM Specify all parameters
+searchAssertionsWindows.bat EvaluateJsonPathExpressionV2 ..\..\graphman-client-main --gateway aws --schema v11.1.3
+
+REM Different order (flags can be anywhere)
+searchAssertionsWindows.bat --schema v11.1.0 --gateway source EvaluateJsonPathExpressionV2
 ```
 
 ### Arguments
 
 - `ASSERTION_TYPE` (optional): The name of the assertion to search for
-  - Default: `EvaluateJsonPathExpressionV2`
+  - Default: value of `assertionType` in `config.json`, or `EvaluateJsonPathExpressionV2`
   - Examples: `SetVariable`, `HttpRouting`, `DistributedRateLimit`, `EvaluateJsonPathExpressionV2`
 
 - `GRAPHMAN_HOME` (optional): Path to the graphman client directory
-  - Default: `../../graphman-client-main`
+  - Default: value of `graphmanHome` in `config.json`, or `..\..\graphman-client-main`
   - Use Windows path format: `..\..\graphman-client-main` or `C:\path\to\graphman-client-main`
   - Can use forward slashes: `../../graphman-client-main` (Windows handles both)
 
-- `--gateway GATEWAY` (optional): Gateway name to use
-  - Default: `aws`
+- `--gateway GATEWAY` (optional): Source gateway name to use for exports
+  - Default: value of `sourceGateway` in `config.json`, or `aws`
   - Examples: `aws`, `source`, `target`
+
+- `--schema SCHEMA` (optional): Schema version for the graphman export (`--options.schema`)
+  - Default: value of `exportSchema` in `config.json`, or `v11.1.3`
+  - Examples: `v11.1.0`, `v11.1.3`, `v11.2.1`
 
 ## What It Does
 
 1. **Displays configuration**: Shows the configured GRAPHMAN_HOME, Gateway, and Assertion Type
 
-2. **Optionally cleans previous results** (currently disabled by default):
-   - Note: The cleanup script (`cleanup.sh`) is a bash script and won't run natively on Windows
-   - If you have Git Bash installed, you can uncomment the cleanup lines in the batch file
-   - Or manually delete files from `generated/` and `response/` directories
+2. **Cleans previous results** (runs automatically via `cleanup.bat`):
+   - Stops any running `replaceServer.js` process
+   - Removes all files from `generated/` directory
+   - Removes `*-results.json` and `*-results.html` files from `response/` directory
+   - Preserves the input file `response\spFolderSVCFull.json`
 
 3. **Prompts for assertion replacement and import functionality**:
    - Asks: "Do you want to enable assertion replacement and import functionality? (Yes/No)"
@@ -111,10 +135,7 @@ searchAssertionsWindows.bat --gateway source EvaluateJsonPathExpressionV2
 
 4. **Exports all service and policy data** from the gateway using graphman:
    - Saves to `response\spFolderSVCFull.json`
-   - **Note**: Requires `graphman.sh` to be executable. If it doesn't work, you may need:
-     - A Windows version (`graphman.bat` or `graphman.cmd`)
-     - Git Bash to run `.sh` files
-     - WSL (Windows Subsystem for Linux)
+   - Uses `graphman.bat` (the native Windows graphman executable)
 
 5. **Searches for assertions**:
    - Runs `SearchAssertions.js` with the specified assertion type and replace flag
@@ -147,21 +168,20 @@ searchAssertionsWindows.bat ../../graphman-client-main
 
 ### Running .sh Files
 
-If you need to run `.sh` files (like `graphman.sh` or `cleanup.sh`), you have several options:
+The batch files (`searchAssertionsWindows.bat` and `cleanup.bat`) cover the full Windows workflow natively — no Git Bash or WSL is required. The `.sh` scripts are provided for Mac/Linux users only.
+
+If you still want to run the bash scripts on Windows, options include:
 
 1. **Git Bash** (Recommended):
    - Install Git for Windows which includes Git Bash
-   - Git Bash can execute `.sh` files natively
-   - You can then use the original `searchAssertions.sh` script
+   - Allows running `searchAssertions.sh` and `cleanup.sh` natively
 
 2. **WSL (Windows Subsystem for Linux)**:
-   - Install WSL from Microsoft Store or via PowerShell
+   - Install from Microsoft Store or via PowerShell
    - Run Linux commands and scripts natively
-   - You can use the original `searchAssertions.sh` script
 
 3. **Cygwin**:
    - Provides a Unix-like environment on Windows
-   - Can run bash scripts
 
 ### Process Management
 
@@ -175,43 +195,48 @@ The batch file uses Windows-specific commands for process management:
 
 If the replace server is running and you need to stop it:
 
-1. **Using Task Manager**:
+1. **Using `cleanup.bat`** (Recommended):
+   - Run `cleanup.bat` — it automatically finds and kills the running `replaceServer.js` process, and also removes previous result files
+
+2. **Using Task Manager**:
    - Open Task Manager (Ctrl+Shift+Esc)
    - Find `node.exe` process with `replaceServer.js` in the command line
    - End the process
 
-2. **Using Command Line**:
+3. **Using Command Line**:
    ```cmd
    wmic process where "commandline like '%replaceServer.js%'" delete
    ```
 
-3. **Using PowerShell**:
+4. **Using PowerShell**:
    ```powershell
    Get-Process node | Where-Object {$_.CommandLine -like "*replaceServer.js*"} | Stop-Process -Force
    ```
 
 ## Differences from Bash Version
 
-| Feature | Bash Script | Windows Batch File |
+| Feature | Bash Scripts | Windows Batch Files |
 |---------|-------------|-------------------|
 | File extension | `.sh` | `.bat` |
-| Shebang | `#!/bin/bash` | `@echo off` |
+| Shebang / header | `#!/bin/bash` | `@echo off` |
 | Variables | `$VAR` | `%VAR%` |
 | User input | `read -p` | `set /p` |
 | Background process | `&` | `start /B` |
 | Process kill | `pkill` | `taskkill` / `wmic` |
 | Sleep | `sleep 2` | `timeout /t 2` |
 | Path separators | `/` | `\` (both work) |
-| Cleanup script | Runs natively | Requires Git Bash/WSL |
+| Graphman executable | `graphman.sh` | `graphman.bat` (auto-selected by JS scripts) |
+| Cleanup script | `cleanup.sh` (bash) | `cleanup.bat` (native Windows) |
+| Orchestrator script | `searchAssertions.sh` | `searchAssertionsWindows.bat` |
 
 ## Troubleshooting
 
-### Issue: "graphman.sh is not recognized"
+### Issue: "graphman.bat is not recognized"
 
-**Solution**: 
-- Ensure you have Git Bash installed and the path is correct
-- Or create a Windows batch wrapper `graphman.bat` that calls the graphman script
-- Or use WSL to run the bash scripts
+**Solution**:
+- Verify that `graphman.bat` exists in the `GRAPHMAN_HOME` directory (`%GRAPHMAN_HOME%\graphman.bat`)
+- Ensure `GRAPHMAN_HOME` is set correctly — either via `config.json` or as a CLI argument
+- Check that Node.js is installed and on the PATH (graphman.bat requires Node.js internally)
 
 ### Issue: "Node is not recognized"
 
@@ -229,13 +254,13 @@ If the replace server is running and you need to stop it:
 - Check Node.js is installed and working: `node --version`
 - Try running `replaceServer.js` manually: `node replaceServer.js`
 
-### Issue: Cleanup script doesn't run
+### Issue: Cleanup doesn't remove all expected files
 
 **Solution**:
-- This is expected - `cleanup.sh` is a bash script
-- Install Git Bash to run bash scripts
-- Or manually delete files from `generated\` and `response\` directories
-- Or uncomment the cleanup lines in the batch file if you have Git Bash installed
+- `cleanup.bat` is the native Windows cleanup script and runs automatically when `searchAssertionsWindows.bat` is executed
+- To run it manually: double-click `cleanup.bat` or run it from Command Prompt: `cleanup.bat`
+- It removes all `*.json` files from `generated\` and all `*-results.json` / `*-results.html` files from `response\`
+- It preserves `response\spFolderSVCFull.json` (the input file) — this is intentional
 
 ### Issue: Path not found errors
 
@@ -255,14 +280,19 @@ If the replace server is running and you need to stop it:
 
 ## Integration with Other Scripts
 
-The Windows batch file works with the same Node.js scripts as the bash version:
+The Windows batch files work with the same Node.js scripts as the bash version:
 
-- `SearchAssertions.js` - Works on Windows (Node.js script)
-- `ExportBundles.js` - Works on Windows (Node.js script)
-- `ImportBundles.js` - Works on Windows (Node.js script)
-- `ReplaceAssertions.js` - Works on Windows (Node.js script)
-- `replaceServer.js` - Works on Windows (Node.js script)
-- `cleanup.sh` - Requires Git Bash/WSL (bash script)
+| Script | Platform | Notes |
+|--------|----------|-------|
+| `SearchAssertions.js` | All platforms | Node.js script |
+| `ExportBundles.js` | All platforms | Node.js script — auto-selects `graphman.bat` on Windows |
+| `ImportBundles.js` | All platforms | Node.js script — auto-selects `graphman.bat` on Windows |
+| `ReplaceAssertions.js` | All platforms | Node.js script |
+| `replaceServer.js` | All platforms | Node.js script |
+| `cleanup.bat` | Windows only | Native Windows cleanup script |
+| `searchAssertionsWindows.bat` | Windows only | Native Windows orchestrator |
+| `cleanup.sh` | Mac/Linux only | Bash script (requires Git Bash/WSL on Windows) |
+| `searchAssertions.sh` | Mac/Linux only | Bash script (requires Git Bash/WSL on Windows) |
 
 ## Examples
 
@@ -295,13 +325,16 @@ If you have Git Bash installed, you can use the original bash script:
 
 ## Notes
 
-- The batch file uses `delayed expansion` for variable handling in loops
+- Both `searchAssertionsWindows.bat` and `cleanup.bat` use `setlocal enabledelayedexpansion` for variable handling in loops
+- `cleanup.bat` runs automatically at the start of `searchAssertionsWindows.bat`; it can also be run standalone at any time
+- `ExportBundles.js` and `ImportBundles.js` automatically use `graphman.bat` on Windows and `graphman.sh` on Mac/Linux — no manual configuration needed
 - All Node.js scripts work the same on Windows as on Linux/Mac
-- Only bash-specific scripts (`.sh` files) require special handling
 - The replace server runs in the background and persists after the script completes
 - Server PID is not easily accessible in batch files, so use Task Manager to stop the server
 - Paths with spaces should be enclosed in quotes
 - `SearchAssertions.js` supports both Graphman `policyCodeFormat` values (`"Code"` and `"json"`) and detects the format automatically at runtime — no changes to `graphman.configuration` are needed to switch between them
+- `config.json` is read by the batch file using `node.exe` to write a temporary `.bat` file with `set` commands, which is then called and deleted. If `node.exe` is not on the PATH before this step the config load is silently skipped and built-in defaults are used
+- The `importSchema` in `config.json` is used directly by `ImportBundles.js` and `replaceServer.js` (via the HTML Import Bundles button) — it is not passed through `searchAssertionsWindows.bat` since import is a separate step triggered from the HTML interface
 
 ## Support
 

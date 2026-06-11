@@ -2,21 +2,36 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// Load centralized config (config.json), fall back to built-in defaults if not present
+function loadConfig() {
+  try {
+    return require(path.join(__dirname, 'config.json'));
+  } catch (e) {
+    return {};
+  }
+}
+const config = loadConfig();
+
 // Parse command-line arguments
-// Usage: node ImportBundles.js [GRAPHMAN_HOME] [--gateway GATEWAY]
-// Example: node ImportBundles.js ../../graphman-client-main --gateway aws
-// Example: node ImportBundles.js --gateway source
+// Usage: node ImportBundles.js [GRAPHMAN_HOME] [--gateway GATEWAY] [--schema <schema>]
+// Example: node ImportBundles.js ../../graphman-client-main --gateway aws --schema v11.2.1
+// Example: node ImportBundles.js --gateway target --schema v11.2.1
 // Example: node ImportBundles.js /path/to/graphman-client-main
+// Defaults are loaded from config.json (targetGateway, graphmanHome, importSchema)
 
-let graphmanHome = path.join(__dirname, '..', '..', 'graphman-client-main'); // default
-let gateway = 'aws'; // default
+let graphmanHome = config.graphmanHome || path.join(__dirname, '..', '..', 'graphman-client-main');
+let gateway = config.targetGateway || 'aws';
+let schema = config.importSchema || 'v11.1.3';
 
-// Parse arguments
+// Parse arguments (CLI args override config.json values)
 let i = 2;
 while (i < process.argv.length) {
   if (process.argv[i] === '--gateway' && process.argv[i + 1]) {
     gateway = process.argv[i + 1];
-    i += 2; // Skip --gateway and its value
+    i += 2;
+  } else if (process.argv[i] === '--schema' && process.argv[i + 1]) {
+    schema = process.argv[i + 1];
+    i += 2;
   } else if (process.argv[i] && !process.argv[i].startsWith('--')) {
     // First non-flag argument is GRAPHMAN_HOME
     graphmanHome = process.argv[i];
@@ -28,7 +43,8 @@ while (i < process.argv.length) {
 
 // Configuration
 const generatedDir = path.join(__dirname, 'generated');
-const graphmanPath = path.join(graphmanHome, 'graphman.sh');
+const graphmanExe = process.platform === 'win32' ? 'graphman.bat' : 'graphman.sh';
+const graphmanPath = path.join(graphmanHome, graphmanExe);
 
 // Check if generated directory exists
 if (!fs.existsSync(generatedDir)) {
@@ -43,7 +59,7 @@ function importBundle(filePath, fileName) {
   const absoluteFilePath = path.resolve(filePath);
 
   // Graphman import command
-  const command = `${graphmanPath} import --gateway ${gateway} --input "${absoluteFilePath}"`;
+  const command = `${graphmanPath} import --gateway ${gateway} --input "${absoluteFilePath}" --options.schema ${schema}`;
 
   try {
     console.log(`Importing bundle: ${fileName}...`);
@@ -157,6 +173,7 @@ try {
   console.log('Starting bundle import process...');
   console.log(`  GRAPHMAN_HOME: ${graphmanHome}`);
   console.log(`  Gateway: ${gateway}`);
+  console.log(`  Schema: ${schema}`);
   console.log(`  Graphman path: ${graphmanPath}\n`);
   
   processBundleFiles();
