@@ -1,16 +1,31 @@
 @echo off
 REM Parse command-line arguments
-REM Usage: searchAssertionsWindows.bat [ASSERTION_TYPE] [GRAPHMAN_HOME] [--gateway GATEWAY]
-REM Example: searchAssertionsWindows.bat EvaluateJsonPathExpressionV2 ..\..\graphman-client-main --gateway aws
+REM Usage: searchAssertionsWindows.bat [ASSERTION_TYPE] [GRAPHMAN_HOME] [--gateway GATEWAY] [--schema SCHEMA]
+REM Example: searchAssertionsWindows.bat EvaluateJsonPathExpressionV2 ..\..\graphman-client-main --gateway aws --schema v11.1.3
 REM Example: searchAssertionsWindows.bat SetVariable --gateway source
 REM Example: searchAssertionsWindows.bat
+REM Defaults are loaded from config.json when present; CLI args override config values
 
-REM Default values
+REM Get script directory first (needed to locate config.json)
+set "SCRIPT_DIR=%~dp0"
+if "%SCRIPT_DIR:~-1%"=="\" set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
+
+REM Set built-in defaults
 set "GRAPHMAN_HOME=..\..\graphman-client-main"
 set "GATEWAY=aws"
 set "ASSERTION_TYPE=EvaluateJsonPathExpressionV2"
+set "EXPORT_SCHEMA=v11.1.3"
 
-REM Parse arguments
+REM Load defaults from config.json if present (node writes a temp bat, then we call it)
+if exist "%SCRIPT_DIR%\config.json" (
+    node -e "try{var c=require(process.argv[2]);var o='';if(c.graphmanHome)o+='set \"GRAPHMAN_HOME='+c.graphmanHome+'\"\n';if(c.sourceGateway)o+='set \"GATEWAY='+c.sourceGateway+'\"\n';if(c.assertionType)o+='set \"ASSERTION_TYPE='+c.assertionType+'\"\n';if(c.exportSchema)o+='set \"EXPORT_SCHEMA='+c.exportSchema+'\"\n';require('fs').writeFileSync(process.argv[3],o)}catch(e){}" "" "%SCRIPT_DIR%\config.json" "%TEMP%\fa_cfg.bat" 2>nul
+    if exist "%TEMP%\fa_cfg.bat" (
+        call "%TEMP%\fa_cfg.bat"
+        del "%TEMP%\fa_cfg.bat" >nul 2>nul
+    )
+)
+
+REM Parse arguments (CLI args override config.json values)
 setlocal enabledelayedexpansion
 set "POSITIONAL_COUNT=0"
 
@@ -18,6 +33,12 @@ set "POSITIONAL_COUNT=0"
 if "%~1"=="" goto args_done
 if "%~1"=="--gateway" (
     set "GATEWAY=%~2"
+    shift
+    shift
+    goto parse_args
+)
+if "%~1"=="--schema" (
+    set "EXPORT_SCHEMA=%~2"
     shift
     shift
     goto parse_args
@@ -33,32 +54,26 @@ goto parse_args
 echo ==========================================
 echo Search Assertions Script
 echo ==========================================
-echo GRAPHMAN_HOME: %GRAPHMAN_HOME%
-echo Gateway: %GATEWAY%
-echo Assertion Type: %ASSERTION_TYPE%
+echo GRAPHMAN_HOME:  %GRAPHMAN_HOME%
+echo Gateway:        %GATEWAY%
+echo Assertion:      %ASSERTION_TYPE%
+echo Export Schema:  %EXPORT_SCHEMA%
 echo ==========================================
 echo.
 
-REM Get script directory
-set "SCRIPT_DIR=%~dp0"
-set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
-
 REM Run cleanup script to remove previous results
-REM Note: cleanup.sh is a bash script and requires Git Bash or WSL on Windows
-REM Disabled - uncomment if you want to cleanup before running
-REM If you have Git Bash installed, you can uncomment the following lines:
-REM echo Cleaning up previous results...
-REM bash "%SCRIPT_DIR%\cleanup.sh"
-REM if errorlevel 1 (
-REM     echo Warning: Cleanup script may have failed or is not available
-REM )
-REM echo.
+if exist "%SCRIPT_DIR%\cleanup.bat" (
+    echo Cleaning up previous results...
+    call "%SCRIPT_DIR%\cleanup.bat"
+    if errorlevel 1 (
+        echo Warning: Cleanup script may have failed
+    )
+    echo.
+)
 
 REM Export service data using graphman
-REM Note: If graphman.sh doesn't work on Windows, you may need to use graphman.bat or graphman.cmd
-REM Or ensure you have Git Bash/WSL installed to run .sh files
 echo Exporting the Service GatewayInfo...
-"%GRAPHMAN_HOME%\graphman.sh" export --gateway %GATEWAY% --using all --output response\spFolderSVCFull.json
+"%GRAPHMAN_HOME%\graphman.bat" export --gateway %GATEWAY% --using all --output response\spFolderSVCFull.json
 
 if errorlevel 1 (
     echo Error: Failed to export service data
@@ -113,8 +128,8 @@ if errorlevel 1 (
 
 echo.
 echo Exporting services and policies...
-REM Run ExportBundles.js with GRAPHMAN_HOME and gateway parameters
-node ExportBundles.js "%GRAPHMAN_HOME%" --gateway "%GATEWAY%"
+REM Run ExportBundles.js with GRAPHMAN_HOME, gateway, and schema parameters
+node ExportBundles.js "%GRAPHMAN_HOME%" --gateway "%GATEWAY%" --schema "%EXPORT_SCHEMA%"
 
 if errorlevel 1 (
     echo Error: Failed to export services and policies
