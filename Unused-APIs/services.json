@@ -1,0 +1,291 @@
+{
+  "services": [
+    {
+      "guid": "31e79d32-ded4-4b39-bc22-46e60997c217",
+      "name": "ACME",
+      "resolutionPath": "/ACMEWarehouse*",
+      "serviceType": "WEB_API",
+      "checksum": "de43751eba0e41df8ec65fe3b307f9b1e21cb971"
+    },
+    {
+      "guid": "7b9b50ff-a1fa-4399-9ce6-86df8af978fb",
+      "name": "AI Basic",
+      "resolutionPath": "/ai/basic",
+      "serviceType": "WEB_API",
+      "checksum": "82b7054500099c55ea0698877d20ccd2fa43c519"
+    },
+    {
+      "guid": "7fe3383a-ddf1-4ae3-b0c7-67630131e400",
+      "name": "Analyse a Certificate",
+      "resolutionPath": "/analyse/cert",
+      "serviceType": "WEB_API",
+      "checksum": "84ebde08f543b0e53e65c26036be8e3ec3d69a16"
+    },
+    {
+      "guid": "b8df74f9-f63d-4a4a-a8fb-9ffd1878e8b8",
+      "name": "Authenticate User",
+      "resolutionPath": "/auth/user",
+      "serviceType": "WEB_API",
+      "checksum": "8cbf6f54e91e19424bd36ccc7c14ae7fae1c7c0f"
+    },
+    {
+      "guid": "96f2535d-f22e-4bb7-9484-5f46c3f71cc7",
+      "name": "Bank Service",
+      "resolutionPath": "/bank",
+      "serviceType": "WEB_API",
+      "checksum": "33911a4843ed67c6aded9ee1eb8e1a82caa60ce4"
+    },
+    {
+      "guid": "7d780106-d005-4de8-ace1-06189d15682b",
+      "name": "Basic Protection",
+      "resolutionPath": "/basic/protection",
+      "serviceType": "WEB_API",
+      "checksum": "122d0a5149950c0f3eb11a7af50df29b47456dbe"
+    },
+    {
+      "guid": "6d918d46-b6b2-4db6-8ee8-b5cc92bc73af",
+      "name": "Cache Test",
+      "resolutionPath": "/cache/*",
+      "serviceType": "WEB_API",
+      "checksum": "1fd300ba0b00d841fd2533c44c6b0544415e70dc"
+    },
+    {
+      "guid": "3aa2f1c6-0ec4-4b77-ab53-9b8e84ddf3e3",
+      "name": "Calculator",
+      "resolutionPath": "/ssg/soap",
+      "resolvers": {
+        "soapActions": [
+          "http://tempuri.org/Add",
+          "http://tempuri.org/Subtract",
+          "http://tempuri.org/Multiply",
+          "http://tempuri.org/Divide",
+          "http://tempuri.org/Add",
+          "http://tempuri.org/Subtract",
+          "http://tempuri.org/Multiply",
+          "http://tempuri.org/Divide"
+        ],
+        "baseUri": "http://tempuri.org/",
+        "resolutionPath": "/ssg/soap"
+      },
+      "serviceType": "SOAP",
+      "checksum": "9fb8d7127b264f9c259e5f10719bcafd590ab55b"
+    },
+    {
+      "guid": "56fc7885-0d01-43fd-920e-fd1e6118d2bc",
+      "name": "Circuit Breaker",
+      "resolutionPath": "/circuit/breaker",
+      "serviceType": "WEB_API",
+      "checksum": "a20d5d8de3dc118b1237e6236ea22a3770d1fd89"
+    },
+    {
+      "guid": "08e047c5-04e4-41b5-9c87-480b730b1eaf",
+      "name": "Cost tracker",
+      "resolutionPath": "/costTracker",
+      "serviceType": "WEB_API",
+      "checksum": "6aa91ae782294b974f4a399071d2355566dca0d5"
+    },
+    {
+      "guid": "61f48c92-829c-4d50-84dc-9e9f3d7cf961",
+      "name": "Custom Telemetry",
+      "resolutionPath": "/telemetry",
+      "serviceType": "WEB_API",
+      "checksum": "6c9adf48255dc6c5b54d9eb545fb80e953e45ca5"
+    },
+    {
+      "guid": "5670b907-65d1-4fcd-8202-26122f09d40d",
+      "name": "Echo-2",
+      "resolutionPath": "/echotest2",
+      "serviceType": "WEB_API",
+      "checksum": "d6b9f8ca50c77ccbaf865014cf2f06dcf142cafe"
+    },
+    {
+      "guid": "b0cbded2-b5c4-4401-92c5-0a06cfcbe874",
+      "name": "Gateway GraphQL Management Service",
+      "resolutionPath": "/graphman",
+      "serviceType": "INTERNAL_WEB_API",
+      "checksum": "0854afc55214d67529a010a9043d8c8e3b00464a"
+    },
+    {
+      "guid": "dbc0ecbb-31ef-4bd9-a9f8-70721719d53c",
+      "name": "Gateway REST Management Service",
+      "resolutionPath": "/restman/*",
+      "serviceType": "INTERNAL_WEB_API",
+      "checksum": "e74b83b8d0bc8fd7d5ef25d1a6ce85389f83a25b"
+    },
+    {
+      "guid": "bf625b44-6391-411e-9889-8a1bb6439e21",
+      "name": "Hello World",
+      "resolutionPath": "/helloworld",
+      "serviceType": "WEB_API",
+      "checksum": "e2b098a941a8a9f7f25f8367550222e7b2f06593"
+    },
+    {
+      "guid": "8766202f-d58d-4e5d-84fc-f62b927c470a",
+      "name": "Introspect",
+      "resolutionPath": "/introspect",
+      "serviceType": "WEB_API",
+      "checksum": "4af248d7ddfc749479e1fe8e3da76e5acf09330e"
+    },
+    {
+      "guid": "50276062-dc50-45a4-8537-1a65ef4bbd76",
+      "name": "JSON Patch",
+      "resolutionPath": "/jsonpatch",
+      "serviceType": "WEB_API",
+      "checksum": "fae902ba769b68c3fc537d285fe2c68ae7831f52"
+    },
+    {
+      "guid": "2df7235b-f1f4-4a34-b2e0-a62d639821d3",
+      "name": "JSON Validation",
+      "resolutionPath": "/json/validate/*",
+      "serviceType": "WEB_API",
+      "checksum": "ca755fe1e5289cdeef689d13e547b3732ad678f1"
+    },
+    {
+      "guid": "1aa160ba-28ee-46ed-9ec3-770674fec933",
+      "name": "JWT",
+      "resolutionPath": "/jwt",
+      "serviceType": "WEB_API",
+      "checksum": "ceab3ad8ce4c3ee69d1afee69562011e791ae770"
+    },
+    {
+      "guid": "7575a05f-1d16-4175-a021-d0c0742596a8",
+      "name": "Javascript",
+      "resolutionPath": "/javascript",
+      "serviceType": "WEB_API",
+      "checksum": "0270392cfb5377507543ac2120a9ffc8f4e362b8"
+    },
+    {
+      "guid": "26b125f7-fb4c-4e21-bcb4-65aad0c1cbc4",
+      "name": "Local Llama Connector",
+      "resolutionPath": "/myllm",
+      "serviceType": "WEB_API",
+      "checksum": "c91635a3d73203916c5a7d0cd3ab6c1915213b12"
+    },
+    {
+      "guid": "ea171b10-d296-4367-beb5-b52a79326818",
+      "name": "Rate Limit",
+      "resolutionPath": "/rate/limit",
+      "serviceType": "WEB_API",
+      "checksum": "222f36c7c6cdb563433b8d1f915c269e9a60c033"
+    },
+    {
+      "guid": "1136de11-2d1d-43d0-b5fc-b23244c82ac9",
+      "name": "Response Code",
+      "resolutionPath": "/code",
+      "serviceType": "WEB_API",
+      "checksum": "49cc25d1ec42357d44a9d6da75b42cf0d6c62748"
+    },
+    {
+      "guid": "5eac17cb-faed-4d7c-9dfc-b0a8dfe874d2",
+      "name": "SAML Token",
+      "resolutionPath": "/saml/token",
+      "serviceType": "WEB_API",
+      "checksum": "5aee13516c7471de819b30057e9a406271c6925c"
+    },
+    {
+      "guid": "3e4a0fe2-7221-4bf9-873e-d2bd8ab68f0c",
+      "name": "Swagger Petstore - OpenAPI 3.1",
+      "resolutionPath": "/api/v31/*",
+      "serviceType": "WEB_API",
+      "checksum": "802811aa5f83507b983cbbb7d2e1a4c392ae847c"
+    },
+    {
+      "guid": "49f10d45-571b-41c3-a27d-80f9b6daa81d",
+      "name": "User Quota",
+      "resolutionPath": "/user/quota",
+      "serviceType": "WEB_API",
+      "checksum": "457ffc9a4ff085028788b036bd24ef2b62af5984"
+    },
+    {
+      "guid": "719cc975-71ae-4fe6-8d65-f913a0208461",
+      "name": "XML-JSON",
+      "resolutionPath": "/xml2json",
+      "serviceType": "WEB_API",
+      "checksum": "8ff1630d5c03355921d6104bf58c8529fd054e0d"
+    },
+    {
+      "guid": "52a8af28-9ea0-4205-a3d8-c29502a59af7",
+      "name": "XML",
+      "resolutionPath": "/xml/modify/*",
+      "serviceType": "WEB_API",
+      "checksum": "c3ecb7e966db7b62aefd73c32f78d32e017b5d0e"
+    },
+    {
+      "guid": "02707693-c973-46c6-b7cd-c1e0981c8391",
+      "name": "XPath",
+      "resolutionPath": "/xpath",
+      "serviceType": "WEB_API",
+      "checksum": "3fab21ce4700983d3a5db373af891b1b2cf70e48"
+    },
+    {
+      "guid": "86524457-a93d-4bdd-a23e-9f98f1463b0b",
+      "name": "age",
+      "resolutionPath": "/test5",
+      "serviceType": "WEB_API",
+      "checksum": "a8e630294bebbd3e3d62f2983c609331a99e6d8a"
+    },
+    {
+      "guid": "2494f3be-c3ef-4a48-bc9f-69be9a8fa279",
+      "name": "bag",
+      "resolutionPath": "/bag",
+      "serviceType": "WEB_API",
+      "checksum": "87c92f838d3bedd2835d411715e87d2841c9c111"
+    },
+    {
+      "guid": "ec10b070-c719-4cca-8412-f95fb31bac1a",
+      "name": "echo",
+      "resolutionPath": "/echo",
+      "serviceType": "WEB_API",
+      "checksum": "9283ad2b32af6b1cc0e5d7c742393d41aafaf140"
+    },
+    {
+      "guid": "94e9f754-3755-4120-b63b-9684e010b0c3",
+      "name": "echo",
+      "resolutionPath": "/echotest",
+      "serviceType": "WEB_API",
+      "checksum": "1bffd57b30fed8028745d2f02ddbfcaed1761297"
+    },
+    {
+      "guid": "d73bfa9d-4ee9-4ef3-a23d-e6f528306626",
+      "name": "entry point",
+      "resolutionPath": "/ai/advanced",
+      "serviceType": "WEB_API",
+      "checksum": "9029f08d73b7c2ff8f31c540d905c492f75e119c"
+    },
+    {
+      "guid": "bda0476e-6671-4e71-bc62-4f36b7ed7faf",
+      "name": "logo",
+      "resolutionPath": "/logo",
+      "serviceType": "WEB_API",
+      "checksum": "24e79155b3bdd8cf5f854e738c36efdf9e505cca"
+    },
+    {
+      "guid": "87c72938-3cb4-40eb-b6e7-96fa46d15d30",
+      "name": "test1",
+      "resolutionPath": "/test1",
+      "serviceType": "WEB_API",
+      "checksum": "7cfcc3f42c1f74f26810fc85aed89e5222319a37"
+    },
+    {
+      "guid": "3ac15e0b-1b66-469d-b845-95944e133095",
+      "name": "test2",
+      "resolutionPath": "/test2",
+      "serviceType": "WEB_API",
+      "checksum": "f0a5289cf740e33a13f486a1dc20dba21deb77ab"
+    },
+    {
+      "guid": "58fe868e-5b77-439e-8df7-8337823b9d74",
+      "name": "test3",
+      "resolutionPath": "/test3",
+      "serviceType": "WEB_API",
+      "checksum": "50f80f008b8281212736a8945f9753e79f9c44af"
+    },
+    {
+      "guid": "dad19eae-d788-4ad1-aaf3-2196ae4e19b5",
+      "name": "test4",
+      "resolutionPath": "/test4",
+      "serviceType": "WEB_API",
+      "checksum": "ad2680211075e01669a52fdd4e53446a95a09cda"
+    }
+  ]
+}

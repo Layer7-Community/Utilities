@@ -13,6 +13,8 @@ Name | Brief Description
 [**SSG DB Connection Monitor**](./SSG-DB-Connection-Monitor) | *Monitor the count of MySQL database connections and generate an alert when it is not 'normal'*
 [**Custom Assertion Plugin**](./custom-assertion-plugin) | *The Layer7 API Management Custom Assertion Plugin makes it very quick and easy to build new custom assertions for the Layer7 API Gateway using the Eclipse IDE.*
 [**FindAssertions-GraphmanUtility**](./FindAssertions-GraphmanUtility) | *This directory contains scripts for searching and exporting services based on assertion types in Layer7 API Gateway policies.*
+[**Unused APIs**](./Unused-APIs) | *This directory contains scripts for searching which APIs exposed by a gateway are not being used*
+
 
 
 ## Using the Utilities
